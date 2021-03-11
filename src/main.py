@@ -17,7 +17,7 @@ class MainApp(QMainWindow):
 
         self.setMinimumSize(1024,600)    #tamaño mínimo
         self.setMaximumSize(1024,600)  #tamaño máximo
-        self.setWindowTitle('Input')   #titulo
+        self.setWindowTitle('RETEDECON')   #titulo
 
         self.centralWidget = QWidget()
         self.setCentralWidget(self.centralWidget)
@@ -25,20 +25,28 @@ class MainApp(QMainWindow):
 
 
         self.ingresar = QPushButton('ingreso',self.centralWidget)
-        self.ingresar.setGeometry(72, 606-66, 238, 66)
+        self.ingresar.setGeometry(44.7, 112.5, 290, 180)
         self.ingresar.setObjectName("bingresar")
 
         self.estatus = QPushButton('status',self.centralWidget)
-        self.estatus.setGeometry(310, 606-66, 238, 66)
+        self.estatus.setGeometry(367, 112.5, 290, 180)
         self.estatus.setObjectName("bestatus")
 
 
         self.estatus = QPushButton('estatus',self.centralWidget)
-        self.estatus.setGeometry(548, 606-66, 238, 66)
+        self.estatus.setGeometry(689.3, 112.5, 290, 180)
         self.estatus.setObjectName("bestatus")
 
         self.estatus = QPushButton('estatus',self.centralWidget)
-        self.estatus.setGeometry(786, 606-66, 238, 66)
+        self.estatus.setGeometry(44.7, 348.9, 290, 180)
+        self.estatus.setObjectName("bestatus")
+
+        self.estatus = QPushButton('estatus',self.centralWidget)
+        self.estatus.setGeometry(367, 348.9, 290, 180)
+        self.estatus.setObjectName("bestatus")
+
+        self.estatus = QPushButton('estatus',self.centralWidget)
+        self.estatus.setGeometry(689.3, 348.9, 290, 180)
         self.estatus.setObjectName("bestatus")
 
 if __name__=='__main__':

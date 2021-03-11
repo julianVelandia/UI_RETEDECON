@@ -1,7 +1,10 @@
 @import url('https://fonts.googleapis.com/css2?family=Orbitron&display=swap');
 
 QWidget#window {
-    background-image: url('static/background.png');
+    background-color: radial-gradient(#1D285E 100%,#000015 100%);
+    background-image: url('static/background.png') ;
+    background-repeat: no-repeat;
+    
 }
 
 QPushButton#bingresar {
