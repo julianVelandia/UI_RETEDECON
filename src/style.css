@@ -1,18 +1,25 @@
 @import url('https://fonts.googleapis.com/css2?family=Orbitron&display=swap');
 
 QWidget#window {
-    background-color: #000015;
     background-image: url('static/background.png') ;
     background-repeat: no-repeat;
-    
 }
+
 
 QPushButton#button {
     font-size: 20px;
-    color: white;
-    background-color: none;
-    font-family: 'orbitron', Arial, Helvetica, sans-serif;
+    font-family: Helvetica; 
+    color: white; 
+    background-color: none; 
+    border-radius: 15px;
     border: 1px solid white;
-    border-radius: 3px;
+   
+
 }
+
+QPushButton#button:hover {
+    background-color: #1D2041; 
+}
+
+    
 

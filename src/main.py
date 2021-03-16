@@ -19,25 +19,34 @@ class MainWindow(QMainWindow): #Ventana principal
         self.setMinimumSize(1024,600)    #tamaño mínimo
         self.setMaximumSize(1024,600)  #tamaño máximo
         self.setWindowTitle('RETEDECON')   #titulo
+        self.setWindowIcon(QIcon("static/favicon.png"))
         
         self.centralWidget = QWidget()
         self.setCentralWidget(self.centralWidget)
         self.centralWidget.setObjectName("window")    #nombre que enlaza en css 
         
+        self.label = QLabel(self)
+        self.label.setGeometry(288.9,-10,1024,600)
+        self.pixmap = QPixmap('static/Logo_central.png')
+        self.label.setPixmap(self.pixmap)
+        
         '''
         botón temporal para la transición
         '''
         self.button = QPushButton('home',self.centralWidget) 
-        self.button.setGeometry(100,100,100,100)
+        self.button.setGeometry(0,0,100,100)
         self.button.clicked.connect(self.HomeWindow)
 
-
+        '''
+        Botones de home
+        '''
         self.ingresar = QPushButton('INGRESO MANUAL', self.centralWidget)
         self.ingresar.setGeometry(0, 0, 0, 0)
         self.ingresar.setObjectName("button")
+       
 
         self.estadisticas = QPushButton('ESTADISTICAS',self.centralWidget)
-        self.estadisticas.setGeometry(0,0, 0, 0)
+        self.estadisticas.setGeometry(0, 0, 0, 0)
         self.estadisticas.setObjectName("button")
 
         self.detener_alarma = QPushButton('DETENER ALARMA',self.centralWidget)
@@ -52,26 +61,23 @@ class MainWindow(QMainWindow): #Ventana principal
         self.configuracion.setGeometry(0, 0, 0, 0)
         self.configuracion.setObjectName("button")
 
-        self.informacion = QPushButton('INFRMACIÓN',self.centralWidget)
+        self.informacion = QPushButton('INFORMACIÓN',self.centralWidget)
         self.informacion.setGeometry(0, 0, 0, 0)
         self.informacion.setObjectName("button")
+        
 
     def HomeWindow(self):
         '''
         Esta función crea la pantalla de home, que contiene 6 botones
         y un logo pequeño
         '''
-        
+        self.label.setGeometry(0,0,0,0) #oculta la imagen
+
         self.ingresar.setGeometry(44.7, 112.5, 290, 180)
-      
         self.estadisticas.setGeometry(367, 112.5, 290, 180)
-
         self.detener_alarma.setGeometry(689.3, 112.5, 290, 180)
-
         self.salida_manual.setGeometry(44.7, 348.9, 290, 180)
-
         self.configuracion.setGeometry(367, 348.9, 290, 180)
-
         self.informacion.setGeometry(689.3, 348.9, 290, 180)
 
 if __name__=='__main__':
