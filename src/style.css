@@ -8,7 +8,7 @@ QWidget#window {
 }
 
 QPushButton#bingresar {
-    font-size: 40px;
+    font-size: 20px;
     color: white;
     background-color: none;
     font-family: 'orbitron', Arial, Helvetica, sans-serif;
