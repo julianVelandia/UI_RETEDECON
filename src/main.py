@@ -28,25 +28,29 @@ class MainWindow(QMainWindow): #Ventana principal
         self.setCentralWidget(self.centralWidget)
         self.centralWidget.setObjectName("window") #nombre que enlaza en css 
         
+        '''
+        Imagen central 
+        '''
         self.label_img_central = QLabel(self)
         self.label_img_central.setGeometry(288.9,-10,1024,600)
         self.pixmap = QPixmap('static/Logo_central.png')   #Imagen central
         self.label_img_central.setPixmap(self.pixmap)
         
-
-        self.label_img_esquina = QLabel(self)
+        '''
+        Botones de home y logo esquina
+        '''
+        #En Qt para poner una imagen se necesita conectarla con un label
+        self.label_img_esquina = QLabel(self)   
         self.label_img_esquina.setGeometry(0,0,0,0)
         self.pixmap = QPixmap('static/icons/logo_lateral.png')   #Imagen esquina
         self.label_img_esquina.setPixmap(self.pixmap)
 
-        '''
-        Botones de home
-        '''
+        #Botones
         self.ingresar = QToolButton(self.centralWidget)
         self.ingresar.setText('INGRESO MANUAL')
-        self.ingresar.setGeometry(0, 0, 0, 0)
-        self.ingresar.setObjectName("button")
-        self.ingresar.setIcon(QIcon('static/icons/icono_entrar'))
+        self.ingresar.setGeometry(0, 0, 0, 0) #Se define el vector en 0 para que no aparesca al inicio
+        self.ingresar.setObjectName("button") #nombre de enlace a css
+        self.ingresar.setIcon(QIcon('static/icons/icono_entrar')) #icono
         self.ingresar.setIconSize(QSize(60,60))
         self.ingresar.setToolButtonStyle(Qt.ToolButtonTextUnderIcon)
 
@@ -90,16 +94,25 @@ class MainWindow(QMainWindow): #Ventana principal
         self.informacion.setIconSize(QSize(60,60))
         self.informacion.setToolButtonStyle(Qt.ToolButtonTextUnderIcon)
         
+        '''
+        Se definió un timer que ejecutará HomeWindow a los 3 seg, pero no funciona
+        '''
         self.timer = QTimer()
         self.timer.setInterval(3000)
         self.timer.setSingleShot(True)
-        self.timer.timeout.connect(self.HomeWindow)
+        self.timer.timeout.connect(self.HomeWindow) #función a ejecutar pasados los 3 seg
+        
+        '''
+        Ingresar a HomeWindow manualmente
+        Descomentar la siguiente línea
+        '''
         #self.HomeWindow()
     
     def HomeWindow(self):
         '''
-        Esta función crea la pantalla de home, que contiene 6 botones
-        y un logo pequeño
+        Esta función le da tamaños a los elementos de la pantalla de home, 
+        que contiene 6 botones y un logo pequeño,
+        También hace 0 el vector de geometría de los elementos de la otra pantalla
         '''
         
         self.label_img_central.setGeometry(0,0,0,0) #oculta la imagen
