@@ -1,13 +1,13 @@
 @import url('https://fonts.googleapis.com/css2?family=Orbitron&display=swap');
 
 QWidget#window {
-    background-color: radial-gradient(#1D285E 100%,#000015 100%);
+    background-color: #000015;
     background-image: url('static/background.png') ;
     background-repeat: no-repeat;
     
 }
 
-QPushButton#bingresar {
+QPushButton#button {
     font-size: 20px;
     color: white;
     background-color: none;
@@ -16,17 +16,3 @@ QPushButton#bingresar {
     border-radius: 3px;
 }
 
-QPushButton#bingresar {
-    font-size: 40px;
-    color: white;
-    background-color: black;
-    font-family: orbitron;
-    border: 1px solid white;
-    border-radius: 3px;
-}
-
-QPushButton#bestatus {
-    font-size: 50px;
-    color: white;
-    background-color: black;
-}
