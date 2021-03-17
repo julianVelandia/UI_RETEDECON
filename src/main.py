@@ -1,6 +1,7 @@
 from PyQt5.QtWidgets import *
 from PyQt5.QtCore import *
 from PyQt5.QtGui import *
+import time
 
 class MainWindow(QMainWindow): #Ventana principal
     def __init__(self, parent=None, *args):
@@ -11,6 +12,7 @@ class MainWindow(QMainWindow): #Ventana principal
         self.title = 'RETEDECON'
         self.width = 1024
         self.height = 600
+        
 
         self.setMinimumSize(self.width,self.height)    #tamaño mínimo
         self.setMaximumSize(self.width,self.height)  #tamaño máximo
@@ -55,7 +57,7 @@ class MainWindow(QMainWindow): #Ventana principal
         self.estadisticas.setToolButtonStyle(Qt.ToolButtonTextUnderIcon)
         self.estadisticas.clicked.connect(self.Estadisticas)
 
-
+        
         self.detener_alarma = QToolButton(self.centralWidget)
         self.detener_alarma.setText('DETENER ALARMA')
         self.detener_alarma.setObjectName("button")
@@ -116,7 +118,7 @@ class MainWindow(QMainWindow): #Ventana principal
         self.timer.timeout.connect(self.HomeWindow) #función a ejecutar pasados los 3 seg
 
     def HomeWindow(self):
-
+    
         self.label_img_central.setVisible(False)
         self.label_img_esquina.setVisible(True)
         self.ingresar.setVisible(True)
