@@ -12,8 +12,8 @@ class MainWindow(QMainWindow): #Ventana principal
         self.width = 1024
         self.height = 600
 
-        self.setMinimumSize( self.width,self.height)    #tamaño mínimo
-        self.setMaximumSize( self.width,self.height)  #tamaño máximo
+        self.setMinimumSize(self.width,self.height)    #tamaño mínimo
+        self.setMaximumSize(self.width,self.height)  #tamaño máximo
         self.setWindowTitle(self.title)   #titulo
         self.setWindowIcon(QIcon("static/favicon3.png"))   #Favicon
 
@@ -44,6 +44,7 @@ class MainWindow(QMainWindow): #Ventana principal
         self.ingresar.setIcon(QIcon('static/icons/icono_entrar')) #icono
         self.ingresar.setIconSize(QSize(60,60))
         self.ingresar.setToolButtonStyle(Qt.ToolButtonTextUnderIcon)
+        self.ingresar.clicked.connect(self.Ingresar)
 
         self.estadisticas = QToolButton(self.centralWidget)
         self.estadisticas.setText('ESTADISTICAS')
@@ -107,6 +108,29 @@ class MainWindow(QMainWindow): #Ventana principal
         self.salida_manual.setGeometry(44.7, 348.9, 290, 180)
         self.configuracion.setGeometry(367, 348.9, 290, 180)
         self.informacion.setGeometry(689.3, 348.9, 290, 180)
+
+    def Ingresar(self):
+        print(1)
+        self.label_img_central.setVisible(False)  # oculta la imagen
+        self.label_img_esquina.setGeometry(15, 5, 500, 100)
+        self.ingresar.setVisible(False)
+        self.estadisticas.setVisible(False)
+        self.detener_alarma.setVisible(False)
+        self.salida_manual.setVisible(False)
+        self.configuracion.setVisible(False)
+        self.informacion.setVisible(False)
+
+    def Ingresar(self):
+        print(1)
+        self.label_img_central.setVisible(False)  # oculta la imagen
+        self.label_img_esquina.setGeometry(15, 5, 500, 100)
+        self.ingresar.setVisible(False)
+        self.estadisticas.setVisible(False)
+        self.detener_alarma.setVisible(False)
+        self.salida_manual.setVisible(False)
+        self.configuracion.setVisible(False)
+        self.informacion.setVisible(False)
+
 
 if __name__=='__main__':
     app = QApplication([])
