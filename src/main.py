@@ -120,17 +120,6 @@ class MainWindow(QMainWindow): #Ventana principal
         self.configuracion.setVisible(False)
         self.informacion.setVisible(False)
 
-    def Ingresar(self):
-        print(1)
-        self.label_img_central.setVisible(False)  # oculta la imagen
-        self.label_img_esquina.setGeometry(15, 5, 500, 100)
-        self.ingresar.setVisible(False)
-        self.estadisticas.setVisible(False)
-        self.detener_alarma.setVisible(False)
-        self.salida_manual.setVisible(False)
-        self.configuracion.setVisible(False)
-        self.informacion.setVisible(False)
-
 
 if __name__=='__main__':
     app = QApplication([])
