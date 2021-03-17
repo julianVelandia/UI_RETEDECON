@@ -31,15 +31,16 @@ class MainWindow(QMainWindow): #Ventana principal
         '''
         Botones de home y logo esquina
         '''
-        self.label_img_esquina = QLabel(self)
-        self.label_img_esquina.setGeometry(0,0,0,0)
-        self.pixmap = QPixmap('static/icons/logo_lateral.png')   #Imagen esquina
-        self.label_img_esquina.setPixmap(self.pixmap)
+        self.label_img_esquina = QToolButton(self.centralWidget)
+        self.label_img_esquina.setGeometry(30,5,250,60)        
+        self.label_img_esquina.setObjectName("button_home") #nombre de enlace a css
+        #self.label_img_esquina.setIcon(QIcon('static/icons/logo_lateral.png')) #icono
+        #self.label_img_esquina.setIconSize(QSize(200,60))
+        self.label_img_esquina.clicked.connect(self.HomeWindow)
 
         #Botones
         self.ingresar = QToolButton(self.centralWidget)
         self.ingresar.setText('INGRESO MANUAL')
-        self.ingresar.setGeometry(0, 0, 0, 0) #Se define el vector en 0 para que no aparesca al inicio
         self.ingresar.setObjectName("button") #nombre de enlace a css
         self.ingresar.setIcon(QIcon('static/icons/icono_entrar')) #icono
         self.ingresar.setIconSize(QSize(60,60))
@@ -48,15 +49,15 @@ class MainWindow(QMainWindow): #Ventana principal
 
         self.estadisticas = QToolButton(self.centralWidget)
         self.estadisticas.setText('ESTADISTICAS')
-        self.estadisticas.setGeometry(0, 0, 0, 0)
         self.estadisticas.setObjectName("button")
         self.estadisticas.setIcon(QIcon('static/icons/icono_estadisticas'))
         self.estadisticas.setIconSize(QSize(60,60))
         self.estadisticas.setToolButtonStyle(Qt.ToolButtonTextUnderIcon)
+        self.estadisticas.clicked.connect(self.Estadisticas)
+
 
         self.detener_alarma = QToolButton(self.centralWidget)
         self.detener_alarma.setText('DETENER ALARMA')
-        self.detener_alarma.setGeometry(0, 0, 0, 0)
         self.detener_alarma.setObjectName("button")
         self.detener_alarma.setIcon(QIcon('static/icons/icono_campana'))
         self.detener_alarma.setIconSize(QSize(60,60))
@@ -64,28 +65,49 @@ class MainWindow(QMainWindow): #Ventana principal
 
         self.salida_manual = QToolButton(self.centralWidget)
         self.salida_manual.setText('SALIDA MANUAL')
-        self.salida_manual.setGeometry(0, 0, 0, 0)
         self.salida_manual.setObjectName("button")
         self.salida_manual.setIcon(QIcon('static/icons/icono_salir'))
         self.salida_manual.setIconSize(QSize(60,60))
         self.salida_manual.setToolButtonStyle(Qt.ToolButtonTextUnderIcon)
+        self.salida_manual.clicked.connect(self.Salida_manual)
+
 
         self.configuracion = QToolButton(self.centralWidget)
         self.configuracion.setText('CONFIGURACIÓN')
-        self.configuracion.setGeometry(0, 0, 0, 0)
         self.configuracion.setObjectName("button")
         self.configuracion.setIcon(QIcon('static/icons/icono_configuraciones'))
         self.configuracion.setIconSize(QSize(60,60))
         self.configuracion.setToolButtonStyle(Qt.ToolButtonTextUnderIcon)
+        self.configuracion.clicked.connect(self.Configuracion)
+
 
         self.informacion = QToolButton(self.centralWidget)
         self.informacion.setText('INFORMACIÓN')
-        self.informacion.setGeometry(0, 0, 0, 0)
         self.informacion.setObjectName("button")
         self.informacion.setIcon(QIcon('static/icons/icono_campana'))
         self.informacion.setIconSize(QSize(60,60))
         self.informacion.setToolButtonStyle(Qt.ToolButtonTextUnderIcon)
-        
+        self.informacion.clicked.connect(self.Informacion)
+
+
+        'geometrías botones'
+        self.ingresar.setGeometry(44.7, 112.5, 290, 180)
+        self.estadisticas.setGeometry(367, 112.5, 290, 180)
+        self.detener_alarma.setGeometry(689.3, 112.5, 290, 180)
+        self.salida_manual.setGeometry(44.7, 348.9, 290, 180)
+        self.configuracion.setGeometry(367, 348.9, 290, 180)
+        self.informacion.setGeometry(689.3, 348.9, 290, 180)
+
+        'Visibilidad inicial'
+        self.label_img_central.setVisible(True)
+        self.label_img_esquina.setVisible(False)
+        self.ingresar.setVisible(False)
+        self.estadisticas.setVisible(False)
+        self.detener_alarma.setVisible(False)
+        self.salida_manual.setVisible(False)
+        self.configuracion.setVisible(False)
+        self.informacion.setVisible(False)
+
         'timer'
         self.timer = QTimer()
         self.timer.setInterval(2500)
@@ -94,25 +116,60 @@ class MainWindow(QMainWindow): #Ventana principal
         self.timer.timeout.connect(self.HomeWindow) #función a ejecutar pasados los 3 seg
 
     def HomeWindow(self):
-        '''
-        Esta función le da tamaños a los elementos de la pantalla de home, 
-        que contiene 6 botones y un logo pequeño,
-        También hace 0 el vector de geometría de los elementos de la otra pantalla
-        '''
-        #self.label_img_central.setWindowOpacity(op)
-        self.label_img_central.setGeometry(0,0,0,0) #oculta la imagen
-        self.label_img_esquina.setGeometry(15,5,500,100)
-        self.ingresar.setGeometry(44.7, 112.5, 290, 180)
-        self.estadisticas.setGeometry(367, 112.5, 290, 180)
-        self.detener_alarma.setGeometry(689.3, 112.5, 290, 180)
-        self.salida_manual.setGeometry(44.7, 348.9, 290, 180)
-        self.configuracion.setGeometry(367, 348.9, 290, 180)
-        self.informacion.setGeometry(689.3, 348.9, 290, 180)
+
+        self.label_img_central.setVisible(False)
+        self.label_img_esquina.setVisible(True)
+        self.ingresar.setVisible(True)
+        self.estadisticas.setVisible(True)
+        self.detener_alarma.setVisible(True)
+        self.salida_manual.setVisible(True)
+        self.configuracion.setVisible(True)
+        self.informacion.setVisible(True)
+
 
     def Ingresar(self):
-        print(1)
-        self.label_img_central.setVisible(False)  # oculta la imagen
-        self.label_img_esquina.setGeometry(15, 5, 500, 100)
+        self.label_img_central.setVisible(False)  
+        self.label_img_esquina.setVisible(True)  
+        self.ingresar.setVisible(False)
+        self.estadisticas.setVisible(False)
+        self.detener_alarma.setVisible(False)
+        self.salida_manual.setVisible(False)
+        self.configuracion.setVisible(False)
+        self.informacion.setVisible(False)
+
+    def Estadisticas(self):
+        self.label_img_central.setVisible(False)  
+        self.label_img_esquina.setVisible(True)  
+        self.ingresar.setVisible(False)
+        self.estadisticas.setVisible(False)
+        self.detener_alarma.setVisible(False)
+        self.salida_manual.setVisible(False)
+        self.configuracion.setVisible(False)
+        self.informacion.setVisible(False)
+
+    def Salida_manual(self):
+        self.label_img_central.setVisible(False)  
+        self.label_img_esquina.setVisible(True)  
+        self.ingresar.setVisible(False)
+        self.estadisticas.setVisible(False)
+        self.detener_alarma.setVisible(False)
+        self.salida_manual.setVisible(False)
+        self.configuracion.setVisible(False)
+        self.informacion.setVisible(False)
+
+    def Configuracion(self):
+        self.label_img_central.setVisible(False)  
+        self.label_img_esquina.setVisible(True)  
+        self.ingresar.setVisible(False)
+        self.estadisticas.setVisible(False)
+        self.detener_alarma.setVisible(False)
+        self.salida_manual.setVisible(False)
+        self.configuracion.setVisible(False)
+        self.informacion.setVisible(False)
+
+    def Informacion(self):
+        self.label_img_central.setVisible(False)  
+        self.label_img_esquina.setVisible(True)  
         self.ingresar.setVisible(False)
         self.estadisticas.setVisible(False)
         self.detener_alarma.setVisible(False)

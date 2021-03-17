@@ -35,7 +35,7 @@ class HomeWindow(QMainWindow):
         #Botones
         self.ingresar = QToolButton(self.centralWidget)
         self.ingresar.setText('INGRESO MANUAL')
-        self.ingresar.setGeometry(0, 0, 0, 0) #Se define el vector en 0 para que no aparesca al inicio
+        self.ingresar.setGeometry(0, 0, 0, 0) #Se define el vector en 0 para que no se vea al inicio
         self.ingresar.setObjectName("button") #nombre de enlace a css
         self.ingresar.setIcon(QIcon('static/icons/icono_entrar')) #icono
         self.ingresar.setIconSize(QSize(60,60))

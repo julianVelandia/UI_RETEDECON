@@ -7,6 +7,7 @@ QWidget#window {
 
 
 QToolButton#button {
+    padding: 30px;
     font-size: 20px;
     font-family: Helvetica; 
     color: white; 
@@ -19,5 +20,15 @@ QToolButton#button:hover {
     background-color: #1D2041; 
 }
 
+QToolButton#button_home:hover {
+}
+
+
+QToolButton#button_home {
+
+    background-image: url('static/icons/logo_lateral.png');
+    background-repeat: no-repeat;
+    border: 0;
+}
     
 
