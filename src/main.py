@@ -16,23 +16,20 @@ class MainWindow(QMainWindow): #Ventana principal
         with open("style.css") as f:
             self.setStyleSheet(f.read())
 
-        '''
-        Configuraciones básicas
-        '''
         self.setMinimumSize(1024,600)    #tamaño mínimo
         self.setMaximumSize(1024,600)  #tamaño máximo
         self.setWindowTitle('RETEDECON')   #titulo
-        self.setWindowIcon(QIcon("static/favicon.png"))   #Favicon
+        self.setWindowIcon(QIcon("static/favicon3.png"))   #Favicon
         
         self.centralWidget = QWidget()
         self.setCentralWidget(self.centralWidget)
-        self.centralWidget.setObjectName("window") #nombre que enlaza en css 
+        self.centralWidget.setObjectName("window") #nombre que enlaza en css
         
         '''
         Imagen central 
         '''
         self.label_img_central = QLabel(self)
-        self.label_img_central.setGeometry(288.9,-10,1024,600)
+        self.label_img_central.setGeometry(289,-10,1024,600)
         self.pixmap = QPixmap('static/Logo_central.png')   #Imagen central
         self.label_img_central.setPixmap(self.pixmap)
         
@@ -98,25 +95,24 @@ class MainWindow(QMainWindow): #Ventana principal
         Se definió un timer que ejecutará HomeWindow a los 3 seg, pero no funciona
         '''
         self.timer = QTimer()
-        self.timer.setInterval(3000)
+        self.timer.setInterval(2500)
         self.timer.setSingleShot(True)
+        self.timer.start()
         self.timer.timeout.connect(self.HomeWindow) #función a ejecutar pasados los 3 seg
         
         '''
         Ingresar a HomeWindow manualmente
         Descomentar la siguiente línea
         '''
-        #self.HomeWindow()
-    
+
     def HomeWindow(self):
         '''
         Esta función le da tamaños a los elementos de la pantalla de home, 
         que contiene 6 botones y un logo pequeño,
         También hace 0 el vector de geometría de los elementos de la otra pantalla
         '''
-        
+        #self.label_img_central.setWindowOpacity(op)
         self.label_img_central.setGeometry(0,0,0,0) #oculta la imagen
-
         self.label_img_esquina.setGeometry(15,5,500,100)
 
 
