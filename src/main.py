@@ -1,8 +1,6 @@
 from PyQt5.QtWidgets import *
 from PyQt5.QtCore import *
 from PyQt5.QtGui import *
-import time
-
 
 class MainWindow(QMainWindow): #Ventana principal
     '''
@@ -12,7 +10,7 @@ class MainWindow(QMainWindow): #Ventana principal
     '''
     def __init__(self, parent=None, *args):
         super(MainWindow,self).__init__(parent = parent)
-        
+
         with open("style.css") as f:
             self.setStyleSheet(f.read())
 
@@ -20,11 +18,10 @@ class MainWindow(QMainWindow): #Ventana principal
         self.setMaximumSize(1024,600)  #tamaño máximo
         self.setWindowTitle('RETEDECON')   #titulo
         self.setWindowIcon(QIcon("static/favicon3.png"))   #Favicon
-        
+
         self.centralWidget = QWidget()
         self.setCentralWidget(self.centralWidget)
         self.centralWidget.setObjectName("window") #nombre que enlaza en css
-        
         '''
         Imagen central 
         '''
@@ -32,12 +29,12 @@ class MainWindow(QMainWindow): #Ventana principal
         self.label_img_central.setGeometry(289,-10,1024,600)
         self.pixmap = QPixmap('static/Logo_central.png')   #Imagen central
         self.label_img_central.setPixmap(self.pixmap)
-        
+
         '''
         Botones de home y logo esquina
         '''
         #En Qt para poner una imagen se necesita conectarla con un label
-        self.label_img_esquina = QLabel(self)   
+        self.label_img_esquina = QLabel(self)
         self.label_img_esquina.setGeometry(0,0,0,0)
         self.pixmap = QPixmap('static/icons/logo_lateral.png')   #Imagen esquina
         self.label_img_esquina.setPixmap(self.pixmap)
@@ -99,7 +96,7 @@ class MainWindow(QMainWindow): #Ventana principal
         self.timer.setSingleShot(True)
         self.timer.start()
         self.timer.timeout.connect(self.HomeWindow) #función a ejecutar pasados los 3 seg
-        
+
         '''
         Ingresar a HomeWindow manualmente
         Descomentar la siguiente línea
