@@ -112,6 +112,11 @@ class MainWindow(QMainWindow): #Ventana principal
         self.timer.start()
         self.timer.timeout.connect(self.HomeWindow) #función a ejecutar pasados los 3 seg
 
+        #Botones Ingresar
+        self.BotonesIngresar()
+        
+
+
     def HomeWindow(self):
     
         self.label_img_central.setVisible(False)
@@ -122,6 +127,11 @@ class MainWindow(QMainWindow): #Ventana principal
         self.salida_manual.setVisible(True)
         self.configuracion.setVisible(True)
         self.informacion.setVisible(True)
+        
+        self.ingresar_nombre.setVisible(False)
+        self.ingresar_cedula.setVisible(False)
+        self.ingresar_ingresar.setVisible(False)
+
 
     def Ingresar(self):
         self.label_img_central.setVisible(False)  
@@ -132,6 +142,43 @@ class MainWindow(QMainWindow): #Ventana principal
         self.salida_manual.setVisible(False)
         self.configuracion.setVisible(False)
         self.informacion.setVisible(False)
+        
+        self.ingresar_nombre.setVisible(True)
+        self.ingresar_cedula.setVisible(True)
+        self.ingresar_ingresar.setVisible(True)
+
+    def BotonesIngresar(self):
+        #Botones
+        self.ingresar_nombre = QLineEdit(self.centralWidget)   
+        self.ingresar_nombre.setPlaceholderText("NOMBRE")
+        self.ingresar_nombre.setObjectName("input") #nombre de enlace a css
+        self.ingresar_nombre.setClearButtonEnabled(True)
+        self.ingresar_nombre.setGeometry(164.2,237,290,70)
+        self.ingresar_nombre.setMaxLength(30)
+        if self.ingresar_nombre.cursor():
+            print(1)
+        
+
+        self.ingresar_cedula = QLineEdit(self.centralWidget)   
+        self.ingresar_cedula.setPlaceholderText("CEDULA")
+        self.ingresar_cedula.setObjectName("input") #nombre de enlace a css
+        self.ingresar_cedula.setClearButtonEnabled(True)
+        self.ingresar_cedula.setGeometry(164.2,341,290,70)
+        self.ingresar_cedula.setMaxLength(15)
+
+        self.ingresar_ingresar = QToolButton(self.centralWidget)
+        self.ingresar_ingresar.setText('INGRESAR')
+        self.ingresar_ingresar.setObjectName("button") #nombre de enlace a css
+        self.ingresar_ingresar.setIcon(QIcon('static/icons/icono_entrar')) #icono
+        self.ingresar_ingresar.setIconSize(QSize(60,60))
+        self.ingresar_ingresar.setToolButtonStyle(Qt.ToolButtonTextUnderIcon)
+        #self.ingresar_ingresar.clicked.connect(self.Ingresar)
+        self.ingresar_ingresar.setGeometry(570, 237, 290, 176.3)
+
+        self.ingresar_nombre.setVisible(False)
+        self.ingresar_cedula.setVisible(False)
+        self.ingresar_ingresar.setVisible(False)
+
 
     def Estadisticas(self):
         self.label_img_central.setVisible(False)  
