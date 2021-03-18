@@ -1,7 +1,6 @@
 from PyQt5.QtWidgets import *
 from PyQt5.QtCore import *
 from PyQt5.QtGui import *
-import time
 
 class MainWindow(QMainWindow): #Ventana principal
     def __init__(self, parent=None, *args):
@@ -12,7 +11,6 @@ class MainWindow(QMainWindow): #Ventana principal
         self.title = 'RETEDECON'
         self.width = 1024
         self.height = 600
-        
 
         self.setMinimumSize(self.width,self.height)    #tamaño mínimo
         self.setMaximumSize(self.width,self.height)  #tamaño máximo
@@ -57,7 +55,6 @@ class MainWindow(QMainWindow): #Ventana principal
         self.estadisticas.setToolButtonStyle(Qt.ToolButtonTextUnderIcon)
         self.estadisticas.clicked.connect(self.Estadisticas)
 
-        
         self.detener_alarma = QToolButton(self.centralWidget)
         self.detener_alarma.setText('DETENER ALARMA')
         self.detener_alarma.setObjectName("button")
@@ -73,7 +70,6 @@ class MainWindow(QMainWindow): #Ventana principal
         self.salida_manual.setToolButtonStyle(Qt.ToolButtonTextUnderIcon)
         self.salida_manual.clicked.connect(self.Salida_manual)
 
-
         self.configuracion = QToolButton(self.centralWidget)
         self.configuracion.setText('CONFIGURACIÓN')
         self.configuracion.setObjectName("button")
@@ -81,7 +77,6 @@ class MainWindow(QMainWindow): #Ventana principal
         self.configuracion.setIconSize(QSize(60,60))
         self.configuracion.setToolButtonStyle(Qt.ToolButtonTextUnderIcon)
         self.configuracion.clicked.connect(self.Configuracion)
-
 
         self.informacion = QToolButton(self.centralWidget)
         self.informacion.setText('INFORMACIÓN')
@@ -127,7 +122,6 @@ class MainWindow(QMainWindow): #Ventana principal
         self.salida_manual.setVisible(True)
         self.configuracion.setVisible(True)
         self.informacion.setVisible(True)
-
 
     def Ingresar(self):
         self.label_img_central.setVisible(False)  
