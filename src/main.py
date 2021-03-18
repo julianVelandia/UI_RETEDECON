@@ -114,11 +114,11 @@ class MainWindow(QMainWindow): #Ventana principal
 
         #Botones Ingresar
         self.BotonesIngresar()
-        
+        #botones teclado
+        self.BotonesTeclado()
 
 
     def HomeWindow(self):
-    
         self.label_img_central.setVisible(False)
         self.label_img_esquina.setVisible(True)
         self.ingresar.setVisible(True)
@@ -131,8 +131,10 @@ class MainWindow(QMainWindow): #Ventana principal
         self.ingresar_nombre.setVisible(False)
         self.ingresar_cedula.setVisible(False)
         self.ingresar_ingresar.setVisible(False)
-
-
+        self.ingresar_desplegar_teclado_button.setVisible(False)
+        self.NotTeclado()
+        
+        
     def Ingresar(self):
         self.label_img_central.setVisible(False)  
         self.label_img_esquina.setVisible(True)  
@@ -146,6 +148,8 @@ class MainWindow(QMainWindow): #Ventana principal
         self.ingresar_nombre.setVisible(True)
         self.ingresar_cedula.setVisible(True)
         self.ingresar_ingresar.setVisible(True)
+        self.ingresar_desplegar_teclado_button.setVisible(True)
+        self.Ingresar_guardar_teclado()
 
     def BotonesIngresar(self):
         #Botones
@@ -155,9 +159,6 @@ class MainWindow(QMainWindow): #Ventana principal
         self.ingresar_nombre.setClearButtonEnabled(True)
         self.ingresar_nombre.setGeometry(164.2,237,290,70)
         self.ingresar_nombre.setMaxLength(30)
-        if self.ingresar_nombre.cursor():
-            print(1)
-        
 
         self.ingresar_cedula = QLineEdit(self.centralWidget)   
         self.ingresar_cedula.setPlaceholderText("CEDULA")
@@ -175,9 +176,40 @@ class MainWindow(QMainWindow): #Ventana principal
         #self.ingresar_ingresar.clicked.connect(self.Ingresar)
         self.ingresar_ingresar.setGeometry(570, 237, 290, 176.3)
 
+        self.ingresar_desplegar_teclado_button = QToolButton(self.centralWidget)
+        self.ingresar_desplegar_teclado_button.setObjectName("NotButton") #nombre de enlace a css
+        self.ingresar_desplegar_teclado_button.clicked.connect(self.Ingresar_desplegar_teclado)
+        self.ingresar_desplegar_teclado_button.setGeometry(164.2, 237, 290.8, 176.3)
+        
+        self.ingresar_desplegar_teclado_button.setVisible(False)
         self.ingresar_nombre.setVisible(False)
         self.ingresar_cedula.setVisible(False)
         self.ingresar_ingresar.setVisible(False)
+
+        '''
+        Falta hacer que se seleccione el texto por defecto cuando se apriete el botón
+        invisible u obtener un bool de cuando el usuario selecciona el campo de 
+        texto y ahí poner la lógica de mover los botones y el teclado
+        '''
+        
+
+    def Ingresar_desplegar_teclado(self):
+        MOV = -100
+        #movimiento botones
+        self.ingresar_nombre.setGeometry(164.2,237+MOV,290,70)
+        self.ingresar_cedula.setGeometry(164.2,341+MOV,290,70)
+        self.ingresar_ingresar.setGeometry(570, 237+MOV, 290, 176.3)
+        self.ingresar_desplegar_teclado_button.setGeometry(164.2, 237+MOV, 290.8, 176.3)
+        self.Teclado()
+
+    def Ingresar_guardar_teclado(self):
+        MOV = 0
+        #movimiento botones
+        self.ingresar_nombre.setGeometry(164.2,237+MOV,290,70)
+        self.ingresar_cedula.setGeometry(164.2,341+MOV,290,70)
+        self.ingresar_ingresar.setGeometry(570, 237+MOV, 290, 176.3)
+        self.ingresar_desplegar_teclado_button.setGeometry(164.2, 237+MOV, 290.8, 176.3)
+        self.NotTeclado()
 
 
     def Estadisticas(self):
@@ -220,6 +252,37 @@ class MainWindow(QMainWindow): #Ventana principal
         self.configuracion.setVisible(False)
         self.informacion.setVisible(False)
 
+    def Teclado(self):
+        self.teclado_q.setVisible(True)
+        self.teclado_w.setVisible(True)
+
+    def BotonesTeclado(self):
+        sep_lado = 16
+        sep_arriba = 16
+        base = 70
+        altura = 65
+        y_inicia = 380
+        self.teclado_q = QToolButton(self.centralWidget)
+        self.teclado_q.setText('q')
+        self.teclado_q.setObjectName("buttonTeclado") #nombre de enlace a css
+        self.teclado_q.setGeometry((base*0) + 1*sep_lado,y_inicia+ (altura*0) + sep_arriba, base, altura)
+        self.teclado_q.clicked.connect(self.q)
+
+        self.teclado_w = QToolButton(self.centralWidget)
+        self.teclado_w.setText('w')
+        self.teclado_w.setObjectName("buttonTeclado") #nombre de enlace a css
+        self.teclado_w.setGeometry((base*1) + 2*sep_lado, y_inicia+ (altura*0) + sep_arriba, base, altura)
+        self.teclado_w.clicked.connect(self.q)
+
+        self.NotTeclado()
+
+
+    def NotTeclado(self):
+        self.teclado_q.setVisible(False)
+        self.teclado_w.setVisible(False)
+
+    def q(self):
+        print('q')
 
 if __name__=='__main__':
     app = QApplication([])

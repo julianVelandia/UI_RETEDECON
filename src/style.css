@@ -16,6 +16,23 @@ QToolButton#button {
     border: 1px solid white;
 }
 
+QToolButton#NotButton {
+    color: none; 
+    background-color: none; 
+    border: none;
+    background: none;
+}
+
+QToolButton#buttonTeclado {
+    padding-bottom: 5px;
+    font-size: 30px;
+    font-family: Helvetica; 
+    color: white; 
+    background-color: none; 
+    border-radius: 5px;
+    border: 1px solid white;
+}
+
 QLineEdit#input {
     padding-left: 30px;
     padding-right: 20px;
