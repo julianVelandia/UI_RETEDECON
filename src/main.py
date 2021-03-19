@@ -1,6 +1,7 @@
 from PyQt5.QtWidgets import *
 from PyQt5.QtCore import *
 from PyQt5.QtGui import *
+from QLineClick import QLineEditClick
 
 class MainWindow(QMainWindow): #Ventana principal
     def __init__(self, parent=None, *args):
@@ -86,7 +87,6 @@ class MainWindow(QMainWindow): #Ventana principal
         self.informacion.setToolButtonStyle(Qt.ToolButtonTextUnderIcon)
         self.informacion.clicked.connect(self.Informacion)
 
-
         'geometrías botones'
         self.ingresar.setGeometry(44.7, 112.5, 290, 180)
         self.estadisticas.setGeometry(367, 112.5, 290, 180)
@@ -112,11 +112,30 @@ class MainWindow(QMainWindow): #Ventana principal
         self.timer.start()
         self.timer.timeout.connect(self.HomeWindow) #función a ejecutar pasados los 3 seg
 
+        'cuadros de texto'
+        self.ingresar_nombre = QLineEditClick(self.centralWidget)
+        self.ingresar_nombre.setPlaceholderText("NOMBRE")
+        self.ingresar_nombre.setObjectName("input")  # nombre de enlace a css
+        self.ingresar_nombre.setClearButtonEnabled(True)
+        self.ingresar_nombre.setGeometry(164.2, 237, 290, 70)
+        self.ingresar_nombre.setMaxLength(30)
+
+        'cuadros de texto 2'
+        self.ingresar_cedula = QLineEditClick(self.centralWidget)
+        self.ingresar_cedula.setPlaceholderText("CEDULA")
+        self.ingresar_cedula.setObjectName("input") #nombre de enlace a css
+        self.ingresar_cedula.setClearButtonEnabled(True)
+        self.ingresar_cedula.setGeometry(164.2,341,290,70)
+        self.ingresar_cedula.setMaxLength(15)
+
         #Botones Ingresar
         self.BotonesIngresar()
         #botones teclado
         self.BotonesTeclado()
-
+        #AccionClcikIngresarNombre
+        self.ingresar_nombre.clicked.connect(self.Ingresar_desplegar_teclado)
+        #AccionClcikIngresarCedula
+        self.ingresar_cedula.clicked.connect(self.Ingresar_desplegar_teclado)
 
     def HomeWindow(self):
         self.label_img_central.setVisible(False)
@@ -131,7 +150,7 @@ class MainWindow(QMainWindow): #Ventana principal
         self.ingresar_nombre.setVisible(False)
         self.ingresar_cedula.setVisible(False)
         self.ingresar_ingresar.setVisible(False)
-        self.ingresar_desplegar_teclado_button.setVisible(False)
+        #self.ingresar_desplegar_teclado_button.setVisible(False)
         self.NotTeclado()
         
         
@@ -148,24 +167,11 @@ class MainWindow(QMainWindow): #Ventana principal
         self.ingresar_nombre.setVisible(True)
         self.ingresar_cedula.setVisible(True)
         self.ingresar_ingresar.setVisible(True)
-        self.ingresar_desplegar_teclado_button.setVisible(True)
+        #self.ingresar_desplegar_teclado_button.setVisible(True)
         self.Ingresar_guardar_teclado()
 
-    def BotonesIngresar(self):
-        #Botones
-        self.ingresar_nombre = QLineEdit(self.centralWidget)   
-        self.ingresar_nombre.setPlaceholderText("NOMBRE")
-        self.ingresar_nombre.setObjectName("input") #nombre de enlace a css
-        self.ingresar_nombre.setClearButtonEnabled(True)
-        self.ingresar_nombre.setGeometry(164.2,237,290,70)
-        self.ingresar_nombre.setMaxLength(30)
 
-        self.ingresar_cedula = QLineEdit(self.centralWidget)   
-        self.ingresar_cedula.setPlaceholderText("CEDULA")
-        self.ingresar_cedula.setObjectName("input") #nombre de enlace a css
-        self.ingresar_cedula.setClearButtonEnabled(True)
-        self.ingresar_cedula.setGeometry(164.2,341,290,70)
-        self.ingresar_cedula.setMaxLength(15)
+    def BotonesIngresar(self):
 
         self.ingresar_ingresar = QToolButton(self.centralWidget)
         self.ingresar_ingresar.setText('INGRESAR')
@@ -173,15 +179,9 @@ class MainWindow(QMainWindow): #Ventana principal
         self.ingresar_ingresar.setIcon(QIcon('static/icons/icono_entrar')) #icono
         self.ingresar_ingresar.setIconSize(QSize(60,60))
         self.ingresar_ingresar.setToolButtonStyle(Qt.ToolButtonTextUnderIcon)
-        #self.ingresar_ingresar.clicked.connect(self.Ingresar)
+        self.ingresar_ingresar.clicked.connect(self.Ingresar)
         self.ingresar_ingresar.setGeometry(570, 237, 290, 176.3)
 
-        self.ingresar_desplegar_teclado_button = QToolButton(self.centralWidget)
-        self.ingresar_desplegar_teclado_button.setObjectName("NotButton") #nombre de enlace a css
-        self.ingresar_desplegar_teclado_button.clicked.connect(self.Ingresar_desplegar_teclado)
-        self.ingresar_desplegar_teclado_button.setGeometry(164.2, 237, 290.8, 176.3)
-        
-        self.ingresar_desplegar_teclado_button.setVisible(False)
         self.ingresar_nombre.setVisible(False)
         self.ingresar_cedula.setVisible(False)
         self.ingresar_ingresar.setVisible(False)
@@ -199,7 +199,7 @@ class MainWindow(QMainWindow): #Ventana principal
         self.ingresar_nombre.setGeometry(164.2,237+MOV,290,70)
         self.ingresar_cedula.setGeometry(164.2,341+MOV,290,70)
         self.ingresar_ingresar.setGeometry(570, 237+MOV, 290, 176.3)
-        self.ingresar_desplegar_teclado_button.setGeometry(164.2, 237+MOV, 290.8, 176.3)
+        #self.ingresar_desplegar_teclado_button.setGeometry(164.2, 237+MOV, 290.8, 176.3)
         self.Teclado()
 
     def Ingresar_guardar_teclado(self):
@@ -208,7 +208,7 @@ class MainWindow(QMainWindow): #Ventana principal
         self.ingresar_nombre.setGeometry(164.2,237+MOV,290,70)
         self.ingresar_cedula.setGeometry(164.2,341+MOV,290,70)
         self.ingresar_ingresar.setGeometry(570, 237+MOV, 290, 176.3)
-        self.ingresar_desplegar_teclado_button.setGeometry(164.2, 237+MOV, 290.8, 176.3)
+        #self.ingresar_desplegar_teclado_button.setGeometry(164.2, 237+MOV, 290.8, 176.3)
         self.NotTeclado()
 
 
@@ -275,7 +275,6 @@ class MainWindow(QMainWindow): #Ventana principal
         self.teclado_w.clicked.connect(self.q)
 
         self.NotTeclado()
-
 
     def NotTeclado(self):
         self.teclado_q.setVisible(False)
