@@ -2,6 +2,7 @@ from PyQt5.QtWidgets import *
 from PyQt5.QtCore import *
 from PyQt5.QtGui import *
 from QLineClick import QLineEditClick
+from datetime import datetime
 
 class MainWindow(QMainWindow): #Ventana principal
     def __init__(self, parent=None, *args):
@@ -118,7 +119,7 @@ class MainWindow(QMainWindow): #Ventana principal
         self.ingresar_nombre.setObjectName("input")  # nombre de enlace a css
         self.ingresar_nombre.setClearButtonEnabled(True)
         self.ingresar_nombre.setGeometry(164.2, 237, 290, 70)
-        self.ingresar_nombre.setMaxLength(30)
+        self.ingresar_nombre.setMaxLength(40)
 
         'cuadros de texto 2'
         self.ingresar_cedula = QLineEditClick(self.centralWidget)
@@ -128,14 +129,36 @@ class MainWindow(QMainWindow): #Ventana principal
         self.ingresar_cedula.setGeometry(164.2,341,290,70)
         self.ingresar_cedula.setMaxLength(15)
 
+        'cuadros de texto out'
+        self.ingresar_nombre_out = QLineEditClick(self.centralWidget)
+        self.ingresar_nombre_out.setPlaceholderText("NOMBRE")
+        self.ingresar_nombre_out.setObjectName("input")  # nombre de enlace a css
+        self.ingresar_nombre_out.setClearButtonEnabled(True)
+        self.ingresar_nombre_out.setGeometry(164.2, 237, 290, 70)
+        self.ingresar_nombre_out.setMaxLength(40)
+
+        'cuadros de texto out 2'
+        self.ingresar_cedula_out = QLineEditClick(self.centralWidget)
+        self.ingresar_cedula_out.setPlaceholderText("CEDULA")
+        self.ingresar_cedula_out.setObjectName("input")  # nombre de enlace a css
+        self.ingresar_cedula_out.setClearButtonEnabled(True)
+        self.ingresar_cedula_out.setGeometry(164.2, 341, 290, 70)
+        self.ingresar_cedula_out.setMaxLength(15)
+
         #Botones Ingresar
         self.BotonesIngresar()
+        # Botones Salida Manual
+        self.BotonesSalidaManual()
         #botones teclado
         self.BotonesTeclado()
         #AccionClcikIngresarNombre
         self.ingresar_nombre.clicked.connect(self.Ingresar_desplegar_teclado)
         #AccionClcikIngresarCedula
         self.ingresar_cedula.clicked.connect(self.Ingresar_desplegar_teclado)
+        # AccionClcikIngresarNombreOut
+        self.ingresar_nombre_out.clicked.connect(self.Retirar_desplegar_teclado)
+        # AccionClcikIngresarCedulaOut
+        self.ingresar_cedula_out.clicked.connect(self.Retirar_desplegar_teclado)
 
     def HomeWindow(self):
         self.label_img_central.setVisible(False)
@@ -146,13 +169,13 @@ class MainWindow(QMainWindow): #Ventana principal
         self.salida_manual.setVisible(True)
         self.configuracion.setVisible(True)
         self.informacion.setVisible(True)
-        
         self.ingresar_nombre.setVisible(False)
         self.ingresar_cedula.setVisible(False)
+        self.ingresar_nombre_out.setVisible(False)
+        self.ingresar_cedula_out.setVisible(False)
         self.ingresar_ingresar.setVisible(False)
-        #self.ingresar_desplegar_teclado_button.setVisible(False)
+        self.retirar.setVisible(False)
         self.NotTeclado()
-        
         
     def Ingresar(self):
         self.label_img_central.setVisible(False)  
@@ -163,35 +186,129 @@ class MainWindow(QMainWindow): #Ventana principal
         self.salida_manual.setVisible(False)
         self.configuracion.setVisible(False)
         self.informacion.setVisible(False)
-        
         self.ingresar_nombre.setVisible(True)
+        self.ingresar_nombre.clear()
         self.ingresar_cedula.setVisible(True)
+        self.ingresar_cedula.clear()
         self.ingresar_ingresar.setVisible(True)
-        #self.ingresar_desplegar_teclado_button.setVisible(True)
+        self.ingresar_nombre_out.setVisible(False)
+        self.ingresar_cedula_out.setVisible(False)
+        self.retirar.setVisible(False)
         self.Ingresar_guardar_teclado()
 
-
     def BotonesIngresar(self):
-
         self.ingresar_ingresar = QToolButton(self.centralWidget)
         self.ingresar_ingresar.setText('INGRESAR')
         self.ingresar_ingresar.setObjectName("button") #nombre de enlace a css
         self.ingresar_ingresar.setIcon(QIcon('static/icons/icono_entrar')) #icono
         self.ingresar_ingresar.setIconSize(QSize(60,60))
         self.ingresar_ingresar.setToolButtonStyle(Qt.ToolButtonTextUnderIcon)
-        self.ingresar_ingresar.clicked.connect(self.Ingresar)
+        self.ingresar_ingresar.clicked.connect(self.Escribir)
         self.ingresar_ingresar.setGeometry(570, 237, 290, 176.3)
-
         self.ingresar_nombre.setVisible(False)
         self.ingresar_cedula.setVisible(False)
+        self.ingresar_nombre_out.setVisible(False)
+        self.ingresar_cedula_out.setVisible(False)
         self.ingresar_ingresar.setVisible(False)
 
-        '''
-        Falta hacer que se seleccione el texto por defecto cuando se apriete el botón
-        invisible u obtener un bool de cuando el usuario selecciona el campo de 
-        texto y ahí poner la lógica de mover los botones y el teclado
-        '''
-        
+    def BotonesSalidaManual(self):
+        self.retirar = QToolButton(self.centralWidget)
+        self.retirar.setText('RETIRAR')
+        self.retirar.setObjectName("button") #nombre de enlace a css
+        self.retirar.setIcon(QIcon('static/icons/icono_salir')) #icono
+        self.retirar.setIconSize(QSize(60,60))
+        self.retirar.setToolButtonStyle(Qt.ToolButtonTextUnderIcon)
+        self.retirar.clicked.connect(self.Leer)
+        self.retirar.setGeometry(570, 237, 290, 176.3)
+        self.ingresar_nombre_out.setVisible(False)
+        self.ingresar_cedula_out.setVisible(False)
+        self.retirar.setVisible(False)
+
+    '''Esta función se encarga de escribir lo datos en un archivo .txt y tiene
+    programadas ventanas emergentes en caso de errores o notificaciones'''
+    def Leer(self):
+        # definimos la fecha y hora
+        fecha_hora_out = datetime.now().isoformat(timespec='seconds')
+        # vector que contiene los datos a leer
+        persona_out = ["Nombre: ", self.ingresar_nombre_out.text(), " CC: ", self.ingresar_cedula_out.text(), " Fecha y hora: ", fecha_hora_out, "\n"]
+        if persona_out[1] != "" and persona_out[3] != "":  # lógica para leer si los campos están vacíos
+            if not persona_out[1].isdigit() and not persona_out[3].isalpha():  # detecta si numeros o letras donde no deben
+                try:
+                    '''Esta parte aun no funciona correctamente'''
+                    '''Aún no se como buscar en todo el documento'''
+                    archivo_out = open("Lista.txt", "r")
+                    contenido = archivo_out.readline()
+                    lista_contenido = contenido.split("-")
+                    print(lista_contenido)
+                    if lista_contenido[0]==persona_out[1] and lista_contenido[1]==persona_out[3]:
+                        archivo_out.close()
+                        dialogo_exitoso = QMessageBox(self.centralWidget)
+                        dialogo_exitoso.setWindowTitle(self.title)
+                        dialogo_exitoso.addButton("Aceptar", 0)
+                        dialogo_exitoso.setInformativeText("Se ha retirado correctamente\n    ")
+                        dialogo_exitoso.show()
+                        self.HomeWindow()
+                    else:
+                        dialogo_error_busqueda = QMessageBox(self.centralWidget)
+                        dialogo_error_busqueda.setWindowTitle(self.title)
+                        dialogo_error_busqueda.addButton("Aceptar", 0)
+                        dialogo_error_busqueda.setInformativeText("Error, no se encontró a ese usuario\n    ")
+                        dialogo_error_busqueda.show()
+                        archivo_out.close()
+                except:
+                    dialogo_error_lectura = QMessageBox(self.centralWidget)
+                    dialogo_error_lectura.setWindowTitle(self.title)
+                    dialogo_error_lectura.addButton("Aceptar", 0)
+                    dialogo_error_lectura.setInformativeText("Error, intente nuevamente\n\nSi el error persiste comuniquese con el fabricante")
+                    dialogo_error_lectura.show()
+            else:
+                dialogo_error_typ_out = QMessageBox(self.centralWidget)
+                dialogo_error_typ_out.setWindowTitle(self.title)
+                dialogo_error_typ_out.addButton("Aceptar", 0)
+                dialogo_error_typ_out.setInformativeText("Error, verifique los datos ingresados\n   ")
+                dialogo_error_typ_out.show()
+        else:
+            dialogo_error_incompleto_out = QMessageBox(self.centralWidget)
+            dialogo_error_incompleto_out.setWindowTitle(self.title)
+            dialogo_error_incompleto_out.addButton("Aceptar", 0)
+            dialogo_error_incompleto_out.setInformativeText("Debe llenar todos los campos\nantes de continuar")
+            dialogo_error_incompleto_out.show()
+
+    def Escribir(self):
+        #definimos la fecha y hora
+        fecha_hora= datetime.now().isoformat(timespec='seconds')
+        #vector que contiene los datos a escribir
+        persona = ["Nombre: ", self.ingresar_nombre.text(), " CC: ", self.ingresar_cedula.text(), " Fecha y hora: ", fecha_hora,"\n"]
+        if persona[1]!="" and persona[3]!="":  #lógica para leer si los campos están vacíos
+            if not persona[1].isdigit() and not persona[3].isalpha():  #detecta si numeros o letras donde no deben
+                try:
+                    archivo = open("Lista.txt", "a")
+                    archivo.writelines(persona)
+                    archivo.close()
+                    dialogo_exitoso = QMessageBox(self.centralWidget)
+                    dialogo_exitoso.setWindowTitle(self.title)
+                    dialogo_exitoso.addButton("Aceptar", 0)
+                    dialogo_exitoso.setInformativeText("Se ha ingresado correctamente\n    ")
+                    dialogo_exitoso.show()
+                    self.HomeWindow()
+                except:
+                    dialogo_error_escritura = QMessageBox(self.centralWidget)
+                    dialogo_error_escritura.setWindowTitle(self.title)
+                    dialogo_error_escritura.addButton("Aceptar",0)
+                    dialogo_error_escritura.setInformativeText("Error, intente nuevamente\n\nSi el error persiste comuniquese con el fabricante")
+                    dialogo_error_escritura.show()
+            else:
+                dialogo_error_typ = QMessageBox(self.centralWidget)
+                dialogo_error_typ.setWindowTitle(self.title)
+                dialogo_error_typ.addButton("Aceptar", 0)
+                dialogo_error_typ.setInformativeText("Error, verifique los datos ingresados\n   ")
+                dialogo_error_typ.show()
+        else:
+            dialogo_error_incompleto = QMessageBox(self.centralWidget)
+            dialogo_error_incompleto.setWindowTitle(self.title)
+            dialogo_error_incompleto.addButton("Aceptar", 0)
+            dialogo_error_incompleto.setInformativeText("Debe llenar todos los campos\nantes de continuar")
+            dialogo_error_incompleto.show()
 
     def Ingresar_desplegar_teclado(self):
         MOV = -100
@@ -199,7 +316,6 @@ class MainWindow(QMainWindow): #Ventana principal
         self.ingresar_nombre.setGeometry(164.2,237+MOV,290,70)
         self.ingresar_cedula.setGeometry(164.2,341+MOV,290,70)
         self.ingresar_ingresar.setGeometry(570, 237+MOV, 290, 176.3)
-        #self.ingresar_desplegar_teclado_button.setGeometry(164.2, 237+MOV, 290.8, 176.3)
         self.Teclado()
 
     def Ingresar_guardar_teclado(self):
@@ -208,9 +324,23 @@ class MainWindow(QMainWindow): #Ventana principal
         self.ingresar_nombre.setGeometry(164.2,237+MOV,290,70)
         self.ingresar_cedula.setGeometry(164.2,341+MOV,290,70)
         self.ingresar_ingresar.setGeometry(570, 237+MOV, 290, 176.3)
-        #self.ingresar_desplegar_teclado_button.setGeometry(164.2, 237+MOV, 290.8, 176.3)
         self.NotTeclado()
 
+    def Retirar_desplegar_teclado(self):
+        MOV = -100
+        #movimiento botones
+        self.ingresar_nombre_out.setGeometry(164.2,237+MOV,290,70)
+        self.ingresar_cedula_out.setGeometry(164.2,341+MOV,290,70)
+        self.retirar.setGeometry(570, 237+MOV, 290, 176.3)
+        self.Teclado()
+
+    def Retirar_guardar_teclado(self):
+        MOV = 0
+        #movimiento botones
+        self.ingresar_nombre_out.setGeometry(164.2,237+MOV,290,70)
+        self.ingresar_cedula_out.setGeometry(164.2,341+MOV,290,70)
+        self.retirar.setGeometry(570, 237+MOV, 290, 176.3)
+        self.NotTeclado()
 
     def Estadisticas(self):
         self.label_img_central.setVisible(False)  
@@ -223,14 +353,21 @@ class MainWindow(QMainWindow): #Ventana principal
         self.informacion.setVisible(False)
 
     def Salida_manual(self):
-        self.label_img_central.setVisible(False)  
-        self.label_img_esquina.setVisible(True)  
+        self.label_img_central.setVisible(False)
+        self.label_img_esquina.setVisible(True)
         self.ingresar.setVisible(False)
         self.estadisticas.setVisible(False)
         self.detener_alarma.setVisible(False)
         self.salida_manual.setVisible(False)
         self.configuracion.setVisible(False)
         self.informacion.setVisible(False)
+        self.ingresar_nombre_out.setVisible(True)
+        self.ingresar_nombre_out.clear()
+        self.ingresar_cedula_out.setVisible(True)
+        self.ingresar_cedula_out.clear()
+        self.retirar.setVisible(True)
+        self.ingresar_ingresar.setVisible(False)
+        self.Retirar_guardar_teclado()
 
     def Configuracion(self):
         self.label_img_central.setVisible(False)  
