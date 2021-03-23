@@ -1,7 +1,6 @@
-@import url('https://fonts.googleapis.com/css2?family=Orbitron&display=swap');
 
 QWidget#window {
-    background-image: url('static/background.png') ;
+    background-image: url('static/icons/background.png') ;
     background-repeat: no-repeat;
 }
 
@@ -31,6 +30,10 @@ QToolButton#buttonTeclado {
     background-color: none; 
     border-radius: 5px;
     border: 1px solid white;
+}
+
+QToolButton#buttonTeclado:hover {
+    background-color: #1D2041; 
 }
 
 QLineEdit#input {

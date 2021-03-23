@@ -4,11 +4,19 @@ from PyQt5.QtGui import *
 from QLineClick import QLineEditClick
 from datetime import datetime
 
+import sqlite3
+
+
 class MainWindow(QMainWindow): #Ventana principal
     def __init__(self, parent=None, *args):
         super(MainWindow,self).__init__(parent = parent)
-        with open("style.css") as f:
+        with open("static/style.css") as f:
             self.setStyleSheet(f.read())
+
+        'conección base de datos'
+        self.conn = sqlite3.connect('DB.db')
+        self.ccc = self.conn.cursor()
+
         'constants'
         self.title = 'RETEDECON'
         self.width = 1024
@@ -27,7 +35,7 @@ class MainWindow(QMainWindow): #Ventana principal
         '''
         self.label_img_central = QLabel(self)
         self.label_img_central.setGeometry(289,-10,1024,600)
-        self.pixmap = QPixmap('static/Logo_central.png')   #Imagen central
+        self.pixmap = QPixmap('static/icons/Logo_central.png')   #Imagen central
         self.label_img_central.setPixmap(self.pixmap)
 
         '''
@@ -160,6 +168,7 @@ class MainWindow(QMainWindow): #Ventana principal
         # AccionClcikIngresarCedulaOut
         self.ingresar_cedula_out.clicked.connect(self.Retirar_desplegar_teclado)
 
+
     def HomeWindow(self):
         self.label_img_central.setVisible(False)
         self.label_img_esquina.setVisible(True)
@@ -231,11 +240,23 @@ class MainWindow(QMainWindow): #Ventana principal
         fecha_hora_out = datetime.now().isoformat(timespec='seconds')
         # vector que contiene los datos a leer
         persona_out = ["Nombre: ", self.ingresar_nombre_out.text(), " CC: ", self.ingresar_cedula_out.text(), " Fecha y hora: ", fecha_hora_out, "\n"]
+
+        'Para la base de datos'
+        nombre_out_bd = self.ingresar_nombre_out.text()
+        cedula_out_bd = self.ingresar_cedula_out.text()
+        fecha_hora_out_bd = str(fecha_hora_out)
+
         if persona_out[1] != "" and persona_out[3] != "":  # lógica para leer si los campos están vacíos
             if not persona_out[1].isdigit() and not persona_out[3].isalpha():  # detecta si numeros o letras donde no deben
                 try:
                     '''Esta parte aun no funciona correctamente'''
                     '''Aún no se como buscar en todo el documento'''
+                    'Para la base de datos'
+                    self.ccc.execute('DELETE FROM usuarios (nombre_bd,cedula_bd,fecha_hora_bd) VALUES ("{}","{}","{}")'.format(nombre_out_bd,cedula_out_bd,fecha_hora_out_bd))
+                    self.conn.commit() #buscar evitar ataques de SQL injection
+
+                    
+                    
                     archivo_out = open("Lista.txt", "r")
                     contenido = archivo_out.readline()
                     lista_contenido = contenido.split("-")
@@ -279,9 +300,19 @@ class MainWindow(QMainWindow): #Ventana principal
         fecha_hora= datetime.now().isoformat(timespec='seconds')
         #vector que contiene los datos a escribir
         persona = ["Nombre: ", self.ingresar_nombre.text(), " CC: ", self.ingresar_cedula.text(), " Fecha y hora: ", fecha_hora,"\n"]
+
+        'Para la base de datos'
+        nombre_bd = self.ingresar_nombre.text()
+        cedula_bd = self.ingresar_cedula.text()
+        #fecha_hora_bd = str(fecha_hora)
+        
         if persona[1]!="" and persona[3]!="":  #lógica para leer si los campos están vacíos
             if not persona[1].isdigit() and not persona[3].isalpha():  #detecta si numeros o letras donde no deben
                 try:
+                    'Para la base de datos'
+                    self.ccc.execute('INSERT INTO usuarios (nombre_bd,cedula_bd) VALUES ("{}","{}")'.format(nombre_bd,cedula_bd))
+                    self.conn.commit() #buscar evitar ataques de SQL injection
+
                     archivo = open("Lista.txt", "a")
                     archivo.writelines(persona)
                     archivo.close()
@@ -290,6 +321,9 @@ class MainWindow(QMainWindow): #Ventana principal
                     dialogo_exitoso.addButton("Aceptar", 0)
                     dialogo_exitoso.setInformativeText("Se ha ingresado correctamente\n    ")
                     dialogo_exitoso.show()
+
+                    
+
                     self.HomeWindow()
                 except:
                     dialogo_error_escritura = QMessageBox(self.centralWidget)
@@ -389,36 +423,412 @@ class MainWindow(QMainWindow): #Ventana principal
         self.configuracion.setVisible(False)
         self.informacion.setVisible(False)
 
-    def Teclado(self):
-        self.teclado_q.setVisible(True)
-        self.teclado_w.setVisible(True)
+    
 
     def BotonesTeclado(self):
         sep_lado = 16
         sep_arriba = 16
         base = 70
         altura = 65
-        y_inicia = 380
-        self.teclado_q = QToolButton(self.centralWidget)
-        self.teclado_q.setText('q')
-        self.teclado_q.setObjectName("buttonTeclado") #nombre de enlace a css
-        self.teclado_q.setGeometry((base*0) + 1*sep_lado,y_inicia+ (altura*0) + sep_arriba, base, altura)
-        self.teclado_q.clicked.connect(self.q)
+        y_inicia = 340
+        
+        x=0
+        y=0
+        self.letra_q = QToolButton(self.centralWidget)
+        self.letra_q.setText('q')
+        self.letra_q.setObjectName("buttonTeclado") #nombre de enlace a css
+        self.letra_q.setGeometry((base*x) + (x+1)*sep_lado, y_inicia+ (altura*y) + sep_arriba, base, altura)
+        self.letra_q.clicked.connect(self.q)
+        
 
-        self.teclado_w = QToolButton(self.centralWidget)
-        self.teclado_w.setText('w')
-        self.teclado_w.setObjectName("buttonTeclado") #nombre de enlace a css
-        self.teclado_w.setGeometry((base*1) + 2*sep_lado, y_inicia+ (altura*0) + sep_arriba, base, altura)
-        self.teclado_w.clicked.connect(self.q)
+        x=1
+        y=0
+        self.letra_w = QToolButton(self.centralWidget)
+        self.letra_w.setText('w')
+        self.letra_w.setObjectName("buttonTeclado") #nombre de enlace a css
+        self.letra_w.setGeometry((base*x) + (x+1)*sep_lado, y_inicia+ (altura*y) + sep_arriba, base, altura)
+        self.letra_w.clicked.connect(self.w)
+        
+
+        x=2
+        y=0
+        self.letra_e = QToolButton(self.centralWidget)
+        self.letra_e.setText('e')
+        self.letra_e.setObjectName("buttonTeclado") #nombre de enlace a css
+        self.letra_e.setGeometry((base*x) + (x+1)*sep_lado, y_inicia+ (altura*y) + sep_arriba, base, altura)
+        self.letra_e.clicked.connect(self.e)
+        
+        x=3
+        y=0
+        self.letra_r = QToolButton(self.centralWidget)
+        self.letra_r.setText('r')
+        self.letra_r.setObjectName("buttonTeclado") #nombre de enlace a css
+        self.letra_r.setGeometry((base*x) + (x+1)*sep_lado, y_inicia+ (altura*y) + sep_arriba, base, altura)
+        self.letra_r.clicked.connect(self.r)
+
+        x=4
+        y=0
+        self.letra_t = QToolButton(self.centralWidget)
+        self.letra_t.setText('t')
+        self.letra_t.setObjectName("buttonTeclado") #nombre de enlace a css
+        self.letra_t.setGeometry((base*x) + (x+1)*sep_lado, y_inicia+ (altura*y) + sep_arriba, base, altura)
+        self.letra_t.clicked.connect(self.t)
+
+        x=5
+        y=0
+        self.letra_y = QToolButton(self.centralWidget)
+        self.letra_y.setText('y')
+        self.letra_y.setObjectName("buttonTeclado") #nombre de enlace a css
+        self.letra_y.setGeometry((base*x) + (x+1)*sep_lado, y_inicia+ (altura*y) + sep_arriba, base, altura)
+        self.letra_y.clicked.connect(self.y)
+
+        x=6
+        y=0
+        self.letra_u = QToolButton(self.centralWidget)
+        self.letra_u.setText('u')
+        self.letra_u.setObjectName("buttonTeclado") #nombre de enlace a css
+        self.letra_u.setGeometry((base*x) + (x+1)*sep_lado, y_inicia+ (altura*y) + sep_arriba, base, altura)
+        self.letra_u.clicked.connect(self.u)
+
+        x=7
+        y=0
+        self.letra_i = QToolButton(self.centralWidget)
+        self.letra_i.setText('i')
+        self.letra_i.setObjectName("buttonTeclado") #nombre de enlace a css
+        self.letra_i.setGeometry((base*x) + (x+1)*sep_lado, y_inicia+ (altura*y) + sep_arriba, base, altura)
+        self.letra_i.clicked.connect(self.i)
+
+        x=8
+        y=0
+        self.letra_o = QToolButton(self.centralWidget)
+        self.letra_o.setText('o')
+        self.letra_o.setObjectName("buttonTeclado") #nombre de enlace a css
+        self.letra_o.setGeometry((base*x) + (x+1)*sep_lado, y_inicia+ (altura*y) + sep_arriba, base, altura)
+        self.letra_o.clicked.connect(self.o)
+
+        x=9
+        y=0
+        self.letra_p = QToolButton(self.centralWidget)
+        self.letra_p.setText('p')
+        self.letra_p.setObjectName("buttonTeclado") #nombre de enlace a css
+        self.letra_p.setGeometry((base*x) + (x+1)*sep_lado, y_inicia+ (altura*y) + sep_arriba, base, altura)
+        self.letra_p.clicked.connect(self.p)
+
+        x=0
+        y=1
+        self.letra_a = QToolButton(self.centralWidget)
+        self.letra_a.setText('a')
+        self.letra_a.setObjectName("buttonTeclado") #nombre de enlace a css
+        self.letra_a.setGeometry((base/2)+(base*x) + (x+1)*sep_lado,y*sep_arriba+ y_inicia+ (altura*y) + sep_arriba, base, altura)
+        self.letra_a.clicked.connect(self.a)
+
+        x=1
+        y=1
+        self.letra_s = QToolButton(self.centralWidget)
+        self.letra_s.setText('s')
+        self.letra_s.setObjectName("buttonTeclado") #nombre de enlace a css
+        self.letra_s.setGeometry((base/2)+(base*x) + (x+1)*sep_lado,y*sep_arriba+ y_inicia+ (altura*y) + sep_arriba, base, altura)
+        self.letra_s.clicked.connect(self.s)
+
+        x=2
+        y=1
+        self.letra_d = QToolButton(self.centralWidget)
+        self.letra_d.setText('d')
+        self.letra_d.setObjectName("buttonTeclado") #nombre de enlace a css
+        self.letra_d.setGeometry((base/2)+(base*x) + (x+1)*sep_lado,y*sep_arriba+ y_inicia+ (altura*y) + sep_arriba, base, altura)
+        self.letra_d.clicked.connect(self.d)
+
+        x=3
+        y=1
+        self.letra_f = QToolButton(self.centralWidget)
+        self.letra_f.setText('f')
+        self.letra_f.setObjectName("buttonTeclado") #nombre de enlace a css
+        self.letra_f.setGeometry((base/2)+(base*x) + (x+1)*sep_lado,y*sep_arriba+ y_inicia+ (altura*y) + sep_arriba, base, altura)
+        self.letra_f.clicked.connect(self.f)
+
+        x=4
+        y=1
+        self.letra_g = QToolButton(self.centralWidget)
+        self.letra_g.setText('g')
+        self.letra_g.setObjectName("buttonTeclado") #nombre de enlace a css
+        self.letra_g.setGeometry((base/2)+(base*x) + (x+1)*sep_lado,y*sep_arriba+ y_inicia+ (altura*y) + sep_arriba, base, altura)
+        self.letra_g.clicked.connect(self.g)
+
+        x=5
+        y=1
+        self.letra_h = QToolButton(self.centralWidget)
+        self.letra_h.setText('h')
+        self.letra_h.setObjectName("buttonTeclado") #nombre de enlace a css
+        self.letra_h.setGeometry((base/2)+(base*x) + (x+1)*sep_lado,y*sep_arriba+ y_inicia+ (altura*y) + sep_arriba, base, altura)
+        self.letra_h.clicked.connect(self.h)
+
+        x=6
+        y=1
+        self.letra_j = QToolButton(self.centralWidget)
+        self.letra_j.setText('j')
+        self.letra_j.setObjectName("buttonTeclado") #nombre de enlace a css
+        self.letra_j.setGeometry((base/2)+(base*x) + (x+1)*sep_lado,y*sep_arriba+ y_inicia+ (altura*y) + sep_arriba, base, altura)
+        self.letra_j.clicked.connect(self.j)
+
+        x=7
+        y=1
+        self.letra_k = QToolButton(self.centralWidget)
+        self.letra_k.setText('k')
+        self.letra_k.setObjectName("buttonTeclado") #nombre de enlace a css
+        self.letra_k.setGeometry((base/2)+(base*x) + (x+1)*sep_lado,y*sep_arriba+ y_inicia+ (altura*y) + sep_arriba, base, altura)
+        self.letra_k.clicked.connect(self.k)
+
+        x=8
+        y=1
+        self.letra_l = QToolButton(self.centralWidget)
+        self.letra_l.setText('l')
+        self.letra_l.setObjectName("buttonTeclado") #nombre de enlace a css
+        self.letra_l.setGeometry((base/2)+(base*x) + (x+1)*sep_lado,y*sep_arriba+ y_inicia+ (altura*y) + sep_arriba, base, altura)
+        self.letra_l.clicked.connect(self.l)
+
+        x=9
+        y=1
+        self.letra_ene = QToolButton(self.centralWidget)
+        self.letra_ene.setText('ñ')
+        self.letra_ene.setObjectName("buttonTeclado") #nombre de enlace a css
+        self.letra_ene.setGeometry((base/2)+(base*x) + (x+1)*sep_lado,y*sep_arriba+ y_inicia+ (altura*y) + sep_arriba, base, altura)
+        self.letra_ene.clicked.connect(self.ene)
+
+        x=0
+        y=2
+        self.letra_z = QToolButton(self.centralWidget)
+        self.letra_z.setText('z')
+        self.letra_z.setObjectName("buttonTeclado") #nombre de enlace a css
+        self.letra_z.setGeometry((base*x) + (x+1)*sep_lado, y_inicia + (altura*y) + (y+1)*sep_arriba, base, altura)
+        self.letra_z.clicked.connect(self.z)
+        
+
+        x=1
+        y=2
+        self.letra_x = QToolButton(self.centralWidget)
+        self.letra_x.setText('x')
+        self.letra_x.setObjectName("buttonTeclado") #nombre de enlace a css
+        self.letra_x.setGeometry((base*x) + (x+1)*sep_lado, y_inicia+ (altura*y) + (y+1)*sep_arriba, base, altura)
+        self.letra_x.clicked.connect(self.x)
+        
+
+        x=2
+        y=2
+        self.letra_c = QToolButton(self.centralWidget)
+        self.letra_c.setText('c')
+        self.letra_c.setObjectName("buttonTeclado") #nombre de enlace a css
+        self.letra_c.setGeometry((base*x) + (x+1)*sep_lado, y_inicia+ (altura*y) + (y+1)*sep_arriba, base, altura)
+        self.letra_c.clicked.connect(self.c)
+        
+        x=3
+        y=2
+        self.letra_v = QToolButton(self.centralWidget)
+        self.letra_v.setText('v')
+        self.letra_v.setObjectName("buttonTeclado") #nombre de enlace a css
+        self.letra_v.setGeometry((base*x) + (x+1)*sep_lado, y_inicia+ (altura*y) + (y+1)*sep_arriba, base, altura)
+        self.letra_v.clicked.connect(self.v)
+
+        x=4
+        y=2
+        self.letra_b = QToolButton(self.centralWidget)
+        self.letra_b.setText('b')
+        self.letra_b.setObjectName("buttonTeclado") #nombre de enlace a css
+        self.letra_b.setGeometry((base*x) + (x+1)*sep_lado, y_inicia+ (altura*y) + (y+1)*sep_arriba, base, altura)
+        self.letra_b.clicked.connect(self.b)
+
+        x=5
+        y=2
+        self.letra_n = QToolButton(self.centralWidget)
+        self.letra_n.setText('n')
+        self.letra_n.setObjectName("buttonTeclado") #nombre de enlace a css
+        self.letra_n.setGeometry((base*x) + (x+1)*sep_lado, y_inicia+ (altura*y) + (y+1)*sep_arriba, base, altura)
+        self.letra_n.clicked.connect(self.n)
+
+        x=6
+        y=2
+        self.letra_m = QToolButton(self.centralWidget)
+        self.letra_m.setText('m')
+        self.letra_m.setObjectName("buttonTeclado") #nombre de enlace a css
+        self.letra_m.setGeometry((base*x) + (x+1)*sep_lado, y_inicia+ (altura*y) + (y+1)*sep_arriba, base, altura)
+        self.letra_m.clicked.connect(self.m)
+
+        
 
         self.NotTeclado()
 
-    def NotTeclado(self):
-        self.teclado_q.setVisible(False)
-        self.teclado_w.setVisible(False)
-
     def q(self):
-        print('q')
+        texto = self.ingresar_nombre.text() + 'q'
+        self.ingresar_nombre.setText(texto)
+
+    def w(self):
+        texto = self.ingresar_nombre.text() + 'w'
+        self.ingresar_nombre.setText(texto)
+
+    def e(self):
+        texto = self.ingresar_nombre.text() + 'e'
+        self.ingresar_nombre.setText(texto)
+
+    def r(self):
+        texto = self.ingresar_nombre.text() + 'r'
+        self.ingresar_nombre.setText(texto)
+
+    def t(self):
+        texto = self.ingresar_nombre.text() + 't'
+        self.ingresar_nombre.setText(texto)
+
+    def y(self):
+        texto = self.ingresar_nombre.text() + 'y'
+        self.ingresar_nombre.setText(texto)
+    
+    def u(self):
+        texto = self.ingresar_nombre.text() + 'u'
+        self.ingresar_nombre.setText(texto)
+
+    def i(self):
+        texto = self.ingresar_nombre.text() + 'i'
+        self.ingresar_nombre.setText(texto)
+
+    def o(self):
+        texto = self.ingresar_nombre.text() + 'o'
+        self.ingresar_nombre.setText(texto)
+
+    def p(self):
+        texto = self.ingresar_nombre.text() + 'p'
+        self.ingresar_nombre.setText(texto)
+
+    def a(self):
+        texto = self.ingresar_nombre.text() + 'a'
+        self.ingresar_nombre.setText(texto)
+
+    def s(self):
+        texto = self.ingresar_nombre.text() + 's'
+        self.ingresar_nombre.setText(texto)
+
+    def d(self):
+        texto = self.ingresar_nombre.text() + 'd'
+        self.ingresar_nombre.setText(texto)
+
+    def f(self):
+        texto = self.ingresar_nombre.text() + 'f'
+        self.ingresar_nombre.setText(texto)
+
+    def g(self):
+        texto = self.ingresar_nombre.text() + 'g'
+        self.ingresar_nombre.setText(texto)
+
+    def h(self):
+        texto = self.ingresar_nombre.text() + 'h'
+        self.ingresar_nombre.setText(texto)
+
+    def j(self):
+        texto = self.ingresar_nombre.text() + 'j'
+        self.ingresar_nombre.setText(texto)
+
+    def k(self):
+        texto = self.ingresar_nombre.text() + 'k'
+        self.ingresar_nombre.setText(texto)
+
+    def l(self):
+        texto = self.ingresar_nombre.text() + 'l'
+        self.ingresar_nombre.setText(texto)
+
+    def ene(self):
+        texto = self.ingresar_nombre.text() + 'ñ'
+        self.ingresar_nombre.setText(texto)
+
+    def z(self):
+        texto = self.ingresar_nombre.text() + 'z'
+        self.ingresar_nombre.setText(texto)
+
+    def x(self):
+        texto = self.ingresar_nombre.text() + 'x'
+        self.ingresar_nombre.setText(texto)
+
+    def c(self):
+        texto = self.ingresar_nombre.text() + 'c'
+        self.ingresar_nombre.setText(texto)
+
+    def v(self):
+        texto = self.ingresar_nombre.text() + 'v'
+        self.ingresar_nombre.setText(texto)
+
+    def b(self):
+        texto = self.ingresar_nombre.text() + 'b'
+        self.ingresar_nombre.setText(texto)
+
+    def n(self):
+        texto = self.ingresar_nombre.text() + 'n'
+        self.ingresar_nombre.setText(texto)
+
+    def m(self):
+        texto = self.ingresar_nombre.text() + 'm'
+        self.ingresar_nombre.setText(texto)
+
+
+
+    def Teclado(self):
+        self.letra_q.setVisible(True)
+        self.letra_w.setVisible(True)
+        self.letra_e.setVisible(True)
+        self.letra_r.setVisible(True)
+        self.letra_t.setVisible(True)
+        self.letra_y.setVisible(True)
+        self.letra_u.setVisible(True)
+        self.letra_i.setVisible(True)
+        self.letra_o.setVisible(True)
+        self.letra_p.setVisible(True)
+        self.letra_a.setVisible(True)
+        self.letra_s.setVisible(True)
+        self.letra_d.setVisible(True)
+        self.letra_f.setVisible(True)
+        self.letra_g.setVisible(True)
+        self.letra_h.setVisible(True)
+        self.letra_j.setVisible(True)
+        self.letra_k.setVisible(True)
+        self.letra_l.setVisible(True)
+        self.letra_ene.setVisible(True)
+        self.letra_z.setVisible(True)
+        self.letra_x.setVisible(True)
+        self.letra_c.setVisible(True)
+        self.letra_v.setVisible(True)
+        self.letra_b.setVisible(True)
+        self.letra_n.setVisible(True)
+        self.letra_m.setVisible(True)
+        
+
+
+    def NotTeclado(self):
+        self.letra_q.setVisible(False)
+        self.letra_w.setVisible(False)
+        self.letra_e.setVisible(False)
+        self.letra_r.setVisible(False)
+        self.letra_t.setVisible(False)
+        self.letra_y.setVisible(False)
+        self.letra_u.setVisible(False)
+        self.letra_i.setVisible(False)
+        self.letra_o.setVisible(False)
+        self.letra_p.setVisible(False)
+        self.letra_a.setVisible(False)
+        self.letra_s.setVisible(False)
+        self.letra_d.setVisible(False)
+        self.letra_f.setVisible(False)
+        self.letra_g.setVisible(False)
+        self.letra_h.setVisible(False)
+        self.letra_j.setVisible(False)
+        self.letra_k.setVisible(False)
+        self.letra_l.setVisible(False)
+        self.letra_ene.setVisible(False)
+        self.letra_z.setVisible(False)
+        self.letra_x.setVisible(False)
+        self.letra_c.setVisible(False)
+        self.letra_v.setVisible(False)
+        self.letra_b.setVisible(False)
+        self.letra_n.setVisible(False)
+        self.letra_m.setVisible(False)
+
+    
+
+        
 
 if __name__=='__main__':
     app = QApplication([])
