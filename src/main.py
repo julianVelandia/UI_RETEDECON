@@ -126,7 +126,7 @@ class MainWindow(QMainWindow): #Ventana principal
         self.ingresar_nombre.setPlaceholderText("NOMBRE")
         self.ingresar_nombre.setObjectName("input")  # nombre de enlace a css
         self.ingresar_nombre.setClearButtonEnabled(True)
-        self.ingresar_nombre.setGeometry(164.2, 237, 290, 70)
+        self.ingresar_nombre.setGeometry(164, 230, 290, 65)
         self.ingresar_nombre.setMaxLength(40)
 
         'cuadros de texto 2'
@@ -134,8 +134,16 @@ class MainWindow(QMainWindow): #Ventana principal
         self.ingresar_cedula.setPlaceholderText("CEDULA")
         self.ingresar_cedula.setObjectName("input") #nombre de enlace a css
         self.ingresar_cedula.setClearButtonEnabled(True)
-        self.ingresar_cedula.setGeometry(164.2,341,290,70)
+        self.ingresar_cedula.setGeometry(164,313,290,65)
         self.ingresar_cedula.setMaxLength(15)
+
+        'Temperatura'
+        self.ingresar_temp = QLineEditClick(self.centralWidget)
+        self.ingresar_temp.setPlaceholderText("TEMPERATURA")
+        self.ingresar_temp.setObjectName("input") #nombre de enlace a css
+        self.ingresar_temp.setClearButtonEnabled(True)
+        self.ingresar_temp.setGeometry(164,396,290,65)
+        self.ingresar_temp.setMaxLength(3)
 
         'cuadros de texto out'
         self.ingresar_nombre_out = QLineEditClick(self.centralWidget)
@@ -180,6 +188,7 @@ class MainWindow(QMainWindow): #Ventana principal
         self.informacion.setVisible(True)
         self.ingresar_nombre.setVisible(False)
         self.ingresar_cedula.setVisible(False)
+        self.ingresar_temp.setVisible(False)
         self.ingresar_nombre_out.setVisible(False)
         self.ingresar_cedula_out.setVisible(False)
         self.ingresar_ingresar.setVisible(False)
@@ -199,6 +208,8 @@ class MainWindow(QMainWindow): #Ventana principal
         self.ingresar_nombre.clear()
         self.ingresar_cedula.setVisible(True)
         self.ingresar_cedula.clear()
+        self.ingresar_temp.setVisible(True)
+        self.ingresar_temp.clear()
         self.ingresar_ingresar.setVisible(True)
         self.ingresar_nombre_out.setVisible(False)
         self.ingresar_cedula_out.setVisible(False)
@@ -213,9 +224,11 @@ class MainWindow(QMainWindow): #Ventana principal
         self.ingresar_ingresar.setIconSize(QSize(60,60))
         self.ingresar_ingresar.setToolButtonStyle(Qt.ToolButtonTextUnderIcon)
         self.ingresar_ingresar.clicked.connect(self.Escribir)
-        self.ingresar_ingresar.setGeometry(570, 237, 290, 176.3)
+        self.ingresar_ingresar.setGeometry(570, 230, 290, 231)
         self.ingresar_nombre.setVisible(False)
         self.ingresar_cedula.setVisible(False)
+        self.ingresar_temp.setVisible(False)
+
         self.ingresar_nombre_out.setVisible(False)
         self.ingresar_cedula_out.setVisible(False)
         self.ingresar_ingresar.setVisible(False)
@@ -345,19 +358,23 @@ class MainWindow(QMainWindow): #Ventana principal
             dialogo_error_incompleto.show()
 
     def Ingresar_desplegar_teclado(self):
-        MOV = -100
+        MOV = -115
         #movimiento botones
-        self.ingresar_nombre.setGeometry(164.2,237+MOV,290,70)
-        self.ingresar_cedula.setGeometry(164.2,341+MOV,290,70)
-        self.ingresar_ingresar.setGeometry(570, 237+MOV, 290, 176.3)
+
+
+        self.ingresar_nombre.setGeometry(164, 230+MOV, 290, 60)
+        self.ingresar_cedula.setGeometry(164,305+MOV,290,60)
+        self.ingresar_temp.setGeometry(164,380+MOV,290,60)
+        self.ingresar_ingresar.setGeometry(570, 255+MOV, 290, 176.3)
+
         self.Teclado()
 
     def Ingresar_guardar_teclado(self):
-        MOV = 0
-        #movimiento botones
-        self.ingresar_nombre.setGeometry(164.2,237+MOV,290,70)
-        self.ingresar_cedula.setGeometry(164.2,341+MOV,290,70)
-        self.ingresar_ingresar.setGeometry(570, 237+MOV, 290, 176.3)
+
+        self.ingresar_nombre.setGeometry(164, 230, 290, 65)
+        self.ingresar_cedula.setGeometry(164,305,290,65)
+        self.ingresar_temp.setGeometry(164,380,290,65)
+        self.ingresar_ingresar.setGeometry(570, 255, 290, 176.3)
         self.NotTeclado()
 
     def Retirar_desplegar_teclado(self):
@@ -428,7 +445,7 @@ class MainWindow(QMainWindow): #Ventana principal
     def BotonesTeclado(self):
         sep_lado = 16
         sep_arriba = 16
-        base = 70
+        base = 69
         altura = 65
         y_inicia = 340
         
@@ -514,6 +531,14 @@ class MainWindow(QMainWindow): #Ventana principal
         self.letra_p.setGeometry((base*x) + (x+1)*sep_lado, y_inicia+ (altura*y) + sep_arriba, base, altura)
         self.letra_p.clicked.connect(self.p)
 
+        x=10
+        y=0
+        self.letra_BORRAR = QToolButton(self.centralWidget)
+        self.letra_BORRAR.setText('Borrar')
+        self.letra_BORRAR.setObjectName("buttonTeclado") #nombre de enlace a css
+        self.letra_BORRAR.setGeometry((base*x) + (x+1)*sep_lado, y_inicia+ (altura*y) + sep_arriba, base*2, altura)
+        self.letra_BORRAR.clicked.connect(self.BORRAR)
+
         x=0
         y=1
         self.letra_a = QToolButton(self.centralWidget)
@@ -594,6 +619,14 @@ class MainWindow(QMainWindow): #Ventana principal
         self.letra_ene.setGeometry((base/2)+(base*x) + (x+1)*sep_lado,y*sep_arriba+ y_inicia+ (altura*y) + sep_arriba, base, altura)
         self.letra_ene.clicked.connect(self.ene)
 
+        x=10
+        y=1
+        self.letra_MAYUS = QToolButton(self.centralWidget)
+        self.letra_MAYUS.setText('mayus')
+        self.letra_MAYUS.setObjectName("buttonTeclado") #nombre de enlace a css
+        self.letra_MAYUS.setGeometry((base/2)+(base*x) + (x+1)*sep_lado,y*sep_arriba+ y_inicia+ (altura*y) + sep_arriba, base*1.5, altura)
+        self.letra_MAYUS.clicked.connect(self.MAYUS)
+
         x=0
         y=2
         self.letra_z = QToolButton(self.centralWidget)
@@ -630,13 +663,21 @@ class MainWindow(QMainWindow): #Ventana principal
 
         x=4
         y=2
+        self.letra_SPACE = QToolButton(self.centralWidget)
+        self.letra_SPACE.setText('')
+        self.letra_SPACE.setObjectName("buttonTeclado") #nombre de enlace a css
+        self.letra_SPACE.setGeometry((base*x) + (x+1)*sep_lado, y_inicia+ (altura*y) + (y+1)*sep_arriba,3*sep_lado+ 4*base, altura)
+        self.letra_SPACE.clicked.connect(self.SPACE)
+
+        x=8
+        y=2
         self.letra_b = QToolButton(self.centralWidget)
         self.letra_b.setText('b')
         self.letra_b.setObjectName("buttonTeclado") #nombre de enlace a css
         self.letra_b.setGeometry((base*x) + (x+1)*sep_lado, y_inicia+ (altura*y) + (y+1)*sep_arriba, base, altura)
         self.letra_b.clicked.connect(self.b)
 
-        x=5
+        x=9
         y=2
         self.letra_n = QToolButton(self.centralWidget)
         self.letra_n.setText('n')
@@ -644,7 +685,7 @@ class MainWindow(QMainWindow): #Ventana principal
         self.letra_n.setGeometry((base*x) + (x+1)*sep_lado, y_inicia+ (altura*y) + (y+1)*sep_arriba, base, altura)
         self.letra_n.clicked.connect(self.n)
 
-        x=6
+        x=10
         y=2
         self.letra_m = QToolButton(self.centralWidget)
         self.letra_m.setText('m')
@@ -764,7 +805,19 @@ class MainWindow(QMainWindow): #Ventana principal
         texto = self.ingresar_nombre.text() + 'm'
         self.ingresar_nombre.setText(texto)
 
+    def SPACE(self):
+        texto = self.ingresar_nombre.text() + ' '
+        self.ingresar_nombre.setText(texto)
 
+    def BORRAR(self):
+        texto = self.ingresar_nombre.text().split()
+        print(texto)
+        #self.ingresar_nombre.setText(texto)
+
+    def MAYUS(self):
+        texto = self.ingresar_nombre.text().split()
+        print(texto)
+        #self.ingresar_nombre.setText(texto)
 
     def Teclado(self):
         self.letra_q.setVisible(True)
