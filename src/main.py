@@ -1,3 +1,4 @@
+from typing import ChainMap
 from PyQt5.QtWidgets import *
 from PyQt5.QtCore import *
 from PyQt5.QtGui import *
@@ -161,6 +162,17 @@ class MainWindow(QMainWindow): #Ventana principal
         self.ingresar_cedula_out.setGeometry(164.2, 341, 290, 70)
         self.ingresar_cedula_out.setMaxLength(15)
 
+        '''
+        Variable que indica cual campo de texto se modificará
+        'null': Imprime error en la cosola
+        'ingresar-nombre'
+        'ingresar-cedula'
+        'ingresar-temp'
+        'retirar-nombre'
+        'retirar-cedula'
+        '''
+        self.campo ='null'
+
         #Botones Ingresar
         self.BotonesIngresar()
         # Botones Salida Manual
@@ -173,13 +185,13 @@ class MainWindow(QMainWindow): #Ventana principal
         #AccionClcikIngresarNombre
         self.ingresar_nombre.clicked.connect(self.Ingresar_desplegar_teclado)
         #AccionClcikIngresarCedula
-        self.ingresar_cedula.clicked.connect(self.Ingresar_desplegar_teclado_numerico)
+        self.ingresar_cedula.clicked.connect(self.Ingresar_desplegar_teclado_numerico_cedula)
         # AccionClcikIngresarNombreOut
-        self.ingresar_temp.clicked.connect(self.Ingresar_desplegar_teclado_numerico)
+        self.ingresar_temp.clicked.connect(self.Ingresar_desplegar_teclado_numerico_temp)
 
         self.ingresar_nombre_out.clicked.connect(self.Retirar_desplegar_teclado)
         # AccionClcikIngresarCedulaOut
-        self.ingresar_cedula_out.clicked.connect(self.Retirar_desplegar_teclado)
+        self.ingresar_cedula_out.clicked.connect(self.Retirar_desplegar_teclado_numerico_cedula)
 
 
     def HomeWindow(self):
@@ -365,6 +377,17 @@ class MainWindow(QMainWindow): #Ventana principal
             dialogo_error_incompleto.setInformativeText("Debe llenar todos los campos\nantes de continuar")
             dialogo_error_incompleto.show()
 
+    
+
+
+
+    def Ingresar_desplegar_teclado_numerico_cedula(self):
+        self.campo = 'ingresar-cedula'
+        self.Ingresar_desplegar_teclado_numerico()
+
+    def Ingresar_desplegar_teclado_numerico_temp(self):
+        self.campo = 'ingresar-temp'
+        self.Ingresar_desplegar_teclado_numerico()
 
 
     def Ingresar_desplegar_teclado_numerico(self):
@@ -393,6 +416,7 @@ class MainWindow(QMainWindow): #Ventana principal
         self.ingresar_ingresar.setGeometry(570, 240+MOV, 280, 160)
         self.Teclado()
         self.NotTecladoNumerico()
+        self.campo = 'ingresar-nombre'
 
     def Ingresar_guardar_teclado(self):
         self.ingresar_nombre.setGeometry(164, 240, 320, 70)
@@ -409,6 +433,7 @@ class MainWindow(QMainWindow): #Ventana principal
         self.retirar.setGeometry(570, 237+MOV, 290, 176.3)
         self.Teclado()
         self.NotTecladoNumerico()
+        self.campo = 'retirar-nombre'
 
 
     def Retirar_guardar_teclado(self):
@@ -418,6 +443,16 @@ class MainWindow(QMainWindow): #Ventana principal
         self.ingresar_cedula_out.setGeometry(164.2,341+MOV,290,70)
         self.retirar.setGeometry(570, 237+MOV, 290, 176.3)
         self.NotTeclado()
+
+    def Retirar_desplegar_teclado_numerico_cedula(self):
+        MOV = -100
+        #movimiento botones
+        self.ingresar_nombre_out.setGeometry(164.2,237+MOV,290,70)
+        self.ingresar_cedula_out.setGeometry(164.2,341+MOV,290,70)
+        self.retirar.setGeometry(570, 237+MOV, 290, 176.3)
+        self.NotTeclado()
+        self.TecladoNumerico()
+        self.campo = 'retirar-cedula'
         
 
     def Estadisticas(self):
@@ -763,10 +798,11 @@ class MainWindow(QMainWindow): #Ventana principal
         x=10
         y=1
         self.letra_MAYUS = QToolButton(self.centralWidget)
-        self.letra_MAYUS.setText('mayus')
-        self.letra_MAYUS.setObjectName("buttonTeclado") #nombre de enlace a css
+        self.letra_MAYUS.setText('Mayus')
+        self.letra_MAYUS.setObjectName("buttonTecladoMAYUS") #nombre de enlace a css
         self.letra_MAYUS.setGeometry((base*x) + (x+1)*sep_lado,y*sep_arriba+ y_inicia+ (altura*y) + sep_arriba, base*2, altura)
         self.letra_MAYUS.clicked.connect(self.MAYUS)
+        self.isMAYUS=False
 
         x=0
         y=2
@@ -845,178 +881,634 @@ class MainWindow(QMainWindow): #Ventana principal
         self.NotTeclado()
 
     def q(self):
-        texto = self.ingresar_nombre.text() + 'q'
-        self.ingresar_nombre.setText(texto)
+        if self.campo == 'ingresar-nombre':
+            if not self.isMAYUS:
+                texto = self.ingresar_nombre.text() + 'q'
+            else:
+                texto = self.ingresar_nombre.text() + 'Q'
+            self.ingresar_nombre.setText(texto)
+
+        elif self.campo == 'retirar-nombre':
+            if not self.isMAYUS:
+                texto = self.ingresar_nombre_out.text() + 'q'
+            else:
+                texto = self.ingresar_nombre_out.text() + 'Q'
+            self.ingresar_nombre_out.setText(texto)
 
     def w(self):
-        texto = self.ingresar_nombre.text() + 'w'
-        self.ingresar_nombre.setText(texto)
+        if self.campo == 'ingresar-nombre':
+            if not self.isMAYUS:
+                texto = self.ingresar_nombre.text() + 'w'
+            else:
+                texto = self.ingresar_nombre.text() + 'W'
+            self.ingresar_nombre.setText(texto)
+
+        elif self.campo == 'retirar-nombre':
+            if not self.isMAYUS:
+                texto = self.ingresar_nombre_out.text() + 'w'
+            else:
+                texto = self.ingresar_nombre_out.text() + 'W'
+            self.ingresar_nombre_out.setText(texto)
 
     def e(self):
-        texto = self.ingresar_nombre.text() + 'e'
-        self.ingresar_nombre.setText(texto)
+        if self.campo == 'ingresar-nombre':
+            if not self.isMAYUS:
+                texto = self.ingresar_nombre.text() + 'e'
+            else:
+                texto = self.ingresar_nombre.text() + 'E'
+            self.ingresar_nombre.setText(texto)
+
+        elif self.campo == 'retirar-nombre':
+            if not self.isMAYUS:
+                texto = self.ingresar_nombre_out.text() + 'e'
+            else:
+                texto = self.ingresar_nombre_out.text() + 'E'
+            self.ingresar_nombre_out.setText(texto)
 
     def r(self):
-        texto = self.ingresar_nombre.text() + 'r'
-        self.ingresar_nombre.setText(texto)
+        if self.campo == 'ingresar-nombre':
+            if not self.isMAYUS:
+                texto = self.ingresar_nombre.text() + 'r'
+            else:
+                texto = self.ingresar_nombre.text() + 'R'
+            self.ingresar_nombre.setText(texto)
+
+        elif self.campo == 'retirar-nombre':
+            if not self.isMAYUS:
+                texto = self.ingresar_nombre_out.text() + 'r'
+            else:
+                texto = self.ingresar_nombre_out.text() + 'R'
+            self.ingresar_nombre_out.setText(texto)
 
     def t(self):
-        texto = self.ingresar_nombre.text() + 't'
-        self.ingresar_nombre.setText(texto)
+        if self.campo == 'ingresar-nombre':
+            if not self.isMAYUS:
+                texto = self.ingresar_nombre.text() + 't'
+            else:
+                texto = self.ingresar_nombre.text() + 'T'
+            self.ingresar_nombre.setText(texto)
+
+        elif self.campo == 'retirar-nombre':
+            if not self.isMAYUS:
+                texto = self.ingresar_nombre_out.text() + 't'
+            else:
+                texto = self.ingresar_nombre_out.text() + 'T'
+            self.ingresar_nombre_out.setText(texto)
 
     def y(self):
-        texto = self.ingresar_nombre.text() + 'y'
-        self.ingresar_nombre.setText(texto)
+        if self.campo == 'ingresar-nombre':
+            if not self.isMAYUS:
+                texto = self.ingresar_nombre.text() + 'y'
+            else:
+                texto = self.ingresar_nombre.text() + 'Y'
+            self.ingresar_nombre.setText(texto)
+
+        elif self.campo == 'retirar-nombre':
+            if not self.isMAYUS:
+                texto = self.ingresar_nombre_out.text() + 'y'
+            else:
+                texto = self.ingresar_nombre_out.text() + 'Y'
+            self.ingresar_nombre_out.setText(texto)
     
     def u(self):
-        texto = self.ingresar_nombre.text() + 'u'
-        self.ingresar_nombre.setText(texto)
+        if self.campo == 'ingresar-nombre':
+            if not self.isMAYUS:
+                texto = self.ingresar_nombre.text() + 'u'
+            else:
+                texto = self.ingresar_nombre.text() + 'U'
+            self.ingresar_nombre.setText(texto)
+
+        elif self.campo == 'retirar-nombre':
+            if not self.isMAYUS:
+                texto = self.ingresar_nombre_out.text() + 'u'
+            else:
+                texto = self.ingresar_nombre_out.text() + 'U'
+            self.ingresar_nombre_out.setText(texto)
 
     def i(self):
-        texto = self.ingresar_nombre.text() + 'i'
-        self.ingresar_nombre.setText(texto)
+        if self.campo == 'ingresar-nombre':
+            if not self.isMAYUS:
+                texto = self.ingresar_nombre.text() + 'i'
+            else:
+                texto = self.ingresar_nombre.text() + 'I'
+            self.ingresar_nombre.setText(texto)
+
+        elif self.campo == 'retirar-nombre':
+            if not self.isMAYUS:
+                texto = self.ingresar_nombre_out.text() + 'i'
+            else:
+                texto = self.ingresar_nombre_out.text() + 'I'
+            self.ingresar_nombre_out.setText(texto)
 
     def o(self):
-        texto = self.ingresar_nombre.text() + 'o'
-        self.ingresar_nombre.setText(texto)
+        if self.campo == 'ingresar-nombre':
+            if not self.isMAYUS:
+                texto = self.ingresar_nombre.text() + 'o'
+            else:
+                texto = self.ingresar_nombre.text() + 'O'
+            self.ingresar_nombre.setText(texto)
+
+        elif self.campo == 'retirar-nombre':
+            if not self.isMAYUS:
+                texto = self.ingresar_nombre_out.text() + 'o'
+            else:
+                texto = self.ingresar_nombre_out.text() + 'O'
+            self.ingresar_nombre_out.setText(texto)
 
     def p(self):
-        texto = self.ingresar_nombre.text() + 'p'
-        self.ingresar_nombre.setText(texto)
+        if self.campo == 'ingresar-nombre':
+            if not self.isMAYUS:
+                texto = self.ingresar_nombre.text() + 'p'
+            else:
+                texto = self.ingresar_nombre.text() + 'P'
+            self.ingresar_nombre.setText(texto)
+
+        elif self.campo == 'retirar-nombre':
+            if not self.isMAYUS:
+                texto = self.ingresar_nombre_out.text() + 'p'
+            else:
+                texto = self.ingresar_nombre_out.text() + 'P'
+            self.ingresar_nombre_out.setText(texto)
 
     def a(self):
-        texto = self.ingresar_nombre.text() + 'a'
-        self.ingresar_nombre.setText(texto)
+        if self.campo == 'ingresar-nombre':
+            if not self.isMAYUS:
+                texto = self.ingresar_nombre.text() + 'a'
+            else:
+                texto = self.ingresar_nombre.text() + 'A'
+            self.ingresar_nombre.setText(texto)
+
+        elif self.campo == 'retirar-nombre':
+            if not self.isMAYUS:
+                texto = self.ingresar_nombre_out.text() + 'a'
+            else:
+                texto = self.ingresar_nombre_out.text() + 'A'
+            self.ingresar_nombre_out.setText(texto)
 
     def s(self):
-        texto = self.ingresar_nombre.text() + 's'
-        self.ingresar_nombre.setText(texto)
+        if self.campo == 'ingresar-nombre':
+            if not self.isMAYUS:
+                texto = self.ingresar_nombre.text() + 's'
+            else:
+                texto = self.ingresar_nombre.text() + 'S'
+            self.ingresar_nombre.setText(texto)
+
+        elif self.campo == 'retirar-nombre':
+            if not self.isMAYUS:
+                texto = self.ingresar_nombre_out.text() + 's'
+            else:
+                texto = self.ingresar_nombre_out.text() + 'S'
+            self.ingresar_nombre_out.setText(texto)
 
     def d(self):
-        texto = self.ingresar_nombre.text() + 'd'
-        self.ingresar_nombre.setText(texto)
+        if self.campo == 'ingresar-nombre':
+            if not self.isMAYUS:
+                texto = self.ingresar_nombre.text() + 'd'
+            else:
+                texto = self.ingresar_nombre.text() + 'D'
+            self.ingresar_nombre.setText(texto)
+
+        elif self.campo == 'retirar-nombre':
+            if not self.isMAYUS:
+                texto = self.ingresar_nombre_out.text() + 'd'
+            else:
+                texto = self.ingresar_nombre_out.text() + 'D'
+            self.ingresar_nombre_out.setText(texto)
 
     def f(self):
-        texto = self.ingresar_nombre.text() + 'f'
-        self.ingresar_nombre.setText(texto)
+        if self.campo == 'ingresar-nombre':
+            if not self.isMAYUS:
+                texto = self.ingresar_nombre.text() + 'f'
+            else:
+                texto = self.ingresar_nombre.text() + 'F'
+            self.ingresar_nombre.setText(texto)
 
+        elif self.campo == 'retirar-nombre':
+            if not self.isMAYUS:
+                texto = self.ingresar_nombre_out.text() + 'f'
+            else:
+                texto = self.ingresar_nombre_out.text() + 'F'
+            self.ingresar_nombre_out.setText(texto)
     def g(self):
-        texto = self.ingresar_nombre.text() + 'g'
-        self.ingresar_nombre.setText(texto)
+        if self.campo == 'ingresar-nombre':
+            if not self.isMAYUS:
+                texto = self.ingresar_nombre.text() + 'g'
+            else:
+                texto = self.ingresar_nombre.text() + 'G'
+            self.ingresar_nombre.setText(texto)
+
+        elif self.campo == 'retirar-nombre':
+            if not self.isMAYUS:
+                texto = self.ingresar_nombre_out.text() + 'g'
+            else:
+                texto = self.ingresar_nombre_out.text() + 'G'
+            self.ingresar_nombre_out.setText(texto)
 
     def h(self):
-        texto = self.ingresar_nombre.text() + 'h'
-        self.ingresar_nombre.setText(texto)
+        if self.campo == 'ingresar-nombre':
+            if not self.isMAYUS:
+                texto = self.ingresar_nombre.text() + 'h'
+            else:
+                texto = self.ingresar_nombre.text() + 'H'
+            self.ingresar_nombre.setText(texto)
+
+        elif self.campo == 'retirar-nombre':
+            if not self.isMAYUS:
+                texto = self.ingresar_nombre_out.text() + 'h'
+            else:
+                texto = self.ingresar_nombre_out.text() + 'H'
+            self.ingresar_nombre_out.setText(texto)
 
     def j(self):
-        texto = self.ingresar_nombre.text() + 'j'
-        self.ingresar_nombre.setText(texto)
+        if self.campo == 'ingresar-nombre':
+            if not self.isMAYUS:
+                texto = self.ingresar_nombre.text() + 'j'
+            else:
+                texto = self.ingresar_nombre.text() + 'J'
+            self.ingresar_nombre.setText(texto)
+
+        elif self.campo == 'retirar-nombre':
+            if not self.isMAYUS:
+                texto = self.ingresar_nombre_out.text() + 'j'
+            else:
+                texto = self.ingresar_nombre_out.text() + 'J'
+            self.ingresar_nombre_out.setText(texto)
 
     def k(self):
-        texto = self.ingresar_nombre.text() + 'k'
-        self.ingresar_nombre.setText(texto)
+        if self.campo == 'ingresar-nombre':
+            if not self.isMAYUS:
+                texto = self.ingresar_nombre.text() + 'k'
+            else:
+                texto = self.ingresar_nombre.text() + 'K'
+            self.ingresar_nombre.setText(texto)
 
+        elif self.campo == 'retirar-nombre':
+            if not self.isMAYUS:
+                texto = self.ingresar_nombre_out.text() + 'k'
+            else:
+                texto = self.ingresar_nombre_out.text() + 'K'
+            self.ingresar_nombre_out.setText(texto)
     def l(self):
-        texto = self.ingresar_nombre.text() + 'l'
-        self.ingresar_nombre.setText(texto)
+        if self.campo == 'ingresar-nombre':
+            if not self.isMAYUS:
+                texto = self.ingresar_nombre.text() + 'l'
+            else:
+                texto = self.ingresar_nombre.text() + 'L'
+            self.ingresar_nombre.setText(texto)
+
+        elif self.campo == 'retirar-nombre':
+            if not self.isMAYUS:
+                texto = self.ingresar_nombre_out.text() + 'l'
+            else:
+                texto = self.ingresar_nombre_out.text() + 'L'
+            self.ingresar_nombre_out.setText(texto)
 
     def ene(self):
-        texto = self.ingresar_nombre.text() + 'ñ'
-        self.ingresar_nombre.setText(texto)
+        if self.campo == 'ingresar-nombre':
+            if not self.isMAYUS:
+                texto = self.ingresar_nombre.text() + 'ñ'
+            else:
+                texto = self.ingresar_nombre.text() + 'Ñ'
+            self.ingresar_nombre.setText(texto)
+
+        elif self.campo == 'retirar-nombre':
+            if not self.isMAYUS:
+                texto = self.ingresar_nombre_out.text() + 'ñ'
+            else:
+                texto = self.ingresar_nombre_out.text() + 'Ñ'
+            self.ingresar_nombre_out.setText(texto)
 
     def z(self):
-        texto = self.ingresar_nombre.text() + 'z'
-        self.ingresar_nombre.setText(texto)
+        if self.campo == 'ingresar-nombre':
+            if not self.isMAYUS:
+                texto = self.ingresar_nombre.text() + 'z'
+            else:
+                texto = self.ingresar_nombre.text() + 'Z'
+            self.ingresar_nombre.setText(texto)
 
+        elif self.campo == 'retirar-nombre':
+            if not self.isMAYUS:
+                texto = self.ingresar_nombre_out.text() + 'z'
+            else:
+                texto = self.ingresar_nombre_out.text() + 'Z'
+            self.ingresar_nombre_out.setText(texto)
     def x(self):
-        texto = self.ingresar_nombre.text() + 'x'
-        self.ingresar_nombre.setText(texto)
+        if self.campo == 'ingresar-nombre':
+            if not self.isMAYUS:
+                texto = self.ingresar_nombre.text() + 'x'
+            else:
+                texto = self.ingresar_nombre.text() + 'X'
+            self.ingresar_nombre.setText(texto)
+
+        elif self.campo == 'retirar-nombre':
+            if not self.isMAYUS:
+                texto = self.ingresar_nombre_out.text() + 'x'
+            else:
+                texto = self.ingresar_nombre_out.text() + 'X'
+            self.ingresar_nombre_out.setText(texto)
 
     def c(self):
-        texto = self.ingresar_nombre.text() + 'c'
-        self.ingresar_nombre.setText(texto)
+        if self.campo == 'ingresar-nombre':
+            if not self.isMAYUS:
+                texto = self.ingresar_nombre.text() + 'c'
+            else:
+                texto = self.ingresar_nombre.text() + 'C'
+            self.ingresar_nombre.setText(texto)
+
+        elif self.campo == 'retirar-nombre':
+            if not self.isMAYUS:
+                texto = self.ingresar_nombre_out.text() + 'c'
+            else:
+                texto = self.ingresar_nombre_out.text() + 'C'
+            self.ingresar_nombre_out.setText(texto)
 
     def v(self):
-        texto = self.ingresar_nombre.text() + 'v'
-        self.ingresar_nombre.setText(texto)
+        if self.campo == 'ingresar-nombre':
+            if not self.isMAYUS:
+                texto = self.ingresar_nombre.text() + 'v'
+            else:
+                texto = self.ingresar_nombre.text() + 'V'
+            self.ingresar_nombre.setText(texto)
+
+        elif self.campo == 'retirar-nombre':
+            if not self.isMAYUS:
+                texto = self.ingresar_nombre_out.text() + 'v'
+            else:
+                texto = self.ingresar_nombre_out.text() + 'V'
+            self.ingresar_nombre_out.setText(texto)
 
     def b(self):
-        texto = self.ingresar_nombre.text() + 'b'
-        self.ingresar_nombre.setText(texto)
+        if self.campo == 'ingresar-nombre':
+            if not self.isMAYUS:
+                texto = self.ingresar_nombre.text() + 'b'
+            else:
+                texto = self.ingresar_nombre.text() + 'B'
+            self.ingresar_nombre.setText(texto)
+
+        elif self.campo == 'retirar-nombre':
+            if not self.isMAYUS:
+                texto = self.ingresar_nombre_out.text() + 'b'
+            else:
+                texto = self.ingresar_nombre_out.text() + 'B'
+            self.ingresar_nombre_out.setText(texto)
 
     def n(self):
-        texto = self.ingresar_nombre.text() + 'n'
-        self.ingresar_nombre.setText(texto)
+        if self.campo == 'ingresar-nombre':
+            if not self.isMAYUS:
+                texto = self.ingresar_nombre.text() + 'n'
+            else:
+                texto = self.ingresar_nombre.text() + 'N'
+            self.ingresar_nombre.setText(texto)
+
+        elif self.campo == 'retirar-nombre':
+            if not self.isMAYUS:
+                texto = self.ingresar_nombre_out.text() + 'n'
+            else:
+                texto = self.ingresar_nombre_out.text() + 'N'
+            self.ingresar_nombre_out.setText(texto)
 
     def m(self):
-        texto = self.ingresar_nombre.text() + 'm'
-        self.ingresar_nombre.setText(texto)
+        if self.campo == 'ingresar-nombre':
+            if not self.isMAYUS:
+                texto = self.ingresar_nombre.text() + 'm'
+            else:
+                texto = self.ingresar_nombre.text() + 'M'
+            self.ingresar_nombre.setText(texto)
+
+        elif self.campo == 'retirar-nombre':
+            if not self.isMAYUS:
+                texto = self.ingresar_nombre_out.text() + 'm'
+            else:
+                texto = self.ingresar_nombre_out.text() + 'M'
+            self.ingresar_nombre_out.setText(texto)
 
     def SPACE(self):
-        texto = self.ingresar_nombre.text() + ' '
-        self.ingresar_nombre.setText(texto)
+        if self.campo == 'ingresar-nombre':
+            
+            texto = self.ingresar_nombre.text() + ' '
+            self.ingresar_nombre.setText(texto)
+
+        elif self.campo == 'retirar-nombre':
+            
+            texto = self.ingresar_nombre_out.text() + ' '
+            self.ingresar_nombre_out.setText(texto)
 
     def BORRAR(self):
-        texto = self.ingresar_nombre.text().split()
-        print(texto)
-        #self.ingresar_nombre.setText(texto)
+        if self.campo == 'ingresar-nombre':
+            var_texto=self.ingresar_nombre.text()
+        elif self.campo == 'retirar-nombre':
+            var_texto=self.ingresar_nombre_out.text()
+
+
+        if len(var_texto)==1 or len(var_texto)==0:
+            texto=''
+        elif var_texto[-1] != var_texto[-2]:
+            texto = var_texto.rstrip(var_texto[-1])
+        else:
+            raw = var_texto
+            t=[]
+            for l in range(len(raw)-1):
+                
+                t.append(raw[l])
+            
+            texto="".join(t)
+
+        if self.campo == 'ingresar-nombre':
+            self.ingresar_nombre.setText(texto)
+        elif self.campo == 'retirar-nombre':
+            self.ingresar_nombre_out.setText(texto)
+
 
     def MAYUS(self):
-        texto = self.ingresar_nombre.text().split()
-        print(texto)
-        #self.ingresar_nombre.setText(texto)
+        if not self.isMAYUS:
+            self.letra_MAYUS.setStyleSheet("background-color: #ffffff; color: black;")
+            self.isMAYUS =True
+            self.todas_letras_a_MAYUS()
+        else:
+            self.letra_MAYUS.setStyleSheet("background-color: none; color: white;")
+            self.isMAYUS =False
+            self.todas_letras_a_NOT_MAYUS()
+
+
 
     def ENTER(self):
-        texto = self.ingresar_nombre.text().split()
-        print(texto)
-        #self.ingresar_nombre.setText(texto)
+        
+        self.Retirar_guardar_teclado()
+        self.Ingresar_guardar_teclado_numerico()
+        self.Ingresar_guardar_teclado()
+        self.Retirar_guardar_teclado()
+
 
     def fun_numero_ENTER(self):
-        #if esta en cedula o temp
-        texto = self.ingresar_cedula.text().split()
-        print(texto)
-        #self.ingresar_nombre.setText(texto)
+        self.Retirar_guardar_teclado()
+        self.Ingresar_guardar_teclado_numerico()
+        self.Ingresar_guardar_teclado()
+        self.Retirar_guardar_teclado()
 
     def fun_numero_BORRAR(self):
-        texto = self.ingresar_cedula.text().split()
-        print(texto)
-        #self.ingresar_nombre.setText(texto)
+        if self.campo == 'ingresar-cedula':
+            var_texto=self.ingresar_cedula.text()
+        elif self.campo == 'ingresar-temp':
+            var_texto=self.ingresar_temp.text()
+        elif self.campo == 'retirar-cedula':
+            var_texto=self.ingresar_cedula_out.text()
+
+        if len(var_texto)==1 or len(var_texto)==0:
+            texto=''
+        elif var_texto[-1] != var_texto[-2]:
+            texto = var_texto.rstrip(var_texto[-1])
+        else:
+            raw = var_texto
+            t=[]
+            for l in range(len(raw)-1):
+                
+                t.append(raw[l])
+            
+            texto="".join(t)
+
+        if self.campo == 'ingresar-cedula':
+            self.ingresar_cedula.setText(texto)
+        elif self.campo == 'ingresar-temp':
+            self.ingresar_temp.setText(texto)
+        elif self.campo == 'retirar-cedula':
+            self.ingresar_cedula_out.setText(texto)
+            
 
     def fun_numero_PUNTO(self):
-        texto = self.ingresar_cedula.text().split()
-        print(texto)
-        #self.ingresar_nombre.setText(texto)
+        texto = self.ingresar_temp.text() + '.'
+        self.ingresar_temp.setText(texto)
 
     def fun_numero_1(self):
-        texto = self.ingresar_cedula.text() + '1'
-        self.ingresar_cedula.setText(texto)
+        if self.campo == 'ingresar-cedula':
+            texto = self.ingresar_cedula.text() + '1'
+            self.ingresar_cedula.setText(texto)
+
+        elif self.campo == 'ingresar-temp':
+            
+            texto = self.ingresar_temp.text() + '1'
+            self.ingresar_temp.setText(texto)
+
+        elif self.campo == 'retirar-cedula':
+            texto = self.ingresar_cedula_out.text() + '1'
+            self.ingresar_cedula_out.setText(texto)
+
     def fun_numero_2(self):
-        texto = self.ingresar_cedula.text() + '2'
-        self.ingresar_cedula.setText(texto)
+        if self.campo == 'ingresar-cedula':
+            texto = self.ingresar_cedula.text() + '2'
+            self.ingresar_cedula.setText(texto)
+
+        elif self.campo == 'ingresar-temp':
+            
+            texto = self.ingresar_temp.text() + '2'
+            self.ingresar_temp.setText(texto)
+
+        elif self.campo == 'retirar-cedula':
+            texto = self.ingresar_cedula_out.text() + '2'
+            self.ingresar_cedula_out.setText(texto)
     def fun_numero_3(self):
-        texto = self.ingresar_cedula.text() + '3'
-        self.ingresar_cedula.setText(texto)
+        if self.campo == 'ingresar-cedula':
+            texto = self.ingresar_cedula.text() + '3'
+            self.ingresar_cedula.setText(texto)
+
+        elif self.campo == 'ingresar-temp':
+            
+            texto = self.ingresar_temp.text() + '3'
+            self.ingresar_temp.setText(texto)
+
+        elif self.campo == 'retirar-cedula':
+            texto = self.ingresar_cedula_out.text() + '3'
+            self.ingresar_cedula_out.setText(texto)
     def fun_numero_4(self):
-        texto = self.ingresar_cedula.text() + '4'
-        self.ingresar_cedula.setText(texto)
+        if self.campo == 'ingresar-cedula':
+            texto = self.ingresar_cedula.text() + '4'
+            self.ingresar_cedula.setText(texto)
+
+        elif self.campo == 'ingresar-temp':
+            
+            texto = self.ingresar_temp.text() + '4'
+            self.ingresar_temp.setText(texto)
+
+        elif self.campo == 'retirar-cedula':
+            texto = self.ingresar_cedula_out.text() + '4'
+            self.ingresar_cedula_out.setText(texto)
     def fun_numero_5(self):
-        texto = self.ingresar_cedula.text() + '5'
-        self.ingresar_cedula.setText(texto)
+        if self.campo == 'ingresar-cedula':
+            texto = self.ingresar_cedula.text() + '5'
+            self.ingresar_cedula.setText(texto)
+
+        elif self.campo == 'ingresar-temp':
+            
+            texto = self.ingresar_temp.text() + '5'
+            self.ingresar_temp.setText(texto)
+
+        elif self.campo == 'retirar-cedula':
+            texto = self.ingresar_cedula_out.text() + '5'
+            self.ingresar_cedula_out.setText(texto)
     def fun_numero_6(self):
-        texto = self.ingresar_cedula.text() + '6'
-        self.ingresar_cedula.setText(texto)
+        if self.campo == 'ingresar-cedula':
+            texto = self.ingresar_cedula.text() + '6'
+            self.ingresar_cedula.setText(texto)
+
+        elif self.campo == 'ingresar-temp':
+            
+            texto = self.ingresar_temp.text() + '6'
+            self.ingresar_temp.setText(texto)
+
+        elif self.campo == 'retirar-cedula':
+            texto = self.ingresar_cedula_out.text() + '6'
+            self.ingresar_cedula_out.setText(texto)
     def fun_numero_7(self):
-        texto = self.ingresar_cedula.text() + '7'
-        self.ingresar_cedula.setText(texto)
+        if self.campo == 'ingresar-cedula':
+            texto = self.ingresar_cedula.text() + '7'
+            self.ingresar_cedula.setText(texto)
+
+        elif self.campo == 'ingresar-temp':
+            
+            texto = self.ingresar_temp.text() + '7'
+            self.ingresar_temp.setText(texto)
+
+        elif self.campo == 'retirar-cedula':
+            texto = self.ingresar_cedula_out.text() + '7'
+            self.ingresar_cedula_out.setText(texto)
     def fun_numero_8(self):
-        texto = self.ingresar_cedula.text() + '8'
-        self.ingresar_cedula.setText(texto)
+        if self.campo == 'ingresar-cedula':
+            texto = self.ingresar_cedula.text() + '8'
+            self.ingresar_cedula.setText(texto)
+
+        elif self.campo == 'ingresar-temp':
+            
+            texto = self.ingresar_temp.text() + '8'
+            self.ingresar_temp.setText(texto)
+
+        elif self.campo == 'retirar-cedula':
+            texto = self.ingresar_cedula_out.text() + '8'
+            self.ingresar_cedula_out.setText(texto)
     def fun_numero_9(self):
-        texto = self.ingresar_cedula.text() + '9'
-        self.ingresar_cedula.setText(texto)
+        if self.campo == 'ingresar-cedula':
+            texto = self.ingresar_cedula.text() + '9'
+            self.ingresar_cedula.setText(texto)
+
+        elif self.campo == 'ingresar-temp':
+            
+            texto = self.ingresar_temp.text() + '9'
+            self.ingresar_temp.setText(texto)
+
+        elif self.campo == 'retirar-cedula':
+            texto = self.ingresar_cedula_out.text() + '9'
+            self.ingresar_cedula_out.setText(texto)
     def fun_numero_0(self):
-        texto = self.ingresar_cedula.text() + '0'
-        self.ingresar_cedula.setText(texto)
+        if self.campo == 'ingresar-cedula':
+            texto = self.ingresar_cedula.text() + '0'
+            self.ingresar_cedula.setText(texto)
+
+        elif self.campo == 'ingresar-temp':
+            
+            texto = self.ingresar_temp.text() + '0'
+            self.ingresar_temp.setText(texto)
+
+        elif self.campo == 'retirar-cedula':
+            texto = self.ingresar_cedula_out.text() + '0'
+            self.ingresar_cedula_out.setText(texto)
 
     def TecladoNumerico(self):
         self.numero_0.setVisible(True)
@@ -1118,8 +1610,65 @@ class MainWindow(QMainWindow): #Ventana principal
         self.letra_BORRAR.setVisible(False)
 
     
+    def todas_letras_a_MAYUS(self):
+        self.letra_q.setText('Q')
+        self.letra_w.setText('W')
+        self.letra_e.setText('E')
+        self.letra_r.setText('R')
+        self.letra_t.setText('T')
+        self.letra_y.setText('Y')
+        self.letra_u.setText('U')
+        self.letra_i.setText('I')
+        self.letra_o.setText('O')
+        self.letra_p.setText('P')
+        self.letra_a.setText('A')
+        self.letra_d.setText('D')
+        self.letra_s.setText('S')
+        self.letra_f.setText('F')
+        self.letra_g.setText('G')
+        self.letra_h.setText('H')
+        self.letra_j.setText('J')
+        self.letra_k.setText('K')
+        self.letra_l.setText('L')
+        self.letra_z.setText('Z')
+        self.letra_x.setText('X')
+        self.letra_c.setText('C')
+        self.letra_v.setText('V')
+        self.letra_b.setText('B')
+        self.letra_n.setText('N')
+        self.letra_m.setText('M')
 
-        
+        self.letra_ene.setText('Ñ')
+
+    def todas_letras_a_NOT_MAYUS(self):
+        self.letra_q.setText('q')
+        self.letra_w.setText('w')
+        self.letra_e.setText('e')
+        self.letra_r.setText('r')
+        self.letra_t.setText('t')
+        self.letra_y.setText('y')
+        self.letra_u.setText('u')
+        self.letra_i.setText('i')
+        self.letra_o.setText('o')
+        self.letra_p.setText('p')
+        self.letra_a.setText('a')
+        self.letra_d.setText('d')
+        self.letra_s.setText('s')
+        self.letra_f.setText('f')
+        self.letra_g.setText('g')
+        self.letra_h.setText('h')
+        self.letra_j.setText('j')
+        self.letra_k.setText('k')
+        self.letra_l.setText('l')
+        self.letra_z.setText('z')
+        self.letra_x.setText('x')
+        self.letra_c.setText('c')
+        self.letra_v.setText('v')
+        self.letra_b.setText('b')
+        self.letra_n.setText('n')
+        self.letra_m.setText('m')
+
+        self.letra_ene.setText('ñ')
 
 if __name__=='__main__':
     app = QApplication([])

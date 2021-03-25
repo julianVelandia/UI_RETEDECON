@@ -32,6 +32,20 @@ QToolButton#buttonTeclado {
     border: 1px solid white;
 }
 
+
+QToolButton#buttonTecladoMAYUS {
+    padding-bottom: 5px;
+    font-size: 30px;
+    font-family: Helvetica; 
+    color: white; 
+    background-color: none; 
+    border-radius: 5px;
+    border: 1px solid white;
+    
+}
+
+
+
 QToolButton#buttonTeclado:hover {
     background-color: #1D2041; 
 }
