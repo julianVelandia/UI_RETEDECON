@@ -1,2 +1,1 @@
-Nombre: dfgsdfg CC: 345345 Fecha y hora: 2021-03-23T11:26:30
-Nombre: uhfgggggg CC: 4546 Fecha y hora: 2021-03-23T11:29:10
+Nombre: visitaCedula: 123456789Temp: 30IsIn: TrueHoraIn: 2021-03-25Nombre: sdCedula: 123456789Temp: 31IsIn: TrueHoraIn: 2021-03-25Nombre: JulianCedula: 123456789Temp: 10IsIn: TrueHoraIn: 2021-03-25Nombre: v1Cedula: 123Temp: 60IsIn: TrueHoraIn: 2021-03-25Nombre: sdfCedula: 23Temp: 32IsIn: TrueHoraIn: 2021-03-25Nombre: sdsdCedula: 2321Temp: 11IsIn: TrueHoraIn: 2021-03-25Nombre: edCedula: 23Temp: sssIsIn: TrueHoraIn: 2021-03-25Nombre: errCedula: 222222Temp: 2IsIn: TrueHoraIn: 25-13:17:36

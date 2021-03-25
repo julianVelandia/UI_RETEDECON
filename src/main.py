@@ -14,11 +14,11 @@ class MainWindow(QMainWindow): #Ventana principal
         with open("static/style.css") as f:
             self.setStyleSheet(f.read())
 
-        'conección base de datos'
-        self.conn = sqlite3.connect('DB.db')
-        self.ccc = self.conn.cursor()
+        'Conección base de datos'
+        self.conexion = sqlite3.connect('DB.db')
+        self.cur = self.conexion.cursor()
 
-        'constants'
+        'Constants'
         self.title = 'RETEDECON'
         self.width = 1024
         self.height = 600
@@ -269,10 +269,30 @@ class MainWindow(QMainWindow): #Ventana principal
     '''Esta función se encarga de escribir lo datos en un archivo .txt y tiene
     programadas ventanas emergentes en caso de errores o notificaciones'''
     def Leer(self):
+
         # definimos la fecha y hora
-        fecha_hora_out = datetime.now().isoformat(timespec='seconds')
+        HoraOut= datetime.today().strftime('%Y-%m-%d')
         # vector que contiene los datos a leer
-        persona_out = ["Nombre: ", self.ingresar_nombre_out.text(), " CC: ", self.ingresar_cedula_out.text(), " Fecha y hora: ", fecha_hora_out, "\n"]
+        persona_out = [
+            "Nombre: ", self.ingresar_nombre_out.text(), 
+            " CC: ", self.ingresar_cedula_out.text(), 
+            " Fecha y hora: ", fecha_hora_out, "\n"]
+
+        HoraIn= datetime.today().strftime('%Y-%m-%d')
+        persona = [
+                "Nombre: ", self.ingresar_nombre.text(), 
+                "Cedula: ", self.ingresar_cedula.text(), 
+                "Temp: ", self.ingresar_temp.text(), 
+                "IsIn: ", 'False', 
+                "HoraIn: ", HoraIn,
+                ]
+
+        'Para la base de datos'
+        nombre_bd = self.ingresar_nombre.text()
+        cedula_bd = self.ingresar_cedula.text()
+        temp_bd = self.ingresar_temp.text()
+        is_in_bd = True
+        hora_in_bd = HoraIn
 
         'Para la base de datos'
         nombre_out_bd = self.ingresar_nombre_out.text()
@@ -285,8 +305,8 @@ class MainWindow(QMainWindow): #Ventana principal
                     '''Esta parte aun no funciona correctamente'''
                     '''Aún no se como buscar en todo el documento'''
                     'Para la base de datos'
-                    self.ccc.execute('DELETE FROM usuarios (nombre_bd,cedula_bd,fecha_hora_bd) VALUES ("{}","{}","{}")'.format(nombre_out_bd,cedula_out_bd,fecha_hora_out_bd))
-                    self.conn.commit() #buscar evitar ataques de SQL injection
+                    self.cur.execute('DELETE FROM usuarios (nombre_bd,cedula_bd,fecha_hora_bd) VALUES ("{}","{}","{}")'.format(nombre_out_bd,cedula_out_bd,fecha_hora_out_bd))
+                    self.conexion.commit() #buscar evitar ataques de SQL injection
 
                     
                     
@@ -329,41 +349,88 @@ class MainWindow(QMainWindow): #Ventana principal
             dialogo_error_incompleto_out.show()
 
     def Escribir(self):
+        '''
+        Models:
+        id - int - MaxLength:auto - único y pk
+        Nombre - string - MaxLength:30 - No unico
+        Cedula - int - MaxLength: 15 - único
+        Temp - float - MaxLength: 4 - Acotado
+        Igresos - int - MaxLength:auto - autoIncremental
+        isIn - bool - MaxLength:auto
+        HoraIn - date - auto
+        HoraOut - date - auto
+        Delta - float - MaxLength:auto - deDateAFloat(HoraIn)-deDateAFloat(HoraIn)
+        '''
         #definimos la fecha y hora
-        fecha_hora= datetime.now().isoformat(timespec='seconds')
-        #vector que contiene los datos a escribir
-        persona = ["Nombre: ", self.ingresar_nombre.text(), " CC: ", self.ingresar_cedula.text(), " Fecha y hora: ", fecha_hora,"\n"]
+        HoraIn= datetime.today().strftime('%d-%H:%M:%S')
+        persona = [
+                "Nombre: ", self.ingresar_nombre.text(), 
+                "Cedula: ", self.ingresar_cedula.text(), 
+                "Temp: ", self.ingresar_temp.text(), 
+
+                "IsIn: ", 'True', 
+                "HoraIn: ", HoraIn,
+                ]
 
         'Para la base de datos'
         nombre_bd = self.ingresar_nombre.text()
         cedula_bd = self.ingresar_cedula.text()
-        #fecha_hora_bd = str(fecha_hora)
-        
+        temp_bd = self.ingresar_temp.text()
+        is_in_bd = True
+        hora_in_bd = HoraIn
+
+        cedulaExist=False
         if persona[1]!="" and persona[3]!="":  #lógica para leer si los campos están vacíos
             if not persona[1].isdigit() and not persona[3].isalpha():  #detecta si numeros o letras donde no deben
-                try:
-                    'Para la base de datos'
-                    self.ccc.execute('INSERT INTO usuarios (nombre_bd,cedula_bd) VALUES ("{}","{}")'.format(nombre_bd,cedula_bd))
-                    self.conn.commit() #buscar evitar ataques de SQL injection
+                
+                #evitar que la cedula este repetida
+                self.cur.execute('SELECT cedula_bd FROM usuarios')
+                rows = self.cur.fetchall()
+                for row in rows:
+                    if row == (int(self.ingresar_cedula.text()),):
+                        cedulaExist = True
+                        print('true')
+                        break
 
-                    archivo = open("Lista.txt", "a")
-                    archivo.writelines(persona)
-                    archivo.close()
-                    dialogo_exitoso = QMessageBox(self.centralWidget)
-                    dialogo_exitoso.setWindowTitle(self.title)
-                    dialogo_exitoso.addButton("Aceptar", 0)
-                    dialogo_exitoso.setInformativeText("Se ha ingresado correctamente\n    ")
-                    dialogo_exitoso.show()
+                print(cedulaExist)
+                self.conexion.close()                
 
-                    
+                self.conexion2 = sqlite3.connect('DB.db')
+                self.cur2 = self.conexion2.cursor()
 
-                    self.HomeWindow()
-                except:
-                    dialogo_error_escritura = QMessageBox(self.centralWidget)
-                    dialogo_error_escritura.setWindowTitle(self.title)
-                    dialogo_error_escritura.addButton("Aceptar",0)
-                    dialogo_error_escritura.setInformativeText("Error, intente nuevamente\n\nSi el error persiste comuniquese con el fabricante")
-                    dialogo_error_escritura.show()
+                self.cur2.execute('INSERT INTO usuarios (nombre_bd,cedula_bd,temp_bd,is_in_bd,hora_in_bd) VALUES ("{}","{}","{}","{}","{}")'.format(nombre_bd,cedula_bd,temp_bd,is_in_bd,hora_in_bd))
+                self.conexion2.commit() #buscar evitar ataques de SQL injection
+                if not cedulaExist:
+
+                    try:
+                        'Para la base de datos'
+                        
+                        archivo = open("Lista.txt", "a")
+                        archivo.writelines(persona)
+                        archivo.close()
+                        dialogo_exitoso = QMessageBox(self.centralWidget)
+                        dialogo_exitoso.setWindowTitle(self.title)
+                        dialogo_exitoso.addButton("Aceptar", 0)
+                        dialogo_exitoso.setInformativeText("Se ha ingresado correctamente\n    ")
+                        dialogo_exitoso.show()
+
+                        
+
+                        self.HomeWindow()
+                    except:
+                        dialogo_error_escritura = QMessageBox(self.centralWidget)
+                        dialogo_error_escritura.setWindowTitle(self.title)
+                        dialogo_error_escritura.addButton("Aceptar",0)
+                        dialogo_error_escritura.setInformativeText("Error, intente nuevamente\n\nSi el error persiste comuniquese con el fabricante")
+                        dialogo_error_escritura.show()
+                else:
+                    print('ERROR')
+                    dialogo_error_cedulaExistente = QMessageBox(self.centralWidget)
+                    dialogo_error_cedulaExistente.setWindowTitle(self.title)
+                    dialogo_error_cedulaExistente.addButton("Aceptar", 0)
+                    dialogo_error_cedulaExistente.setInformativeText("El usuario ya está\n adentro")
+                    dialogo_error_cedulaExistente.show()
+    
             else:
                 dialogo_error_typ = QMessageBox(self.centralWidget)
                 dialogo_error_typ.setWindowTitle(self.title)
@@ -377,7 +444,6 @@ class MainWindow(QMainWindow): #Ventana principal
             dialogo_error_incompleto.setInformativeText("Debe llenar todos los campos\nantes de continuar")
             dialogo_error_incompleto.show()
 
-    
 
 
 
@@ -1375,8 +1441,9 @@ class MainWindow(QMainWindow): #Ventana principal
             
 
     def fun_numero_PUNTO(self):
-        texto = self.ingresar_temp.text() + '.'
-        self.ingresar_temp.setText(texto)
+        if self.campo == 'ingresar-temp':
+            texto = self.ingresar_temp.text() + '.'
+            self.ingresar_temp.setText(texto)
 
     def fun_numero_1(self):
         if self.campo == 'ingresar-cedula':
