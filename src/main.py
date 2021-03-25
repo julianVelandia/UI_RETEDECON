@@ -357,15 +357,15 @@ class MainWindow(QMainWindow): #Ventana principal
         #definimos la fecha y hora
         HoraIn= datetime.today().strftime('%d-%H:%M:%S')
         persona = [
-                "Nombre: ", self.ingresar_nombre.text(), 
-                "Cedula: ", self.ingresar_cedula.text(), 
-                "Temp: ", self.ingresar_temp.text(), 
+                "Nombre: ", self.ingresar_nombre.text(), ' '
+                "Cedula: ", self.ingresar_cedula.text(), ' '
+                "Temp: ", self.ingresar_temp.text(), ' '
                 
-                "IsIn: ", 'True', 
-                "HoraIn: ", HoraIn,
-                "HoraOut: ", None,
-                "Delta: ", None,
-                "Numingresos",None,
+                "IsIn: ", 'True', ' '
+                "HoraIn: ", HoraIn, ' '
+                "HoraOut: ", '*',' '
+                "Delta: ", '*',
+                "Numingresos",'MARICA',' '
                 ]
 
         'Para la base de datos'
