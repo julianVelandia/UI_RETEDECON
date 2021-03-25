@@ -4,6 +4,7 @@ from PyQt5.QtCore import *
 from PyQt5.QtGui import *
 from QLineClick import QLineEditClick
 from datetime import datetime
+import pandas as pd
 
 #import sqlite3
 
@@ -17,6 +18,8 @@ class MainWindow(QMainWindow): #Ventana principal
         #'Conección base de datos'
         #self.conexion = sqlite3.connect('DB.db')
         #self.cur = self.conexion.cursor()
+
+        self.df = pd.read_csv('../DB.csv')
 
         'Constants'
         self.title = 'RETEDECON'
@@ -193,6 +196,16 @@ class MainWindow(QMainWindow): #Ventana principal
         # AccionClcikIngresarCedulaOut
         self.ingresar_cedula_out.clicked.connect(self.Retirar_desplegar_teclado_numerico_cedula)
 
+        '''
+        Valores BD
+        '''
+        self.HoraIn =0
+        self.HoraOut = 0
+        self.Delta=0
+        self.Numingresos=0
+        self.IsIn = False
+
+
 
     def HomeWindow(self):
         self.label_img_central.setVisible(False)
@@ -342,6 +355,7 @@ class MainWindow(QMainWindow): #Ventana principal
             dialogo_error_incompleto_out.show()
 
     def Escribir(self):
+        #if not IsIn:
         '''
         Models:
         id - int - MaxLength:auto - único y pk
@@ -355,35 +369,47 @@ class MainWindow(QMainWindow): #Ventana principal
         Delta - float - MaxLength:auto - deDateAFloat(HoraIn)-deDateAFloat(HoraIn)
         '''
         #definimos la fecha y hora
-        HoraIn= datetime.today().strftime('%d-%H:%M:%S')
+        self.HoraIn = datetime.today().strftime('%d-%H:%M:%S')
+        self.HoraOut = '*'
+        self.Delta= '*'
+        self.Numingresos= '*'
+        self.IsIn=True
         persona = [
-                "Nombre: ", self.ingresar_nombre.text(), ' '
-                "Cedula: ", self.ingresar_cedula.text(), ' '
-                "Temp: ", self.ingresar_temp.text(), ' '
-                
-                "IsIn: ", 'True', ' '
-                "HoraIn: ", HoraIn, ' '
-                "HoraOut: ", '*',' '
-                "Delta: ", '*',
-                "Numingresos",'MARICA',' '
+                self.ingresar_nombre.text(),
+                self.ingresar_cedula.text(),
+                self.ingresar_temp.text(), 
+                self.HoraIn,
+                self.HoraOut,
+                self.Delta,
+                self.Numingresos,
+                self.IsIn
                 ]
 
         'Para la base de datos'
-        nombre_bd = self.ingresar_nombre.text()
-        cedula_bd = self.ingresar_cedula.text()
-        temp_bd = self.ingresar_temp.text()
-        is_in_bd = True
-        hora_in_bd = HoraIn
 
         cedulaExist=False
-        if persona[1]!="" and persona[3]!="":  #lógica para leer si los campos están vacíos
-            if not persona[1].isdigit() and not persona[3].isalpha():  #detecta si numeros o letras donde no deben
+
+        #mirar si la cédula ya existe
+        Lista = self.df['Cedula']
+        if int(self.df['Cedula'][0]) == self.ingresar_cedula.text() and self.df['IsIn'][0]:
+            cedulaExist=True
+        for ced in range(len(Lista)-1,0,-1):
+            if int(self.df['Cedula'][ced]) == self.ingresar_cedula.text() and self.df['IsIn'][ced]:
+                cedulaExist=True
+
+        
+        
+        print(cedulaExist)
+        if self.ingresar_nombre.text()!="" and self.ingresar_cedula.text()!="":  #lógica para leer si los campos están vacíos
+            if not self.ingresar_nombre.text().isdigit() and not self.ingresar_cedula.text().isalpha():  #detecta si numeros o letras donde no deben
 
                 if not cedulaExist:
-
                     try:
                         'Para la Pandas'
+                        #Enviar vector persona a DB
                         
+
+                        'Para Txt'
                         archivo = open("Lista.txt", "a")
                         archivo.writelines(persona)
                         archivo.close()
@@ -392,8 +418,6 @@ class MainWindow(QMainWindow): #Ventana principal
                         dialogo_exitoso.addButton("Aceptar", 0)
                         dialogo_exitoso.setInformativeText("Se ha ingresado correctamente\n    ")
                         dialogo_exitoso.show()
-
-                        
 
                         self.HomeWindow()
                     except:
