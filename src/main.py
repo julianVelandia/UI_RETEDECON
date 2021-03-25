@@ -5,7 +5,7 @@ from PyQt5.QtGui import *
 from QLineClick import QLineEditClick
 from datetime import datetime
 
-import sqlite3
+#import sqlite3
 
 
 class MainWindow(QMainWindow): #Ventana principal
@@ -14,9 +14,9 @@ class MainWindow(QMainWindow): #Ventana principal
         with open("static/style.css") as f:
             self.setStyleSheet(f.read())
 
-        'Conección base de datos'
-        self.conexion = sqlite3.connect('DB.db')
-        self.cur = self.conexion.cursor()
+        #'Conección base de datos'
+        #self.conexion = sqlite3.connect('DB.db')
+        #self.cur = self.conexion.cursor()
 
         'Constants'
         self.title = 'RETEDECON'
@@ -271,14 +271,14 @@ class MainWindow(QMainWindow): #Ventana principal
     def Leer(self):
 
         # definimos la fecha y hora
-        HoraOut= datetime.today().strftime('%Y-%m-%d')
+        HoraOut = datetime.today().strftime('%d-%H:%M:%S')
         # vector que contiene los datos a leer
         persona_out = [
             "Nombre: ", self.ingresar_nombre_out.text(), 
             " CC: ", self.ingresar_cedula_out.text(), 
-            " Fecha y hora: ", fecha_hora_out, "\n"]
+            " Fecha y hora: ", HoraOut, "\n"]
 
-        HoraIn= datetime.today().strftime('%Y-%m-%d')
+        HoraIn= datetime.today().strftime('%d-%H:%M:%S')
         persona = [
                 "Nombre: ", self.ingresar_nombre.text(), 
                 "Cedula: ", self.ingresar_cedula.text(), 
@@ -297,18 +297,11 @@ class MainWindow(QMainWindow): #Ventana principal
         'Para la base de datos'
         nombre_out_bd = self.ingresar_nombre_out.text()
         cedula_out_bd = self.ingresar_cedula_out.text()
-        fecha_hora_out_bd = str(fecha_hora_out)
+        
 
         if persona_out[1] != "" and persona_out[3] != "":  # lógica para leer si los campos están vacíos
             if not persona_out[1].isdigit() and not persona_out[3].isalpha():  # detecta si numeros o letras donde no deben
                 try:
-                    '''Esta parte aun no funciona correctamente'''
-                    '''Aún no se como buscar en todo el documento'''
-                    'Para la base de datos'
-                    self.cur.execute('DELETE FROM usuarios (nombre_bd,cedula_bd,fecha_hora_bd) VALUES ("{}","{}","{}")'.format(nombre_out_bd,cedula_out_bd,fecha_hora_out_bd))
-                    self.conexion.commit() #buscar evitar ataques de SQL injection
-
-                    
                     
                     archivo_out = open("Lista.txt", "r")
                     contenido = archivo_out.readline()
@@ -367,9 +360,12 @@ class MainWindow(QMainWindow): #Ventana principal
                 "Nombre: ", self.ingresar_nombre.text(), 
                 "Cedula: ", self.ingresar_cedula.text(), 
                 "Temp: ", self.ingresar_temp.text(), 
-
+                
                 "IsIn: ", 'True', 
                 "HoraIn: ", HoraIn,
+                "HoraOut: ", None,
+                "Delta: ", None,
+                "Numingresos",None,
                 ]
 
         'Para la base de datos'
@@ -382,28 +378,11 @@ class MainWindow(QMainWindow): #Ventana principal
         cedulaExist=False
         if persona[1]!="" and persona[3]!="":  #lógica para leer si los campos están vacíos
             if not persona[1].isdigit() and not persona[3].isalpha():  #detecta si numeros o letras donde no deben
-                
-                #evitar que la cedula este repetida
-                self.cur.execute('SELECT cedula_bd FROM usuarios')
-                rows = self.cur.fetchall()
-                for row in rows:
-                    if row == (int(self.ingresar_cedula.text()),):
-                        cedulaExist = True
-                        print('true')
-                        break
 
-                print(cedulaExist)
-                self.conexion.close()                
-
-                self.conexion2 = sqlite3.connect('DB.db')
-                self.cur2 = self.conexion2.cursor()
-
-                self.cur2.execute('INSERT INTO usuarios (nombre_bd,cedula_bd,temp_bd,is_in_bd,hora_in_bd) VALUES ("{}","{}","{}","{}","{}")'.format(nombre_bd,cedula_bd,temp_bd,is_in_bd,hora_in_bd))
-                self.conexion2.commit() #buscar evitar ataques de SQL injection
                 if not cedulaExist:
 
                     try:
-                        'Para la base de datos'
+                        'Para la Pandas'
                         
                         archivo = open("Lista.txt", "a")
                         archivo.writelines(persona)
