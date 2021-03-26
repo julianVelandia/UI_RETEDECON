@@ -6,21 +6,13 @@ from QLineClick import QLineEditClick
 from datetime import datetime
 import pandas as pd
 
-#import sqlite3
-
-
 class MainWindow(QMainWindow): #Ventana principal
     def __init__(self, parent=None, *args):
         super(MainWindow,self).__init__(parent = parent)
         with open("static/style.css") as f:
             self.setStyleSheet(f.read())
 
-        #'Conección base de datos'
-        #self.conexion = sqlite3.connect('DB.db')
-        #self.cur = self.conexion.cursor()
-
-        self.df = pd.read_csv('../DB.csv')
-
+        self.df = pd.read_csv('DB.csv')
         'Constants'
         self.title = 'RETEDECON'
         self.width = 1024
@@ -29,7 +21,7 @@ class MainWindow(QMainWindow): #Ventana principal
         self.setMinimumSize(self.width,self.height)    #tamaño mínimo
         self.setMaximumSize(self.width,self.height)  #tamaño máximo
         self.setWindowTitle(self.title)   #titulo
-        self.setWindowIcon(QIcon("static/favicon3.png"))   #Favicon
+        self.setWindowIcon(QIcon("static/icons/favicon3.png"))   #Favicon
 
         self.centralWidget = QWidget()
         self.setCentralWidget(self.centralWidget)
@@ -147,7 +139,7 @@ class MainWindow(QMainWindow): #Ventana principal
         self.ingresar_temp.setObjectName("input") #nombre de enlace a css
         self.ingresar_temp.setClearButtonEnabled(True)
         self.ingresar_temp.setGeometry(164,396,290,65)
-        self.ingresar_temp.setMaxLength(3)
+        self.ingresar_temp.setMaxLength(5)
 
         'cuadros de texto out'
         self.ingresar_nombre_out = QLineEditClick(self.centralWidget)
@@ -165,15 +157,6 @@ class MainWindow(QMainWindow): #Ventana principal
         self.ingresar_cedula_out.setGeometry(164.2, 341, 290, 70)
         self.ingresar_cedula_out.setMaxLength(15)
 
-        '''
-        Variable que indica cual campo de texto se modificará
-        'null': Imprime error en la cosola
-        'ingresar-nombre'
-        'ingresar-cedula'
-        'ingresar-temp'
-        'retirar-nombre'
-        'retirar-cedula'
-        '''
         self.campo ='null'
 
         #Botones Ingresar
@@ -183,8 +166,6 @@ class MainWindow(QMainWindow): #Ventana principal
         #botones teclado
         self.BotonesTeclado()
         self.BotonesTecladoNumerico()
-
-        
         #AccionClcikIngresarNombre
         self.ingresar_nombre.clicked.connect(self.Ingresar_desplegar_teclado)
         #AccionClcikIngresarCedula
@@ -199,13 +180,12 @@ class MainWindow(QMainWindow): #Ventana principal
         '''
         Valores BD
         '''
+        self.fecha = 0
         self.HoraIn =0
         self.HoraOut = 0
         self.Delta=0
         self.Numingresos=0
         self.IsIn = False
-
-
 
     def HomeWindow(self):
         self.label_img_central.setVisible(False)
@@ -226,7 +206,6 @@ class MainWindow(QMainWindow): #Ventana principal
         self.NotTeclado()
         self.NotTecladoNumerico()
 
-        
     def Ingresar(self):
         self.label_img_central.setVisible(False)  
         self.label_img_esquina.setVisible(True)  
@@ -247,7 +226,6 @@ class MainWindow(QMainWindow): #Ventana principal
         self.ingresar_cedula_out.setVisible(False)
         self.retirar.setVisible(False)
         self.Ingresar_guardar_teclado()
-        
 
     def BotonesIngresar(self):
         self.ingresar_ingresar = QToolButton(self.centralWidget)
@@ -261,7 +239,6 @@ class MainWindow(QMainWindow): #Ventana principal
         self.ingresar_nombre.setVisible(False)
         self.ingresar_cedula.setVisible(False)
         self.ingresar_temp.setVisible(False)
-
         self.ingresar_nombre_out.setVisible(False)
         self.ingresar_cedula_out.setVisible(False)
         self.ingresar_ingresar.setVisible(False)
@@ -356,67 +333,51 @@ class MainWindow(QMainWindow): #Ventana principal
 
     def Escribir(self):
         #if not IsIn:
-        '''
-        Models:
-        id - int - MaxLength:auto - único y pk
-        Nombre - string - MaxLength:30 - No unico
-        Cedula - int - MaxLength: 15 - único
-        Temp - float - MaxLength: 4 - Acotado
-        Igresos - int - MaxLength:auto - autoIncremental
-        isIn - bool - MaxLength:auto
-        HoraIn - date - auto
-        HoraOut - date - auto
-        Delta - float - MaxLength:auto - deDateAFloat(HoraIn)-deDateAFloat(HoraIn)
-        '''
         #definimos la fecha y hora
-        self.HoraIn = datetime.today().strftime('%d-%H:%M:%S')
+        self.fecha = datetime.today().strftime('%d-%m-%Y')
+        self.HoraIn = datetime.today().strftime('%H:%M')
         self.HoraOut = '*'
-        self.Delta= '*'
-        self.Numingresos= '*'
-        self.IsIn=True
-        persona = [
+        self.Delta = '*'
+        self.Numingresos = '*'
+        self.IsIn = True
+        persona = pd.DataFrame([
                 self.ingresar_nombre.text(),
                 self.ingresar_cedula.text(),
-                self.ingresar_temp.text(), 
+                self.ingresar_temp.text(),
                 self.HoraIn,
                 self.HoraOut,
                 self.Delta,
                 self.Numingresos,
-                self.IsIn
-                ]
+                self.IsIn])
 
         'Para la base de datos'
-
         cedulaExist=False
 
-        #mirar si la cédula ya existe
-        Lista = self.df['Cedula']
-        if int(self.df['Cedula'][0]) == self.ingresar_cedula.text() and self.df['IsIn'][0]:
-            cedulaExist=True
-        for ced in range(len(Lista)-1,0,-1):
-            if int(self.df['Cedula'][ced]) == self.ingresar_cedula.text() and self.df['IsIn'][ced]:
-                cedulaExist=True
-
-        
-        
-        print(cedulaExist)
-        if self.ingresar_nombre.text()!="" and self.ingresar_cedula.text()!="":  #lógica para leer si los campos están vacíos
-            if not self.ingresar_nombre.text().isdigit() and not self.ingresar_cedula.text().isalpha():  #detecta si numeros o letras donde no deben
-
+        if self.ingresar_nombre.text()!="" and self.ingresar_cedula.text()!="" and self.ingresar_temp.text()!="":  #lógica para leer si los campos están vacíos
+            if not self.ingresar_nombre.text().isdigit() and not self.ingresar_cedula.text().isalpha() and not self.ingresar_temp.text().isalpha():  #detecta si numeros o letras donde no deben
+                # mirar si la cédula ya existe
+                Lista = self.df['Cedula']
+                # Recorrido del arreglo
+                if str(self.df['Cedula'][0]) == self.ingresar_cedula.text() and self.df['IsIn'][0]:
+                    cedulaExist = True
+                for ced in range(len(Lista) - 1, 0, -1):
+                    if str(self.df['Cedula'][ced]) == self.ingresar_cedula.text() and self.df['IsIn'][ced]:
+                        cedulaExist = True
+                print(cedulaExist)
                 if not cedulaExist:
                     try:
-                        'Para la Pandas'
+                        #ParaPandas
                         #Enviar vector persona a DB
-                        
-
-                        'Para Txt'
-                        archivo = open("Lista.txt", "a")
-                        archivo.writelines(persona)
-                        archivo.close()
+                        #persona.to_csv('DB.csv')
+                        print(self.df)
+                        #TXT
+                        #archivo = open("Lista.txt", "a")
+                        #archivo.writelines(persona,"\n")
+                        #archivo.close()
                         dialogo_exitoso = QMessageBox(self.centralWidget)
                         dialogo_exitoso.setWindowTitle(self.title)
                         dialogo_exitoso.addButton("Aceptar", 0)
-                        dialogo_exitoso.setInformativeText("Se ha ingresado correctamente\n    ")
+                        dialogo_exitoso.setInformativeText("Se ha ingresado correctamente   \n")
                         dialogo_exitoso.show()
 
                         self.HomeWindow()
@@ -427,11 +388,10 @@ class MainWindow(QMainWindow): #Ventana principal
                         dialogo_error_escritura.setInformativeText("Error, intente nuevamente\n\nSi el error persiste comuniquese con el fabricante")
                         dialogo_error_escritura.show()
                 else:
-                    print('ERROR')
                     dialogo_error_cedulaExistente = QMessageBox(self.centralWidget)
                     dialogo_error_cedulaExistente.setWindowTitle(self.title)
                     dialogo_error_cedulaExistente.addButton("Aceptar", 0)
-                    dialogo_error_cedulaExistente.setInformativeText("El usuario ya está\n adentro")
+                    dialogo_error_cedulaExistente.setInformativeText("El usuario ya está adentro    \n")
                     dialogo_error_cedulaExistente.show()
     
             else:
@@ -447,9 +407,6 @@ class MainWindow(QMainWindow): #Ventana principal
             dialogo_error_incompleto.setInformativeText("Debe llenar todos los campos\nantes de continuar")
             dialogo_error_incompleto.show()
 
-
-
-
     def Ingresar_desplegar_teclado_numerico_cedula(self):
         self.campo = 'ingresar-cedula'
         self.Ingresar_desplegar_teclado_numerico()
@@ -457,7 +414,6 @@ class MainWindow(QMainWindow): #Ventana principal
     def Ingresar_desplegar_teclado_numerico_temp(self):
         self.campo = 'ingresar-temp'
         self.Ingresar_desplegar_teclado_numerico()
-
 
     def Ingresar_desplegar_teclado_numerico(self):
         MOV = -100
@@ -504,7 +460,6 @@ class MainWindow(QMainWindow): #Ventana principal
         self.NotTecladoNumerico()
         self.campo = 'retirar-nombre'
 
-
     def Retirar_guardar_teclado(self):
         MOV = 0
         #movimiento botones
@@ -522,7 +477,6 @@ class MainWindow(QMainWindow): #Ventana principal
         self.NotTeclado()
         self.TecladoNumerico()
         self.campo = 'retirar-cedula'
-        
 
     def Estadisticas(self):
         self.label_img_central.setVisible(False)  
@@ -578,7 +532,6 @@ class MainWindow(QMainWindow): #Ventana principal
         altura = 65
         y_inicia = 350
         x_inicia =300
-
 
         x=0
         y=0
@@ -685,7 +638,6 @@ class MainWindow(QMainWindow): #Ventana principal
         self.numero_0.clicked.connect(self.fun_numero_0)
 
         self.NotTecladoNumerico()
-
 
     def BotonesTeclado(self):
         sep_lado = 12
@@ -1158,6 +1110,7 @@ class MainWindow(QMainWindow): #Ventana principal
             else:
                 texto = self.ingresar_nombre_out.text() + 'F'
             self.ingresar_nombre_out.setText(texto)
+
     def g(self):
         if self.campo == 'ingresar-nombre':
             if not self.isMAYUS:
@@ -1217,6 +1170,7 @@ class MainWindow(QMainWindow): #Ventana principal
             else:
                 texto = self.ingresar_nombre_out.text() + 'K'
             self.ingresar_nombre_out.setText(texto)
+
     def l(self):
         if self.campo == 'ingresar-nombre':
             if not self.isMAYUS:
@@ -1261,6 +1215,7 @@ class MainWindow(QMainWindow): #Ventana principal
             else:
                 texto = self.ingresar_nombre_out.text() + 'Z'
             self.ingresar_nombre_out.setText(texto)
+
     def x(self):
         if self.campo == 'ingresar-nombre':
             if not self.isMAYUS:
@@ -1368,7 +1323,6 @@ class MainWindow(QMainWindow): #Ventana principal
         elif self.campo == 'retirar-nombre':
             var_texto=self.ingresar_nombre_out.text()
 
-
         if len(var_texto)==1 or len(var_texto)==0:
             texto=''
         elif var_texto[-1] != var_texto[-2]:
@@ -1379,14 +1333,13 @@ class MainWindow(QMainWindow): #Ventana principal
             for l in range(len(raw)-1):
                 
                 t.append(raw[l])
-            
+
             texto="".join(t)
 
         if self.campo == 'ingresar-nombre':
             self.ingresar_nombre.setText(texto)
         elif self.campo == 'retirar-nombre':
             self.ingresar_nombre_out.setText(texto)
-
 
     def MAYUS(self):
         if not self.isMAYUS:
@@ -1398,15 +1351,11 @@ class MainWindow(QMainWindow): #Ventana principal
             self.isMAYUS =False
             self.todas_letras_a_NOT_MAYUS()
 
-
-
     def ENTER(self):
-        
         self.Retirar_guardar_teclado()
         self.Ingresar_guardar_teclado_numerico()
         self.Ingresar_guardar_teclado()
         self.Retirar_guardar_teclado()
-
 
     def fun_numero_ENTER(self):
         self.Retirar_guardar_teclado()
@@ -1441,7 +1390,6 @@ class MainWindow(QMainWindow): #Ventana principal
             self.ingresar_temp.setText(texto)
         elif self.campo == 'retirar-cedula':
             self.ingresar_cedula_out.setText(texto)
-            
 
     def fun_numero_PUNTO(self):
         if self.campo == 'ingresar-temp':
@@ -1475,6 +1423,7 @@ class MainWindow(QMainWindow): #Ventana principal
         elif self.campo == 'retirar-cedula':
             texto = self.ingresar_cedula_out.text() + '2'
             self.ingresar_cedula_out.setText(texto)
+
     def fun_numero_3(self):
         if self.campo == 'ingresar-cedula':
             texto = self.ingresar_cedula.text() + '3'
@@ -1488,6 +1437,7 @@ class MainWindow(QMainWindow): #Ventana principal
         elif self.campo == 'retirar-cedula':
             texto = self.ingresar_cedula_out.text() + '3'
             self.ingresar_cedula_out.setText(texto)
+
     def fun_numero_4(self):
         if self.campo == 'ingresar-cedula':
             texto = self.ingresar_cedula.text() + '4'
@@ -1501,6 +1451,7 @@ class MainWindow(QMainWindow): #Ventana principal
         elif self.campo == 'retirar-cedula':
             texto = self.ingresar_cedula_out.text() + '4'
             self.ingresar_cedula_out.setText(texto)
+
     def fun_numero_5(self):
         if self.campo == 'ingresar-cedula':
             texto = self.ingresar_cedula.text() + '5'
@@ -1514,6 +1465,7 @@ class MainWindow(QMainWindow): #Ventana principal
         elif self.campo == 'retirar-cedula':
             texto = self.ingresar_cedula_out.text() + '5'
             self.ingresar_cedula_out.setText(texto)
+
     def fun_numero_6(self):
         if self.campo == 'ingresar-cedula':
             texto = self.ingresar_cedula.text() + '6'
@@ -1527,6 +1479,7 @@ class MainWindow(QMainWindow): #Ventana principal
         elif self.campo == 'retirar-cedula':
             texto = self.ingresar_cedula_out.text() + '6'
             self.ingresar_cedula_out.setText(texto)
+
     def fun_numero_7(self):
         if self.campo == 'ingresar-cedula':
             texto = self.ingresar_cedula.text() + '7'
@@ -1540,6 +1493,7 @@ class MainWindow(QMainWindow): #Ventana principal
         elif self.campo == 'retirar-cedula':
             texto = self.ingresar_cedula_out.text() + '7'
             self.ingresar_cedula_out.setText(texto)
+
     def fun_numero_8(self):
         if self.campo == 'ingresar-cedula':
             texto = self.ingresar_cedula.text() + '8'
@@ -1553,6 +1507,7 @@ class MainWindow(QMainWindow): #Ventana principal
         elif self.campo == 'retirar-cedula':
             texto = self.ingresar_cedula_out.text() + '8'
             self.ingresar_cedula_out.setText(texto)
+
     def fun_numero_9(self):
         if self.campo == 'ingresar-cedula':
             texto = self.ingresar_cedula.text() + '9'
@@ -1566,6 +1521,7 @@ class MainWindow(QMainWindow): #Ventana principal
         elif self.campo == 'retirar-cedula':
             texto = self.ingresar_cedula_out.text() + '9'
             self.ingresar_cedula_out.setText(texto)
+
     def fun_numero_0(self):
         if self.campo == 'ingresar-cedula':
             texto = self.ingresar_cedula.text() + '0'
@@ -1594,8 +1550,6 @@ class MainWindow(QMainWindow): #Ventana principal
         self.numero_ENTER.setVisible(True)
         self.numero_BORRAR.setVisible(True)
         self.numero_PUNTO.setVisible(True)
-
-
 
     def NotTecladoNumerico(self):
         self.numero_0.setVisible(False)
@@ -1645,7 +1599,6 @@ class MainWindow(QMainWindow): #Ventana principal
         self.letra_ENTER.setVisible(True)
         self.letra_BORRAR.setVisible(True)
 
-
     def NotTeclado(self):
         self.letra_q.setVisible(False)
         self.letra_w.setVisible(False)
@@ -1679,7 +1632,6 @@ class MainWindow(QMainWindow): #Ventana principal
         self.letra_ENTER.setVisible(False)
         self.letra_BORRAR.setVisible(False)
 
-    
     def todas_letras_a_MAYUS(self):
         self.letra_q.setText('Q')
         self.letra_w.setText('W')
@@ -1707,7 +1659,6 @@ class MainWindow(QMainWindow): #Ventana principal
         self.letra_b.setText('B')
         self.letra_n.setText('N')
         self.letra_m.setText('M')
-
         self.letra_ene.setText('Ñ')
 
     def todas_letras_a_NOT_MAYUS(self):
@@ -1737,7 +1688,6 @@ class MainWindow(QMainWindow): #Ventana principal
         self.letra_b.setText('b')
         self.letra_n.setText('n')
         self.letra_m.setText('m')
-
         self.letra_ene.setText('ñ')
 
 if __name__=='__main__':
