@@ -13,8 +13,13 @@ class MainWindow(QMainWindow): #Ventana principal
             self.setStyleSheet(f.read())
 
         self.df = pd.read_csv('../DB.csv')
-        self.df_as_txt = open ("../DB.csv", "a")
+        #self.df_as_txt = open ("../DB.csv", "a")
         self.ocupacion = 0
+        self.cedula_cache = ''
+
+        self.carnet =''
+
+
         'Constants'
         self.title = 'RETEDECON'
         self.width = 1024
@@ -322,6 +327,7 @@ class MainWindow(QMainWindow): #Ventana principal
         #if not IsIn:
         #definimos la fecha y hora
         cedula= str(self.ingresar_cedula.text())
+        carnet = '*' #Entra por arduino
         temp= str(self.ingresar_temp.text())
         self.Fecha = datetime.today().strftime('%d-%m-%Y')
         self.HoraIn = datetime.today().strftime('%H:%M')
@@ -332,14 +338,14 @@ class MainWindow(QMainWindow): #Ventana principal
         #persona = pd.DataFrame([self.ingresar_nombre.text(),self.ingresar_cedula.text(),self.ingresar_temp.text(),self.HoraIn,self.HoraOut,self.Delta,self.Numingresos,self.IsIn])
         cedulaExist=False
         Lista = self.df['Cedula']
-
+        Lista_carnet = self.df['Carnet']
 
         '''
         Suma ingresos
         '''
 
         for cont in range(len(Lista)):
-            if str(Lista[cont]) == str(self.ingresar_cedula.text()):
+            if str(Lista_carnet[cont]) == str(self.carnet) or str(Lista[cont]) == str(self.ingresar_cedula.text()):
                 self.Numingresos+=1
         
         self.Numingresos=str(self.Numingresos)
@@ -367,13 +373,14 @@ class MainWindow(QMainWindow): #Ventana principal
                 if not cedulaExist:
                     
                     try:
+                        self.df_as_txt = open ("../DB.csv", "a")
                         #ParaPandas
                         #Enviar vector persona a DB
-                        persona = '\n'+self.ingresar_nombre.text()+','+cedula+','+temp+','+self.Fecha+','+self.HoraIn+','+self.HoraOut+','+self.Delta+','+self.Numingresos+','+self.IsIn
+                        persona = '\n'+self.ingresar_nombre.text()+','+cedula+','+carnet+','+temp+','+self.Fecha+','+self.HoraIn+','+self.HoraOut+','+self.Delta+','+self.Numingresos+','+self.IsIn
                         self.df_as_txt.write(persona)
                         print('escrito')
                         self.ocupacion +=1
-
+                        self.df_as_txt.close()
                         #TXT
                         #archivo = open("Lista.txt", "a")
                         #archivo.write(self.ocupacion)
