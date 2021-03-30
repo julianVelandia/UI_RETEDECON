@@ -260,35 +260,20 @@ class MainWindow(QMainWindow): #Ventana principal
 
     '''Esta función se encarga de escribir lo datos en un archivo .txt y tiene
     programadas ventanas emergentes en caso de errores o notificaciones'''
+    '''
+    Tambiàn eliminar usuarios
+    '''
     def Leer(self):
 
         # definimos la fecha y hora
-        HoraOut = datetime.today().strftime('%d-%H:%M:%S')
-        # vector que contiene los datos a leer
-        persona_out = [
-            "Nombre: ", self.ingresar_nombre_out.text(), 
-            " CC: ", self.ingresar_cedula_out.text(), 
-            " Fecha y hora: ", HoraOut, "\n"]
-
-        HoraIn= datetime.today().strftime('%d-%H:%M:%S')
-        persona = [
-                "Nombre: ", self.ingresar_nombre.text(), 
-                "Cedula: ", self.ingresar_cedula.text(), 
-                "Temp: ", self.ingresar_temp.text(), 
-                "IsIn: ", 'False', 
-                "HoraIn: ", HoraIn,
-                ]
-
-        'Para la base de datos'
-        nombre_bd = self.ingresar_nombre.text()
-        cedula_bd = self.ingresar_cedula.text()
-        temp_bd = self.ingresar_temp.text()
-        is_in_bd = True
-        hora_in_bd = HoraIn
-
-        'Para la base de datos'
-        nombre_out_bd = self.ingresar_nombre_out.text()
-        cedula_out_bd = self.ingresar_cedula_out.text()
+        cedula= str(self.ingresar_cedula_out.text())
+        temp= str(self.ingresar_temp_out.text())
+        self.Fecha = datetime.today().strftime('%d-%m-%Y')
+        #self.HoraIn = 
+        self.HoraOut = datetime.today().strftime('%H:%M')
+        self.Delta = '*'
+        self.Numingresos = '*'
+        self.IsIn = 'True'
         
 
         if persona_out[1] != "" and persona_out[3] != "":  # lógica para leer si los campos están vacíos
@@ -338,20 +323,28 @@ class MainWindow(QMainWindow): #Ventana principal
         #definimos la fecha y hora
         cedula= str(self.ingresar_cedula.text())
         temp= str(self.ingresar_temp.text())
-        self.fecha = datetime.today().strftime('%d-%m-%Y')
+        self.Fecha = datetime.today().strftime('%d-%m-%Y')
         self.HoraIn = datetime.today().strftime('%H:%M')
         self.HoraOut = '*'
         self.Delta = '*'
-        self.Numingresos = '*'
+        self.Numingresos=0 #Se inicia en 0
         self.IsIn = 'True'
         #persona = pd.DataFrame([self.ingresar_nombre.text(),self.ingresar_cedula.text(),self.ingresar_temp.text(),self.HoraIn,self.HoraOut,self.Delta,self.Numingresos,self.IsIn])
-        print('prepre')
-        'Para la base de datos'
         cedulaExist=False
+        Lista = self.df['Cedula']
+
+
+        '''
+        Suma ingresos
+        '''
+
+        for cont in range(len(Lista)):
+            if str(Lista[cont]) == str(self.ingresar_cedula.text()):
+                self.Numingresos+=1
         
+        self.Numingresos=str(self.Numingresos)
+        print(self.Numingresos)
 
-
-            
         #persona = pd.DataFrame([self.ingresar_nombre.text(),self.ingresar_cedula.text(),self.ingresar_temp.text(),self.HoraIn,self.HoraOut,self.Delta,self.Numingresos,self.IsIn])
         #persona.to_csv(self.df)
         
@@ -360,7 +353,6 @@ class MainWindow(QMainWindow): #Ventana principal
             if not self.ingresar_nombre.text().isdigit() and not self.ingresar_cedula.text().isalpha() and not self.ingresar_temp.text().isalpha():  #detecta si numeros o letras donde no deben
                 # mirar si la cédula ya existe
                 
-                Lista = self.df['Cedula']
                 
                 # Recorrido del arreglo
                 try:
@@ -377,7 +369,7 @@ class MainWindow(QMainWindow): #Ventana principal
                     try:
                         #ParaPandas
                         #Enviar vector persona a DB
-                        persona = '\n'+self.ingresar_nombre.text()+','+cedula+','+temp+','+self.HoraIn+','+self.HoraOut+','+self.Delta+','+self.Numingresos+','+self.IsIn
+                        persona = '\n'+self.ingresar_nombre.text()+','+cedula+','+temp+','+self.Fecha+','+self.HoraIn+','+self.HoraOut+','+self.Delta+','+self.Numingresos+','+self.IsIn
                         self.df_as_txt.write(persona)
                         print('escrito')
                         self.ocupacion +=1
@@ -418,6 +410,7 @@ class MainWindow(QMainWindow): #Ventana principal
             dialogo_error_incompleto.addButton("Aceptar", 0)
             dialogo_error_incompleto.setInformativeText("Debe llenar todos los campos\nantes de continuar")
             dialogo_error_incompleto.show()
+        
 
     def Ingresar_desplegar_teclado_numerico_cedula(self):
         self.campo = 'ingresar-cedula'
