@@ -348,26 +348,30 @@ class MainWindow(QMainWindow): #Ventana principal
         print('prepre')
         'Para la base de datos'
         cedulaExist=False
-        self.ocupacion = 0
+        
 
 
             
         #persona = pd.DataFrame([self.ingresar_nombre.text(),self.ingresar_cedula.text(),self.ingresar_temp.text(),self.HoraIn,self.HoraOut,self.Delta,self.Numingresos,self.IsIn])
         #persona.to_csv(self.df)
-        print('prepre')
+        
+        #self.df_as_txt.close()
         if self.ingresar_nombre.text()!="" and self.ingresar_cedula.text()!="" and self.ingresar_temp.text()!="":  #lógica para leer si los campos están vacíos
             if not self.ingresar_nombre.text().isdigit() and not self.ingresar_cedula.text().isalpha() and not self.ingresar_temp.text().isalpha():  #detecta si numeros o letras donde no deben
                 # mirar si la cédula ya existe
-                print('pre')
+                
                 Lista = self.df['Cedula']
-                print('post')
+                
                 # Recorrido del arreglo
-                if str(self.df['Cedula'][0]) == self.ingresar_cedula.text() and self.df['IsIn'][0]:
-                    cedulaExist = True
-                for ced in range(len(Lista) - 1, 0, -1):
-                    if str(self.df['Cedula'][ced]) == self.ingresar_cedula.text() and self.df['IsIn'][ced]:
+                try:
+                    #print(str(self.df['Cedula'][0])+'-'+str(self.ingresar_cedula.text())+'-'+str(self.df['IsIn'][0]))
+                    if str(self.df['Cedula'][0]) == str(self.ingresar_cedula.text()) and str(self.df['IsIn'][0]) == 'True':
                         cedulaExist = True
-                print(cedulaExist)
+                    for ced in range(len(Lista) - 1, 0, -1):
+                        if str(self.df['Cedula'][ced]) == str(self.ingresar_cedula.text()) and str(self.df['IsIn'][ced]) == 'True':
+                            cedulaExist = True
+                except:
+                    pass
                 if not cedulaExist:
                     
                     try:
@@ -375,9 +379,9 @@ class MainWindow(QMainWindow): #Ventana principal
                         #Enviar vector persona a DB
                         persona = '\n'+self.ingresar_nombre.text()+','+cedula+','+temp+','+self.HoraIn+','+self.HoraOut+','+self.Delta+','+self.Numingresos+','+self.IsIn
                         self.df_as_txt.write(persona)
-                        self.df_as_txt.close()
-                        self.ocupacion +=1
                         print('escrito')
+                        self.ocupacion +=1
+
                         #TXT
                         #archivo = open("Lista.txt", "a")
                         #archivo.write(self.ocupacion)
