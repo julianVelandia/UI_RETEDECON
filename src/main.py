@@ -13,6 +13,8 @@ class MainWindow(QMainWindow): #Ventana principal
             self.setStyleSheet(f.read())
 
         self.df = pd.read_csv('../DB.csv')
+        self.df_as_dataframe = pd.DataFrame(self.df)
+        #self.df_as_dataframe = pd.DataFrame(self.df,columns=['Nombre','Cedula','Carnet','Temp','Fecha','HoraIn','HoraOut','Delta','Numingresos','IsIn'])
         #self.df_as_txt = open ("../DB.csv", "a")
         self.ocupacion = 0
         self.cedula_cache = ''
@@ -271,24 +273,37 @@ class MainWindow(QMainWindow): #Ventana principal
     def Leer(self):
 
         # definimos la fecha y hora
-        cedula= str(self.ingresar_cedula_out.text())
-        temp= str(self.ingresar_temp_out.text())
-        self.Fecha = datetime.today().strftime('%d-%m-%Y')
-        #self.HoraIn = 
-        self.HoraOut = datetime.today().strftime('%H:%M')
-        self.Delta = '*'
-        self.Numingresos = '*'
-        self.IsIn = 'True'
-        
+        nombre = str(self.ingresar_nombre_out.text())
+        cedula = str(self.ingresar_cedula_out.text())
+        self.carnet = '*'
 
-        if persona_out[1] != "" and persona_out[3] != "":  # lógica para leer si los campos están vacíos
-            if not persona_out[1].isdigit() and not persona_out[3].isalpha():  # detecta si numeros o letras donde no deben
+        self.HoraOut = datetime.today().strftime('%H:%M')
+        Lista = self.df['Cedula']
+        self.df.drop([0],axis=0)
+
+        '''
+        if str(self.df['Cedula'][0]) == str(self.ingresar_cedula_out.text()) and str(self.df['IsIn'][0]) == 'True':
+            #self.df['HoraOut'][0] = datetime.today().strftime('%H:%M')
+        else:
+            print('MARICA')
+        
+        for ced in range(len(Lista) - 1, 0, -1):
+            if str(self.df['Cedula'][ced]) == str(self.ingresar_cedula_out.text()) and str(self.df['IsIn'][0]) == 'True':
+                pass
+            else:
+                print('MARICA')
+        '''
+
+
+        
+        
+        if self.ingresar_nombre_out.text()!="" and self.ingresar_cedula_out.text()!="":  #lógica para leer si los campos están vacíos
+            if not self.ingresar_nombre_out.text().isdigit() and not self.ingresar_cedula_out.text().isalpha():  #detecta si numeros o letras donde no deben
+
                 try:
-                    
                     archivo_out = open("Lista.txt", "r")
                     contenido = archivo_out.readline()
                     lista_contenido = contenido.split("-")
-                    print(lista_contenido)
                     if lista_contenido[0]==persona_out[1] and lista_contenido[1]==persona_out[3]:
                         archivo_out.close()
                         dialogo_exitoso = QMessageBox(self.centralWidget)
@@ -333,7 +348,7 @@ class MainWindow(QMainWindow): #Ventana principal
         self.HoraIn = datetime.today().strftime('%H:%M')
         self.HoraOut = '*'
         self.Delta = '*'
-        self.Numingresos=0 #Se inicia en 0
+        self.Numingresos = 0 #Se inicia en 0
         self.IsIn = 'True'
         #persona = pd.DataFrame([self.ingresar_nombre.text(),self.ingresar_cedula.text(),self.ingresar_temp.text(),self.HoraIn,self.HoraOut,self.Delta,self.Numingresos,self.IsIn])
         cedulaExist=False
