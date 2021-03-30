@@ -340,18 +340,11 @@ class MainWindow(QMainWindow): #Ventana principal
         self.Delta = '*'
         self.Numingresos = '*'
         self.IsIn = True
-        persona = pd.DataFrame([
-                self.ingresar_nombre.text(),
-                self.ingresar_cedula.text(),
-                self.ingresar_temp.text(),
-                self.HoraIn,
-                self.HoraOut,
-                self.Delta,
-                self.Numingresos,
-                self.IsIn])
+        persona = pd.DataFrame([self.ingresar_nombre.text(),self.ingresar_cedula.text(),self.ingresar_temp.text(),self.HoraIn,self.HoraOut,self.Delta,self.Numingresos,self.IsIn])
 
         'Para la base de datos'
         cedulaExist=False
+        ocupacion = 0
 
         if self.ingresar_nombre.text()!="" and self.ingresar_cedula.text()!="" and self.ingresar_temp.text()!="":  #lógica para leer si los campos están vacíos
             if not self.ingresar_nombre.text().isdigit() and not self.ingresar_cedula.text().isalpha() and not self.ingresar_temp.text().isalpha():  #detecta si numeros o letras donde no deben
@@ -365,15 +358,16 @@ class MainWindow(QMainWindow): #Ventana principal
                         cedulaExist = True
                 print(cedulaExist)
                 if not cedulaExist:
+                    ocupacion +=1
                     try:
                         #ParaPandas
                         #Enviar vector persona a DB
-                        #persona.to_csv('DB.csv')
+                        persona.to_csv('DB.csv')
                         print(self.df)
                         #TXT
-                        #archivo = open("Lista.txt", "a")
-                        #archivo.writelines(persona,"\n")
-                        #archivo.close()
+                        archivo = open("Lista.txt", "w")
+                        archivo.write(ocupacion)
+                        archivo.close()
                         dialogo_exitoso = QMessageBox(self.centralWidget)
                         dialogo_exitoso.setWindowTitle(self.title)
                         dialogo_exitoso.addButton("Aceptar", 0)
