@@ -274,9 +274,6 @@ class MainWindow(QMainWindow): #Ventana principal
     '''
     def Leer(self):
 
-        self.df.replace("CASA", "HOLA")
-        print(self.df)
-
         # definimos la fecha y hora
         nombre = str(self.ingresar_nombre_out.text())
         cedula = str(self.ingresar_cedula_out.text())
@@ -284,43 +281,36 @@ class MainWindow(QMainWindow): #Ventana principal
 
         self.HoraOut = datetime.today().strftime('%H:%M')
         Lista = self.df['Cedula']
-        #self.df.drop([0],axis=0)
-
-        '''
-        if str(self.df['Cedula'][0]) == str(self.ingresar_cedula_out.text()) and str(self.df['IsIn'][0]) == 'True':
-            #self.df['HoraOut'][0] = datetime.today().strftime('%H:%M')
-        else:
-            print('MARICA')
-        
-        for ced in range(len(Lista) - 1, 0, -1):
-            if str(self.df['Cedula'][ced]) == str(self.ingresar_cedula_out.text()) and str(self.df['IsIn'][0]) == 'True':
-                pass
-            else:
-                print('MARICA')
-        '''
 
         if self.ingresar_nombre_out.text()!="" and self.ingresar_cedula_out.text()!="":  #lógica para leer si los campos están vacíos
             if not self.ingresar_nombre_out.text().isdigit() and not self.ingresar_cedula_out.text().isalpha():  #detecta si numeros o letras donde no deben
-
                 try:
-                    archivo_out = open("Lista.txt", "r")
-                    contenido = archivo_out.read()
-                    print(contenido)
-                    if cedula==self.df['Cedula'][0]:
-                        archivo_out.close()
+                    if str(self.df['Cedula'][0]) == str(self.ingresar_cedula_out.text()) and str(self.df['IsIn'][0]) == 'True':
+                        #self.df.replace(to_replace=self.df['HoraOut'][0], value=datetime.today().strftime('%H:%M'), inplace=True)
+                        #self.df.drop(index = self.df['Cedula'][0])
+                        print(self.df)
                         dialogo_exitoso = QMessageBox(self.centralWidget)
                         dialogo_exitoso.setWindowTitle(self.title)
                         dialogo_exitoso.addButton("Aceptar", 0)
                         dialogo_exitoso.setInformativeText("Se ha retirado correctamente\n    ")
                         dialogo_exitoso.show()
                         self.HomeWindow()
-                    else:
-                        dialogo_error_busqueda = QMessageBox(self.centralWidget)
-                        dialogo_error_busqueda.setWindowTitle(self.title)
-                        dialogo_error_busqueda.addButton("Aceptar", 0)
-                        dialogo_error_busqueda.setInformativeText("Error, no se encontró a ese usuario\n    ")
-                        dialogo_error_busqueda.show()
-                        archivo_out.close()
+                    ''''
+                    for ced in range(len(Lista) - 1, 0, -1):
+                        if str(self.df['Cedula'][ced]) == str(self.ingresar_cedula_out.text()) and str(self.df['IsIn'][0]) == 'True':
+                            pass
+                        else:
+                            pass
+                            #dialogo_error_busqueda = QMessageBox(self.centralWidget)
+                            #dialogo_error_busqueda.setWindowTitle(self.title)
+                            #dialogo_error_busqueda.addButton("Aceptar", 0)
+                            #dialogo_error_busqueda.setInformativeText("Error, no se encontró a ese usuario\n    ")
+                            #dialogo_error_busqueda.show()
+                    '''
+                    archivo_out = open("Lista.txt", "r")
+                    contenido = archivo_out.read()
+                    print(contenido)
+                    archivo_out.close()
                 except:
                     dialogo_error_lectura = QMessageBox(self.centralWidget)
                     dialogo_error_lectura.setWindowTitle(self.title)
@@ -357,7 +347,7 @@ class MainWindow(QMainWindow): #Ventana principal
         Lista_carnet = self.df['Carnet']
         ocupacion = int(self.ocupacion)
         '''
-        Suma ingresos
+        Suma ingresos    MOVER DE ACÁ AL LUGAR CORRECTO!
         '''
         for cont in range(len(Lista)):
             if str(Lista_carnet[cont]) == str(self.carnet) or str(Lista[cont]) == str(self.ingresar_cedula.text()):
@@ -376,11 +366,9 @@ class MainWindow(QMainWindow): #Ventana principal
                     for ced in range(len(Lista) - 1, 0, -1):
                         if str(self.df['Cedula'][ced]) == str(self.ingresar_cedula.text()) and str(self.df['IsIn'][ced]) == 'True':
                             cedulaExist = True
-                except:
-                    pass
-                ########
-                if not cedulaExist:
-                    try:
+
+                    if not cedulaExist:
+
                         self.df_as_txt = open ("../DB.csv", "a")
                         #ParaPandas
                         #Enviar vector persona a DB
@@ -397,21 +385,19 @@ class MainWindow(QMainWindow): #Ventana principal
                         dialogo_exitoso.addButton("Aceptar", 0)
                         dialogo_exitoso.setInformativeText("Se ha ingresado correctamente   \n")
                         dialogo_exitoso.show()
-
                         self.HomeWindow()
-                    except:
-                        dialogo_error_escritura = QMessageBox(self.centralWidget)
-                        dialogo_error_escritura.setWindowTitle(self.title)
-                        dialogo_error_escritura.addButton("Aceptar",0)
-                        dialogo_error_escritura.setInformativeText("Error, intente nuevamente\n\nSi el error persiste comuniquese con el fabricante")
-                        dialogo_error_escritura.show()
-                else:
-                    dialogo_error_cedulaExistente = QMessageBox(self.centralWidget)
-                    dialogo_error_cedulaExistente.setWindowTitle(self.title)
-                    dialogo_error_cedulaExistente.addButton("Aceptar", 0)
-                    dialogo_error_cedulaExistente.setInformativeText("El usuario ya está adentro    \n")
-                    dialogo_error_cedulaExistente.show()
-    
+                    else:
+                        dialogo_error_cedulaExistente = QMessageBox(self.centralWidget)
+                        dialogo_error_cedulaExistente.setWindowTitle(self.title)
+                        dialogo_error_cedulaExistente.addButton("Aceptar", 0)
+                        dialogo_error_cedulaExistente.setInformativeText("El usuario ya está adentro    \n")
+                        dialogo_error_cedulaExistente.show()
+                except:
+                    dialogo_error_escritura = QMessageBox(self.centralWidget)
+                    dialogo_error_escritura.setWindowTitle(self.title)
+                    dialogo_error_escritura.addButton("Aceptar",0)
+                    dialogo_error_escritura.setInformativeText("Error, intente nuevamente\n\nSi el error persiste comuniquese con el fabricante")
+                    dialogo_error_escritura.show()
             else:
                 dialogo_error_typ = QMessageBox(self.centralWidget)
                 dialogo_error_typ.setWindowTitle(self.title)
@@ -424,7 +410,6 @@ class MainWindow(QMainWindow): #Ventana principal
             dialogo_error_incompleto.addButton("Aceptar", 0)
             dialogo_error_incompleto.setInformativeText("Debe llenar todos los campos\nantes de continuar")
             dialogo_error_incompleto.show()
-        
 
     def Ingresar_desplegar_teclado_numerico_cedula(self):
         self.campo = 'ingresar-cedula'
