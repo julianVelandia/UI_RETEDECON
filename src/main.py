@@ -12,17 +12,8 @@ class MainWindow(QMainWindow): #Ventana principal
             self.setStyleSheet(f.read())
 
         self.df = pd.read_csv('../DB.csv')
-        #self.df_as_dataframe = pd.DataFrame(self.df)
-        #self.df_as_dataframe = pd.DataFrame(self.df,columns=['Nombre','Cedula','Carnet','Temp','Fecha','HoraIn','HoraOut','Delta','Numingresos','IsIn'])
         self.cedula_cache = ''
         self.carnet = ''
-
-        try:
-            ocupacion_doc = open("Lista.txt", "r")
-            self.ocupacion = ocupacion_doc.read()
-            ocupacion_doc.close()
-        except:
-            print("ERROR")
 
         'Constants'
         self.title = 'RETEDECON'
@@ -44,7 +35,6 @@ class MainWindow(QMainWindow): #Ventana principal
         self.label_img_central.setGeometry(289,-10,1024,600)
         self.pixmap = QPixmap('static/icons/Logo_central.png')   #Imagen central
         self.label_img_central.setPixmap(self.pixmap)
-
         '''
         Botones de home y logo esquina
         '''
@@ -120,8 +110,6 @@ class MainWindow(QMainWindow): #Ventana principal
         self.salida_manual.setVisible(False)
         self.configuracion.setVisible(False)
         self.informacion.setVisible(False)
-        self.configuracion_capacidad.setVisible(False)  
-        self.configuracion_capacidad_text.setVisible(False) 
 
         'timer'
         self.timer = QTimer()
@@ -178,6 +166,7 @@ class MainWindow(QMainWindow): #Ventana principal
         self.configuracion_capacidad_text.setClearButtonEnabled(True)
         self.configuracion_capacidad_text.setGeometry(164,396,290,80)
         self.configuracion_capacidad_text.setMaxLength(5)
+        self.configuracion_capacidad_text.setVisible(False)
 
         self.campo ='null'
 
@@ -185,23 +174,21 @@ class MainWindow(QMainWindow): #Ventana principal
         self.BotonesIngresar()
         # Botones Salida Manual
         self.BotonesSalidaManual()
-        #botones teclado
+        #botones teclados
         self.BotonesTeclado()
         self.BotonesTecladoNumerico()
         #AccionClcikIngresarNombre
         self.ingresar_nombre.clicked.connect(self.Ingresar_desplegar_teclado)
         #AccionClcikIngresarCedula
         self.ingresar_cedula.clicked.connect(self.Ingresar_desplegar_teclado_numerico_cedula)
-        # AccionClcikIngresarNombreOut
+        #AccionIngresarTemperatura
         self.ingresar_temp.clicked.connect(self.Ingresar_desplegar_teclado_numerico_temp)
-
+        # AccionClcikIngresarNombreOut
         self.ingresar_nombre_out.clicked.connect(self.Retirar_desplegar_teclado)
         # AccionClcikIngresarCedulaOut
         self.ingresar_cedula_out.clicked.connect(self.Retirar_desplegar_teclado_numerico_cedula)
-
         #Botones de configuraciones
         self.BotonesConfig()
-
         '''
         Valores BD
         '''
@@ -263,6 +250,7 @@ class MainWindow(QMainWindow): #Ventana principal
         self.configuracion_capacidad.setToolButtonStyle(Qt.ToolButtonTextUnderIcon)
         self.configuracion_capacidad.clicked.connect(self.Capacidad)
         self.configuracion_capacidad.setGeometry(570, 230, 290, 231)
+        self.configuracion_capacidad.setVisible(False)
 
     def BotonesIngresar(self):
         self.ingresar_ingresar = QToolButton(self.centralWidget)
@@ -293,7 +281,6 @@ class MainWindow(QMainWindow): #Ventana principal
         self.ingresar_cedula_out.setVisible(False)
         self.retirar.setVisible(False)
 
-
     def Capacidad(self):
         print('capacidad')
 
@@ -301,53 +288,49 @@ class MainWindow(QMainWindow): #Ventana principal
         '''
         Devuelve la diferencia en minutos
         '''
-
         #Ojo, si las fechas son distintas pueden haber problemas
+        Fecha_Hoy = datetime.today().strftime('%d-%m-%Y')
+        #Fecha = Fecha.split(':')
         HoraOut= HoraOut.split(':')
         HoraIn= HoraIn.split(':')
 
         #Tiempo total en minutos
-        NumOut=int(HoraOut[0])*60+int(HoraOut[1])
-        NumIn=int(HoraIn[0])*60+int(HoraIn[1])
-        
-        delta = NumOut-NumIn
-        return str(delta)
-    
+        if not Fecha_Hoy=="aaa":
+            NumOut=int(HoraOut[0])*60+int(HoraOut[1])
+            NumIn=int(HoraIn[0])*60+int(HoraIn[1])
 
-    '''Esta función se encarga de escribir lo datos en un archivo .txt y tiene
-    programadas ventanas emergentes en caso de errores o notificaciones'''
+            delta = NumOut-NumIn
+            return str(delta)
+        else:
+            dialogo_error_fecha = QMessageBox(self.centralWidget)
+            dialogo_error_fecha.setWindowTitle(self.title)
+            dialogo_error_fecha.addButton("Aceptar", 0)
+            dialogo_error_fecha.setInformativeText("Ha ocurrido un error al verifcar    \nlas fechas, si persiste comuniquese   \n  con el fabricante \n    ")
+            dialogo_error_fecha.show()
+    
     '''
-    Tambiàn eliminar usuarios
+    Acá leemos la base de datos para procesar y o modificar la informacion
     '''
     def Leer(self):
         Lista = self.df['Cedula']
-        # definimos la fecha y hora
-        nombre = str(self.ingresar_nombre_out.text())
-        cedula = str(self.ingresar_cedula_out.text())
         self.carnet = '*'
-
         self.HoraOut = datetime.today().strftime('%H:%M')
-        
         if self.ingresar_nombre_out.text()!="" and self.ingresar_cedula_out.text()!="":  #lógica para leer si los campos están vacíos
             if not self.ingresar_nombre_out.text().isdigit() and not self.ingresar_cedula_out.text().isalpha():  #detecta si numeros o letras donde no deben
                 try:
                     flag = True
                     if str(self.df['Cedula'][0]) == str(self.ingresar_cedula_out.text()) and str(self.df['IsIn'][0]) == 'True':
-                        #self.df.replace(to_replace=self.df['HoraOut'][0], value=datetime.today().strftime('%H:%M'), inplace=True)
-                        #self.df.drop(index = self.df['Cedula'][0])
                         flag = False
                         self.df_as_txt = open ("../DB.csv", "r")
                         lineas = self.df_as_txt.readlines()
                         self.df_as_txt.close()
                         lineas[1] = lineas[1].replace('HO*',self.HoraOut).replace('D*',self.restar_deltas(self.HoraOut,self.df['HoraIn'][0])).replace('True','False')
-                        print()
                         print(lineas[1])
                         self.df_as_txt = open("../DB.csv", "w")
                         for l in lineas:
                             self.df_as_txt.write(l)
                         self.df_as_txt.close()
-
-
+                        #Confirmacion
                         dialogo_exitoso = QMessageBox(self.centralWidget)
                         dialogo_exitoso.setWindowTitle(self.title)
                         dialogo_exitoso.addButton("Aceptar", 0)
@@ -362,31 +345,23 @@ class MainWindow(QMainWindow): #Ventana principal
                             lineas = self.df_as_txt.readlines()
                             self.df_as_txt.close()
                             lineas[ced+1] = lineas[ced+1].replace('HO*',self.HoraOut).replace('D*',self.restar_deltas(self.HoraOut,self.df['HoraIn'][ced])).replace('True','False')
-                            
                             self.df_as_txt = open("../DB.csv", "w")
                             for l in lineas:
                                 self.df_as_txt.write(l)
                             self.df_as_txt.close()
-
-
+                            #Confirmacion
                             dialogo_exitoso = QMessageBox(self.centralWidget)
                             dialogo_exitoso.setWindowTitle(self.title)
                             dialogo_exitoso.addButton("Aceptar", 0)
                             dialogo_exitoso.setInformativeText("Se ha retirado correctamente\n    ")
                             dialogo_exitoso.show()
                             self.HomeWindow()
-
                     if flag:
                         dialogo_error_busqueda = QMessageBox(self.centralWidget)
                         dialogo_error_busqueda.setWindowTitle(self.title)
                         dialogo_error_busqueda.addButton("Aceptar", 0)
                         dialogo_error_busqueda.setInformativeText("Error, no se encontró a ese usuario\n    ")
                         dialogo_error_busqueda.show()
-                    
-                    archivo_out = open("Lista.txt", "r")
-                    contenido = archivo_out.read()
-                    print(contenido)
-                    archivo_out.close()
                 except:
                     dialogo_error_lectura = QMessageBox(self.centralWidget)
                     dialogo_error_lectura.setWindowTitle(self.title)
@@ -421,7 +396,6 @@ class MainWindow(QMainWindow): #Ventana principal
         cedulaExist=False
         Lista = self.df['Cedula']
         Lista_carnet = self.df['Carnet']
-        ocupacion = int(self.ocupacion)
         '''
         Suma ingresos    MOVER DE ACÁ AL LUGAR CORRECTO!
         '''
@@ -444,18 +418,12 @@ class MainWindow(QMainWindow): #Ventana principal
                             cedulaExist = True
 
                     if not cedulaExist:
-
                         self.df_as_txt = open ("../DB.csv", "a")
                         #ParaPandas
                         #Enviar vector persona a DB
                         persona = '\n'+self.ingresar_nombre.text()+','+cedula+','+carnet+','+temp+','+self.Fecha+','+self.HoraIn+','+self.HoraOut+','+self.Delta+','+self.Numingresos+','+self.IsIn
                         self.df_as_txt.write(persona)
                         self.df_as_txt.close()
-                        #TXT   OCUPACION FALLA PORQUE SOLO ESCRIBE UNA VEZ
-                        ocupacion += 1
-                        archivo = open("Lista.txt", "w")
-                        archivo.write(str(ocupacion))
-                        archivo.close()
                         dialogo_exitoso = QMessageBox(self.centralWidget)
                         dialogo_exitoso.setWindowTitle(self.title)
                         dialogo_exitoso.addButton("Aceptar", 0)
@@ -594,8 +562,7 @@ class MainWindow(QMainWindow): #Ventana principal
 
     def Configuracion(self):
         self.configuracion_capacidad.setVisible(True)  
-        self.configuracion_capacidad_text.setVisible(True)  
-
+        self.configuracion_capacidad_text.setVisible(True)
         self.label_img_central.setVisible(False)  
         self.label_img_esquina.setVisible(True)  
         self.ingresar.setVisible(False)
@@ -604,7 +571,6 @@ class MainWindow(QMainWindow): #Ventana principal
         self.salida_manual.setVisible(False)
         self.configuracion.setVisible(False)
         self.informacion.setVisible(False)
-
 
     def Informacion(self):
         self.label_img_central.setVisible(False)  
