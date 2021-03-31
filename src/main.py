@@ -1,4 +1,3 @@
-from typing import ChainMap
 from PyQt5.QtWidgets import *
 from PyQt5.QtCore import *
 from PyQt5.QtGui import *
@@ -13,14 +12,17 @@ class MainWindow(QMainWindow): #Ventana principal
             self.setStyleSheet(f.read())
 
         self.df = pd.read_csv('../DB.csv')
-        self.df_as_dataframe = pd.DataFrame(self.df)
+        #self.df_as_dataframe = pd.DataFrame(self.df)
         #self.df_as_dataframe = pd.DataFrame(self.df,columns=['Nombre','Cedula','Carnet','Temp','Fecha','HoraIn','HoraOut','Delta','Numingresos','IsIn'])
-        #self.df_as_txt = open ("../DB.csv", "a")
-        self.ocupacion = 0
         self.cedula_cache = ''
+        self.carnet = ''
 
-        self.carnet =''
-
+        try:
+            ocupacion_doc = open("Lista.txt", "r")
+            self.ocupacion = ocupacion_doc.read()
+            ocupacion_doc.close()
+        except:
+            print("ERROR")
 
         'Constants'
         self.title = 'RETEDECON'
@@ -272,6 +274,9 @@ class MainWindow(QMainWindow): #Ventana principal
     '''
     def Leer(self):
 
+        self.df.replace("CASA", "HOLA")
+        print(self.df)
+
         # definimos la fecha y hora
         nombre = str(self.ingresar_nombre_out.text())
         cedula = str(self.ingresar_cedula_out.text())
@@ -279,7 +284,7 @@ class MainWindow(QMainWindow): #Ventana principal
 
         self.HoraOut = datetime.today().strftime('%H:%M')
         Lista = self.df['Cedula']
-        self.df.drop([0],axis=0)
+        #self.df.drop([0],axis=0)
 
         '''
         if str(self.df['Cedula'][0]) == str(self.ingresar_cedula_out.text()) and str(self.df['IsIn'][0]) == 'True':
@@ -294,17 +299,14 @@ class MainWindow(QMainWindow): #Ventana principal
                 print('MARICA')
         '''
 
-
-        
-        
         if self.ingresar_nombre_out.text()!="" and self.ingresar_cedula_out.text()!="":  #lógica para leer si los campos están vacíos
             if not self.ingresar_nombre_out.text().isdigit() and not self.ingresar_cedula_out.text().isalpha():  #detecta si numeros o letras donde no deben
 
                 try:
                     archivo_out = open("Lista.txt", "r")
-                    contenido = archivo_out.readline()
-                    lista_contenido = contenido.split("-")
-                    if lista_contenido[0]==persona_out[1] and lista_contenido[1]==persona_out[3]:
+                    contenido = archivo_out.read()
+                    print(contenido)
+                    if cedula==self.df['Cedula'][0]:
                         archivo_out.close()
                         dialogo_exitoso = QMessageBox(self.centralWidget)
                         dialogo_exitoso.setWindowTitle(self.title)
@@ -350,15 +352,13 @@ class MainWindow(QMainWindow): #Ventana principal
         self.Delta = '*'
         self.Numingresos = 0 #Se inicia en 0
         self.IsIn = 'True'
-        #persona = pd.DataFrame([self.ingresar_nombre.text(),self.ingresar_cedula.text(),self.ingresar_temp.text(),self.HoraIn,self.HoraOut,self.Delta,self.Numingresos,self.IsIn])
         cedulaExist=False
         Lista = self.df['Cedula']
         Lista_carnet = self.df['Carnet']
-
+        ocupacion = int(self.ocupacion)
         '''
         Suma ingresos
         '''
-
         for cont in range(len(Lista)):
             if str(Lista_carnet[cont]) == str(self.carnet) or str(Lista[cont]) == str(self.ingresar_cedula.text()):
                 self.Numingresos+=1
@@ -366,18 +366,11 @@ class MainWindow(QMainWindow): #Ventana principal
         self.Numingresos=str(self.Numingresos)
         print(self.Numingresos)
 
-        #persona = pd.DataFrame([self.ingresar_nombre.text(),self.ingresar_cedula.text(),self.ingresar_temp.text(),self.HoraIn,self.HoraOut,self.Delta,self.Numingresos,self.IsIn])
-        #persona.to_csv(self.df)
-        
-        #self.df_as_txt.close()
         if self.ingresar_nombre.text()!="" and self.ingresar_cedula.text()!="" and self.ingresar_temp.text()!="":  #lógica para leer si los campos están vacíos
             if not self.ingresar_nombre.text().isdigit() and not self.ingresar_cedula.text().isalpha() and not self.ingresar_temp.text().isalpha():  #detecta si numeros o letras donde no deben
                 # mirar si la cédula ya existe
-                
-                
                 # Recorrido del arreglo
                 try:
-                    #print(str(self.df['Cedula'][0])+'-'+str(self.ingresar_cedula.text())+'-'+str(self.df['IsIn'][0]))
                     if str(self.df['Cedula'][0]) == str(self.ingresar_cedula.text()) and str(self.df['IsIn'][0]) == 'True':
                         cedulaExist = True
                     for ced in range(len(Lista) - 1, 0, -1):
@@ -385,21 +378,20 @@ class MainWindow(QMainWindow): #Ventana principal
                             cedulaExist = True
                 except:
                     pass
+                ########
                 if not cedulaExist:
-                    
                     try:
                         self.df_as_txt = open ("../DB.csv", "a")
                         #ParaPandas
                         #Enviar vector persona a DB
                         persona = '\n'+self.ingresar_nombre.text()+','+cedula+','+carnet+','+temp+','+self.Fecha+','+self.HoraIn+','+self.HoraOut+','+self.Delta+','+self.Numingresos+','+self.IsIn
                         self.df_as_txt.write(persona)
-                        print('escrito')
-                        self.ocupacion +=1
                         self.df_as_txt.close()
-                        #TXT
-                        #archivo = open("Lista.txt", "a")
-                        #archivo.write(self.ocupacion)
-                        #archivo.close()
+                        #TXT   OCUPACION FALLA PORQUE SOLO ESCRIBE UNA VEZ
+                        ocupacion += 1
+                        archivo = open("Lista.txt", "w")
+                        archivo.write(str(ocupacion))
+                        archivo.close()
                         dialogo_exitoso = QMessageBox(self.centralWidget)
                         dialogo_exitoso.setWindowTitle(self.title)
                         dialogo_exitoso.addButton("Aceptar", 0)
