@@ -267,46 +267,92 @@ class MainWindow(QMainWindow): #Ventana principal
         self.ingresar_cedula_out.setVisible(False)
         self.retirar.setVisible(False)
 
+    def restar_deltas(self,HoraOut,HoraIn):
+        '''
+        Devuelve la diferencia en minutos
+        '''
+
+        #Ojo, si las fechas son distintas pueden haber problemas
+        HoraOut= HoraOut.split(':')
+        HoraIn= HoraIn.split(':')
+
+        #Tiempo total en minutos
+        NumOut=int(HoraOut[0])*60+int(HoraOut[1])
+        NumIn=int(HoraIn[0])*60+int(HoraIn[1])
+        
+        delta = NumOut-NumIn
+        return str(delta)
+    
+
     '''Esta función se encarga de escribir lo datos en un archivo .txt y tiene
     programadas ventanas emergentes en caso de errores o notificaciones'''
     '''
     Tambiàn eliminar usuarios
     '''
     def Leer(self):
-
+        Lista = self.df['Cedula']
         # definimos la fecha y hora
         nombre = str(self.ingresar_nombre_out.text())
         cedula = str(self.ingresar_cedula_out.text())
         self.carnet = '*'
 
         self.HoraOut = datetime.today().strftime('%H:%M')
-        Lista = self.df['Cedula']
-
+        
         if self.ingresar_nombre_out.text()!="" and self.ingresar_cedula_out.text()!="":  #lógica para leer si los campos están vacíos
             if not self.ingresar_nombre_out.text().isdigit() and not self.ingresar_cedula_out.text().isalpha():  #detecta si numeros o letras donde no deben
                 try:
+                    flag = True
                     if str(self.df['Cedula'][0]) == str(self.ingresar_cedula_out.text()) and str(self.df['IsIn'][0]) == 'True':
                         #self.df.replace(to_replace=self.df['HoraOut'][0], value=datetime.today().strftime('%H:%M'), inplace=True)
                         #self.df.drop(index = self.df['Cedula'][0])
-                        print(self.df)
+                        flag = False
+                        self.df_as_txt = open ("../DB.csv", "r")
+                        lineas = self.df_as_txt.readlines()
+                        self.df_as_txt.close()
+                        lineas[1] = lineas[1].replace('HO*',self.HoraOut).replace('D*',self.restar_deltas(self.HoraOut,self.df['HoraIn'][0])).replace('True','False')
+                        print()
+                        print(lineas[1])
+                        self.df_as_txt = open("../DB.csv", "w")
+                        for l in lineas:
+                            self.df_as_txt.write(l)
+                        self.df_as_txt.close()
+
+
                         dialogo_exitoso = QMessageBox(self.centralWidget)
                         dialogo_exitoso.setWindowTitle(self.title)
                         dialogo_exitoso.addButton("Aceptar", 0)
                         dialogo_exitoso.setInformativeText("Se ha retirado correctamente\n    ")
                         dialogo_exitoso.show()
                         self.HomeWindow()
-                    ''''
+                    
                     for ced in range(len(Lista) - 1, 0, -1):
-                        if str(self.df['Cedula'][ced]) == str(self.ingresar_cedula_out.text()) and str(self.df['IsIn'][0]) == 'True':
-                            pass
-                        else:
-                            pass
-                            #dialogo_error_busqueda = QMessageBox(self.centralWidget)
-                            #dialogo_error_busqueda.setWindowTitle(self.title)
-                            #dialogo_error_busqueda.addButton("Aceptar", 0)
-                            #dialogo_error_busqueda.setInformativeText("Error, no se encontró a ese usuario\n    ")
-                            #dialogo_error_busqueda.show()
-                    '''
+                        if str(self.df['Cedula'][ced]) == str(self.ingresar_cedula_out.text()) and str(self.df['IsIn'][ced]) == 'True':
+                            flag =False
+                            self.df_as_txt = open ("../DB.csv", "r")
+                            lineas = self.df_as_txt.readlines()
+                            self.df_as_txt.close()
+                            lineas[ced+1] = lineas[ced+1].replace('HO*',self.HoraOut).replace('D*',self.restar_deltas(self.HoraOut,self.df['HoraIn'][ced])).replace('True','False')
+                            
+                            self.df_as_txt = open("../DB.csv", "w")
+                            for l in lineas:
+                                self.df_as_txt.write(l)
+                            self.df_as_txt.close()
+
+
+                            dialogo_exitoso = QMessageBox(self.centralWidget)
+                            dialogo_exitoso.setWindowTitle(self.title)
+                            dialogo_exitoso.addButton("Aceptar", 0)
+                            dialogo_exitoso.setInformativeText("Se ha retirado correctamente\n    ")
+                            dialogo_exitoso.show()
+                            self.HomeWindow()
+
+                    if flag:
+                        dialogo_error_busqueda = QMessageBox(self.centralWidget)
+                        dialogo_error_busqueda.setWindowTitle(self.title)
+                        dialogo_error_busqueda.addButton("Aceptar", 0)
+                        dialogo_error_busqueda.setInformativeText("Error, no se encontró a ese usuario\n    ")
+                        dialogo_error_busqueda.show()
+                    
                     archivo_out = open("Lista.txt", "r")
                     contenido = archivo_out.read()
                     print(contenido)
@@ -338,8 +384,8 @@ class MainWindow(QMainWindow): #Ventana principal
         temp= str(self.ingresar_temp.text())
         self.Fecha = datetime.today().strftime('%d-%m-%Y')
         self.HoraIn = datetime.today().strftime('%H:%M')
-        self.HoraOut = '*'
-        self.Delta = '*'
+        self.HoraOut = 'HO*'
+        self.Delta = 'D*'
         self.Numingresos = 0 #Se inicia en 0
         self.IsIn = 'True'
         cedulaExist=False
