@@ -120,6 +120,8 @@ class MainWindow(QMainWindow): #Ventana principal
         self.salida_manual.setVisible(False)
         self.configuracion.setVisible(False)
         self.informacion.setVisible(False)
+        self.configuracion_capacidad.setVisible(False)  
+        self.configuracion_capacidad_text.setVisible(False) 
 
         'timer'
         self.timer = QTimer()
@@ -168,6 +170,15 @@ class MainWindow(QMainWindow): #Ventana principal
         self.ingresar_cedula_out.setGeometry(164.2, 341, 290, 70)
         self.ingresar_cedula_out.setMaxLength(15)
 
+        #config
+        'Capacidad'
+        self.configuracion_capacidad_text = QLineEditClick(self.centralWidget)
+        self.configuracion_capacidad_text.setPlaceholderText("CAPACIDAD")
+        self.configuracion_capacidad_text.setObjectName("input") #nombre de enlace a css
+        self.configuracion_capacidad_text.setClearButtonEnabled(True)
+        self.configuracion_capacidad_text.setGeometry(164,396,290,80)
+        self.configuracion_capacidad_text.setMaxLength(5)
+
         self.campo ='null'
 
         #Botones Ingresar
@@ -187,6 +198,9 @@ class MainWindow(QMainWindow): #Ventana principal
         self.ingresar_nombre_out.clicked.connect(self.Retirar_desplegar_teclado)
         # AccionClcikIngresarCedulaOut
         self.ingresar_cedula_out.clicked.connect(self.Retirar_desplegar_teclado_numerico_cedula)
+
+        #Botones de configuraciones
+        self.BotonesConfig()
 
         '''
         Valores BD
@@ -214,6 +228,8 @@ class MainWindow(QMainWindow): #Ventana principal
         self.ingresar_cedula_out.setVisible(False)
         self.ingresar_ingresar.setVisible(False)
         self.retirar.setVisible(False)
+        self.configuracion_capacidad.setVisible(False)  
+        self.configuracion_capacidad_text.setVisible(False) 
         self.NotTeclado()
         self.NotTecladoNumerico()
 
@@ -237,6 +253,16 @@ class MainWindow(QMainWindow): #Ventana principal
         self.ingresar_cedula_out.setVisible(False)
         self.retirar.setVisible(False)
         self.Ingresar_guardar_teclado()
+
+    def BotonesConfig(self):
+        self.configuracion_capacidad = QToolButton(self.centralWidget)
+        self.configuracion_capacidad.setText('CAPACIDAD')
+        self.configuracion_capacidad.setObjectName("button") #nombre de enlace a css
+        self.configuracion_capacidad.setIcon(QIcon('static/icons/icono_entrar')) #icono
+        self.configuracion_capacidad.setIconSize(QSize(60,60))
+        self.configuracion_capacidad.setToolButtonStyle(Qt.ToolButtonTextUnderIcon)
+        self.configuracion_capacidad.clicked.connect(self.Capacidad)
+        self.configuracion_capacidad.setGeometry(570, 230, 290, 231)
 
     def BotonesIngresar(self):
         self.ingresar_ingresar = QToolButton(self.centralWidget)
@@ -266,6 +292,10 @@ class MainWindow(QMainWindow): #Ventana principal
         self.ingresar_nombre_out.setVisible(False)
         self.ingresar_cedula_out.setVisible(False)
         self.retirar.setVisible(False)
+
+
+    def Capacidad(self):
+        print('capacidad')
 
     def restar_deltas(self,HoraOut,HoraIn):
         '''
@@ -537,6 +567,13 @@ class MainWindow(QMainWindow): #Ventana principal
         self.salida_manual.setVisible(False)
         self.configuracion.setVisible(False)
         self.informacion.setVisible(False)
+        Lista = self.df['IsIn']
+        print(Lista)
+        ingresos =0 
+        for i in Lista:
+            if i == True:
+                ingresos +=1
+        print('Ingresos: '+str(ingresos))
 
     def Salida_manual(self):
         self.label_img_central.setVisible(False)
@@ -556,6 +593,9 @@ class MainWindow(QMainWindow): #Ventana principal
         self.Retirar_guardar_teclado()
 
     def Configuracion(self):
+        self.configuracion_capacidad.setVisible(True)  
+        self.configuracion_capacidad_text.setVisible(True)  
+
         self.label_img_central.setVisible(False)  
         self.label_img_esquina.setVisible(True)  
         self.ingresar.setVisible(False)
@@ -564,6 +604,7 @@ class MainWindow(QMainWindow): #Ventana principal
         self.salida_manual.setVisible(False)
         self.configuracion.setVisible(False)
         self.informacion.setVisible(False)
+
 
     def Informacion(self):
         self.label_img_central.setVisible(False)  
