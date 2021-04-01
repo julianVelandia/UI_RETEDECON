@@ -3,6 +3,7 @@ from PyQt5.QtCore import *
 from PyQt5.QtGui import *
 from QLineClick import QLineEditClick
 from datetime import datetime
+import sys
 import pandas as pd
 
 class MainWindow(QMainWindow): #Ventana principal
@@ -81,15 +82,15 @@ class MainWindow(QMainWindow): #Ventana principal
         self.configuracion.setText('CONFIGURACIÓN')
         self.configuracion.setObjectName("button")
         self.configuracion.setIcon(QIcon('static/icons/icono_configuraciones'))
-        self.configuracion.setIconSize(QSize(60,60))
+        self.configuracion.setIconSize(QSize(70,70))
         self.configuracion.setToolButtonStyle(Qt.ToolButtonTextUnderIcon)
         self.configuracion.clicked.connect(self.Configuracion)
 
         self.informacion = QToolButton(self.centralWidget)
         self.informacion.setText('INFORMACIÓN')
         self.informacion.setObjectName("button")
-        self.informacion.setIcon(QIcon('static/icons/icono_campana'))
-        self.informacion.setIconSize(QSize(60,60))
+        self.informacion.setIcon(QIcon('static/icons/icono_info'))
+        self.informacion.setIconSize(QSize(50,50))
         self.informacion.setToolButtonStyle(Qt.ToolButtonTextUnderIcon)
         self.informacion.clicked.connect(self.Informacion)
 
@@ -147,7 +148,7 @@ class MainWindow(QMainWindow): #Ventana principal
         self.ingresar_nombre_out.setPlaceholderText("NOMBRE")
         self.ingresar_nombre_out.setObjectName("input")  # nombre de enlace a css
         self.ingresar_nombre_out.setClearButtonEnabled(True)
-        self.ingresar_nombre_out.setGeometry(164.2, 237, 290, 70)
+        self.ingresar_nombre_out.setGeometry(164, 237, 290, 70)
         self.ingresar_nombre_out.setMaxLength(40)
 
         'cuadros de texto out 2'
@@ -155,7 +156,7 @@ class MainWindow(QMainWindow): #Ventana principal
         self.ingresar_cedula_out.setPlaceholderText("CEDULA")
         self.ingresar_cedula_out.setObjectName("input")  # nombre de enlace a css
         self.ingresar_cedula_out.setClearButtonEnabled(True)
-        self.ingresar_cedula_out.setGeometry(164.2, 341, 290, 70)
+        self.ingresar_cedula_out.setGeometry(164, 341, 290, 70)
         self.ingresar_cedula_out.setMaxLength(15)
 
         #config
@@ -164,9 +165,27 @@ class MainWindow(QMainWindow): #Ventana principal
         self.configuracion_capacidad_text.setPlaceholderText("CAPACIDAD")
         self.configuracion_capacidad_text.setObjectName("input") #nombre de enlace a css
         self.configuracion_capacidad_text.setClearButtonEnabled(True)
-        self.configuracion_capacidad_text.setGeometry(164,396,290,80)
+        self.configuracion_capacidad_text.setGeometry(164,237,290,70)
         self.configuracion_capacidad_text.setMaxLength(5)
         self.configuracion_capacidad_text.setVisible(False)
+
+        'ADMINISTRADOR_USER'
+        self.configuracion_avanzada_user = QLineEditClick(self.centralWidget)
+        self.configuracion_avanzada_user.setPlaceholderText("USUARIO")
+        self.configuracion_avanzada_user.setObjectName("input") #nombre de enlace a css
+        self.configuracion_avanzada_user.setClearButtonEnabled(True)
+        self.configuracion_avanzada_user.setGeometry(164,237,290,70)
+        self.configuracion_avanzada_user.setMaxLength(40)
+        self.configuracion_avanzada_user.setVisible(False)
+
+        'ADMINISTRADOR_PASS'
+        self.configuracion_avanzada_pass = QLineEditClick(self.centralWidget)
+        self.configuracion_avanzada_pass.setPlaceholderText("CONTRASEÑA")
+        self.configuracion_avanzada_pass.setObjectName("input")  # nombre de enlace a css
+        self.configuracion_avanzada_pass.setClearButtonEnabled(True)
+        self.configuracion_avanzada_pass.setGeometry(164, 341, 290, 70)
+        self.configuracion_avanzada_pass.setMaxLength(15)
+        self.configuracion_avanzada_pass.setVisible(False)
 
         self.campo ='null'
 
@@ -183,12 +202,24 @@ class MainWindow(QMainWindow): #Ventana principal
         self.ingresar_cedula.clicked.connect(self.Ingresar_desplegar_teclado_numerico_cedula)
         #AccionIngresarTemperatura
         self.ingresar_temp.clicked.connect(self.Ingresar_desplegar_teclado_numerico_temp)
-        # AccionClcikIngresarNombreOut
+        #AccionClcikIngresarNombreOut
         self.ingresar_nombre_out.clicked.connect(self.Retirar_desplegar_teclado)
-        # AccionClcikIngresarCedulaOut
+        #AccionClcikIngresarCedulaOut
         self.ingresar_cedula_out.clicked.connect(self.Retirar_desplegar_teclado_numerico_cedula)
+        #AccionClcikIngresarUser
+        self.configuracion_avanzada_user.clicked.connect(self.Ad_Conf_desplegar_teclado)
+        #AccionClcikIngresarPass
+        self.configuracion_avanzada_pass.clicked.connect(self.Ad_Conf_desplegar_teclado_numerico)
         #Botones de configuraciones
         self.BotonesConfig()
+        #Botones Ad Conf
+        self.BotonesConfiguracionAvanzada()
+        # Botones Ad Conf In
+        self.BotonesConfiguracionAvanzadaInside()
+        # Botones Ad Conf In
+        self.BotonesCapacidad()
+        # Botones Informacion
+        self.BotonesInformacion()
         '''
         Valores BD
         '''
@@ -215,8 +246,17 @@ class MainWindow(QMainWindow): #Ventana principal
         self.ingresar_cedula_out.setVisible(False)
         self.ingresar_ingresar.setVisible(False)
         self.retirar.setVisible(False)
-        self.configuracion_capacidad.setVisible(False)  
-        self.configuracion_capacidad_text.setVisible(False) 
+        self.configuracion_apagar.setVisible(False)
+        self.configuracion_pantalla.setVisible(False)
+        self.configuracion_datos.setVisible(False)
+        self.configuracion_capacidad_text.setVisible(False)
+        self.configuracion_avanzada_user.setVisible(False)
+        self.configuracion_avanzada_pass.setVisible(False)
+        self.configuracion_avanzada.setVisible(False)
+        self.ingresar_Ad_Conf.setVisible(False)
+        self.configuracion_capacidad.setVisible(False)
+        self.manual_de_usuario.setVisible(False)
+        self.informacion_fabricante.setVisible(False)
         self.NotTeclado()
         self.NotTecladoNumerico()
 
@@ -242,15 +282,45 @@ class MainWindow(QMainWindow): #Ventana principal
         self.Ingresar_guardar_teclado()
 
     def BotonesConfig(self):
-        self.configuracion_capacidad = QToolButton(self.centralWidget)
-        self.configuracion_capacidad.setText('CAPACIDAD')
-        self.configuracion_capacidad.setObjectName("button") #nombre de enlace a css
-        self.configuracion_capacidad.setIcon(QIcon('static/icons/icono_entrar')) #icono
-        self.configuracion_capacidad.setIconSize(QSize(60,60))
-        self.configuracion_capacidad.setToolButtonStyle(Qt.ToolButtonTextUnderIcon)
-        self.configuracion_capacidad.clicked.connect(self.Capacidad)
-        self.configuracion_capacidad.setGeometry(570, 230, 290, 231)
-        self.configuracion_capacidad.setVisible(False)
+        self.configuracion_avanzada = QToolButton(self.centralWidget)
+        self.configuracion_avanzada.setText('Configuración Avanzada\n(Administrador)')
+        self.configuracion_avanzada.setObjectName("button") #nombre de enlace a css
+        self.configuracion_avanzada.setIcon(QIcon('static/icons/icono_config_avanzada')) #icono
+        self.configuracion_avanzada.setIconSize(QSize(65,65))
+        self.configuracion_avanzada.setToolButtonStyle(Qt.ToolButtonTextUnderIcon)
+        self.configuracion_avanzada.setGeometry(534, 120, 290, 180)
+        self.configuracion_avanzada.clicked.connect(self.ConfiguracionAvanzada)
+        self.configuracion_avanzada.setVisible(False)
+
+        self.configuracion_apagar = QToolButton(self.centralWidget)
+        self.configuracion_apagar.setText('Apagar')
+        self.configuracion_apagar.setObjectName("button") #nombre de enlace a css
+        self.configuracion_apagar.setIcon(QIcon('static/icons/icono_apagar')) #icono
+        self.configuracion_apagar.setIconSize(QSize(60,60))
+        self.configuracion_apagar.setToolButtonStyle(Qt.ToolButtonTextUnderIcon)
+        self.configuracion_apagar.clicked.connect(self.Apagar)
+        self.configuracion_apagar.setGeometry(534, 340, 290, 180)
+        self.configuracion_apagar.setVisible(False)
+
+        self.configuracion_pantalla = QToolButton(self.centralWidget)
+        self.configuracion_pantalla.setText('Ajustes de Pantallas')
+        self.configuracion_pantalla.setObjectName("button")  # nombre de enlace a css
+        self.configuracion_pantalla.setIcon(QIcon('static/icons/icono_config_pantalla'))  # icono
+        self.configuracion_pantalla.setIconSize(QSize(60, 60))
+        self.configuracion_pantalla.setToolButtonStyle(Qt.ToolButtonTextUnderIcon)
+        self.configuracion_pantalla.clicked.connect(self.HomeWindow)
+        self.configuracion_pantalla.setGeometry(200, 120, 290, 180)
+        self.configuracion_pantalla.setVisible(False)
+
+        self.configuracion_datos = QToolButton(self.centralWidget)
+        self.configuracion_datos.setText('Ajustes de Datos')
+        self.configuracion_datos.setObjectName("button")  # nombre de enlace a css
+        self.configuracion_datos.setIcon(QIcon('static/icons/icono_config_datos'))  # icono
+        self.configuracion_datos.setIconSize(QSize(70, 70))
+        self.configuracion_datos.setToolButtonStyle(Qt.ToolButtonTextUnderIcon)
+        self.configuracion_datos.clicked.connect(self.HomeWindow)
+        self.configuracion_datos.setGeometry(200, 340, 290, 180)
+        self.configuracion_datos.setVisible(False)
 
     def BotonesIngresar(self):
         self.ingresar_ingresar = QToolButton(self.centralWidget)
@@ -281,8 +351,129 @@ class MainWindow(QMainWindow): #Ventana principal
         self.ingresar_cedula_out.setVisible(False)
         self.retirar.setVisible(False)
 
+    def BotonesCapacidad(self):
+        self.ingresar_capacidad = QToolButton(self.centralWidget)
+        self.ingresar_capacidad.setText('CAMBIAR CAPACIDAD\nMÁXIMA')
+        self.ingresar_capacidad.setObjectName("button")  # nombre de enlace a css
+        self.ingresar_capacidad.setIcon(QIcon('static/icons/icono_capacidad'))  # icono
+        self.ingresar_capacidad.setIconSize(QSize(60, 60))
+        self.ingresar_capacidad.setToolButtonStyle(Qt.ToolButtonTextUnderIcon)
+        self.ingresar_capacidad.clicked.connect(self.ConfiguracionAvanzadaInside)
+        self.ingresar_capacidad.setGeometry(570, 230, 290, 231)
+        self.ingresar_capacidad.setVisible(False)
+
     def Capacidad(self):
-        print('capacidad')
+        self.configuracion_capacidad_text.setVisible(True)
+        self.configuracion_capacidad.setVisible(False)
+        self.configuracion_capacidad_text.setVisible(True)
+        self.ingresar_capacidad.setVisible(True)
+
+    def BotonesConfiguracionAvanzada(self):
+        self.ingresar_Ad_Conf = QToolButton(self.centralWidget)
+        self.ingresar_Ad_Conf.setText('ACCEDER')
+        self.ingresar_Ad_Conf.setObjectName("button")  # nombre de enlace a css
+        self.ingresar_Ad_Conf.setIcon(QIcon('static/icons/icono_entrar'))  # icono
+        self.ingresar_Ad_Conf.setIconSize(QSize(60, 60))
+        self.ingresar_Ad_Conf.setToolButtonStyle(Qt.ToolButtonTextUnderIcon)
+        self.ingresar_Ad_Conf.clicked.connect(self.AdConfPass)
+        self.ingresar_Ad_Conf.setGeometry(570, 230, 290, 180)
+        self.ingresar_Ad_Conf.setVisible(False)
+        self.configuracion_avanzada_user.setVisible(False)
+        self.configuracion_avanzada_pass.setVisible(False)
+
+    def ConfiguracionAvanzada(self):
+        self.configuracion_apagar.setVisible(False)
+        self.configuracion_pantalla.setVisible(False)
+        self.configuracion_datos.setVisible(False)
+        self.configuracion_avanzada.setVisible(False)
+        self.label_img_central.setVisible(False)
+        self.label_img_esquina.setVisible(True)
+        self.ingresar.setVisible(False)
+        self.estadisticas.setVisible(False)
+        self.detener_alarma.setVisible(False)
+        self.salida_manual.setVisible(False)
+        self.configuracion.setVisible(False)
+        self.informacion.setVisible(False)
+        self.configuracion_avanzada_user.setVisible(True)
+        self.configuracion_avanzada_user.clear()
+        self.configuracion_avanzada_pass.setVisible(True)
+        self.configuracion_avanzada_pass.clear()
+        self.ingresar_Ad_Conf.setVisible(True)
+        self.Ad_Conf_guardar_teclado()
+
+    def BotonesConfiguracionAvanzadaInside(self):
+        self.configuracion_capacidad = QToolButton(self.centralWidget)
+        self.configuracion_capacidad.setText('Capacidad Máxima')
+        self.configuracion_capacidad.setObjectName("button")  # nombre de enlace a css
+        self.configuracion_capacidad.setIcon(QIcon('static/icons/icono_capacidad'))  # icono
+        self.configuracion_capacidad.setIconSize(QSize(60, 60))
+        self.configuracion_capacidad.setToolButtonStyle(Qt.ToolButtonTextUnderIcon)
+        self.configuracion_capacidad.clicked.connect(self.Capacidad)
+        self.configuracion_capacidad.setGeometry(534, 340, 290, 180)
+        self.configuracion_capacidad.setVisible(False)
+
+    def ConfiguracionAvanzadaInside(self):
+        self.configuracion_capacidad.setVisible(True)
+        self.configuracion_apagar.setVisible(False)
+        self.configuracion_pantalla.setVisible(False)
+        self.configuracion_datos.setVisible(False)
+        self.configuracion_avanzada.setVisible(False)
+        self.label_img_central.setVisible(False)
+        self.label_img_esquina.setVisible(True)
+        self.ingresar.setVisible(False)
+        self.estadisticas.setVisible(False)
+        self.detener_alarma.setVisible(False)
+        self.salida_manual.setVisible(False)
+        self.configuracion.setVisible(False)
+        self.informacion.setVisible(False)
+        self.configuracion_avanzada_user.setVisible(False)
+        self.configuracion_avanzada_pass.setVisible(False)
+        self.ingresar_Ad_Conf.setVisible(False)
+        self.ingresar_capacidad.setVisible(False)
+        self.configuracion_capacidad_text.setVisible(False)
+        self.Ad_Conf_guardar_teclado()
+        self.NotTecladoNumerico()
+
+    def Apagar(self):
+        sys.exit()
+
+    def AdConfPass(self):
+        if self.configuracion_avanzada_user.text()!="" and self.configuracion_avanzada_pass.text()!="" :  #lógica para leer si los campos están vacíos
+            if not self.configuracion_avanzada_user.text().isdigit() and not self.configuracion_avanzada_pass.text().isalpha():  #detecta si numeros donde no deben
+                if self.configuracion_avanzada_user.text() == "sebastian" and self.configuracion_avanzada_pass.text() == "0000":
+                    dialogo_acceso_concedido = QMessageBox(self.centralWidget)
+                    dialogo_acceso_concedido.setWindowTitle(self.title)
+                    dialogo_acceso_concedido.addButton("Aceptar", 0)
+                    dialogo_acceso_concedido.setInformativeText("Bienvenido: "+ self.configuracion_avanzada_user.text()+ "  \n    ")
+                    dialogo_acceso_concedido.show()
+                    self.ConfiguracionAvanzadaInside()
+
+                elif self.configuracion_avanzada_user.text() == "julian" and self.configuracion_avanzada_pass.text() == "1111":
+                    dialogo_acceso_concedido = QMessageBox(self.centralWidget)
+                    dialogo_acceso_concedido.setWindowTitle(self.title)
+                    dialogo_acceso_concedido.addButton("Aceptar", 0)
+                    dialogo_acceso_concedido.setInformativeText("Bienvenido: "+ self.configuracion_avanzada_user.text()+ "  \n    ")
+                    dialogo_acceso_concedido.show()
+                    self.ConfiguracionAvanzadaInside()
+
+                else:
+                    dialogo_error_escritura = QMessageBox(self.centralWidget)
+                    dialogo_error_escritura.setWindowTitle(self.title)
+                    dialogo_error_escritura.addButton("Aceptar", 0)
+                    dialogo_error_escritura.setInformativeText("Error, verifique los datos ingresados  \nSi el error persiste comuniquese con el fabricante")
+                    dialogo_error_escritura.show()
+            else:
+                dialogo_error_typ = QMessageBox(self.centralWidget)
+                dialogo_error_typ.setWindowTitle(self.title)
+                dialogo_error_typ.addButton("Aceptar", 0)
+                dialogo_error_typ.setInformativeText("Error, verifique los datos ingresados     \n")
+                dialogo_error_typ.show()
+        else:
+            dialogo_error_incompleto = QMessageBox(self.centralWidget)
+            dialogo_error_incompleto.setWindowTitle(self.title)
+            dialogo_error_incompleto.addButton("Aceptar", 0)
+            dialogo_error_incompleto.setInformativeText("Debe llenar todos los campos\nantes de continuar")
+            dialogo_error_incompleto.show()
 
     def restar_deltas(self,HoraOut,HoraIn):
         '''
@@ -526,6 +717,32 @@ class MainWindow(QMainWindow): #Ventana principal
         self.TecladoNumerico()
         self.campo = 'retirar-cedula'
 
+    def Ad_Conf_guardar_teclado(self):
+        self.configuracion_avanzada_user.setGeometry(164, 240, 320, 70)
+        self.configuracion_avanzada_pass.setGeometry(164,330,320,70)
+        self.ingresar_Ad_Conf.setGeometry(570, 240, 280, 160)
+        self.NotTeclado()
+
+    def Ad_Conf_desplegar_teclado(self):
+        MOV = -100
+        #movimiento botones
+        self.configuracion_avanzada_user.setGeometry(164.2,237+MOV,290,70)
+        self.configuracion_avanzada_pass.setGeometry(164.2,341+MOV,290,70)
+        self.ingresar_Ad_Conf.setGeometry(570, 237+MOV, 290, 176.3)
+        self.Teclado()
+        self.NotTecladoNumerico()
+        self.campo = 'AdConf-User'
+
+    def Ad_Conf_desplegar_teclado_numerico(self):
+        MOV = -100
+        #movimiento botones
+        self.configuracion_avanzada_user.setGeometry(164.2,237+MOV,290,70)
+        self.configuracion_avanzada_pass.setGeometry(164.2,341+MOV,290,70)
+        self.ingresar_Ad_Conf.setGeometry(570, 237+MOV, 290, 176.3)
+        self.NotTeclado()
+        self.TecladoNumerico()
+        self.campo = 'AdConf-Pass'
+
     def Estadisticas(self):
         self.label_img_central.setVisible(False)  
         self.label_img_esquina.setVisible(True)  
@@ -561,8 +778,10 @@ class MainWindow(QMainWindow): #Ventana principal
         self.Retirar_guardar_teclado()
 
     def Configuracion(self):
-        self.configuracion_capacidad.setVisible(True)  
-        self.configuracion_capacidad_text.setVisible(True)
+        self.configuracion_apagar.setVisible(True)
+        self.configuracion_pantalla.setVisible(True)
+        self.configuracion_datos.setVisible(True)
+        self.configuracion_avanzada.setVisible(True)
         self.label_img_central.setVisible(False)  
         self.label_img_esquina.setVisible(True)  
         self.ingresar.setVisible(False)
@@ -571,6 +790,27 @@ class MainWindow(QMainWindow): #Ventana principal
         self.salida_manual.setVisible(False)
         self.configuracion.setVisible(False)
         self.informacion.setVisible(False)
+
+    def BotonesInformacion(self):
+        self.manual_de_usuario = QToolButton(self.centralWidget)
+        self.manual_de_usuario.setText('Manual de Usuario')
+        self.manual_de_usuario.setObjectName("button")  # nombre de enlace a css
+        self.manual_de_usuario.setIcon(QIcon('static/icons/icono_config_datos'))  # icono
+        self.manual_de_usuario.setIconSize(QSize(65, 65))
+        self.manual_de_usuario.setToolButtonStyle(Qt.ToolButtonTextUnderIcon)
+        self.manual_de_usuario.setGeometry(200, 210, 290, 180)
+        self.manual_de_usuario.clicked.connect(self.HomeWindow)
+        self.manual_de_usuario.setVisible(False)
+
+        self.informacion_fabricante = QToolButton(self.centralWidget)
+        self.informacion_fabricante.setText('Información del\nFabricante')
+        self.informacion_fabricante.setObjectName("button")  # nombre de enlace a css
+        self.informacion_fabricante.setIcon(QIcon('static/icons/favicon3'))  # icono
+        self.informacion_fabricante.setIconSize(QSize(60, 60))
+        self.informacion_fabricante.setToolButtonStyle(Qt.ToolButtonTextUnderIcon)
+        self.informacion_fabricante.clicked.connect(self.HomeWindow)
+        self.informacion_fabricante.setGeometry(534, 210, 290, 180)
+        self.informacion_fabricante.setVisible(False)
 
     def Informacion(self):
         self.label_img_central.setVisible(False)  
@@ -581,6 +821,8 @@ class MainWindow(QMainWindow): #Ventana principal
         self.salida_manual.setVisible(False)
         self.configuracion.setVisible(False)
         self.informacion.setVisible(False)
+        self.manual_de_usuario.setVisible(True)
+        self.informacion_fabricante.setVisible(True)
 
     def BotonesTecladoNumerico(self):
         sep_lado = 12
@@ -973,6 +1215,13 @@ class MainWindow(QMainWindow): #Ventana principal
                 texto = self.ingresar_nombre_out.text() + 'Q'
             self.ingresar_nombre_out.setText(texto)
 
+        elif self.campo == 'AdConf-User':
+            if not self.isMAYUS:
+                texto = self.configuracion_avanzada_user.text() + 'q'
+            else:
+                texto = self.configuracion_avanzada_user.text() + 'Q'
+            self.configuracion_avanzada_user.setText(texto)
+
     def w(self):
         if self.campo == 'ingresar-nombre':
             if not self.isMAYUS:
@@ -987,6 +1236,13 @@ class MainWindow(QMainWindow): #Ventana principal
             else:
                 texto = self.ingresar_nombre_out.text() + 'W'
             self.ingresar_nombre_out.setText(texto)
+
+        elif self.campo == 'AdConf-User':
+            if not self.isMAYUS:
+                texto = self.configuracion_avanzada_user.text() + 'w'
+            else:
+                texto = self.configuracion_avanzada_user.text() + 'W'
+            self.configuracion_avanzada_user.setText(texto)
 
     def e(self):
         if self.campo == 'ingresar-nombre':
@@ -1003,6 +1259,13 @@ class MainWindow(QMainWindow): #Ventana principal
                 texto = self.ingresar_nombre_out.text() + 'E'
             self.ingresar_nombre_out.setText(texto)
 
+        elif self.campo == 'AdConf-User':
+            if not self.isMAYUS:
+                texto = self.configuracion_avanzada_user.text() + 'e'
+            else:
+                texto = self.configuracion_avanzada_user.text() + 'E'
+            self.configuracion_avanzada_user.setText(texto)
+
     def r(self):
         if self.campo == 'ingresar-nombre':
             if not self.isMAYUS:
@@ -1017,6 +1280,13 @@ class MainWindow(QMainWindow): #Ventana principal
             else:
                 texto = self.ingresar_nombre_out.text() + 'R'
             self.ingresar_nombre_out.setText(texto)
+
+        elif self.campo == 'AdConf-User':
+            if not self.isMAYUS:
+                texto = self.configuracion_avanzada_user.text() + 'r'
+            else:
+                texto = self.configuracion_avanzada_user.text() + 'R'
+            self.configuracion_avanzada_user.setText(texto)
 
     def t(self):
         if self.campo == 'ingresar-nombre':
@@ -1033,6 +1303,13 @@ class MainWindow(QMainWindow): #Ventana principal
                 texto = self.ingresar_nombre_out.text() + 'T'
             self.ingresar_nombre_out.setText(texto)
 
+        elif self.campo == 'AdConf-User':
+            if not self.isMAYUS:
+                texto = self.configuracion_avanzada_user.text() + 't'
+            else:
+                texto = self.configuracion_avanzada_user.text() + 'T'
+            self.configuracion_avanzada_user.setText(texto)
+
     def y(self):
         if self.campo == 'ingresar-nombre':
             if not self.isMAYUS:
@@ -1047,6 +1324,13 @@ class MainWindow(QMainWindow): #Ventana principal
             else:
                 texto = self.ingresar_nombre_out.text() + 'Y'
             self.ingresar_nombre_out.setText(texto)
+
+        elif self.campo == 'AdConf-User':
+            if not self.isMAYUS:
+                texto = self.configuracion_avanzada_user.text() + 'y'
+            else:
+                texto = self.configuracion_avanzada_user.text() + 'Y'
+            self.configuracion_avanzada_user.setText(texto)
     
     def u(self):
         if self.campo == 'ingresar-nombre':
@@ -1063,6 +1347,13 @@ class MainWindow(QMainWindow): #Ventana principal
                 texto = self.ingresar_nombre_out.text() + 'U'
             self.ingresar_nombre_out.setText(texto)
 
+        elif self.campo == 'AdConf-User':
+            if not self.isMAYUS:
+                texto = self.configuracion_avanzada_user.text() + 'u'
+            else:
+                texto = self.configuracion_avanzada_user.text() + 'U'
+            self.configuracion_avanzada_user.setText(texto)
+
     def i(self):
         if self.campo == 'ingresar-nombre':
             if not self.isMAYUS:
@@ -1077,6 +1368,13 @@ class MainWindow(QMainWindow): #Ventana principal
             else:
                 texto = self.ingresar_nombre_out.text() + 'I'
             self.ingresar_nombre_out.setText(texto)
+
+        elif self.campo == 'AdConf-User':
+            if not self.isMAYUS:
+                texto = self.configuracion_avanzada_user.text() + 'i'
+            else:
+                texto = self.configuracion_avanzada_user.text() + 'I'
+            self.configuracion_avanzada_user.setText(texto)
 
     def o(self):
         if self.campo == 'ingresar-nombre':
@@ -1093,6 +1391,13 @@ class MainWindow(QMainWindow): #Ventana principal
                 texto = self.ingresar_nombre_out.text() + 'O'
             self.ingresar_nombre_out.setText(texto)
 
+        elif self.campo == 'AdConf-User':
+            if not self.isMAYUS:
+                texto = self.configuracion_avanzada_user.text() + 'o'
+            else:
+                texto = self.configuracion_avanzada_user.text() + 'O'
+            self.configuracion_avanzada_user.setText(texto)
+
     def p(self):
         if self.campo == 'ingresar-nombre':
             if not self.isMAYUS:
@@ -1107,6 +1412,13 @@ class MainWindow(QMainWindow): #Ventana principal
             else:
                 texto = self.ingresar_nombre_out.text() + 'P'
             self.ingresar_nombre_out.setText(texto)
+
+        elif self.campo == 'AdConf-User':
+            if not self.isMAYUS:
+                texto = self.configuracion_avanzada_user.text() + 'p'
+            else:
+                texto = self.configuracion_avanzada_user.text() + 'P'
+            self.configuracion_avanzada_user.setText(texto)
 
     def a(self):
         if self.campo == 'ingresar-nombre':
@@ -1123,6 +1435,13 @@ class MainWindow(QMainWindow): #Ventana principal
                 texto = self.ingresar_nombre_out.text() + 'A'
             self.ingresar_nombre_out.setText(texto)
 
+        elif self.campo == 'AdConf-User':
+            if not self.isMAYUS:
+                texto = self.configuracion_avanzada_user.text() + 'a'
+            else:
+                texto = self.configuracion_avanzada_user.text() + 'A'
+            self.configuracion_avanzada_user.setText(texto)
+
     def s(self):
         if self.campo == 'ingresar-nombre':
             if not self.isMAYUS:
@@ -1137,6 +1456,13 @@ class MainWindow(QMainWindow): #Ventana principal
             else:
                 texto = self.ingresar_nombre_out.text() + 'S'
             self.ingresar_nombre_out.setText(texto)
+
+        elif self.campo == 'AdConf-User':
+            if not self.isMAYUS:
+                texto = self.configuracion_avanzada_user.text() + 's'
+            else:
+                texto = self.configuracion_avanzada_user.text() + 'S'
+            self.configuracion_avanzada_user.setText(texto)
 
     def d(self):
         if self.campo == 'ingresar-nombre':
@@ -1153,6 +1479,13 @@ class MainWindow(QMainWindow): #Ventana principal
                 texto = self.ingresar_nombre_out.text() + 'D'
             self.ingresar_nombre_out.setText(texto)
 
+        elif self.campo == 'AdConf-User':
+            if not self.isMAYUS:
+                texto = self.configuracion_avanzada_user.text() + 'd'
+            else:
+                texto = self.configuracion_avanzada_user.text() + 'D'
+            self.configuracion_avanzada_user.setText(texto)
+
     def f(self):
         if self.campo == 'ingresar-nombre':
             if not self.isMAYUS:
@@ -1167,6 +1500,13 @@ class MainWindow(QMainWindow): #Ventana principal
             else:
                 texto = self.ingresar_nombre_out.text() + 'F'
             self.ingresar_nombre_out.setText(texto)
+
+        elif self.campo == 'AdConf-User':
+            if not self.isMAYUS:
+                texto = self.configuracion_avanzada_user.text() + 'f'
+            else:
+                texto = self.configuracion_avanzada_user.text() + 'F'
+            self.configuracion_avanzada_user.setText(texto)
 
     def g(self):
         if self.campo == 'ingresar-nombre':
@@ -1183,6 +1523,13 @@ class MainWindow(QMainWindow): #Ventana principal
                 texto = self.ingresar_nombre_out.text() + 'G'
             self.ingresar_nombre_out.setText(texto)
 
+        elif self.campo == 'AdConf-User':
+            if not self.isMAYUS:
+                texto = self.configuracion_avanzada_user.text() + 'g'
+            else:
+                texto = self.configuracion_avanzada_user.text() + 'G'
+            self.configuracion_avanzada_user.setText(texto)
+
     def h(self):
         if self.campo == 'ingresar-nombre':
             if not self.isMAYUS:
@@ -1197,6 +1544,13 @@ class MainWindow(QMainWindow): #Ventana principal
             else:
                 texto = self.ingresar_nombre_out.text() + 'H'
             self.ingresar_nombre_out.setText(texto)
+
+        elif self.campo == 'AdConf-User':
+            if not self.isMAYUS:
+                texto = self.configuracion_avanzada_user.text() + 'h'
+            else:
+                texto = self.configuracion_avanzada_user.text() + 'H'
+            self.configuracion_avanzada_user.setText(texto)
 
     def j(self):
         if self.campo == 'ingresar-nombre':
@@ -1213,6 +1567,13 @@ class MainWindow(QMainWindow): #Ventana principal
                 texto = self.ingresar_nombre_out.text() + 'J'
             self.ingresar_nombre_out.setText(texto)
 
+        elif self.campo == 'AdConf-User':
+            if not self.isMAYUS:
+                texto = self.configuracion_avanzada_user.text() + 'j'
+            else:
+                texto = self.configuracion_avanzada_user.text() + 'J'
+            self.configuracion_avanzada_user.setText(texto)
+
     def k(self):
         if self.campo == 'ingresar-nombre':
             if not self.isMAYUS:
@@ -1227,6 +1588,13 @@ class MainWindow(QMainWindow): #Ventana principal
             else:
                 texto = self.ingresar_nombre_out.text() + 'K'
             self.ingresar_nombre_out.setText(texto)
+
+        elif self.campo == 'AdConf-User':
+            if not self.isMAYUS:
+                texto = self.configuracion_avanzada_user.text() + 'k'
+            else:
+                texto = self.configuracion_avanzada_user.text() + 'K'
+            self.configuracion_avanzada_user.setText(texto)
 
     def l(self):
         if self.campo == 'ingresar-nombre':
@@ -1243,6 +1611,13 @@ class MainWindow(QMainWindow): #Ventana principal
                 texto = self.ingresar_nombre_out.text() + 'L'
             self.ingresar_nombre_out.setText(texto)
 
+        elif self.campo == 'AdConf-User':
+            if not self.isMAYUS:
+                texto = self.configuracion_avanzada_user.text() + 'l'
+            else:
+                texto = self.configuracion_avanzada_user.text() + 'L'
+            self.configuracion_avanzada_user.setText(texto)
+
     def ene(self):
         if self.campo == 'ingresar-nombre':
             if not self.isMAYUS:
@@ -1257,6 +1632,13 @@ class MainWindow(QMainWindow): #Ventana principal
             else:
                 texto = self.ingresar_nombre_out.text() + 'Ñ'
             self.ingresar_nombre_out.setText(texto)
+
+        elif self.campo == 'AdConf-User':
+            if not self.isMAYUS:
+                texto = self.configuracion_avanzada_user.text() + 'ñ'
+            else:
+                texto = self.configuracion_avanzada_user.text() + 'Ñ'
+            self.configuracion_avanzada_user.setText(texto)
 
     def z(self):
         if self.campo == 'ingresar-nombre':
@@ -1273,6 +1655,13 @@ class MainWindow(QMainWindow): #Ventana principal
                 texto = self.ingresar_nombre_out.text() + 'Z'
             self.ingresar_nombre_out.setText(texto)
 
+        elif self.campo == 'AdConf-User':
+            if not self.isMAYUS:
+                texto = self.configuracion_avanzada_user.text() + 'z'
+            else:
+                texto = self.configuracion_avanzada_user.text() + 'Z'
+            self.configuracion_avanzada_user.setText(texto)
+
     def x(self):
         if self.campo == 'ingresar-nombre':
             if not self.isMAYUS:
@@ -1287,6 +1676,13 @@ class MainWindow(QMainWindow): #Ventana principal
             else:
                 texto = self.ingresar_nombre_out.text() + 'X'
             self.ingresar_nombre_out.setText(texto)
+
+        elif self.campo == 'AdConf-User':
+            if not self.isMAYUS:
+                texto = self.configuracion_avanzada_user.text() + 'x'
+            else:
+                texto = self.configuracion_avanzada_user.text() + 'X'
+            self.configuracion_avanzada_user.setText(texto)
 
     def c(self):
         if self.campo == 'ingresar-nombre':
@@ -1303,6 +1699,13 @@ class MainWindow(QMainWindow): #Ventana principal
                 texto = self.ingresar_nombre_out.text() + 'C'
             self.ingresar_nombre_out.setText(texto)
 
+        elif self.campo == 'AdConf-User':
+            if not self.isMAYUS:
+                texto = self.configuracion_avanzada_user.text() + 'c'
+            else:
+                texto = self.configuracion_avanzada_user.text() + 'C'
+            self.configuracion_avanzada_user.setText(texto)
+
     def v(self):
         if self.campo == 'ingresar-nombre':
             if not self.isMAYUS:
@@ -1317,6 +1720,13 @@ class MainWindow(QMainWindow): #Ventana principal
             else:
                 texto = self.ingresar_nombre_out.text() + 'V'
             self.ingresar_nombre_out.setText(texto)
+
+        elif self.campo == 'AdConf-User':
+            if not self.isMAYUS:
+                texto = self.configuracion_avanzada_user.text() + 'v'
+            else:
+                texto = self.configuracion_avanzada_user.text() + 'V'
+            self.configuracion_avanzada_user.setText(texto)
 
     def b(self):
         if self.campo == 'ingresar-nombre':
@@ -1333,6 +1743,13 @@ class MainWindow(QMainWindow): #Ventana principal
                 texto = self.ingresar_nombre_out.text() + 'B'
             self.ingresar_nombre_out.setText(texto)
 
+        elif self.campo == 'AdConf-User':
+            if not self.isMAYUS:
+                texto = self.configuracion_avanzada_user.text() + 'b'
+            else:
+                texto = self.configuracion_avanzada_user.text() + 'B'
+            self.configuracion_avanzada_user.setText(texto)
+
     def n(self):
         if self.campo == 'ingresar-nombre':
             if not self.isMAYUS:
@@ -1347,6 +1764,13 @@ class MainWindow(QMainWindow): #Ventana principal
             else:
                 texto = self.ingresar_nombre_out.text() + 'N'
             self.ingresar_nombre_out.setText(texto)
+
+        elif self.campo == 'AdConf-User':
+            if not self.isMAYUS:
+                texto = self.configuracion_avanzada_user.text() + 'n'
+            else:
+                texto = self.configuracion_avanzada_user.text() + 'N'
+            self.configuracion_avanzada_user.setText(texto)
 
     def m(self):
         if self.campo == 'ingresar-nombre':
@@ -1363,6 +1787,13 @@ class MainWindow(QMainWindow): #Ventana principal
                 texto = self.ingresar_nombre_out.text() + 'M'
             self.ingresar_nombre_out.setText(texto)
 
+        elif self.campo == 'AdConf-User':
+            if not self.isMAYUS:
+                texto = self.configuracion_avanzada_user.text() + 'm'
+            else:
+                texto = self.configuracion_avanzada_user.text() + 'M'
+            self.configuracion_avanzada_user.setText(texto)
+
     def SPACE(self):
         if self.campo == 'ingresar-nombre':
             
@@ -1374,11 +1805,18 @@ class MainWindow(QMainWindow): #Ventana principal
             texto = self.ingresar_nombre_out.text() + ' '
             self.ingresar_nombre_out.setText(texto)
 
+        elif self.campo == 'AdConf-User':
+
+            texto = self.configuracion_avanzada_user.text() + ' '
+            self.configuracion_avanzada_user.setText(texto)
+
     def BORRAR(self):
         if self.campo == 'ingresar-nombre':
             var_texto=self.ingresar_nombre.text()
         elif self.campo == 'retirar-nombre':
             var_texto=self.ingresar_nombre_out.text()
+        elif self.campo == 'AdConf-User':
+            var_texto=self.configuracion_avanzada_user.text()
 
         if len(var_texto)==1 or len(var_texto)==0:
             texto=''
@@ -1397,6 +1835,8 @@ class MainWindow(QMainWindow): #Ventana principal
             self.ingresar_nombre.setText(texto)
         elif self.campo == 'retirar-nombre':
             self.ingresar_nombre_out.setText(texto)
+        elif self.campo == 'AdConf-User':
+            self.configuracion_avanzada_user.setText(texto)
 
     def MAYUS(self):
         if not self.isMAYUS:
@@ -1410,15 +1850,14 @@ class MainWindow(QMainWindow): #Ventana principal
 
     def ENTER(self):
         self.Retirar_guardar_teclado()
-        self.Ingresar_guardar_teclado_numerico()
         self.Ingresar_guardar_teclado()
-        self.Retirar_guardar_teclado()
+        self.Ad_Conf_guardar_teclado()
 
     def fun_numero_ENTER(self):
         self.Retirar_guardar_teclado()
         self.Ingresar_guardar_teclado_numerico()
         self.Ingresar_guardar_teclado()
-        self.Retirar_guardar_teclado()
+        self.Ad_Conf_guardar_teclado()
 
     def fun_numero_BORRAR(self):
         if self.campo == 'ingresar-cedula':
@@ -1427,6 +1866,8 @@ class MainWindow(QMainWindow): #Ventana principal
             var_texto=self.ingresar_temp.text()
         elif self.campo == 'retirar-cedula':
             var_texto=self.ingresar_cedula_out.text()
+        elif self.campo == 'AdConf-Pass':
+            var_texto=self.configuracion_avanzada_pass.text()
 
         if len(var_texto)==1 or len(var_texto)==0:
             texto=''
@@ -1447,6 +1888,8 @@ class MainWindow(QMainWindow): #Ventana principal
             self.ingresar_temp.setText(texto)
         elif self.campo == 'retirar-cedula':
             self.ingresar_cedula_out.setText(texto)
+        elif self.campo == 'AdConf-Pass':
+            self.configuracion_avanzada_pass.setText(texto)
 
     def fun_numero_PUNTO(self):
         if self.campo == 'ingresar-temp':
@@ -1467,6 +1910,10 @@ class MainWindow(QMainWindow): #Ventana principal
             texto = self.ingresar_cedula_out.text() + '1'
             self.ingresar_cedula_out.setText(texto)
 
+        elif self.campo == 'AdConf-Pass':
+            texto = self.configuracion_avanzada_pass.text() + '1'
+            self.configuracion_avanzada_pass.setText(texto)
+
     def fun_numero_2(self):
         if self.campo == 'ingresar-cedula':
             texto = self.ingresar_cedula.text() + '2'
@@ -1480,6 +1927,10 @@ class MainWindow(QMainWindow): #Ventana principal
         elif self.campo == 'retirar-cedula':
             texto = self.ingresar_cedula_out.text() + '2'
             self.ingresar_cedula_out.setText(texto)
+
+        elif self.campo == 'AdConf-Pass':
+            texto = self.configuracion_avanzada_pass.text() + '2'
+            self.configuracion_avanzada_pass.setText(texto)
 
     def fun_numero_3(self):
         if self.campo == 'ingresar-cedula':
@@ -1495,6 +1946,10 @@ class MainWindow(QMainWindow): #Ventana principal
             texto = self.ingresar_cedula_out.text() + '3'
             self.ingresar_cedula_out.setText(texto)
 
+        elif self.campo == 'AdConf-Pass':
+            texto = self.configuracion_avanzada_pass.text() + '3'
+            self.configuracion_avanzada_pass.setText(texto)
+
     def fun_numero_4(self):
         if self.campo == 'ingresar-cedula':
             texto = self.ingresar_cedula.text() + '4'
@@ -1508,6 +1963,10 @@ class MainWindow(QMainWindow): #Ventana principal
         elif self.campo == 'retirar-cedula':
             texto = self.ingresar_cedula_out.text() + '4'
             self.ingresar_cedula_out.setText(texto)
+
+        elif self.campo == 'AdConf-Pass':
+            texto = self.configuracion_avanzada_pass.text() + '4'
+            self.configuracion_avanzada_pass.setText(texto)
 
     def fun_numero_5(self):
         if self.campo == 'ingresar-cedula':
@@ -1523,6 +1982,10 @@ class MainWindow(QMainWindow): #Ventana principal
             texto = self.ingresar_cedula_out.text() + '5'
             self.ingresar_cedula_out.setText(texto)
 
+        elif self.campo == 'AdConf-Pass':
+            texto = self.configuracion_avanzada_pass.text() + '5'
+            self.configuracion_avanzada_pass.setText(texto)
+
     def fun_numero_6(self):
         if self.campo == 'ingresar-cedula':
             texto = self.ingresar_cedula.text() + '6'
@@ -1536,6 +1999,10 @@ class MainWindow(QMainWindow): #Ventana principal
         elif self.campo == 'retirar-cedula':
             texto = self.ingresar_cedula_out.text() + '6'
             self.ingresar_cedula_out.setText(texto)
+
+        elif self.campo == 'AdConf-Pass':
+            texto = self.configuracion_avanzada_pass.text() + '6'
+            self.configuracion_avanzada_pass.setText(texto)
 
     def fun_numero_7(self):
         if self.campo == 'ingresar-cedula':
@@ -1551,6 +2018,10 @@ class MainWindow(QMainWindow): #Ventana principal
             texto = self.ingresar_cedula_out.text() + '7'
             self.ingresar_cedula_out.setText(texto)
 
+        elif self.campo == 'AdConf-Pass':
+            texto = self.configuracion_avanzada_pass.text() + '7'
+            self.configuracion_avanzada_pass.setText(texto)
+
     def fun_numero_8(self):
         if self.campo == 'ingresar-cedula':
             texto = self.ingresar_cedula.text() + '8'
@@ -1564,6 +2035,10 @@ class MainWindow(QMainWindow): #Ventana principal
         elif self.campo == 'retirar-cedula':
             texto = self.ingresar_cedula_out.text() + '8'
             self.ingresar_cedula_out.setText(texto)
+
+        elif self.campo == 'AdConf-Pass':
+            texto = self.configuracion_avanzada_pass.text() + '8'
+            self.configuracion_avanzada_pass.setText(texto)
 
     def fun_numero_9(self):
         if self.campo == 'ingresar-cedula':
@@ -1579,6 +2054,10 @@ class MainWindow(QMainWindow): #Ventana principal
             texto = self.ingresar_cedula_out.text() + '9'
             self.ingresar_cedula_out.setText(texto)
 
+        elif self.campo == 'AdConf-Pass':
+            texto = self.configuracion_avanzada_pass.text() + '9'
+            self.configuracion_avanzada_pass.setText(texto)
+
     def fun_numero_0(self):
         if self.campo == 'ingresar-cedula':
             texto = self.ingresar_cedula.text() + '0'
@@ -1592,6 +2071,10 @@ class MainWindow(QMainWindow): #Ventana principal
         elif self.campo == 'retirar-cedula':
             texto = self.ingresar_cedula_out.text() + '0'
             self.ingresar_cedula_out.setText(texto)
+
+        elif self.campo == 'AdConf-Pass':
+            texto = self.configuracion_avanzada_pass.text() + '0'
+            self.configuracion_avanzada_pass.setText(texto)
 
     def TecladoNumerico(self):
         self.numero_0.setVisible(True)
