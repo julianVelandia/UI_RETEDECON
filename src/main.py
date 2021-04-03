@@ -6,6 +6,10 @@ from datetime import datetime
 import sys
 import pandas as pd
 
+import pyqtgraph as pg
+import numpy as np
+
+
 class MainWindow(QMainWindow): #Ventana principal
     def __init__(self, parent=None, *args):
         super(MainWindow,self).__init__(parent = parent)
@@ -220,6 +224,8 @@ class MainWindow(QMainWindow): #Ventana principal
         self.BotonesCapacidad()
         # Botones Informacion
         self.BotonesInformacion()
+        # Label infos
+        self.LabelsInformacion()
         '''
         Valores BD
         '''
@@ -257,6 +263,9 @@ class MainWindow(QMainWindow): #Ventana principal
         self.configuracion_capacidad.setVisible(False)
         self.manual_de_usuario.setVisible(False)
         self.informacion_fabricante.setVisible(False)
+        self.label_texto_info_fab.setVisible(False)
+        self.img_esquina_2.setVisible(False)
+        self.ingresar_capacidad.setVisible(False)
         self.NotTeclado()
         self.NotTecladoNumerico()
 
@@ -411,6 +420,36 @@ class MainWindow(QMainWindow): #Ventana principal
         self.configuracion_capacidad.clicked.connect(self.Capacidad)
         self.configuracion_capacidad.setGeometry(534, 340, 290, 180)
         self.configuracion_capacidad.setVisible(False)
+
+        self.configuracion_1 = QToolButton(self.centralWidget)
+        self.configuracion_1.setText('Boton')
+        self.configuracion_1.setObjectName("button")  # nombre de enlace a css
+        self.configuracion_1.setIcon(QIcon('static/icons/icono_capacidad'))  # icono
+        self.configuracion_1.setIconSize(QSize(60, 60))
+        self.configuracion_1.setToolButtonStyle(Qt.ToolButtonTextUnderIcon)
+        self.configuracion_1.clicked.connect(self.HomeWindow)
+        self.configuracion_1.setGeometry(200, 120, 290, 180)
+        self.configuracion_1.setVisible(False)
+
+        self.configuracion_2 = QToolButton(self.centralWidget)
+        self.configuracion_2.setText('Boton')
+        self.configuracion_2.setObjectName("button")  # nombre de enlace a css
+        self.configuracion_2.setIcon(QIcon('static/icons/icono_capacidad'))  # icono
+        self.configuracion_2.setIconSize(QSize(60, 60))
+        self.configuracion_2.setToolButtonStyle(Qt.ToolButtonTextUnderIcon)
+        self.configuracion_2.clicked.connect(self.HomeWindow)
+        self.configuracion_2.setGeometry(200, 340, 290, 180)
+        self.configuracion_2.setVisible(False)
+
+        self.configuracion_3 = QToolButton(self.centralWidget)
+        self.configuracion_3.setText('Boton')
+        self.configuracion_3.setObjectName("button")  # nombre de enlace a css
+        self.configuracion_3.setIcon(QIcon('static/icons/icono_capacidad'))  # icono
+        self.configuracion_3.setIconSize(QSize(60, 60))
+        self.configuracion_3.setToolButtonStyle(Qt.ToolButtonTextUnderIcon)
+        self.configuracion_3.clicked.connect(self.HomeWindow)
+        self.configuracion_3.setGeometry(534, 120, 290, 180)
+        self.configuracion_3.setVisible(False)
 
     def ConfiguracionAvanzadaInside(self):
         self.configuracion_capacidad.setVisible(True)
@@ -754,11 +793,24 @@ class MainWindow(QMainWindow): #Ventana principal
         self.informacion.setVisible(False)
         Lista = self.df['IsIn']
         print(Lista)
-        ingresos =0 
+        self.ocupacion_actual =0
         for i in Lista:
             if i == True:
-                ingresos +=1
-        print('Ingresos: '+str(ingresos))
+                self.ocupacion_actual +=1
+        print('Ingresos: '+str(self.ocupacion_actual))
+        #ACÁ CREA LA GRAFICA PERO POR EL MOMENTO LO HACE EN UNA VENTANA NUEVA
+        win = pg.plot()
+        win.setWindowTitle('pyqtgraph BarGraphItem')
+
+        # create list of floats
+        y1 = np.linspace(0, 20, num=20)
+
+        # create horizontal list
+        x = np.arange(20)
+
+        # create bar chart
+        bg1 = pg.BarGraphItem(x=x, height=y1, width=0.6, brush='r')
+        win.addItem(bg1)
 
     def Salida_manual(self):
         self.label_img_central.setVisible(False)
@@ -808,9 +860,40 @@ class MainWindow(QMainWindow): #Ventana principal
         self.informacion_fabricante.setIcon(QIcon('static/icons/favicon3'))  # icono
         self.informacion_fabricante.setIconSize(QSize(60, 60))
         self.informacion_fabricante.setToolButtonStyle(Qt.ToolButtonTextUnderIcon)
-        self.informacion_fabricante.clicked.connect(self.HomeWindow)
+        self.informacion_fabricante.clicked.connect(self.InformacionFabricante)
         self.informacion_fabricante.setGeometry(534, 210, 290, 180)
         self.informacion_fabricante.setVisible(False)
+
+    def LabelsInformacion(self):
+        self.label_texto_info_fab = QLabel(self.centralWidget)
+        self.label_texto_info_fab.setObjectName("FabInfo")  # nombre de enlace a css
+        self.label_texto_info_fab.setText("                                  GRACIAS POR USAR RETEDECON\n"
+                           "\n"
+                           "RETEDECON es fabricado por:\n"
+                           " - Julián C. Velandia\n"
+                           " - Sebastian Cubides\n"
+                           " - Jhon B. Muñoz\n"
+                           "Con la coolaboración de: \n"
+                           " - Diego A. Tibaduiza\n"
+                           " - Nestor I. Ospina\n"
+                           "Bajo la supervición y sustento de la Unidad De Gestion De La Innovación,\n"
+                           "Facultad De Ingeniería (Ingnova), de La Universidad Nacional De Colombia.\n\n"
+                           "Si desea contactarse con nosotros puede hacerlo a través de los siguientes medios:\n"
+                           " - Celular/Whatsapp: +57 313 8244012\n"
+                           " - E-Mail: scubidest@unal.edu.co\n\n"
+                           "Versión del Software: 1.0")
+        self.label_texto_info_fab.setVisible(False)
+        self.img_esquina_2 = QToolButton(self.centralWidget)
+        self.img_esquina_2.setGeometry(30, 5, 250, 60)
+        self.img_esquina_2.setObjectName("button_home")  # nombre de enlace a css
+        self.img_esquina_2.setVisible(False)
+        self.img_esquina_2.clicked.connect(self.HomeWindow)
+
+    def InformacionFabricante(self):
+        self.informacion_fabricante.setVisible(False)
+        self.manual_de_usuario.setVisible(False)
+        self.label_texto_info_fab.setVisible(True)
+        self.img_esquina_2.setVisible(True)
 
     def Informacion(self):
         self.label_img_central.setVisible(False)  

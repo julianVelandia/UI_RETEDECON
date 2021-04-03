@@ -68,3 +68,12 @@ QToolButton#button_home {
     background-repeat: no-repeat;
     border: 0;
 }
+
+QLabel#FabInfo {
+    margin-top: 120px;
+    margin-left: 162px;
+    font-size: 20px;
+    font-family: Helvetica;
+    color: #BEBEBE; 
+    background-color: transparent; 
+}
