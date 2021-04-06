@@ -16,7 +16,7 @@ class MainWindow(QMainWindow): #Ventana principal
         with open("static/styles.css") as f:
             self.setStyleSheet(f.read())
 
-        self.df = pd.read_csv('../DB.csv')
+        #self.df = pd.read_csv('../DB.csv') ESTO TOCABA HACERLO CADA VEZ PORQUE SI NO SOLO LEE UNA VEZ
         self.cedula_cache = ''
         self.carnet = ''
 
@@ -226,6 +226,8 @@ class MainWindow(QMainWindow): #Ventana principal
         self.BotonesInformacion()
         # Label infos
         self.LabelsInformacion()
+        # Labels y Botones Estadisticas
+        self.LabelsBotonesEstadisticas()
         '''
         Valores BD
         '''
@@ -266,6 +268,7 @@ class MainWindow(QMainWindow): #Ventana principal
         self.label_texto_info_fab.setVisible(False)
         self.img_esquina_2.setVisible(False)
         self.ingresar_capacidad.setVisible(False)
+        self.info_ocupacion_actual.setVisible(False)
         self.NotTeclado()
         self.NotTecladoNumerico()
 
@@ -542,19 +545,20 @@ class MainWindow(QMainWindow): #Ventana principal
     Acá leemos la base de datos para procesar y o modificar la informacion
     '''
     def Leer(self):
-        Lista = self.df['Cedula']
+        df = pd.read_csv('../DB.csv')
+        Lista = df['Cedula']
         self.carnet = '*'
         self.HoraOut = datetime.today().strftime('%H:%M')
         if self.ingresar_nombre_out.text()!="" and self.ingresar_cedula_out.text()!="":  #lógica para leer si los campos están vacíos
             if not self.ingresar_nombre_out.text().isdigit() and not self.ingresar_cedula_out.text().isalpha():  #detecta si numeros o letras donde no deben
                 try:
                     flag = True
-                    if str(self.df['Cedula'][0]) == str(self.ingresar_cedula_out.text()) and str(self.df['IsIn'][0]) == 'True':
+                    if str(df['Cedula'][0]) == str(self.ingresar_cedula_out.text()) and str(df['IsIn'][0]) == 'True':
                         flag = False
                         self.df_as_txt = open ("../DB.csv", "r")
                         lineas = self.df_as_txt.readlines()
                         self.df_as_txt.close()
-                        lineas[1] = lineas[1].replace('HO*',self.HoraOut).replace('D*',self.restar_deltas(self.HoraOut,self.df['HoraIn'][0])).replace('True','False')
+                        lineas[1] = lineas[1].replace('HO*',self.HoraOut).replace('D*',self.restar_deltas(self.HoraOut,df['HoraIn'][0])).replace('True','False')
                         print(lineas[1])
                         self.df_as_txt = open("../DB.csv", "w")
                         for l in lineas:
@@ -569,12 +573,12 @@ class MainWindow(QMainWindow): #Ventana principal
                         self.HomeWindow()
                     
                     for ced in range(len(Lista) - 1, 0, -1):
-                        if str(self.df['Cedula'][ced]) == str(self.ingresar_cedula_out.text()) and str(self.df['IsIn'][ced]) == 'True':
+                        if str(df['Cedula'][ced]) == str(self.ingresar_cedula_out.text()) and str(df['IsIn'][ced]) == 'True':
                             flag =False
                             self.df_as_txt = open ("../DB.csv", "r")
                             lineas = self.df_as_txt.readlines()
                             self.df_as_txt.close()
-                            lineas[ced+1] = lineas[ced+1].replace('HO*',self.HoraOut).replace('D*',self.restar_deltas(self.HoraOut,self.df['HoraIn'][ced])).replace('True','False')
+                            lineas[ced+1] = lineas[ced+1].replace('HO*',self.HoraOut).replace('D*',self.restar_deltas(self.HoraOut,df['HoraIn'][ced])).replace('True','False')
                             self.df_as_txt = open("../DB.csv", "w")
                             for l in lineas:
                                 self.df_as_txt.write(l)
@@ -624,8 +628,9 @@ class MainWindow(QMainWindow): #Ventana principal
         self.Numingresos = 0 #Se inicia en 0
         self.IsIn = 'True'
         cedulaExist=False
-        Lista = self.df['Cedula']
-        Lista_carnet = self.df['Carnet']
+        df = pd.read_csv('../DB.csv')
+        Lista = df['Cedula']
+        Lista_carnet = df['Carnet']
         '''
         Suma ingresos    MOVER DE ACÁ AL LUGAR CORRECTO!
         '''
@@ -641,10 +646,10 @@ class MainWindow(QMainWindow): #Ventana principal
                 # mirar si la cédula ya existe
                 # Recorrido del arreglo
                 try:
-                    if str(self.df['Cedula'][0]) == str(self.ingresar_cedula.text()) and str(self.df['IsIn'][0]) == 'True':
+                    if str(df['Cedula'][0]) == str(self.ingresar_cedula.text()) and str(df['IsIn'][0]) == 'True':
                         cedulaExist = True
                     for ced in range(len(Lista) - 1, 0, -1):
-                        if str(self.df['Cedula'][ced]) == str(self.ingresar_cedula.text()) and str(self.df['IsIn'][ced]) == 'True':
+                        if str(df['Cedula'][ced]) == str(self.ingresar_cedula.text()) and str(df['IsIn'][ced]) == 'True':
                             cedulaExist = True
 
                     if not cedulaExist:
@@ -782,6 +787,15 @@ class MainWindow(QMainWindow): #Ventana principal
         self.TecladoNumerico()
         self.campo = 'AdConf-Pass'
 
+    def LabelsBotonesEstadisticas(self):
+        self.info_ocupacion_actual = QToolButton(self.centralWidget)
+        self.info_ocupacion_actual.setObjectName("button")  # nombre de enlace a css
+        self.info_ocupacion_actual.setIcon(QIcon('static/icons/icono_capacidad'))  # icono
+        self.info_ocupacion_actual.setIconSize(QSize(60, 60))
+        self.info_ocupacion_actual.setToolButtonStyle(Qt.ToolButtonTextUnderIcon)
+        self.info_ocupacion_actual.setGeometry(120, 120, 290, 140)
+        self.info_ocupacion_actual.setVisible(False)
+
     def Estadisticas(self):
         self.label_img_central.setVisible(False)  
         self.label_img_esquina.setVisible(True)  
@@ -791,26 +805,27 @@ class MainWindow(QMainWindow): #Ventana principal
         self.salida_manual.setVisible(False)
         self.configuracion.setVisible(False)
         self.informacion.setVisible(False)
-        Lista = self.df['IsIn']
+        self.info_ocupacion_actual.setVisible(True)
+        df = pd.read_csv('../DB.csv')
+        Lista = df['IsIn']
         print(Lista)
         self.ocupacion_actual =0
         for i in Lista:
             if i == True:
                 self.ocupacion_actual +=1
-        print('Ingresos: '+str(self.ocupacion_actual))
+        print('Ocupacion Actual: '+str(self.ocupacion_actual))
+        self.info_ocupacion_actual.setText('Ocupación Actual: ' + str(self.ocupacion_actual))
         #ACÁ CREA LA GRAFICA PERO POR EL MOMENTO LO HACE EN UNA VENTANA NUEVA
         win = pg.plot()
         win.setWindowTitle('pyqtgraph BarGraphItem')
-
         # create list of floats
         y1 = np.linspace(0, 20, num=20)
-
         # create horizontal list
         x = np.arange(20)
-
         # create bar chart
         bg1 = pg.BarGraphItem(x=x, height=y1, width=0.6, brush='r')
         win.addItem(bg1)
+        ##
 
     def Salida_manual(self):
         self.label_img_central.setVisible(False)
@@ -982,7 +997,7 @@ class MainWindow(QMainWindow): #Ventana principal
         x=4
         y=1
         self.numero_ENTER = QToolButton(self.centralWidget)
-        self.numero_ENTER.setText(chr(25))
+        self.numero_ENTER.setText(chr(16))
         self.numero_ENTER.setObjectName("buttonTeclado") #nombre de enlace a css
         self.numero_ENTER.setGeometry(x_inicia+(base*x) + (x+1)*sep_lado, y_inicia+ (altura*y) + 2*sep_arriba, base, altura*2+sep_arriba)
         self.numero_ENTER.clicked.connect(self.fun_numero_ENTER)
