@@ -8,6 +8,8 @@ import sys
 import pandas as pd
 import pyqtgraph as pg
 import numpy as np
+import hashlib
+
 
 class MainWindow(QMainWindow): #Ventana principal
     def __init__(self, parent=None, *args):
@@ -192,6 +194,8 @@ class MainWindow(QMainWindow): #Ventana principal
         self.configuracion_avanzada_pass.setGeometry(164, 341, 290, 70)
         self.configuracion_avanzada_pass.setMaxLength(15)
         self.configuracion_avanzada_pass.setVisible(False)
+        self.configuracion_avanzada_pass.setEchoMode(QLineEdit.Password)
+
 
         self.campo ='null'
 
@@ -230,6 +234,8 @@ class MainWindow(QMainWindow): #Ventana principal
         self.LabelsInformacion()
         # Labels y Botones Estadisticas
         self.LabelsBotonesEstadisticas()
+
+                
         '''
         Valores BD
         '''
@@ -271,6 +277,8 @@ class MainWindow(QMainWindow): #Ventana principal
         self.img_esquina_2.setVisible(False)
         self.ingresar_capacidad.setVisible(False)
         self.info_ocupacion_actual.setVisible(False)
+        self.qr_manual.setVisible(False)
+
         self.NotTeclado()
         self.NotTecladoNumerico()
 
@@ -442,15 +450,15 @@ class MainWindow(QMainWindow): #Ventana principal
         self.configuracion_capacidad.setGeometry(534, 340, 290, 180)
         self.configuracion_capacidad.setVisible(False)
 
-        self.configuracion_1 = QToolButton(self.centralWidget)
-        self.configuracion_1.setText('Boton')
-        self.configuracion_1.setObjectName("button")  # nombre de enlace a css
-        self.configuracion_1.setIcon(QIcon('static/icons/icono_capacidad'))  # icono
-        self.configuracion_1.setIconSize(QSize(60, 60))
-        self.configuracion_1.setToolButtonStyle(Qt.ToolButtonTextUnderIcon)
-        self.configuracion_1.clicked.connect(self.HomeWindow)
-        self.configuracion_1.setGeometry(200, 120, 290, 180)
-        self.configuracion_1.setVisible(False)
+        self.agregar_usuario = QToolButton(self.centralWidget)
+        self.agregar_usuario.setText('Boton')
+        self.agregar_usuario.setObjectName("button")  # nombre de enlace a css
+        self.agregar_usuario.setIcon(QIcon('static/icons/icono_capacidad'))  # icono
+        self.agregar_usuario.setIconSize(QSize(60, 60))
+        self.agregar_usuario.setToolButtonStyle(Qt.ToolButtonTextUnderIcon)
+        self.agregar_usuario.clicked.connect(self.HomeWindow)
+        self.agregar_usuario.setGeometry(200, 120, 290, 180)
+        self.agregar_usuario.setVisible(False)
 
         self.configuracion_2 = QToolButton(self.centralWidget)
         self.configuracion_2.setText('Boton')
@@ -498,6 +506,7 @@ class MainWindow(QMainWindow): #Ventana principal
         sys.exit()
 
     def AdConfPass(self):
+
         try:
             #Reading the config.ini file
             self.config.read('../config.ini')
@@ -516,11 +525,18 @@ class MainWindow(QMainWindow): #Ventana principal
                 correct_user = False
             # Use the cycle to append values to the list from the document
             for key in passwords:
-                passwords_values.append(self.config.get('passwords', str(key)))
+                p1=self.config.get('passwords', str(key))
+                
+                passwords_values.append(p1)
+                
             # Check if password is in the list
-            if self.configuracion_avanzada_pass.text() in passwords_values:
+            p = self.configuracion_avanzada_pass.text()
+            h = hashlib.new("sha1", p.encode())
+            
+
+            if str(h.digest()) in passwords_values:
                 correct_password = True
-                indP = passwords_values.index(self.configuracion_avanzada_pass.text())
+                indP = passwords_values.index(str(h.digest()))
             else:
                 correct_password = False
             # Checking other conditions and connecting functions
@@ -552,6 +568,9 @@ class MainWindow(QMainWindow): #Ventana principal
                 dialogo_error_incompleto.addButton("Aceptar", 0)
                 dialogo_error_incompleto.setInformativeText("Debe llenar todos los campos\nantes de continuar")
                 dialogo_error_incompleto.show()
+
+        
+            
         except:
             dialogo_error = QMessageBox(self.centralWidget)
             dialogo_error.setWindowTitle(self.title)
@@ -678,7 +697,7 @@ class MainWindow(QMainWindow): #Ventana principal
             Suma ingresos    MOVER DE ACÁ AL LUGAR CORRECTO!
             '''
             for cont in range(len(Lista)):
-                if str(Lista_carnet[cont]) == str(self.carnet) or str(Lista[cont]) == str(self.ingresar_cedula.text()):
+                if (str(Lista_carnet[cont]) == str(self.carnet) and not str(self.carnet) == '*') or str(Lista[cont]) == str(self.ingresar_cedula.text()):
                     self.Numingresos+=1
             self.Numingresos=str(self.Numingresos)
             print(self.Numingresos)
@@ -960,7 +979,7 @@ class MainWindow(QMainWindow): #Ventana principal
         self.manual_de_usuario.setIconSize(QSize(65, 65))
         self.manual_de_usuario.setToolButtonStyle(Qt.ToolButtonTextUnderIcon)
         self.manual_de_usuario.setGeometry(200, 210, 290, 180)
-        self.manual_de_usuario.clicked.connect(self.HomeWindow)
+        self.manual_de_usuario.clicked.connect(self.ManualDeUsuario)
         self.manual_de_usuario.setVisible(False)
 
         self.informacion_fabricante = QToolButton(self.centralWidget)
@@ -972,6 +991,20 @@ class MainWindow(QMainWindow): #Ventana principal
         self.informacion_fabricante.clicked.connect(self.InformacionFabricante)
         self.informacion_fabricante.setGeometry(534, 210, 290, 180)
         self.informacion_fabricante.setVisible(False)
+
+        self.qr_manual = QToolButton(self.centralWidget)
+        self.qr_manual.setObjectName("button_trasnparente")  # nombre de enlace a css
+        self.qr_manual.setIcon(QIcon('static/icons/QRDRIVE.png'))  # icono
+        self.qr_manual.setIconSize(QSize(300, 300))
+        self.qr_manual.setGeometry(self.width/3.5, self.height/5, 400, 400)
+        self.qr_manual.setVisible(False)
+
+    def ManualDeUsuario(self):
+        self.qr_manual.setVisible(True)
+
+        self.informacion_fabricante.setVisible(False)
+        self.manual_de_usuario.setVisible(False)
+
 
     def LabelsInformacion(self):
         self.label_texto_info_fab = QLabel(self.centralWidget)
