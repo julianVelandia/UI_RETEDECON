@@ -3,12 +3,11 @@ from PyQt5.QtCore import *
 from PyQt5.QtGui import *
 from QLineClick import QLineEditClick
 from datetime import datetime
+from configparser import ConfigParser
 import sys
 import pandas as pd
-
 import pyqtgraph as pg
 import numpy as np
-
 
 class MainWindow(QMainWindow): #Ventana principal
     def __init__(self, parent=None, *args):
@@ -16,9 +15,11 @@ class MainWindow(QMainWindow): #Ventana principal
         with open("static/styles.css") as f:
             self.setStyleSheet(f.read())
 
+        #First Instances
         #self.df = pd.read_csv('../DB.csv') ESTO TOCABA HACERLO CADA VEZ PORQUE SI NO SOLO LEE UNA VEZ
         self.cedula_cache = ''
         self.carnet = ''
+        self.config = ConfigParser()
 
         'Constants'
         self.title = 'RETEDECON'
@@ -73,6 +74,7 @@ class MainWindow(QMainWindow): #Ventana principal
         self.detener_alarma.setIcon(QIcon('static/icons/icono_campana'))
         self.detener_alarma.setIconSize(QSize(60,60))
         self.detener_alarma.setToolButtonStyle(Qt.ToolButtonTextUnderIcon)
+        self.detener_alarma.clicked.connect(self.DetenerAlarma)
 
         self.salida_manual = QToolButton(self.centralWidget)
         self.salida_manual.setText('SALIDA MANUAL')
@@ -363,6 +365,22 @@ class MainWindow(QMainWindow): #Ventana principal
         self.ingresar_cedula_out.setVisible(False)
         self.retirar.setVisible(False)
 
+    def setCapacidadMaxima(self):
+        # Reading the config.ini file
+        try:
+            self.config.read('../config.ini')
+            self.config.set('capacity', 'key1', self.configuracion_capacidad_text.text())
+            with open('../config.ini', 'w') as f:
+                self.config.write(f)
+            print(self.config.getint('capacity','key1'))
+            self.ConfiguracionAvanzadaInside()
+        except:
+            dialogo_error = QMessageBox(self.centralWidget)
+            dialogo_error.setWindowTitle(self.title)
+            dialogo_error.addButton("Aceptar", 0)
+            dialogo_error.setInformativeText("Error, intente nuevamente\n\nSi el error persiste comuniquese con el fabricante")
+            dialogo_error.show()
+
     def BotonesCapacidad(self):
         self.ingresar_capacidad = QToolButton(self.centralWidget)
         self.ingresar_capacidad.setText('CAMBIAR CAPACIDAD\nMÁXIMA')
@@ -370,7 +388,7 @@ class MainWindow(QMainWindow): #Ventana principal
         self.ingresar_capacidad.setIcon(QIcon('static/icons/icono_capacidad'))  # icono
         self.ingresar_capacidad.setIconSize(QSize(60, 60))
         self.ingresar_capacidad.setToolButtonStyle(Qt.ToolButtonTextUnderIcon)
-        self.ingresar_capacidad.clicked.connect(self.ConfiguracionAvanzadaInside)
+        self.ingresar_capacidad.clicked.connect(self.setCapacidadMaxima)
         self.ingresar_capacidad.setGeometry(570, 230, 290, 231)
         self.ingresar_capacidad.setVisible(False)
 
@@ -480,42 +498,66 @@ class MainWindow(QMainWindow): #Ventana principal
         sys.exit()
 
     def AdConfPass(self):
-        if self.configuracion_avanzada_user.text()!="" and self.configuracion_avanzada_pass.text()!="" :  #lógica para leer si los campos están vacíos
-            if not self.configuracion_avanzada_user.text().isdigit() and not self.configuracion_avanzada_pass.text().isalpha():  #detecta si numeros donde no deben
-                if self.configuracion_avanzada_user.text() == "sebastian" and self.configuracion_avanzada_pass.text() == "0000":
-                    dialogo_acceso_concedido = QMessageBox(self.centralWidget)
-                    dialogo_acceso_concedido.setWindowTitle(self.title)
-                    dialogo_acceso_concedido.addButton("Aceptar", 0)
-                    dialogo_acceso_concedido.setInformativeText("Bienvenido: "+ self.configuracion_avanzada_user.text()+ "  \n    ")
-                    dialogo_acceso_concedido.show()
-                    self.ConfiguracionAvanzadaInside()
-
-                elif self.configuracion_avanzada_user.text() == "julian" and self.configuracion_avanzada_pass.text() == "1111":
-                    dialogo_acceso_concedido = QMessageBox(self.centralWidget)
-                    dialogo_acceso_concedido.setWindowTitle(self.title)
-                    dialogo_acceso_concedido.addButton("Aceptar", 0)
-                    dialogo_acceso_concedido.setInformativeText("Bienvenido: "+ self.configuracion_avanzada_user.text()+ "  \n    ")
-                    dialogo_acceso_concedido.show()
-                    self.ConfiguracionAvanzadaInside()
-
-                else:
-                    dialogo_error_escritura = QMessageBox(self.centralWidget)
-                    dialogo_error_escritura.setWindowTitle(self.title)
-                    dialogo_error_escritura.addButton("Aceptar", 0)
-                    dialogo_error_escritura.setInformativeText("Error, verifique los datos ingresados  \nSi el error persiste comuniquese con el fabricante")
-                    dialogo_error_escritura.show()
+        try:
+            #Reading the config.ini file
+            self.config.read('../config.ini')
+            users = list(self.config['users'])
+            passwords = list(self.config['passwords'])
+            users_values = []
+            passwords_values = []
+            #Use the cycle to append values to the list from the document
+            for key in users:
+                users_values.append(self.config.get('users', str(key)))
+            # Check if user is in the list
+            if self.configuracion_avanzada_user.text() in users_values:
+                correct_user = True
+                indU = users_values.index(self.configuracion_avanzada_user.text())
             else:
-                dialogo_error_typ = QMessageBox(self.centralWidget)
-                dialogo_error_typ.setWindowTitle(self.title)
-                dialogo_error_typ.addButton("Aceptar", 0)
-                dialogo_error_typ.setInformativeText("Error, verifique los datos ingresados     \n")
-                dialogo_error_typ.show()
-        else:
-            dialogo_error_incompleto = QMessageBox(self.centralWidget)
-            dialogo_error_incompleto.setWindowTitle(self.title)
-            dialogo_error_incompleto.addButton("Aceptar", 0)
-            dialogo_error_incompleto.setInformativeText("Debe llenar todos los campos\nantes de continuar")
-            dialogo_error_incompleto.show()
+                correct_user = False
+            # Use the cycle to append values to the list from the document
+            for key in passwords:
+                passwords_values.append(self.config.get('passwords', str(key)))
+            # Check if password is in the list
+            if self.configuracion_avanzada_pass.text() in passwords_values:
+                correct_password = True
+                indP = passwords_values.index(self.configuracion_avanzada_pass.text())
+            else:
+                correct_password = False
+            # Checking other conditions and connecting functions
+            if self.configuracion_avanzada_user.text()!="" and self.configuracion_avanzada_pass.text()!="" :  #lógica para leer si los campos están vacíos
+                if not self.configuracion_avanzada_user.text().isdigit() and not self.configuracion_avanzada_pass.text().isalpha():  #detecta si numeros donde no deben
+                    if correct_user and correct_password and indU==indP:
+                        dialogo_acceso_concedido = QMessageBox(self.centralWidget)
+                        dialogo_acceso_concedido.setWindowTitle(self.title)
+                        dialogo_acceso_concedido.addButton("Aceptar", 0)
+                        dialogo_acceso_concedido.setInformativeText("Bienvenido: "+ self.configuracion_avanzada_user.text()+ "  \n    ")
+                        dialogo_acceso_concedido.show()
+                        self.ConfiguracionAvanzadaInside()
+
+                    else:
+                        dialogo_error_escritura = QMessageBox(self.centralWidget)
+                        dialogo_error_escritura.setWindowTitle(self.title)
+                        dialogo_error_escritura.addButton("Aceptar", 0)
+                        dialogo_error_escritura.setInformativeText("Error, verifique los datos ingresados  \nSi el error persiste comuniquese con el fabricante")
+                        dialogo_error_escritura.show()
+                else:
+                    dialogo_error_typ = QMessageBox(self.centralWidget)
+                    dialogo_error_typ.setWindowTitle(self.title)
+                    dialogo_error_typ.addButton("Aceptar", 0)
+                    dialogo_error_typ.setInformativeText("Error, verifique los datos ingresados     \n")
+                    dialogo_error_typ.show()
+            else:
+                dialogo_error_incompleto = QMessageBox(self.centralWidget)
+                dialogo_error_incompleto.setWindowTitle(self.title)
+                dialogo_error_incompleto.addButton("Aceptar", 0)
+                dialogo_error_incompleto.setInformativeText("Debe llenar todos los campos\nantes de continuar")
+                dialogo_error_incompleto.show()
+        except:
+            dialogo_error = QMessageBox(self.centralWidget)
+            dialogo_error.setWindowTitle(self.title)
+            dialogo_error.addButton("Aceptar", 0)
+            dialogo_error.setInformativeText("Error, intente nuevamente\n\nSi el error persiste comuniquese con el fabricante")
+            dialogo_error.show()
 
     def restar_deltas(self,HoraOut,HoraIn):
         '''
@@ -545,13 +587,13 @@ class MainWindow(QMainWindow): #Ventana principal
     Acá leemos la base de datos para procesar y o modificar la informacion
     '''
     def Leer(self):
-        df = pd.read_csv('../DB.csv')
-        Lista = df['Cedula']
-        self.carnet = '*'
-        self.HoraOut = datetime.today().strftime('%H:%M')
-        if self.ingresar_nombre_out.text()!="" and self.ingresar_cedula_out.text()!="":  #lógica para leer si los campos están vacíos
-            if not self.ingresar_nombre_out.text().isdigit() and not self.ingresar_cedula_out.text().isalpha():  #detecta si numeros o letras donde no deben
-                try:
+        try:
+            df = pd.read_csv('../DB.csv')
+            Lista = df['Cedula']
+            self.carnet = '*'
+            self.HoraOut = datetime.today().strftime('%H:%M')
+            if self.ingresar_nombre_out.text()!="" and self.ingresar_cedula_out.text()!="":  #lógica para leer si los campos están vacíos
+                if not self.ingresar_nombre_out.text().isdigit() and not self.ingresar_cedula_out.text().isalpha():  #detecta si numeros o letras donde no deben
                     flag = True
                     if str(df['Cedula'][0]) == str(self.ingresar_cedula_out.text()) and str(df['IsIn'][0]) == 'True':
                         flag = False
@@ -571,7 +613,7 @@ class MainWindow(QMainWindow): #Ventana principal
                         dialogo_exitoso.setInformativeText("Se ha retirado correctamente\n    ")
                         dialogo_exitoso.show()
                         self.HomeWindow()
-                    
+
                     for ced in range(len(Lista) - 1, 0, -1):
                         if str(df['Cedula'][ced]) == str(self.ingresar_cedula_out.text()) and str(df['IsIn'][ced]) == 'True':
                             flag =False
@@ -596,24 +638,24 @@ class MainWindow(QMainWindow): #Ventana principal
                         dialogo_error_busqueda.addButton("Aceptar", 0)
                         dialogo_error_busqueda.setInformativeText("Error, no se encontró a ese usuario\n    ")
                         dialogo_error_busqueda.show()
-                except:
-                    dialogo_error_lectura = QMessageBox(self.centralWidget)
-                    dialogo_error_lectura.setWindowTitle(self.title)
-                    dialogo_error_lectura.addButton("Aceptar", 0)
-                    dialogo_error_lectura.setInformativeText("Error, intente nuevamente\n\nSi el error persiste comuniquese con el fabricante")
-                    dialogo_error_lectura.show()
+                else:
+                    dialogo_error_typ_out = QMessageBox(self.centralWidget)
+                    dialogo_error_typ_out.setWindowTitle(self.title)
+                    dialogo_error_typ_out.addButton("Aceptar", 0)
+                    dialogo_error_typ_out.setInformativeText("Error, verifique los datos ingresados\n   ")
+                    dialogo_error_typ_out.show()
             else:
-                dialogo_error_typ_out = QMessageBox(self.centralWidget)
-                dialogo_error_typ_out.setWindowTitle(self.title)
-                dialogo_error_typ_out.addButton("Aceptar", 0)
-                dialogo_error_typ_out.setInformativeText("Error, verifique los datos ingresados\n   ")
-                dialogo_error_typ_out.show()
-        else:
-            dialogo_error_incompleto_out = QMessageBox(self.centralWidget)
-            dialogo_error_incompleto_out.setWindowTitle(self.title)
-            dialogo_error_incompleto_out.addButton("Aceptar", 0)
-            dialogo_error_incompleto_out.setInformativeText("Debe llenar todos los campos\nantes de continuar")
-            dialogo_error_incompleto_out.show()
+                dialogo_error_incompleto_out = QMessageBox(self.centralWidget)
+                dialogo_error_incompleto_out.setWindowTitle(self.title)
+                dialogo_error_incompleto_out.addButton("Aceptar", 0)
+                dialogo_error_incompleto_out.setInformativeText("Debe llenar todos los campos\nantes de continuar")
+                dialogo_error_incompleto_out.show()
+        except:
+            dialogo_error_lectura = QMessageBox(self.centralWidget)
+            dialogo_error_lectura.setWindowTitle(self.title)
+            dialogo_error_lectura.addButton("Aceptar", 0)
+            dialogo_error_lectura.setInformativeText("Error, intente nuevamente\n\nSi el error persiste comuniquese con el fabricante")
+            dialogo_error_lectura.show()
 
     def Escribir(self):
         #if not IsIn:
@@ -628,24 +670,23 @@ class MainWindow(QMainWindow): #Ventana principal
         self.Numingresos = 0 #Se inicia en 0
         self.IsIn = 'True'
         cedulaExist=False
-        df = pd.read_csv('../DB.csv')
-        Lista = df['Cedula']
-        Lista_carnet = df['Carnet']
-        '''
-        Suma ingresos    MOVER DE ACÁ AL LUGAR CORRECTO!
-        '''
-        for cont in range(len(Lista)):
-            if str(Lista_carnet[cont]) == str(self.carnet) or str(Lista[cont]) == str(self.ingresar_cedula.text()):
-                self.Numingresos+=1
-        
-        self.Numingresos=str(self.Numingresos)
-        print(self.Numingresos)
+        try:
+            df = pd.read_csv('../DB.csv')
+            Lista = df['Cedula']
+            Lista_carnet = df['Carnet']
+            '''
+            Suma ingresos    MOVER DE ACÁ AL LUGAR CORRECTO!
+            '''
+            for cont in range(len(Lista)):
+                if str(Lista_carnet[cont]) == str(self.carnet) or str(Lista[cont]) == str(self.ingresar_cedula.text()):
+                    self.Numingresos+=1
+            self.Numingresos=str(self.Numingresos)
+            print(self.Numingresos)
 
-        if self.ingresar_nombre.text()!="" and self.ingresar_cedula.text()!="" and self.ingresar_temp.text()!="":  #lógica para leer si los campos están vacíos
-            if not self.ingresar_nombre.text().isdigit() and not self.ingresar_cedula.text().isalpha() and not self.ingresar_temp.text().isalpha():  #detecta si numeros o letras donde no deben
-                # mirar si la cédula ya existe
-                # Recorrido del arreglo
-                try:
+            if self.ingresar_nombre.text()!="" and self.ingresar_cedula.text()!="" and self.ingresar_temp.text()!="":  #lógica para leer si los campos están vacíos
+                if not self.ingresar_nombre.text().isdigit() and not self.ingresar_cedula.text().isalpha() and not self.ingresar_temp.text().isalpha():  #detecta si numeros o letras donde no deben
+                    # mirar si la cédula ya existe
+                    # Recorrido del arreglo
                     if str(df['Cedula'][0]) == str(self.ingresar_cedula.text()) and str(df['IsIn'][0]) == 'True':
                         cedulaExist = True
                     for ced in range(len(Lista) - 1, 0, -1):
@@ -671,24 +712,24 @@ class MainWindow(QMainWindow): #Ventana principal
                         dialogo_error_cedulaExistente.addButton("Aceptar", 0)
                         dialogo_error_cedulaExistente.setInformativeText("El usuario ya está adentro    \n")
                         dialogo_error_cedulaExistente.show()
-                except:
-                    dialogo_error_escritura = QMessageBox(self.centralWidget)
-                    dialogo_error_escritura.setWindowTitle(self.title)
-                    dialogo_error_escritura.addButton("Aceptar",0)
-                    dialogo_error_escritura.setInformativeText("Error, intente nuevamente\n\nSi el error persiste comuniquese con el fabricante")
-                    dialogo_error_escritura.show()
+                else:
+                    dialogo_error_typ = QMessageBox(self.centralWidget)
+                    dialogo_error_typ.setWindowTitle(self.title)
+                    dialogo_error_typ.addButton("Aceptar", 0)
+                    dialogo_error_typ.setInformativeText("Error, verifique los datos ingresados\n   ")
+                    dialogo_error_typ.show()
             else:
-                dialogo_error_typ = QMessageBox(self.centralWidget)
-                dialogo_error_typ.setWindowTitle(self.title)
-                dialogo_error_typ.addButton("Aceptar", 0)
-                dialogo_error_typ.setInformativeText("Error, verifique los datos ingresados\n   ")
-                dialogo_error_typ.show()
-        else:
-            dialogo_error_incompleto = QMessageBox(self.centralWidget)
-            dialogo_error_incompleto.setWindowTitle(self.title)
-            dialogo_error_incompleto.addButton("Aceptar", 0)
-            dialogo_error_incompleto.setInformativeText("Debe llenar todos los campos\nantes de continuar")
-            dialogo_error_incompleto.show()
+                dialogo_error_incompleto = QMessageBox(self.centralWidget)
+                dialogo_error_incompleto.setWindowTitle(self.title)
+                dialogo_error_incompleto.addButton("Aceptar", 0)
+                dialogo_error_incompleto.setInformativeText("Debe llenar todos los campos\nantes de continuar")
+                dialogo_error_incompleto.show()
+        except:
+            dialogo_error_escritura = QMessageBox(self.centralWidget)
+            dialogo_error_escritura.setWindowTitle(self.title)
+            dialogo_error_escritura.addButton("Aceptar", 0)
+            dialogo_error_escritura.setInformativeText("Error, intente nuevamente\n\nSi el error persiste comuniquese con el fabricante")
+            dialogo_error_escritura.show()
 
     def Ingresar_desplegar_teclado_numerico_cedula(self):
         self.campo = 'ingresar-cedula'
@@ -826,6 +867,11 @@ class MainWindow(QMainWindow): #Ventana principal
         bg1 = pg.BarGraphItem(x=x, height=y1, width=0.6, brush='r')
         win.addItem(bg1)
         ##
+
+    def DetenerAlarma(self):
+        self.stop = 1
+        print(self.stop)
+        self.HomeWindow()
 
     def Salida_manual(self):
         self.label_img_central.setVisible(False)
