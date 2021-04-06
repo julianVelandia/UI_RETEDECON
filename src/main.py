@@ -855,17 +855,65 @@ class MainWindow(QMainWindow): #Ventana principal
             if i == True:
                 self.ocupacion_actual +=1
         print('Ocupacion Actual: '+str(self.ocupacion_actual))
+
+
         self.info_ocupacion_actual.setText('Ocupación Actual: ' + str(self.ocupacion_actual))
         #ACÁ CREA LA GRAFICA PERO POR EL MOMENTO LO HACE EN UNA VENTANA NUEVA
-        win = pg.plot()
-        win.setWindowTitle('pyqtgraph BarGraphItem')
+        
+        '''
+        self.win = pg.plot()
+        #win.setWindowTitle('pyqtgraph BarGraphItem')
         # create list of floats
-        y1 = np.linspace(0, 20, num=20)
+        y1 = np.array([0.10,0.20,0.10])
+        print(type(y1))
         # create horizontal list
-        x = np.arange(20)
+        x1 = np.arange(10)
+        pre_x = []
+        fechas_unicas = set(df['Fecha'])
+        for i in fechas_unicas:
+            fecha_normalizada = i.replace('-','').replace('2021','')
+            pre_x.append(float(fecha_normalizada))
+        x = np.array(pre_x)
+        print(type(x))
+        print(x)
+        x = np.arange(3)
+        
+
+        '''
+        x = []
+        y = []
+        fechas_unicas = set(df['Fecha'])
+        for i in fechas_unicas:
+            x.append(i)
+        x.sort()
+
+        cont_fecha = 0
+        for unica in x:
+            for fecha in range(len(Lista)):
+                if unica == df['Fecha'][fecha]:
+                    
+                    cont_fecha +=1
+            y.append(cont_fecha)
+            cont_fecha = 0
+        
+        print(x)
+        print(y)
+
+        xdict = dict(enumerate(x))
+
+        win = pg.GraphicsWindow()
+        stringaxis = pg.AxisItem(orientation='bottom')
+        stringaxis.setTicks([xdict.items()])
+        plot = win.addPlot(axisItems={'bottom': stringaxis})
+        curve = plot.plot(list(xdict.keys()),y)
+        bg1 = pg.BarGraphItem(x=plot, height=y, width=0.6, brush='r')
+
+        win.addItem(curve)
+
+
         # create bar chart
-        bg1 = pg.BarGraphItem(x=x, height=y1, width=0.6, brush='r')
-        win.addItem(bg1)
+        #bg1 = pg.BarGraphItem(x=x, height=y1, width=0.6, brush='r')
+        #self.win.addItem(bg1)
         ##
 
     def DetenerAlarma(self):
