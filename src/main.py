@@ -262,6 +262,9 @@ class MainWindow(QMainWindow): #Ventana principal
         self.Numingresos=0
         self.IsIn = False
 
+
+        
+
     def HomeWindow(self):
         self.label_img_central.setVisible(False)
         self.label_img_esquina.setVisible(True)
@@ -1094,14 +1097,17 @@ class MainWindow(QMainWindow): #Ventana principal
 
         xdict = dict(enumerate(x))
 
-        win = pg.GraphicsWindow()
+
+        
+
+        self.win = pg.GraphicsWindow()
         stringaxis = pg.AxisItem(orientation='bottom')
         stringaxis.setTicks([xdict.items()])
-        plot = win.addPlot(axisItems={'bottom': stringaxis})
+        plot = self.win.addPlot(axisItems={'bottom': stringaxis})
         curve = plot.plot(list(xdict.keys()),y)
         bg1 = pg.BarGraphItem(x=plot, height=y, width=0.6, brush='r')
 
-        win.addItem(curve)
+        self.win.addItem(curve)
 
 
         # create bar chart
