@@ -7,9 +7,7 @@ from configparser import ConfigParser
 import sys
 import pandas as pd
 import pyqtgraph as pg
-import numpy as np
 import hashlib
-
 
 class MainWindow(QMainWindow): #Ventana principal
     def __init__(self, parent=None, *args):
@@ -196,6 +194,25 @@ class MainWindow(QMainWindow): #Ventana principal
         self.configuracion_avanzada_pass.setVisible(False)
         self.configuracion_avanzada_pass.setEchoMode(QLineEdit.Password)
 
+        'NewAdmin User'
+        self.new_admin_username = QLineEditClick(self.centralWidget)
+        self.new_admin_username.setPlaceholderText("USUARIO")
+        self.new_admin_username.setObjectName("input")  # nombre de enlace a css
+        self.new_admin_username.setClearButtonEnabled(True)
+        self.new_admin_username.setGeometry(164, 237, 290, 70)
+        self.new_admin_username.setMaxLength(40)
+        self.new_admin_username.setVisible(False)
+
+        'NewAdmin password'
+        self.new_admin_password = QLineEditClick(self.centralWidget)
+        self.new_admin_password.setPlaceholderText("CONTRASEÑA")
+        self.new_admin_password.setObjectName("input")  # nombre de enlace a css
+        self.new_admin_password.setClearButtonEnabled(True)
+        self.new_admin_password.setGeometry(164, 341, 290, 70)
+        self.new_admin_password.setMaxLength(15)
+        self.new_admin_password.setVisible(False)
+        self.new_admin_password.setEchoMode(QLineEdit.Password)
+
         self.campo ='null'
 
         #Botones Ingresar
@@ -235,8 +252,6 @@ class MainWindow(QMainWindow): #Ventana principal
         self.LabelsBotonesEstadisticas()
         # Botones new admin
         self.BotonesNewAdmin()
-
-                
         '''
         Valores BD
         '''
@@ -271,21 +286,21 @@ class MainWindow(QMainWindow): #Ventana principal
         self.configuracion_avanzada_pass.setVisible(False)
         self.configuracion_avanzada.setVisible(False)
         self.ingresar_Ad_Conf.setVisible(False)
-
-
         self.configuracion_capacidad.setVisible(False)
         self.new_admin_username.setVisible(False)
         self.new_admin_password.setVisible(False)
         self.new_admin.setVisible(False)
-
+        self.quitar_admin.setVisible(False)
         self.manual_de_usuario.setVisible(False)
         self.informacion_fabricante.setVisible(False)
         self.label_texto_info_fab.setVisible(False)
         self.img_esquina_2.setVisible(False)
         self.ingresar_capacidad.setVisible(False)
+        self.agregar_eliminar_admin_boton.setVisible(False)
+        self.cambiar_password_admin_boton.setVisible(False)
+        self.enviar_datos_servidor.setVisible(False)
         self.info_ocupacion_actual.setVisible(False)
         self.qr_manual.setVisible(False)
-
         self.NotTeclado()
         self.NotTecladoNumerico()
 
@@ -342,9 +357,9 @@ class MainWindow(QMainWindow): #Ventana principal
         self.configuracion_pantalla.setVisible(False)
 
         self.configuracion_datos = QToolButton(self.centralWidget)
-        self.configuracion_datos.setText('Ajustes de Datos')
+        self.configuracion_datos.setText('Cambiar Estilo De Gráfica\nDe Datos')
         self.configuracion_datos.setObjectName("button")  # nombre de enlace a css
-        self.configuracion_datos.setIcon(QIcon('static/icons/icono_config_datos'))  # icono
+        self.configuracion_datos.setIcon(QIcon('static/icons/icono_estadisticas'))  # icono
         self.configuracion_datos.setIconSize(QSize(70, 70))
         self.configuracion_datos.setToolButtonStyle(Qt.ToolButtonTextUnderIcon)
         self.configuracion_datos.clicked.connect(self.HomeWindow)
@@ -380,28 +395,7 @@ class MainWindow(QMainWindow): #Ventana principal
         self.ingresar_cedula_out.setVisible(False)
         self.retirar.setVisible(False)
 
-
     def BotonesNewAdmin(self):
-        'new admin name'
-        self.new_admin_username = QLineEditClick(self.centralWidget)
-        self.new_admin_username.setPlaceholderText("USUARIO")
-        self.new_admin_username.setObjectName("input") #nombre de enlace a css
-        self.new_admin_username.setClearButtonEnabled(True)
-        self.new_admin_username.setGeometry(164,237,290,70)
-        self.new_admin_username.setMaxLength(40)
-        self.new_admin_username.setVisible(False)
-
-        'new admin password'
-        self.new_admin_password = QLineEditClick(self.centralWidget)
-        self.new_admin_password.setPlaceholderText("CONTRASEÑA")
-        self.new_admin_password.setObjectName("input")  # nombre de enlace a css
-        self.new_admin_password.setClearButtonEnabled(True)
-        self.new_admin_password.setGeometry(164, 341, 290, 70)
-        self.new_admin_password.setMaxLength(15)
-        self.new_admin_password.setVisible(False)
-        self.new_admin_password.setEchoMode(QLineEdit.Password)
-
-
         'crear new admin'
         self.new_admin = QToolButton(self.centralWidget)
         self.new_admin.setText('REGISTRAR')
@@ -409,10 +403,19 @@ class MainWindow(QMainWindow): #Ventana principal
         self.new_admin.setIcon(QIcon('static/icons/icono_entrar')) #icono
         self.new_admin.setIconSize(QSize(60,60))
         self.new_admin.setToolButtonStyle(Qt.ToolButtonTextUnderIcon)
+        self.new_admin.setGeometry(570, 150, 290, 180)
         self.new_admin.clicked.connect(self.NewAdmin)
-        self.new_admin.setGeometry(570, 230, 290, 231)
         self.new_admin.setVisible(False)
 
+        self.quitar_admin = QToolButton(self.centralWidget)
+        self.quitar_admin.setText('ELIMINAR')
+        self.quitar_admin.setObjectName("button")  # nombre de enlace a css
+        self.quitar_admin.setIcon(QIcon('static/icons/icono_salir'))  # icono
+        self.quitar_admin.setIconSize(QSize(60, 60))
+        self.quitar_admin.setToolButtonStyle(Qt.ToolButtonTextUnderIcon)
+        self.quitar_admin.setGeometry(570, 350, 290, 180)
+        self.quitar_admin.clicked.connect(self.EliminarAdmin)
+        self.quitar_admin.setVisible(False)
 
     def setCapacidadMaxima(self):
         # Reading the config.ini file
@@ -444,12 +447,13 @@ class MainWindow(QMainWindow): #Ventana principal
     def Capacidad(self):
         self.configuracion_capacidad_text.setVisible(True)
         self.ingresar_capacidad.setVisible(True)
-
         self.configuracion_capacidad.setVisible(False)
         self.new_admin_username.setVisible(False)
         self.new_admin_password.setVisible(False)
         self.new_admin.setVisible(False)
-        
+        self.agregar_eliminar_admin_boton.setVisible(False)
+        self.cambiar_password_admin_boton.setVisible(False)
+        self.enviar_datos_servidor.setVisible(False)
 
     def BotonesConfiguracionAvanzada(self):
         self.ingresar_Ad_Conf = QToolButton(self.centralWidget)
@@ -495,15 +499,15 @@ class MainWindow(QMainWindow): #Ventana principal
         self.configuracion_capacidad.setGeometry(534, 340, 290, 180)
         self.configuracion_capacidad.setVisible(False)
         
-        self.agregar_admin_boton = QToolButton(self.centralWidget)
-        self.agregar_admin_boton.setText('Agregar administrador')
-        self.agregar_admin_boton.setObjectName("button")  # nombre de enlace a css
-        self.agregar_admin_boton.setIcon(QIcon('static/icons/icono_capacidad'))  # icono
-        self.agregar_admin_boton.setIconSize(QSize(60, 60))
-        self.agregar_admin_boton.setToolButtonStyle(Qt.ToolButtonTextUnderIcon)
-        self.agregar_admin_boton.clicked.connect(self.AgregarAdmin)
-        self.agregar_admin_boton.setGeometry(200, 120, 290, 180)
-        self.agregar_admin_boton.setVisible(False)
+        self.agregar_eliminar_admin_boton = QToolButton(self.centralWidget)
+        self.agregar_eliminar_admin_boton.setText('Agregar o Eliminar\nAdministrador')
+        self.agregar_eliminar_admin_boton.setObjectName("button")  # nombre de enlace a css
+        self.agregar_eliminar_admin_boton.setIcon(QIcon('static/icons/icono_add_delete_admin'))  # icono
+        self.agregar_eliminar_admin_boton.setIconSize(QSize(60, 60))
+        self.agregar_eliminar_admin_boton.setToolButtonStyle(Qt.ToolButtonTextUnderIcon)
+        self.agregar_eliminar_admin_boton.clicked.connect(self.AgregarAdmin)
+        self.agregar_eliminar_admin_boton.setGeometry(200, 120, 290, 180)
+        self.agregar_eliminar_admin_boton.setVisible(False)
 
         self.cambiar_password_admin_boton = QToolButton(self.centralWidget)
         self.cambiar_password_admin_boton.setText('Cambiar contraseña')
@@ -515,23 +519,21 @@ class MainWindow(QMainWindow): #Ventana principal
         self.cambiar_password_admin_boton.setGeometry(200, 340, 290, 180)
         self.cambiar_password_admin_boton.setVisible(False)
 
-        self.eliminar_admin_boton = QToolButton(self.centralWidget)
-        self.eliminar_admin_boton.setText('Eliminar Administrador')
-        self.eliminar_admin_boton.setObjectName("button")  # nombre de enlace a css
-        self.eliminar_admin_boton.setIcon(QIcon('static/icons/icono_capacidad'))  # icono
-        self.eliminar_admin_boton.setIconSize(QSize(60, 60))
-        self.eliminar_admin_boton.setToolButtonStyle(Qt.ToolButtonTextUnderIcon)
-        self.eliminar_admin_boton.clicked.connect(self.HomeWindow)
-        self.eliminar_admin_boton.setGeometry(534, 120, 290, 180)
-        self.eliminar_admin_boton.setVisible(False)
+        self.enviar_datos_servidor = QToolButton(self.centralWidget)
+        self.enviar_datos_servidor.setText('Enviar Datos Al Servidor')
+        self.enviar_datos_servidor.setObjectName("button")  # nombre de enlace a css
+        self.enviar_datos_servidor.setIcon(QIcon('static/icons/icono_config_datos'))  # icono
+        self.enviar_datos_servidor.setIconSize(QSize(60, 60))
+        self.enviar_datos_servidor.setToolButtonStyle(Qt.ToolButtonTextUnderIcon)
+        self.enviar_datos_servidor.clicked.connect(self.HomeWindow)
+        self.enviar_datos_servidor.setGeometry(534, 120, 290, 180)
+        self.enviar_datos_servidor.setVisible(False)
 
     def ConfiguracionAvanzadaInside(self):
         self.configuracion_capacidad.setVisible(True)
         self.cambiar_password_admin_boton.setVisible(True)
-        self.agregar_admin_boton.setVisible(True)
-        self.eliminar_admin_boton.setVisible(True)
-
-
+        self.agregar_eliminar_admin_boton.setVisible(True)
+        self.enviar_datos_servidor.setVisible(True)
         self.configuracion_apagar.setVisible(False)
         self.configuracion_pantalla.setVisible(False)
         self.configuracion_datos.setVisible(False)
@@ -552,30 +554,141 @@ class MainWindow(QMainWindow): #Ventana principal
         self.Ad_Conf_guardar_teclado()
         self.NotTecladoNumerico()
 
-
-
     def AgregarAdmin(self):
-        self.new_admin_username.setVisible(False)
-        self.new_admin_password.setVisible(False)
-        self.new_admin.setVisible(False)
         self.configuracion_capacidad.setVisible(False)
-
         self.new_admin_username.setVisible(True)
         self.new_admin_password.setVisible(True)
         self.new_admin.setVisible(True)
+        self.quitar_admin.setVisible(True)
+        self.agregar_eliminar_admin_boton.setVisible(False)
+        self.cambiar_password_admin_boton.setVisible(False)
+        self.enviar_datos_servidor.setVisible(False)
 
     def NewAdmin(self):
-        self.new_admin_username.setVisible(False)
-        self.new_admin_password.setVisible(False)
-        self.new_admin.setVisible(False)
-        self.configuracion_capacidad.setVisible(False)
+        try:
+            self.config.read('../config.ini')
+            users = list(self.config['users'])
+            users_values = []
+            if self.new_admin_username.text() != "" and self.new_admin_password.text() != "":  # lógica para leer si los campos están vacíos
+                if not self.new_admin_username.text().isdigit() and not self.new_admin_password.text().isalpha():  # detecta si numeros o letras donde no deben
+                    # Use the cycle to append values to the list from the document
+                    for key in users:
+                        users_values.append(self.config.get('users', str(key)))
+                    # Check if user is in the list
+                    if self.new_admin_username.text() in users_values:
+                        is_user = True
+                    else:
+                        is_user = False
+                    # Existance verification
+                    if not is_user:
+                        dialogo_registro_exitoso = QMessageBox(self.centralWidget)
+                        dialogo_registro_exitoso.setWindowTitle(self.title)
+                        dialogo_registro_exitoso.addButton("Aceptar", 0)
+                        dialogo_registro_exitoso.setInformativeText("Se ha registrado correctamente   \n")
+                        dialogo_registro_exitoso.show()
+                        self.HomeWindow()
+                    else:
+                        dialogo_error_existencia = QMessageBox(self.centralWidget)
+                        dialogo_error_existencia.setWindowTitle(self.title)
+                        dialogo_error_existencia.addButton("Aceptar", 0)
+                        dialogo_error_existencia.setInformativeText("El usuario ya existe\n ")
+                        dialogo_error_existencia.show()
+                else:
+                    dialogo_error_typ = QMessageBox(self.centralWidget)
+                    dialogo_error_typ.setWindowTitle(self.title)
+                    dialogo_error_typ.addButton("Aceptar", 0)
+                    dialogo_error_typ.setInformativeText("Error, verifique los datos ingresados\n  "
+                                                         "La contraseña debe tener solo numeros\n  ")
+                    dialogo_error_typ.show()
+            else:
+                dialogo_error_incompleto = QMessageBox(self.centralWidget)
+                dialogo_error_incompleto.setWindowTitle(self.title)
+                dialogo_error_incompleto.addButton("Aceptar", 0)
+                dialogo_error_incompleto.setInformativeText("Debe llenar todos los campos\nantes de continuar")
+                dialogo_error_incompleto.show()
+        except:
+            dialogo_error = QMessageBox(self.centralWidget)
+            dialogo_error.setWindowTitle(self.title)
+            dialogo_error.addButton("Aceptar", 0)
+            dialogo_error.setInformativeText(
+                "Error, intente nuevamente\n\nSi el error persiste comuniquese con el fabricante")
+            dialogo_error.show()
 
+    def EliminarAdmin(self):
+        try:
+            self.config.read('../config.ini')
+            users = list(self.config['users'])
+            passwords = list(self.config['passwords'])
+            users_values = []
+            passwords_values = []
+            if self.new_admin_username.text() != "" and self.new_admin_password.text() != "":  # lógica para leer si los campos están vacíos
+                if not self.new_admin_username.text().isdigit() and not self.new_admin_password.text().isalpha():  # detecta si numeros o letras donde no deben
+                    # Use the cycle to append values to the list from the document
+                    for key in users:
+                        users_values.append(self.config.get('users', str(key)))
+                    # Check if user is in the list
+                    if self.new_admin_username.text() in users_values:
+                        correct_user = True
+                        indU = users_values.index(self.new_admin_username.text())
+                    else:
+                        correct_user = False
+                    # Use the cycle to append values to the list from the document
+                    for key in passwords:
+                        p1 = self.config.get('passwords', str(key))
+                        passwords_values.append(p1)
+                    # Check if password is in the list
+                    p = self.new_admin_password.text()
+                    h = hashlib.new("sha1", p.encode())
+                    # Verifications
+                    if str(h.digest()) in passwords_values:
+                        correct_password = True
+                        indP = passwords_values.index(str(h.digest()))
+                    else:
+                        correct_password = False
+                    # Existance verification
+                    if correct_user and correct_password and indP==indU:
+                        dialogo_eliminación_exitoso = QMessageBox(self.centralWidget)
+                        dialogo_eliminación_exitoso.setWindowTitle(self.title)
+                        dialogo_eliminación_exitoso.addButton("Aceptar", 0)
+                        dialogo_eliminación_exitoso.setInformativeText("Se ha eliminado correctamente   \n")
+                        dialogo_eliminación_exitoso.show()
+                        self.HomeWindow()
+                    elif correct_user and not correct_password or not indU==indP:
+                        dialogo_error_existencia = QMessageBox(self.centralWidget)
+                        dialogo_error_existencia.setWindowTitle(self.title)
+                        dialogo_error_existencia.addButton("Aceptar", 0)
+                        dialogo_error_existencia.setInformativeText("Verifique los datos ingresados\n ")
+                        dialogo_error_existencia.show()
+                    else:
+                        dialogo_error_existencia = QMessageBox(self.centralWidget)
+                        dialogo_error_existencia.setWindowTitle(self.title)
+                        dialogo_error_existencia.addButton("Aceptar", 0)
+                        dialogo_error_existencia.setInformativeText("El usuario no existe\n ")
+                        dialogo_error_existencia.show()
+                else:
+                    dialogo_error_typ = QMessageBox(self.centralWidget)
+                    dialogo_error_typ.setWindowTitle(self.title)
+                    dialogo_error_typ.addButton("Aceptar", 0)
+                    dialogo_error_typ.setInformativeText("Error, verifique los datos ingresados\n  "
+                                                         "La contraseña debe tener solo numeros\n  ")
+                    dialogo_error_typ.show()
+            else:
+                dialogo_error_incompleto = QMessageBox(self.centralWidget)
+                dialogo_error_incompleto.setWindowTitle(self.title)
+                dialogo_error_incompleto.addButton("Aceptar", 0)
+                dialogo_error_incompleto.setInformativeText("Debe llenar todos los campos\nantes de continuar")
+                dialogo_error_incompleto.show()
+        except:
+            dialogo_error = QMessageBox(self.centralWidget)
+            dialogo_error.setWindowTitle(self.title)
+            dialogo_error.addButton("Aceptar", 0)
+            dialogo_error.setInformativeText("Error, intente nuevamente\n\nSi el error persiste comuniquese con el fabricante")
+            dialogo_error.show()
 
     def Apagar(self):
         sys.exit()
 
     def AdConfPass(self):
-
         try:
             #Reading the config.ini file
             self.config.read('../config.ini')
@@ -595,14 +708,11 @@ class MainWindow(QMainWindow): #Ventana principal
             # Use the cycle to append values to the list from the document
             for key in passwords:
                 p1=self.config.get('passwords', str(key))
-                
                 passwords_values.append(p1)
-                
             # Check if password is in the list
             p = self.configuracion_avanzada_pass.text()
             h = hashlib.new("sha1", p.encode())
-            
-
+            # Verifications
             if str(h.digest()) in passwords_values:
                 correct_password = True
                 indP = passwords_values.index(str(h.digest()))
@@ -618,7 +728,6 @@ class MainWindow(QMainWindow): #Ventana principal
                         dialogo_acceso_concedido.setInformativeText("Bienvenido: "+ self.configuracion_avanzada_user.text()+ "  \n    ")
                         dialogo_acceso_concedido.show()
                         self.ConfiguracionAvanzadaInside()
-
                     else:
                         dialogo_error_escritura = QMessageBox(self.centralWidget)
                         dialogo_error_escritura.setWindowTitle(self.title)
@@ -637,9 +746,6 @@ class MainWindow(QMainWindow): #Ventana principal
                 dialogo_error_incompleto.addButton("Aceptar", 0)
                 dialogo_error_incompleto.setInformativeText("Debe llenar todos los campos\nantes de continuar")
                 dialogo_error_incompleto.show()
-
-        
-            
         except:
             dialogo_error = QMessageBox(self.centralWidget)
             dialogo_error.setWindowTitle(self.title)
@@ -670,7 +776,6 @@ class MainWindow(QMainWindow): #Ventana principal
             dialogo_error_fecha.addButton("Aceptar", 0)
             dialogo_error_fecha.setInformativeText("Ha ocurrido un error al verifcar    \nlas fechas, si persiste comuniquese   \n  con el fabricante \n    ")
             dialogo_error_fecha.show()
-    
     '''
     Acá leemos la base de datos para procesar y o modificar la informacion
     '''
@@ -1044,7 +1149,7 @@ class MainWindow(QMainWindow): #Ventana principal
         self.manual_de_usuario = QToolButton(self.centralWidget)
         self.manual_de_usuario.setText('Manual de Usuario')
         self.manual_de_usuario.setObjectName("button")  # nombre de enlace a css
-        self.manual_de_usuario.setIcon(QIcon('static/icons/icono_config_datos'))  # icono
+        self.manual_de_usuario.setIcon(QIcon('static/icons/icono_manual_usuario'))  # icono
         self.manual_de_usuario.setIconSize(QSize(65, 65))
         self.manual_de_usuario.setToolButtonStyle(Qt.ToolButtonTextUnderIcon)
         self.manual_de_usuario.setGeometry(200, 210, 290, 180)
@@ -1073,7 +1178,6 @@ class MainWindow(QMainWindow): #Ventana principal
 
         self.informacion_fabricante.setVisible(False)
         self.manual_de_usuario.setVisible(False)
-
 
     def LabelsInformacion(self):
         self.label_texto_info_fab = QLabel(self.centralWidget)
