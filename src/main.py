@@ -6,14 +6,18 @@ from datetime import datetime
 from configparser import ConfigParser
 import sys
 import pandas as pd
-import pyqtgraph as pg
 import hashlib
+
+from PyQt5.QtChart import QChart, QChartView, QBarSet, QPercentBarSeries, QBarCategoryAxis
+
 
 class MainWindow(QMainWindow): #Ventana principal
     def __init__(self, parent=None, *args):
         super(MainWindow,self).__init__(parent = parent)
         with open("static/styles.css") as f:
             self.setStyleSheet(f.read())
+
+        self.create_bar()
 
         #First Instances
         #self.df = pd.read_csv('../DB.csv') ESTO TOCABA HACERLO CADA VEZ PORQUE SI NO SOLO LEE UNA VEZ
@@ -261,7 +265,48 @@ class MainWindow(QMainWindow): #Ventana principal
         self.Delta=0
         self.Numingresos=0
         self.IsIn = False
+    
+    def create_bar(self):
+        #The QBarSet class represents a set of bars in the bar chart.
+         # It groups several bars into a bar set
+        print('hola')
+        set0 = QBarSet("Parwiz")
+        set1 = QBarSet("Bob")
+        set2 = QBarSet("Tom")
+        set3 = QBarSet("Logan")
+        set4 = QBarSet("Karim")
 
+        set0 << 1 << 2 << 3 << 4 << 5 << 6
+        set1 << 5 << 0 << 0 << 4 << 0 << 7
+        set2 << 3 << 5 << 8 << 13 << 8 << 5
+        set3 << 5 << 6 << 7 << 3 << 4 << 5
+        set4 << 9 << 7 << 5 << 3 << 1 << 2
+
+        series = QPercentBarSeries()
+        series.append(set0)
+        series.append(set1)
+        series.append(set2)
+        series.append(set3)
+        series.append(set4)
+
+        chart = QChart()
+        chart.addSeries(series)
+        chart.setTitle("Percent Example")
+        chart.setAnimationOptions(QChart.SeriesAnimations)
+
+        categories = ["Jan", "Feb", "Mar", "Apr", "May", "Jun"]
+        axis = QBarCategoryAxis()
+        axis.append(categories)
+        chart.createDefaultAxes()
+        chart.setAxisX(axis, series)
+
+        chart.legend().setVisible(True)
+        chart.legend().setAlignment(Qt.AlignBottom)
+
+        chartView = QChartView(chart)
+        chartView.setRenderHint(QPainter.Antialiasing)
+
+        self.setCentralWidget(chartView)
 
         
 
@@ -1095,25 +1140,12 @@ class MainWindow(QMainWindow): #Ventana principal
         print(x)
         print(y)
 
-        xdict = dict(enumerate(x))
-
-
         
 
-        self.win = pg.GraphicsWindow()
-        stringaxis = pg.AxisItem(orientation='bottom')
-        stringaxis.setTicks([xdict.items()])
-        plot = self.win.addPlot(axisItems={'bottom': stringaxis})
-        curve = plot.plot(list(xdict.keys()),y)
-        bg1 = pg.BarGraphItem(x=plot, height=y, width=0.6, brush='r')
+        #xdict = dict(enumerate(x))
 
-        self.win.addItem(curve)
+    
 
-
-        # create bar chart
-        #bg1 = pg.BarGraphItem(x=x, height=y1, width=0.6, brush='r')
-        #self.win.addItem(bg1)
-        ##
 
     def DetenerAlarma(self):
         self.stop = 1
