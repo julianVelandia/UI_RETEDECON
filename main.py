@@ -12,50 +12,45 @@ from matplotlib.figure import Figure
 
 #locals
 
-from controler.QLineClick import QLineEditClick
-from views.botones.inicio.inicio import BotonInicio
+from src.controler.QLineClick import QLineEditClick
+from src.views.botones.boton import Boton
 
-class MainWindow(QMainWindow,BotonInicio): #Ventana principal
+class MainWindow(QMainWindow,Boton): #Ventana principal
     def __init__(self, parent=None, *args):
         super(MainWindow,self).__init__(parent = parent)
-        with open("views/static/styles.css") as f:
+        with open("src/views/static/styles.css") as f:
             self.setStyleSheet(f.read())
 
+        #INICIALIZAR EN UN ARCHIVO parameter.ini o algo así PARA NO HACER HARDCODING
         self.cedula_cache = ''
         self.carnet = ''
         self.config = ConfigParser()
-
-        'Constants'
         self.title = 'RETEDECON'
         self.width = 1024
         self.height = 600
 
         self.setMinimumSize(self.width,self.height)    #tamaño mínimo
-        self.setMaximumSize(self.width,self.height)  #tamaño máximo
+        self.setMaximumSize(self.width,self.height) #tamaño máximo
         self.setWindowTitle(self.title)   #titulo
-        self.setWindowIcon(QIcon("views/static/icons/favicon3.png"))   #Favicon
+        self.setWindowIcon(QIcon("src/views/static/icons/favicon3.png")) #Favicon
 
+
+        #Widget principal
         self.centralWidget = QWidget()
         self.setCentralWidget(self.centralWidget)
         self.centralWidget.setObjectName("window") #nombre que enlaza en css
         
-        self.boton_ingresar(self.centralWidget, self.Ingresar)
-        '''
-        Imagen central 
-        '''
+        #Imagen central 
         self.label_img_central = QLabel(self)
         self.label_img_central.setGeometry(289,-10,1024,600)
-        self.pixmap = QPixmap('views/static/icons/Logo_central.png')   #Imagen central
+        self.pixmap = QPixmap('src/views/static/icons/Logo_central.png')   #Imagen central
         self.label_img_central.setPixmap(self.pixmap)
-        '''
-        Botones de home y logo esquina
-        '''
-        self.label_img_esquina = QToolButton(self.centralWidget)
-        self.label_img_esquina.setGeometry(30,5,250,60)        
-        self.label_img_esquina.setObjectName("button_home") #nombre de enlace a css
-        self.label_img_esquina.setIcon(QIcon('views/static/icons/logo_lateral.png')) #icono
-        self.label_img_esquina.setIconSize(QSize(200,60))
-        self.label_img_esquina.clicked.connect(self.HomeWindow)
+
+        #Botones
+        self.boton_ingresar(self.centralWidget, self.Ingresar)
+        self.boton_home(self.centralWidget, self.HomeWindow)
+        
+        
 
         #Botones
         
@@ -63,7 +58,7 @@ class MainWindow(QMainWindow,BotonInicio): #Ventana principal
         self.estadisticas = QToolButton(self.centralWidget)
         self.estadisticas.setText('ESTADISTICAS')
         self.estadisticas.setObjectName("button")
-        self.estadisticas.setIcon(QIcon('views/static/icons/icono_estadisticas'))
+        self.estadisticas.setIcon(QIcon('src/views/static/icons/icono_estadisticas'))
         self.estadisticas.setIconSize(QSize(60,60))
         self.estadisticas.setToolButtonStyle(Qt.ToolButtonTextUnderIcon)
         self.estadisticas.clicked.connect(self.Estadisticas)
@@ -71,7 +66,7 @@ class MainWindow(QMainWindow,BotonInicio): #Ventana principal
         self.detener_alarma = QToolButton(self.centralWidget)
         self.detener_alarma.setText('DETENER ALARMA')
         self.detener_alarma.setObjectName("button")
-        self.detener_alarma.setIcon(QIcon('views/static/icons/icono_campana'))
+        self.detener_alarma.setIcon(QIcon('src/views/static/icons/icono_campana'))
         self.detener_alarma.setIconSize(QSize(60,60))
         self.detener_alarma.setToolButtonStyle(Qt.ToolButtonTextUnderIcon)
         self.detener_alarma.clicked.connect(self.DetenerAlarma)
@@ -79,7 +74,7 @@ class MainWindow(QMainWindow,BotonInicio): #Ventana principal
         self.salida_manual = QToolButton(self.centralWidget)
         self.salida_manual.setText('SALIDA MANUAL')
         self.salida_manual.setObjectName("button")
-        self.salida_manual.setIcon(QIcon('views/static/icons/icono_salir'))
+        self.salida_manual.setIcon(QIcon('src/views/static/icons/icono_salir'))
         self.salida_manual.setIconSize(QSize(60,60))
         self.salida_manual.setToolButtonStyle(Qt.ToolButtonTextUnderIcon)
         self.salida_manual.clicked.connect(self.Salida_manual)
@@ -87,7 +82,7 @@ class MainWindow(QMainWindow,BotonInicio): #Ventana principal
         self.configuracion = QToolButton(self.centralWidget)
         self.configuracion.setText('CONFIGURACIÓN')
         self.configuracion.setObjectName("button")
-        self.configuracion.setIcon(QIcon('views/static/icons/icono_configuraciones'))
+        self.configuracion.setIcon(QIcon('src/views/static/icons/icono_configuraciones'))
         self.configuracion.setIconSize(QSize(70,70))
         self.configuracion.setToolButtonStyle(Qt.ToolButtonTextUnderIcon)
         self.configuracion.clicked.connect(self.Configuracion)
@@ -95,7 +90,7 @@ class MainWindow(QMainWindow,BotonInicio): #Ventana principal
         self.informacion = QToolButton(self.centralWidget)
         self.informacion.setText('INFORMACIÓN')
         self.informacion.setObjectName("button")
-        self.informacion.setIcon(QIcon('views/static/icons/icono_info'))
+        self.informacion.setIcon(QIcon('src/views/static/icons/icono_info'))
         self.informacion.setIconSize(QSize(50,50))
         self.informacion.setToolButtonStyle(Qt.ToolButtonTextUnderIcon)
         self.informacion.clicked.connect(self.Informacion)
@@ -319,34 +314,13 @@ class MainWindow(QMainWindow,BotonInicio): #Ventana principal
 
     
 
-    def Ingresar(self):
-        self.label_img_central.setVisible(False)  
-        self.label_img_esquina.setVisible(True)  
-        self.ingresar.setVisible(False)
-        
-        
-        self.estadisticas.setVisible(False)
-        self.detener_alarma.setVisible(False)
-        self.salida_manual.setVisible(False)
-        self.configuracion.setVisible(False)
-        self.informacion.setVisible(False)
-        self.ingresar_nombre.setVisible(True)
-        self.ingresar_nombre.clear()
-        self.ingresar_cedula.setVisible(True)
-        self.ingresar_cedula.clear()
-        self.ingresar_temp.setVisible(True)
-        self.ingresar_temp.clear()
-        self.ingresar_ingresar.setVisible(True)
-        self.ingresar_nombre_out.setVisible(False)
-        self.ingresar_cedula_out.setVisible(False)
-        self.retirar.setVisible(False)
-        self.Ingresar_guardar_teclado()
+    
 
     def BotonesConfig(self):
         self.configuracion_avanzada = QToolButton(self.centralWidget)
         self.configuracion_avanzada.setText('Configuración Avanzada\n(Administrador)')
         self.configuracion_avanzada.setObjectName("button") #nombre de enlace a css
-        self.configuracion_avanzada.setIcon(QIcon('views/static/icons/icono_config_avanzada')) #icono
+        self.configuracion_avanzada.setIcon(QIcon('src/views/static/icons/icono_config_avanzada')) #icono
         self.configuracion_avanzada.setIconSize(QSize(65,65))
         self.configuracion_avanzada.setToolButtonStyle(Qt.ToolButtonTextUnderIcon)
         self.configuracion_avanzada.setGeometry(534, 120, 290, 180)
@@ -356,7 +330,7 @@ class MainWindow(QMainWindow,BotonInicio): #Ventana principal
         self.configuracion_apagar = QToolButton(self.centralWidget)
         self.configuracion_apagar.setText('Apagar')
         self.configuracion_apagar.setObjectName("button") #nombre de enlace a css
-        self.configuracion_apagar.setIcon(QIcon('views/static/icons/icono_apagar')) #icono
+        self.configuracion_apagar.setIcon(QIcon('src/views/static/icons/icono_apagar')) #icono
         self.configuracion_apagar.setIconSize(QSize(60,60))
         self.configuracion_apagar.setToolButtonStyle(Qt.ToolButtonTextUnderIcon)
         self.configuracion_apagar.clicked.connect(self.Apagar)
@@ -366,7 +340,7 @@ class MainWindow(QMainWindow,BotonInicio): #Ventana principal
         self.configuracion_pantalla = QToolButton(self.centralWidget)
         self.configuracion_pantalla.setText('Ajustes de Pantallas')
         self.configuracion_pantalla.setObjectName("button")  # nombre de enlace a css
-        self.configuracion_pantalla.setIcon(QIcon('views/static/icons/icono_config_pantalla'))  # icono
+        self.configuracion_pantalla.setIcon(QIcon('src/views/static/icons/icono_config_pantalla'))  # icono
         self.configuracion_pantalla.setIconSize(QSize(60, 60))
         self.configuracion_pantalla.setToolButtonStyle(Qt.ToolButtonTextUnderIcon)
         self.configuracion_pantalla.clicked.connect(self.HomeWindow)
@@ -376,7 +350,7 @@ class MainWindow(QMainWindow,BotonInicio): #Ventana principal
         self.configuracion_datos = QToolButton(self.centralWidget)
         self.configuracion_datos.setText('Cambiar Estilo De Gráfica\nDe Datos')
         self.configuracion_datos.setObjectName("button")  # nombre de enlace a css
-        self.configuracion_datos.setIcon(QIcon('views/static/icons/icono_estadisticas'))  # icono
+        self.configuracion_datos.setIcon(QIcon('src/views/static/icons/icono_estadisticas'))  # icono
         self.configuracion_datos.setIconSize(QSize(70, 70))
         self.configuracion_datos.setToolButtonStyle(Qt.ToolButtonTextUnderIcon)
         self.configuracion_datos.clicked.connect(self.HomeWindow)
@@ -387,7 +361,7 @@ class MainWindow(QMainWindow,BotonInicio): #Ventana principal
         self.ingresar_ingresar = QToolButton(self.centralWidget)
         self.ingresar_ingresar.setText('INGRESAR')
         self.ingresar_ingresar.setObjectName("button") #nombre de enlace a css
-        self.ingresar_ingresar.setIcon(QIcon('views/static/icons/icono_entrar')) #icono
+        self.ingresar_ingresar.setIcon(QIcon('src/views/static/icons/icono_entrar')) #icono
         self.ingresar_ingresar.setIconSize(QSize(60,60))
         self.ingresar_ingresar.setToolButtonStyle(Qt.ToolButtonTextUnderIcon)
         self.ingresar_ingresar.clicked.connect(self.Escribir)
@@ -403,7 +377,7 @@ class MainWindow(QMainWindow,BotonInicio): #Ventana principal
         self.retirar = QToolButton(self.centralWidget)
         self.retirar.setText('RETIRAR')
         self.retirar.setObjectName("button") #nombre de enlace a css
-        self.retirar.setIcon(QIcon('views/static/icons/icono_salir')) #icono
+        self.retirar.setIcon(QIcon('src/views/static/icons/icono_salir')) #icono
         self.retirar.setIconSize(QSize(60,60))
         self.retirar.setToolButtonStyle(Qt.ToolButtonTextUnderIcon)
         self.retirar.clicked.connect(self.Leer)
@@ -417,7 +391,7 @@ class MainWindow(QMainWindow,BotonInicio): #Ventana principal
         self.new_admin = QToolButton(self.centralWidget)
         self.new_admin.setText('REGISTRAR')
         self.new_admin.setObjectName("button") #nombre de enlace a css
-        self.new_admin.setIcon(QIcon('views/static/icons/icono_entrar')) #icono
+        self.new_admin.setIcon(QIcon('src/views/static/icons/icono_entrar')) #icono
         self.new_admin.setIconSize(QSize(60,60))
         self.new_admin.setToolButtonStyle(Qt.ToolButtonTextUnderIcon)
         self.new_admin.setGeometry(570, 150, 290, 180)
@@ -427,7 +401,7 @@ class MainWindow(QMainWindow,BotonInicio): #Ventana principal
         self.quitar_admin = QToolButton(self.centralWidget)
         self.quitar_admin.setText('ELIMINAR')
         self.quitar_admin.setObjectName("button")  # nombre de enlace a css
-        self.quitar_admin.setIcon(QIcon('views/static/icons/icono_salir'))  # icono
+        self.quitar_admin.setIcon(QIcon('src/views/static/icons/icono_salir'))  # icono
         self.quitar_admin.setIconSize(QSize(60, 60))
         self.quitar_admin.setToolButtonStyle(Qt.ToolButtonTextUnderIcon)
         self.quitar_admin.setGeometry(570, 350, 290, 180)
@@ -454,7 +428,7 @@ class MainWindow(QMainWindow,BotonInicio): #Ventana principal
         self.ingresar_capacidad = QToolButton(self.centralWidget)
         self.ingresar_capacidad.setText('CAMBIAR CAPACIDAD\nMÁXIMA')
         self.ingresar_capacidad.setObjectName("button")  # nombre de enlace a css
-        self.ingresar_capacidad.setIcon(QIcon('views/static/icons/icono_capacidad'))  # icono
+        self.ingresar_capacidad.setIcon(QIcon('src/views/static/icons/icono_capacidad'))  # icono
         self.ingresar_capacidad.setIconSize(QSize(60, 60))
         self.ingresar_capacidad.setToolButtonStyle(Qt.ToolButtonTextUnderIcon)
         self.ingresar_capacidad.clicked.connect(self.setCapacidadMaxima)
@@ -476,7 +450,7 @@ class MainWindow(QMainWindow,BotonInicio): #Ventana principal
         self.ingresar_Ad_Conf = QToolButton(self.centralWidget)
         self.ingresar_Ad_Conf.setText('ACCEDER')
         self.ingresar_Ad_Conf.setObjectName("button")  # nombre de enlace a css
-        self.ingresar_Ad_Conf.setIcon(QIcon('views/static/icons/icono_entrar'))  # icono
+        self.ingresar_Ad_Conf.setIcon(QIcon('src/views/static/icons/icono_entrar'))  # icono
         self.ingresar_Ad_Conf.setIconSize(QSize(60, 60))
         self.ingresar_Ad_Conf.setToolButtonStyle(Qt.ToolButtonTextUnderIcon)
         self.ingresar_Ad_Conf.clicked.connect(self.AdConfPass)
@@ -509,7 +483,7 @@ class MainWindow(QMainWindow,BotonInicio): #Ventana principal
         self.configuracion_capacidad = QToolButton(self.centralWidget)
         self.configuracion_capacidad.setText('Capacidad Máxima')
         self.configuracion_capacidad.setObjectName("button")  # nombre de enlace a css
-        self.configuracion_capacidad.setIcon(QIcon('views/static/icons/icono_capacidad'))  # icono
+        self.configuracion_capacidad.setIcon(QIcon('src/views/static/icons/icono_capacidad'))  # icono
         self.configuracion_capacidad.setIconSize(QSize(60, 60))
         self.configuracion_capacidad.setToolButtonStyle(Qt.ToolButtonTextUnderIcon)
         self.configuracion_capacidad.clicked.connect(self.Capacidad)
@@ -519,7 +493,7 @@ class MainWindow(QMainWindow,BotonInicio): #Ventana principal
         self.agregar_eliminar_admin_boton = QToolButton(self.centralWidget)
         self.agregar_eliminar_admin_boton.setText('Agregar o Eliminar\nAdministrador')
         self.agregar_eliminar_admin_boton.setObjectName("button")  # nombre de enlace a css
-        self.agregar_eliminar_admin_boton.setIcon(QIcon('views/static/icons/icono_add_delete_admin'))  # icono
+        self.agregar_eliminar_admin_boton.setIcon(QIcon('src/views/static/icons/icono_add_delete_admin'))  # icono
         self.agregar_eliminar_admin_boton.setIconSize(QSize(60, 60))
         self.agregar_eliminar_admin_boton.setToolButtonStyle(Qt.ToolButtonTextUnderIcon)
         self.agregar_eliminar_admin_boton.clicked.connect(self.AgregarAdmin)
@@ -529,7 +503,7 @@ class MainWindow(QMainWindow,BotonInicio): #Ventana principal
         self.cambiar_password_admin_boton = QToolButton(self.centralWidget)
         self.cambiar_password_admin_boton.setText('Cambiar contraseña')
         self.cambiar_password_admin_boton.setObjectName("button")  # nombre de enlace a css
-        self.cambiar_password_admin_boton.setIcon(QIcon('views/static/icons/icono_capacidad'))  # icono
+        self.cambiar_password_admin_boton.setIcon(QIcon('src/views/static/icons/icono_capacidad'))  # icono
         self.cambiar_password_admin_boton.setIconSize(QSize(60, 60))
         self.cambiar_password_admin_boton.setToolButtonStyle(Qt.ToolButtonTextUnderIcon)
         self.cambiar_password_admin_boton.clicked.connect(self.HomeWindow)
@@ -539,7 +513,7 @@ class MainWindow(QMainWindow,BotonInicio): #Ventana principal
         self.enviar_datos_servidor = QToolButton(self.centralWidget)
         self.enviar_datos_servidor.setText('Enviar Datos Al Servidor')
         self.enviar_datos_servidor.setObjectName("button")  # nombre de enlace a css
-        self.enviar_datos_servidor.setIcon(QIcon('views/views/static/icons/icono_config_datos'))  # icono
+        self.enviar_datos_servidor.setIcon(QIcon('src/views/views/static/icons/icono_config_datos'))  # icono
         self.enviar_datos_servidor.setIconSize(QSize(60, 60))
         self.enviar_datos_servidor.setToolButtonStyle(Qt.ToolButtonTextUnderIcon)
         self.enviar_datos_servidor.clicked.connect(self.HomeWindow)
