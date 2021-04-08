@@ -10,14 +10,18 @@ import hashlib
 from matplotlib.backends.backend_qt5agg import FigureCanvasQTAgg as FigureCanvas
 from matplotlib.figure import Figure
 
-class MainWindow(QMainWindow): #Ventana principal
+from p import Boton
+
+
+
+class MainWindow(QMainWindow,Boton): #Ventana principal
     def __init__(self, parent=None, *args):
         super(MainWindow,self).__init__(parent = parent)
         with open("static/styles.css") as f:
             self.setStyleSheet(f.read())
 
-        #First Instances
-        #self.df = pd.read_csv('../DB.csv') ESTO TOCABA HACERLO CADA VEZ PORQUE SI NO SOLO LEE UNA VEZ
+        
+
         self.cedula_cache = ''
         self.carnet = ''
         self.config = ConfigParser()
@@ -35,6 +39,8 @@ class MainWindow(QMainWindow): #Ventana principal
         self.centralWidget = QWidget()
         self.setCentralWidget(self.centralWidget)
         self.centralWidget.setObjectName("window") #nombre que enlaza en css
+        
+        self.boton_ingresar(self.centralWidget, self.Ingresar)
         '''
         Imagen central 
         '''
@@ -53,13 +59,7 @@ class MainWindow(QMainWindow): #Ventana principal
         self.label_img_esquina.clicked.connect(self.HomeWindow)
 
         #Botones
-        self.ingresar = QToolButton(self.centralWidget)
-        self.ingresar.setText('INGRESO MANUAL')
-        self.ingresar.setObjectName("button") #nombre de enlace a css
-        self.ingresar.setIcon(QIcon('static/icons/icono_entrar')) #icono
-        self.ingresar.setIconSize(QSize(60,60))
-        self.ingresar.setToolButtonStyle(Qt.ToolButtonTextUnderIcon)
-        self.ingresar.clicked.connect(self.Ingresar)
+        
 
         self.estadisticas = QToolButton(self.centralWidget)
         self.estadisticas.setText('ESTADISTICAS')
@@ -318,10 +318,14 @@ class MainWindow(QMainWindow): #Ventana principal
         self.NotTeclado()
         self.NotTecladoNumerico()
 
+    
+
     def Ingresar(self):
         self.label_img_central.setVisible(False)  
         self.label_img_esquina.setVisible(True)  
         self.ingresar.setVisible(False)
+        
+        
         self.estadisticas.setVisible(False)
         self.detener_alarma.setVisible(False)
         self.salida_manual.setVisible(False)
