@@ -44,74 +44,20 @@ class MainWindow(QMainWindow,Boton): #Ventana principal
         self.label_img_central = QLabel(self)
         self.label_img_central.setGeometry(289,-10,1024,600)
         self.pixmap = QPixmap('src/views/static/icons/Logo_central.png')   #Imagen central
-        self.label_img_central.setPixmap(self.pixmap)
-
-        #Botones
-        self.boton_ingresar(self.centralWidget)
-        self.boton_home(self.centralWidget)
-        
-        
-
-        #Botones
-        
-
-        self.estadisticas = QToolButton(self.centralWidget)
-        self.estadisticas.setText('ESTADISTICAS')
-        self.estadisticas.setObjectName("button")
-        self.estadisticas.setIcon(QIcon('src/views/static/icons/icono_estadisticas'))
-        self.estadisticas.setIconSize(QSize(60,60))
-        self.estadisticas.setToolButtonStyle(Qt.ToolButtonTextUnderIcon)
-        self.estadisticas.clicked.connect(self.Estadisticas)
-
-        self.detener_alarma = QToolButton(self.centralWidget)
-        self.detener_alarma.setText('DETENER ALARMA')
-        self.detener_alarma.setObjectName("button")
-        self.detener_alarma.setIcon(QIcon('src/views/static/icons/icono_campana'))
-        self.detener_alarma.setIconSize(QSize(60,60))
-        self.detener_alarma.setToolButtonStyle(Qt.ToolButtonTextUnderIcon)
-        self.detener_alarma.clicked.connect(self.DetenerAlarma)
-
-        self.salida_manual = QToolButton(self.centralWidget)
-        self.salida_manual.setText('SALIDA MANUAL')
-        self.salida_manual.setObjectName("button")
-        self.salida_manual.setIcon(QIcon('src/views/static/icons/icono_salir'))
-        self.salida_manual.setIconSize(QSize(60,60))
-        self.salida_manual.setToolButtonStyle(Qt.ToolButtonTextUnderIcon)
-        self.salida_manual.clicked.connect(self.Salida_manual)
-
-        self.configuracion = QToolButton(self.centralWidget)
-        self.configuracion.setText('CONFIGURACIÓN')
-        self.configuracion.setObjectName("button")
-        self.configuracion.setIcon(QIcon('src/views/static/icons/icono_configuraciones'))
-        self.configuracion.setIconSize(QSize(70,70))
-        self.configuracion.setToolButtonStyle(Qt.ToolButtonTextUnderIcon)
-        self.configuracion.clicked.connect(self.Configuracion)
-
-        self.informacion = QToolButton(self.centralWidget)
-        self.informacion.setText('INFORMACIÓN')
-        self.informacion.setObjectName("button")
-        self.informacion.setIcon(QIcon('src/views/static/icons/icono_info'))
-        self.informacion.setIconSize(QSize(50,50))
-        self.informacion.setToolButtonStyle(Qt.ToolButtonTextUnderIcon)
-        self.informacion.clicked.connect(self.Informacion)
-
-        'geometrías botones'
-        self.ingresar.setGeometry(44.7, 112.5, 290, 180)
-        self.estadisticas.setGeometry(367, 112.5, 290, 180)
-        self.detener_alarma.setGeometry(689.3, 112.5, 290, 180)
-        self.salida_manual.setGeometry(44.7, 348.9, 290, 180)
-        self.configuracion.setGeometry(367, 348.9, 290, 180)
-        self.informacion.setGeometry(689.3, 348.9, 290, 180)
-
-        'Visibilidad inicial'
+        self.label_img_central.setPixmap(self.pixmap)        
         self.label_img_central.setVisible(True)
-        self.label_img_esquina.setVisible(False)
-        self.ingresar.setVisible(False)
-        self.estadisticas.setVisible(False)
-        self.detener_alarma.setVisible(False)
-        self.salida_manual.setVisible(False)
-        self.configuracion.setVisible(False)
-        self.informacion.setVisible(False)
+
+
+        #Botones Inicio
+        self.boton_home(self.centralWidget)
+
+        self.boton_inicio_ingresar(self.centralWidget)
+        self.boton_inicio_estadisticas(self.centralWidget)
+        self.boton_inicio_detener_alarma(self.centralWidget)
+        self.boton_inicio_salida_manual(self.centralWidget)
+        self.boton_inicio_configuracion(self.centralWidget)
+        self.boton_inicio_estadisticas(self.centralWidget)
+        self.boton_inicio_informacion(self.centralWidget)
 
         'timer'
         self.timer = QTimer()
@@ -270,11 +216,7 @@ class MainWindow(QMainWindow,Boton): #Ventana principal
         self.pie_chart.move(450, 120)
         self.pie_chart.setVisible(False)
 
-    
 
-    
-
-    
 
     def BotonesConfig(self):
         self.configuracion_avanzada = QToolButton(self.centralWidget)
@@ -981,107 +923,7 @@ class MainWindow(QMainWindow,Boton): #Ventana principal
         self.info_ocupacion_actual.setGeometry(120, 120, 290, 140)
         self.info_ocupacion_actual.setVisible(False)
 
-    def Estadisticas(self):
-        self.label_img_central.setVisible(False)  
-        self.label_img_esquina.setVisible(True)  
-        self.ingresar.setVisible(False)
-        self.estadisticas.setVisible(False)
-        self.detener_alarma.setVisible(False)
-        self.salida_manual.setVisible(False)
-        self.configuracion.setVisible(False)
-        self.informacion.setVisible(False)
-        self.info_ocupacion_actual.setVisible(True)
-        df = pd.read_csv('../DB.csv')
-        Lista = df['IsIn']
-        print(Lista)
-        self.ocupacion_actual =0
-        for i in Lista:
-            if i == True:
-                self.ocupacion_actual +=1
-        print('Ocupacion Actual: '+str(self.ocupacion_actual))
-        self.info_ocupacion_actual.setText('Ocupación Actual: ' + str(self.ocupacion_actual))
 
-        self.bar_chart.setVisible(True)
-        #self.pie_chart.setVisible(True) #tambien esta configurado como torta
-        #ACÁ CREA LA GRAFICA PERO POR EL MOMENTO LO HACE EN UNA VENTANA NUEVA
-        ######
-        '''
-        self.create_bar()
-        
-        self.win = pg.plot()
-        #win.setWindowTitle('pyqtgraph BarGraphItem')
-        # create list of floats
-        y1 = np.array([0.10,0.20,0.10])
-        print(type(y1))
-        # create horizontal list
-        x1 = np.arange(10)
-        pre_x = []
-        fechas_unicas = set(df['Fecha'])
-        for i in fechas_unicas:
-            fecha_normalizada = i.replace('-','').replace('2021','')
-            pre_x.append(float(fecha_normalizada))
-        x = np.array(pre_x)
-        print(type(x))
-        print(x)
-        x = np.arange(3)
-        
-        x = []
-        y = []
-        fechas_unicas = set(df['Fecha'])
-        for i in fechas_unicas:
-            x.append(i)
-        x.sort()
-
-        cont_fecha = 0
-        for unica in x:
-            for fecha in range(len(Lista)):
-                if unica == df['Fecha'][fecha]:
-                    
-                    cont_fecha +=1
-            y.append(cont_fecha)
-            cont_fecha = 0
-        
-        print(x)
-        print(y)
-
-        #xdict = dict(enumerate(x))
-        '''
-
-    def DetenerAlarma(self):
-        self.stop = 1
-        print(self.stop)
-        self.HomeWindow()
-
-    def Salida_manual(self):
-        self.label_img_central.setVisible(False)
-        self.label_img_esquina.setVisible(True)
-        self.ingresar.setVisible(False)
-        self.estadisticas.setVisible(False)
-        self.detener_alarma.setVisible(False)
-        self.salida_manual.setVisible(False)
-        self.configuracion.setVisible(False)
-        self.informacion.setVisible(False)
-        self.ingresar_nombre_out.setVisible(True)
-        self.ingresar_nombre_out.clear()
-        self.ingresar_cedula_out.setVisible(True)
-        self.ingresar_cedula_out.clear()
-        self.retirar.setVisible(True)
-        self.ingresar_ingresar.setVisible(False)
-        self.Retirar_guardar_teclado()
-
-    def Configuracion(self):
-        self.configuracion_apagar.setVisible(True)
-        self.configuracion_pantalla.setVisible(True)
-        self.configuracion_datos.setVisible(True)
-        self.configuracion_avanzada.setVisible(True)
-        self.label_img_central.setVisible(False)  
-        self.label_img_esquina.setVisible(True)  
-        self.ingresar.setVisible(False)
-        self.estadisticas.setVisible(False)
-        self.detener_alarma.setVisible(False)
-        self.salida_manual.setVisible(False)
-        self.configuracion.setVisible(False)
-        self.informacion.setVisible(False)
 
     def BotonesInformacion(self):
         self.manual_de_usuario = QToolButton(self.centralWidget)

@@ -1,4 +1,4 @@
-
+import pandas as pd
 
 
 
@@ -67,3 +67,107 @@ class Funciones:
         self.pie_chart.setVisible(False)
         self.NotTeclado()
         self.NotTecladoNumerico()
+
+
+    def Estadisticas(self):
+        self.label_img_central.setVisible(False)  
+        self.label_img_esquina.setVisible(True)  
+        self.ingresar.setVisible(False)
+        self.estadisticas.setVisible(False)
+        self.detener_alarma.setVisible(False)
+        self.salida_manual.setVisible(False)
+        self.configuracion.setVisible(False)
+        self.informacion.setVisible(False)
+        self.info_ocupacion_actual.setVisible(True)
+
+        df = pd.read_csv('src/models/data/DB.csv')
+        Lista = df['IsIn']
+        print(Lista)
+        self.ocupacion_actual =0
+        for i in Lista:
+            if i == True:
+                self.ocupacion_actual +=1
+        print('Ocupacion Actual: '+str(self.ocupacion_actual))
+        self.info_ocupacion_actual.setText('Ocupación Actual: ' + str(self.ocupacion_actual))
+
+        self.bar_chart.setVisible(True)
+        #self.pie_chart.setVisible(True) #tambien esta configurado como torta
+        #ACÁ CREA LA GRAFICA PERO POR EL MOMENTO LO HACE EN UNA VENTANA NUEVA
+        ######
+        '''
+        self.create_bar()
+        
+        self.win = pg.plot()
+        #win.setWindowTitle('pyqtgraph BarGraphItem')
+        # create list of floats
+        y1 = np.array([0.10,0.20,0.10])
+        print(type(y1))
+        # create horizontal list
+        x1 = np.arange(10)
+        pre_x = []
+        fechas_unicas = set(df['Fecha'])
+        for i in fechas_unicas:
+            fecha_normalizada = i.replace('-','').replace('2021','')
+            pre_x.append(float(fecha_normalizada))
+        x = np.array(pre_x)
+        print(type(x))
+        print(x)
+        x = np.arange(3)
+        
+        x = []
+        y = []
+        fechas_unicas = set(df['Fecha'])
+        for i in fechas_unicas:
+            x.append(i)
+        x.sort()
+
+        cont_fecha = 0
+        for unica in x:
+            for fecha in range(len(Lista)):
+                if unica == df['Fecha'][fecha]:
+                    
+                    cont_fecha +=1
+            y.append(cont_fecha)
+            cont_fecha = 0
+        
+        print(x)
+        print(y)
+
+        #xdict = dict(enumerate(x))
+        '''
+
+    def DetenerAlarma(self):
+        self.stop = 1
+        print(self.stop)
+        self.HomeWindow()
+
+    def Salida_manual(self):
+        self.label_img_central.setVisible(False)
+        self.label_img_esquina.setVisible(True)
+        self.ingresar.setVisible(False)
+        self.estadisticas.setVisible(False)
+        self.detener_alarma.setVisible(False)
+        self.salida_manual.setVisible(False)
+        self.configuracion.setVisible(False)
+        self.informacion.setVisible(False)
+        self.ingresar_nombre_out.setVisible(True)
+        self.ingresar_nombre_out.clear()
+        self.ingresar_cedula_out.setVisible(True)
+        self.ingresar_cedula_out.clear()
+        self.retirar.setVisible(True)
+        self.ingresar_ingresar.setVisible(False)
+        self.Retirar_guardar_teclado()
+
+    def Configuracion(self):
+        self.configuracion_apagar.setVisible(True)
+        self.configuracion_pantalla.setVisible(True)
+        self.configuracion_datos.setVisible(True)
+        self.configuracion_avanzada.setVisible(True)
+        self.label_img_central.setVisible(False)  
+        self.label_img_esquina.setVisible(True)  
+        self.ingresar.setVisible(False)
+        self.estadisticas.setVisible(False)
+        self.detener_alarma.setVisible(False)
+        self.salida_manual.setVisible(False)
+        self.configuracion.setVisible(False)
+        self.informacion.setVisible(False)
