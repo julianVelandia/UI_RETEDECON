@@ -1,5 +1,5 @@
 QWidget#window {
-    background-image: url('static/icons/background.png') ;
+    background-image: url('views/static/icons/background.png') ;
     background-repeat: no-repeat;
 }
 
@@ -64,7 +64,7 @@ QToolButton#button_home:hover {
 }
 
 QToolButton#button_home {
-    background-image: url('static/icons/logo_lateral.png');
+    background-image: url('views/static/icons/logo_lateral.png');
     background-repeat: no-repeat;
     border: 0;
 }

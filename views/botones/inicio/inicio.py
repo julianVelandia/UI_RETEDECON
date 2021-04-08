@@ -7,7 +7,7 @@ class BotonInicio:
         self.ingresar = QToolButton(widget)
         self.ingresar.setText('INGRESO MANUAL')
         self.ingresar.setObjectName("button") #nombre de enlace a css
-        self.ingresar.setIcon(QIcon('static/icons/icono_entrar')) #icono
+        self.ingresar.setIcon(QIcon('../../../static/icons/icono_entrar')) #icono
         self.ingresar.setIconSize(QSize(60,60))
         self.ingresar.setToolButtonStyle(Qt.ToolButtonTextUnderIcon)
         self.ingresar.clicked.connect(funcion)
