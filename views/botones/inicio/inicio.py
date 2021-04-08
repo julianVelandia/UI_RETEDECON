@@ -2,8 +2,7 @@ from PyQt5.QtWidgets import *
 from PyQt5.QtCore import *
 from PyQt5.QtGui import *
 
-class Boton:
-
+class BotonInicio:
     def boton_ingresar(self, widget, funcion):
         self.ingresar = QToolButton(widget)
         self.ingresar.setText('INGRESO MANUAL')

@@ -1,7 +1,6 @@
 from PyQt5.QtWidgets import *
 from PyQt5.QtCore import *
 from PyQt5.QtGui import *
-from QLineClick import QLineEditClick
 from datetime import datetime
 from configparser import ConfigParser
 import sys
@@ -10,14 +9,16 @@ import hashlib
 from matplotlib.backends.backend_qt5agg import FigureCanvasQTAgg as FigureCanvas
 from matplotlib.figure import Figure
 
-from p import Boton
 
+#locals
 
+from controler.QLineClick import QLineEditClick
+from views.botones.inicio.inicio import BotonInicio
 
-class MainWindow(QMainWindow,Boton): #Ventana principal
+class MainWindow(QMainWindow,BotonInicio): #Ventana principal
     def __init__(self, parent=None, *args):
         super(MainWindow,self).__init__(parent = parent)
-        with open("static/styles.css") as f:
+        with open("views/static/styles.css") as f:
             self.setStyleSheet(f.read())
 
         
