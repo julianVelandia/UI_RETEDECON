@@ -1,64 +1,21 @@
-from PyQt5.QtWidgets import QApplication, QMainWindow
-import sys
-from PyQt5.QtChart import QChart, QChartView, QBarSet, QPercentBarSeries, QBarCategoryAxis
-from PyQt5.QtGui import QPainter
-from PyQt5.QtCore import Qt
+import matplotlib.pyplot as plt
+fig = plt.figure()
+ax = fig.add_axes([0,0,1,1])
+langs = ['C', 'C++', 'Java', 'Python', 'PHP']
+students = [23,17,35,29,12]
+ax.bar(langs,students)
+plt.show()
 
-class Window(QMainWindow):
-    def __init__(self):
-        super().__init__()
+#############
 
-        self.setWindowTitle("PyQt BarChart")
-        self.setGeometry(100,100, 680,500)
-        self.show()
-        self.create_bar()
+# Pie chart, where the slices will be ordered and plotted counter-clockwise:
+labels = 'Frogs', 'Hogs', 'Dogs', 'Logs'
+sizes = [15, 30, 45, 10]
+explode = (0, 0.1, 0, 0)  # only "explode" the 2nd slice (i.e. 'Hogs')
 
-    def create_bar(self):
-        #The QBarSet class represents a set of bars in the bar chart.
-         # It groups several bars into a bar set
+fig1, ax1 = plt.subplots()
+ax1.pie(sizes, explode=explode, labels=labels, autopct='%1.1f%%',
+        shadow=True, startangle=90)
+ax1.axis('equal')  # Equal aspect ratio ensures that pie is drawn as a circle.
 
-        set0 = QBarSet("Parwiz")
-        set1 = QBarSet("Bob")
-        set2 = QBarSet("Tom")
-        set3 = QBarSet("Logan")
-        set4 = QBarSet("Karim")
-
-        set0 << 1 << 2 << 3 << 4 << 5 << 6
-        set1 << 5 << 0 << 0 << 4 << 0 << 7
-        set2 << 3 << 5 << 8 << 13 << 8 << 5
-        set3 << 5 << 6 << 7 << 3 << 4 << 5
-        set4 << 9 << 7 << 5 << 3 << 1 << 2
-
-        series = QPercentBarSeries()
-        series.append(set0)
-        series.append(set1)
-        series.append(set2)
-        series.append(set3)
-        series.append(set4)
-
-        chart = QChart()
-        chart.addSeries(series)
-        chart.setTitle("Percent Example")
-        chart.setAnimationOptions(QChart.SeriesAnimations)
-
-        categories = ["Jan", "Feb", "Mar", "Apr", "May", "Jun"]
-        axis = QBarCategoryAxis()
-        axis.append(categories)
-        chart.createDefaultAxes()
-        chart.setAxisX(axis, series)
-
-        chart.legend().setVisible(True)
-        chart.legend().setAlignment(Qt.AlignBottom)
-
-        chartView = QChartView(chart)
-        chartView.setRenderHint(QPainter.Antialiasing)
-
-        self.setCentralWidget(chartView)
-
-
-
-
-
-App = QApplication(sys.argv)
-window = Window()
-sys.exit(App.exec_())
+plt.show()

@@ -7,17 +7,14 @@ from configparser import ConfigParser
 import sys
 import pandas as pd
 import hashlib
-
-from PyQt5.QtChart import QChart, QChartView, QBarSet, QPercentBarSeries, QBarCategoryAxis
-
+from matplotlib.backends.backend_qt5agg import FigureCanvasQTAgg as FigureCanvas
+from matplotlib.figure import Figure
 
 class MainWindow(QMainWindow): #Ventana principal
     def __init__(self, parent=None, *args):
         super(MainWindow,self).__init__(parent = parent)
         with open("static/styles.css") as f:
             self.setStyleSheet(f.read())
-
-        self.create_bar()
 
         #First Instances
         #self.df = pd.read_csv('../DB.csv') ESTO TOCABA HACERLO CADA VEZ PORQUE SI NO SOLO LEE UNA VEZ
@@ -265,50 +262,17 @@ class MainWindow(QMainWindow): #Ventana principal
         self.Delta=0
         self.Numingresos=0
         self.IsIn = False
-    
-    def create_bar(self):
-        #The QBarSet class represents a set of bars in the bar chart.
-         # It groups several bars into a bar set
-        print('hola')
-        set0 = QBarSet("Parwiz")
-        set1 = QBarSet("Bob")
-        set2 = QBarSet("Tom")
-        set3 = QBarSet("Logan")
-        set4 = QBarSet("Karim")
-
-        set0 << 1 << 2 << 3 << 4 << 5 << 6
-        set1 << 5 << 0 << 0 << 4 << 0 << 7
-        set2 << 3 << 5 << 8 << 13 << 8 << 5
-        set3 << 5 << 6 << 7 << 3 << 4 << 5
-        set4 << 9 << 7 << 5 << 3 << 1 << 2
-
-        series = QPercentBarSeries()
-        series.append(set0)
-        series.append(set1)
-        series.append(set2)
-        series.append(set3)
-        series.append(set4)
-
-        chart = QChart()
-        chart.addSeries(series)
-        chart.setTitle("Percent Example")
-        chart.setAnimationOptions(QChart.SeriesAnimations)
-
-        categories = ["Jan", "Feb", "Mar", "Apr", "May", "Jun"]
-        axis = QBarCategoryAxis()
-        axis.append(categories)
-        chart.createDefaultAxes()
-        chart.setAxisX(axis, series)
-
-        chart.legend().setVisible(True)
-        chart.legend().setAlignment(Qt.AlignBottom)
-
-        chartView = QChartView(chart)
-        chartView.setRenderHint(QPainter.Antialiasing)
-
-        self.setCentralWidget(chartView)
-
-        
+        '''
+        Graficas
+        '''
+        #Barras
+        self.bar_chart = PlotCanvas(self, width=5, height=4)
+        self.bar_chart.move(450, 120)
+        self.bar_chart.setVisible(False)
+        #Pie
+        self.pie_chart = PlotCanvasP(self, width=5, height=4)
+        self.pie_chart.move(450, 120)
+        self.pie_chart.setVisible(False)
 
     def HomeWindow(self):
         self.label_img_central.setVisible(False)
@@ -349,6 +313,8 @@ class MainWindow(QMainWindow): #Ventana principal
         self.enviar_datos_servidor.setVisible(False)
         self.info_ocupacion_actual.setVisible(False)
         self.qr_manual.setVisible(False)
+        self.bar_chart.setVisible(False)
+        self.pie_chart.setVisible(False)
         self.NotTeclado()
         self.NotTecladoNumerico()
 
@@ -1096,12 +1062,15 @@ class MainWindow(QMainWindow): #Ventana principal
             if i == True:
                 self.ocupacion_actual +=1
         print('Ocupacion Actual: '+str(self.ocupacion_actual))
-
-
         self.info_ocupacion_actual.setText('Ocupación Actual: ' + str(self.ocupacion_actual))
+
+        self.bar_chart.setVisible(True)
+        #self.pie_chart.setVisible(True) #tambien esta configurado como torta
         #ACÁ CREA LA GRAFICA PERO POR EL MOMENTO LO HACE EN UNA VENTANA NUEVA
-        
+        ######
         '''
+        self.create_bar()
+        
         self.win = pg.plot()
         #win.setWindowTitle('pyqtgraph BarGraphItem')
         # create list of floats
@@ -1119,8 +1088,6 @@ class MainWindow(QMainWindow): #Ventana principal
         print(x)
         x = np.arange(3)
         
-
-        '''
         x = []
         y = []
         fechas_unicas = set(df['Fecha'])
@@ -1140,12 +1107,8 @@ class MainWindow(QMainWindow): #Ventana principal
         print(x)
         print(y)
 
-        
-
         #xdict = dict(enumerate(x))
-
-    
-
+        '''
 
     def DetenerAlarma(self):
         self.stop = 1
@@ -2665,6 +2628,53 @@ class MainWindow(QMainWindow): #Ventana principal
         self.letra_n.setText('n')
         self.letra_m.setText('m')
         self.letra_ene.setText('ñ')
+#bar
+class PlotCanvas(FigureCanvas):
+    def __init__(self, parent=None, width=5, height=4, dpi=100, facecolor = 'black'):
+        fig = Figure(figsize=(width, height), dpi=dpi, facecolor=facecolor)#facecolor es el color del fondo del canvas
+        #Se instancia FigureCanvas para fig.
+        FigureCanvas.__init__(self, fig)
+        self.setParent(parent)
+        FigureCanvas.setSizePolicy(self,QSizePolicy.Expanding, QSizePolicy.Expanding)
+        FigureCanvas.updateGeometry(self)
+        #se llama a la funcion plot()
+        self.bar()
+
+    def bar(self):
+        #Se agrega un subplot y creo que el 111 define como las dimensiones
+        ax = self.figure.add_subplot(111)
+        ax.set_xlabel('X-Axis',color ='white')  #Texto de las leyendas y color
+        ax.set_ylabel('Y-Axis',color ='white')
+        #ax.plot(data, 'r-', color='red') ------> Esto está comentado porque es para añadir una grafica de linea
+        #Aca creo los datos de prueba que puse
+        a = ['Lunes','Martes','Miercoles','Jueves','Viernes']
+        b = [10,10,10,10,5]
+        ax.set_facecolor('black') #color fondo de la grafica
+        ax.spines['left'].set_color('white')    #pinta la regla de la izquierda
+        ax.spines['bottom'].set_color('white')   #pinta la regla de abajo
+        ax.tick_params(axis='x', colors='white')    #pinta los valores del eje x
+        ax.tick_params(axis='y', colors='white')    #pinta los valores del eje y
+        ax.bar(a,b) #Esta funcion crea las barras donde a esta en x y b en y
+        self.draw() #Dibuja en el canvas
+#pie
+class PlotCanvasP(FigureCanvas):
+    def __init__(self, parent=None, width=5, height=4, dpi=100):
+        fig = Figure(figsize=(width, height), dpi=dpi)  # facecolor es el color del fondo del canvas
+        # Se instancia FigureCanvas para fig.
+        FigureCanvas.__init__(self, fig)
+        self.setParent(parent)#######SUPER IMPORTANTE, ESTE PARÁMETRO CONVIERTE DE VENTANA A OBJETO
+        FigureCanvas.setSizePolicy(self, QSizePolicy.Expanding, QSizePolicy.Expanding)
+        FigureCanvas.updateGeometry(self)
+        # se llama a la funcion plot()
+        self.pie()
+    def pie(self):
+        # Pie chart, where the slices will be ordered and plotted counter-clockwise:
+        a = ['Lunes', 'Martes', 'Miercoles', 'Jueves', 'Viernes']
+        b = [10, 10, 10, 10, 5]
+        #explode = (0, 0.1, 0, 0)  # only "explode" the 2nd slice (i.e. 'Hogs')
+        ax = self.figure.add_subplot(111)
+        ax.pie(b, labels=a, autopct='%1.1f%%',shadow=True, startangle=90)
+        ax.axis('equal')  # Equal aspect ratio ensures that pie is drawn as a circle.
 
 if __name__=='__main__':
     app = QApplication([])
