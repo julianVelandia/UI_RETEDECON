@@ -4,7 +4,7 @@ from PyQt5.QtGui import *
 
 
 class TecladoNumeros:
-    def BotonesTecladoNumerico(self):
+    def BotonesTecladoNumerico(self,widget):
         sep_lado = 12
         sep_arriba = 12
         base = 73
@@ -14,7 +14,7 @@ class TecladoNumeros:
 
         x=0
         y=0
-        self.numero_7 = QToolButton(self.centralWidget)
+        self.numero_7 = QToolButton(widget)
         self.numero_7.setText('7')
         self.numero_7.setObjectName("buttonTeclado") #nombre de enlace a css
         self.numero_7.setGeometry(x_inicia+(base*x) + (x+1)*sep_lado, y_inicia+ (altura*y) + sep_arriba, base, altura)
@@ -22,7 +22,7 @@ class TecladoNumeros:
 
         x=1
         y=0
-        self.numero_8 = QToolButton(self.centralWidget)
+        self.numero_8 = QToolButton(widget)
         self.numero_8.setText('8')
         self.numero_8.setObjectName("buttonTeclado") #nombre de enlace a css
         self.numero_8.setGeometry(x_inicia+(base*x) + (x+1)*sep_lado, y_inicia+ (altura*y) + sep_arriba, base, altura)
@@ -30,7 +30,7 @@ class TecladoNumeros:
 
         x=2
         y=0
-        self.numero_9 = QToolButton(self.centralWidget)
+        self.numero_9 = QToolButton(widget)
         self.numero_9.setText('9')
         self.numero_9.setObjectName("buttonTeclado") #nombre de enlace a css
         self.numero_9.setGeometry(x_inicia+(base*x) + (x+1)*sep_lado, y_inicia+ (altura*y) + sep_arriba, base, altura)
@@ -38,7 +38,7 @@ class TecladoNumeros:
 
         x=3
         y=0
-        self.numero_BORRAR = QToolButton(self.centralWidget)
+        self.numero_BORRAR = QToolButton(widget)
         self.numero_BORRAR.setText('Borrar')
         self.numero_BORRAR.setObjectName("buttonTeclado") #nombre de enlace a css
         self.numero_BORRAR.setGeometry(x_inicia+(base*x) + (x+1)*sep_lado, y_inicia+ (altura*y) + sep_arriba, base*2+sep_lado, altura)
@@ -46,7 +46,7 @@ class TecladoNumeros:
 
         x=0
         y=1
-        self.numero_4 = QToolButton(self.centralWidget)
+        self.numero_4 = QToolButton(widget)
         self.numero_4.setText('4')
         self.numero_4.setObjectName("buttonTeclado") #nombre de enlace a css
         self.numero_4.setGeometry(x_inicia+(base*x) + (x+1)*sep_lado, y_inicia+ (altura*y) + 2*sep_arriba, base, altura)
@@ -54,7 +54,7 @@ class TecladoNumeros:
 
         x=1
         y=1
-        self.numero_5 = QToolButton(self.centralWidget)
+        self.numero_5 = QToolButton(widget)
         self.numero_5.setText('5')
         self.numero_5.setObjectName("buttonTeclado") #nombre de enlace a css
         self.numero_5.setGeometry(x_inicia+(base*x) + (x+1)*sep_lado, y_inicia+ (altura*y) + 2*sep_arriba, base, altura)
@@ -62,7 +62,7 @@ class TecladoNumeros:
 
         x=2
         y=1
-        self.numero_6 = QToolButton(self.centralWidget)
+        self.numero_6 = QToolButton(widget)
         self.numero_6.setText('6')
         self.numero_6.setObjectName("buttonTeclado") #nombre de enlace a css
         self.numero_6.setGeometry(x_inicia+(base*x) + (x+1)*sep_lado, y_inicia+ (altura*y) + 2*sep_arriba, base, altura)
@@ -70,7 +70,7 @@ class TecladoNumeros:
 
         x=3
         y=1
-        self.numero_PUNTO = QToolButton(self.centralWidget)
+        self.numero_PUNTO = QToolButton(widget)
         self.numero_PUNTO.setText('.')
         self.numero_PUNTO.setObjectName("buttonTeclado") #nombre de enlace a css
         self.numero_PUNTO.setGeometry(x_inicia+(base*x) + (x+1)*sep_lado, y_inicia+ (altura*y) + 2*sep_arriba, base, altura)
@@ -78,7 +78,7 @@ class TecladoNumeros:
 
         x=4
         y=1
-        self.numero_ENTER = QToolButton(self.centralWidget)
+        self.numero_ENTER = QToolButton(widget)
         self.numero_ENTER.setText(chr(16))
         self.numero_ENTER.setObjectName("buttonTeclado") #nombre de enlace a css
         self.numero_ENTER.setGeometry(x_inicia+(base*x) + (x+1)*sep_lado, y_inicia+ (altura*y) + 2*sep_arriba, base, altura*2+sep_arriba)
@@ -86,7 +86,7 @@ class TecladoNumeros:
 
         x=0
         y=2
-        self.numero_1 = QToolButton(self.centralWidget)
+        self.numero_1 = QToolButton(widget)
         self.numero_1.setText('1')
         self.numero_1.setObjectName("buttonTeclado") #nombre de enlace a css
         self.numero_1.setGeometry(x_inicia+(base*x) + (x+1)*sep_lado, y_inicia+ (altura*y) + 3*sep_arriba, base, altura)
@@ -94,7 +94,7 @@ class TecladoNumeros:
         
         x=1
         y=2
-        self.numero_2 = QToolButton(self.centralWidget)
+        self.numero_2 = QToolButton(widget)
         self.numero_2.setText('2')
         self.numero_2.setObjectName("buttonTeclado") #nombre de enlace a css
         self.numero_2.setGeometry(x_inicia+(base*x) + (x+1)*sep_lado, y_inicia+ (altura*y) + 3*sep_arriba, base, altura)
@@ -102,7 +102,7 @@ class TecladoNumeros:
 
         x=2
         y=2
-        self.numero_3 = QToolButton(self.centralWidget)
+        self.numero_3 = QToolButton(widget)
         self.numero_3.setText('3')
         self.numero_3.setObjectName("buttonTeclado") #nombre de enlace a css
         self.numero_3.setGeometry(x_inicia+(base*x) + (x+1)*sep_lado, y_inicia+ (altura*y) + 3*sep_arriba, base, altura)
@@ -110,7 +110,7 @@ class TecladoNumeros:
 
         x=3
         y=2
-        self.numero_0 = QToolButton(self.centralWidget)
+        self.numero_0 = QToolButton(widget)
         self.numero_0.setText('0')
         self.numero_0.setObjectName("buttonTeclado") #nombre de enlace a css
         self.numero_0.setGeometry(x_inicia+(base*x) + (x+1)*sep_lado, y_inicia+ (altura*y) + 3*sep_arriba, base, altura)
@@ -135,7 +135,7 @@ class TecladoNumeros:
         elif self.campo == 'ingresar-temp':
             var_texto=self.ingresar_temp.text()
         elif self.campo == 'retirar-cedula':
-            var_texto=self.ingresar_cedula_out.text()
+            var_texto=self.salida_cedula.text()
         elif self.campo == 'AdConf-Pass':
             var_texto=self.configuracion_avanzada_pass.text()
 
@@ -157,7 +157,7 @@ class TecladoNumeros:
         elif self.campo == 'ingresar-temp':
             self.ingresar_temp.setText(texto)
         elif self.campo == 'retirar-cedula':
-            self.ingresar_cedula_out.setText(texto)
+            self.salida_cedula.setText(texto)
         elif self.campo == 'AdConf-Pass':
             self.configuracion_avanzada_pass.setText(texto)
 
@@ -177,8 +177,8 @@ class TecladoNumeros:
             self.ingresar_temp.setText(texto)
 
         elif self.campo == 'retirar-cedula':
-            texto = self.ingresar_cedula_out.text() + '1'
-            self.ingresar_cedula_out.setText(texto)
+            texto = self.salida_cedula.text() + '1'
+            self.salida_cedula.setText(texto)
 
         elif self.campo == 'AdConf-Pass':
             texto = self.configuracion_avanzada_pass.text() + '1'
@@ -195,8 +195,8 @@ class TecladoNumeros:
             self.ingresar_temp.setText(texto)
 
         elif self.campo == 'retirar-cedula':
-            texto = self.ingresar_cedula_out.text() + '2'
-            self.ingresar_cedula_out.setText(texto)
+            texto = self.salida_cedula.text() + '2'
+            self.salida_cedula.setText(texto)
 
         elif self.campo == 'AdConf-Pass':
             texto = self.configuracion_avanzada_pass.text() + '2'
@@ -213,8 +213,8 @@ class TecladoNumeros:
             self.ingresar_temp.setText(texto)
 
         elif self.campo == 'retirar-cedula':
-            texto = self.ingresar_cedula_out.text() + '3'
-            self.ingresar_cedula_out.setText(texto)
+            texto = self.salida_cedula.text() + '3'
+            self.salida_cedula.setText(texto)
 
         elif self.campo == 'AdConf-Pass':
             texto = self.configuracion_avanzada_pass.text() + '3'
@@ -231,8 +231,8 @@ class TecladoNumeros:
             self.ingresar_temp.setText(texto)
 
         elif self.campo == 'retirar-cedula':
-            texto = self.ingresar_cedula_out.text() + '4'
-            self.ingresar_cedula_out.setText(texto)
+            texto = self.salida_cedula.text() + '4'
+            self.salida_cedula.setText(texto)
 
         elif self.campo == 'AdConf-Pass':
             texto = self.configuracion_avanzada_pass.text() + '4'
@@ -249,8 +249,8 @@ class TecladoNumeros:
             self.ingresar_temp.setText(texto)
 
         elif self.campo == 'retirar-cedula':
-            texto = self.ingresar_cedula_out.text() + '5'
-            self.ingresar_cedula_out.setText(texto)
+            texto = self.salida_cedula.text() + '5'
+            self.salida_cedula.setText(texto)
 
         elif self.campo == 'AdConf-Pass':
             texto = self.configuracion_avanzada_pass.text() + '5'
@@ -267,8 +267,8 @@ class TecladoNumeros:
             self.ingresar_temp.setText(texto)
 
         elif self.campo == 'retirar-cedula':
-            texto = self.ingresar_cedula_out.text() + '6'
-            self.ingresar_cedula_out.setText(texto)
+            texto = self.salida_cedula.text() + '6'
+            self.salida_cedula.setText(texto)
 
         elif self.campo == 'AdConf-Pass':
             texto = self.configuracion_avanzada_pass.text() + '6'
@@ -285,8 +285,8 @@ class TecladoNumeros:
             self.ingresar_temp.setText(texto)
 
         elif self.campo == 'retirar-cedula':
-            texto = self.ingresar_cedula_out.text() + '7'
-            self.ingresar_cedula_out.setText(texto)
+            texto = self.salida_cedula.text() + '7'
+            self.salida_cedula.setText(texto)
 
         elif self.campo == 'AdConf-Pass':
             texto = self.configuracion_avanzada_pass.text() + '7'
@@ -303,8 +303,8 @@ class TecladoNumeros:
             self.ingresar_temp.setText(texto)
 
         elif self.campo == 'retirar-cedula':
-            texto = self.ingresar_cedula_out.text() + '8'
-            self.ingresar_cedula_out.setText(texto)
+            texto = self.salida_cedula.text() + '8'
+            self.salida_cedula.setText(texto)
 
         elif self.campo == 'AdConf-Pass':
             texto = self.configuracion_avanzada_pass.text() + '8'
@@ -321,8 +321,8 @@ class TecladoNumeros:
             self.ingresar_temp.setText(texto)
 
         elif self.campo == 'retirar-cedula':
-            texto = self.ingresar_cedula_out.text() + '9'
-            self.ingresar_cedula_out.setText(texto)
+            texto = self.salida_cedula.text() + '9'
+            self.salida_cedula.setText(texto)
 
         elif self.campo == 'AdConf-Pass':
             texto = self.configuracion_avanzada_pass.text() + '9'
@@ -339,8 +339,8 @@ class TecladoNumeros:
             self.ingresar_temp.setText(texto)
 
         elif self.campo == 'retirar-cedula':
-            texto = self.ingresar_cedula_out.text() + '0'
-            self.ingresar_cedula_out.setText(texto)
+            texto = self.salida_cedula.text() + '0'
+            self.salida_cedula.setText(texto)
 
         elif self.campo == 'AdConf-Pass':
             texto = self.configuracion_avanzada_pass.text() + '0'

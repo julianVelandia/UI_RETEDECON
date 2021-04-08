@@ -39,10 +39,12 @@ class Boton_ingresar(Funcion_ingresar):
         self.ingresar_ingresar.setIcon(QIcon('src/views/static/icons/icono_entrar')) #icono
         self.ingresar_ingresar.setIconSize(QSize(60,60))
         self.ingresar_ingresar.setToolButtonStyle(Qt.ToolButtonTextUnderIcon)
-        self.ingresar_ingresar.clicked.connect(self.IngresarIngresar(widget))
+
+        self.ingresar_ingresar.clicked.connect(self.IngresarIngresar)
         self.ingresar_ingresar.setGeometry(570, 230, 290, 231)
 
         self.ingresar_nombre.setVisible(False)
         self.ingresar_cedula.setVisible(False)
         self.ingresar_temp.setVisible(False)
         self.ingresar_ingresar.setVisible(False)
+

@@ -1,10 +1,8 @@
 from PyQt5.QtWidgets import *
 from PyQt5.QtCore import *
 from PyQt5.QtGui import *
-from datetime import datetime
 from configparser import ConfigParser
 import sys
-import pandas as pd
 import hashlib
 from matplotlib.backends.backend_qt5agg import FigureCanvasQTAgg as FigureCanvas
 from matplotlib.figure import Figure
@@ -12,9 +10,12 @@ from matplotlib.figure import Figure
 
 #locals
 from src.controler.QLineClick import QLineEditClick
-from src.views.botones.boton import Boton
+from src.views.botones.inicio.boton import Boton
+from src.views.teclado.teclado_numeros import TecladoNumeros
+from src.views.teclado.teclado_letras import TecladoLetras
 
-class MainWindow(QMainWindow,Boton): #Ventana principal
+
+class MainWindow(QMainWindow,Boton,TecladoNumeros,TecladoLetras): #Ventana principal
     def __init__(self, parent=None, *args):
         super(MainWindow,self).__init__(parent = parent)
         with open("src/views/static/styles.css") as f:
@@ -23,8 +24,8 @@ class MainWindow(QMainWindow,Boton): #Ventana principal
         #INICIALIZAR EN UN ARCHIVO parameter.ini o algo así PARA NO HACER HARDCODING
         self.cedula_cache = ''
         self.carnet = ''
-        self.config = ConfigParser()
         self.title = 'RETEDECON'
+        self.config = ConfigParser()
         self.width = 1024
         self.height = 600
 
@@ -74,6 +75,21 @@ class MainWindow(QMainWindow,Boton): #Ventana principal
         self.texto_salida_nombre_out(self.centralWidget)
         self.texto_salida_cedula_out(self.centralWidget)
         self.boton_salida_salida(self.centralWidget)
+
+        self.BotonesTeclado(self.centralWidget)
+        self.BotonesTecladoNumerico(self.centralWidget)
+
+
+
+        #luego lo pongo en alguna clase y lo paso bien
+        self.dialogo_mensaje = 'Error404'
+        self.dialogo = QMessageBox(self.centralWidget)
+        self.dialogo.setWindowTitle('RETEDECON')
+        self.dialogo.addButton("Aceptar", 0)
+        self.dialogo.setInformativeText(self.dialogo_mensaje)
+
+
+
 
 
         #config
@@ -128,9 +144,8 @@ class MainWindow(QMainWindow,Boton): #Ventana principal
 
         
         
-        #botones teclados
-        self.BotonesTeclado()
-        self.BotonesTecladoNumerico()
+        
+
         #AccionClcikIngresarNombre
         self.ingresar_nombre.clicked.connect(self.Ingresar_desplegar_teclado)
         #AccionClcikIngresarCedula
@@ -138,9 +153,9 @@ class MainWindow(QMainWindow,Boton): #Ventana principal
         #AccionIngresarTemperatura
         self.ingresar_temp.clicked.connect(self.Ingresar_desplegar_teclado_numerico_temp)
         #AccionClcikIngresarNombreOut
-        self.ingresar_nombre_out.clicked.connect(self.Retirar_desplegar_teclado)
+        self.salida_nombre.clicked.connect(self.Retirar_desplegar_teclado)
         #AccionClcikIngresarCedulaOut
-        self.ingresar_cedula_out.clicked.connect(self.Retirar_desplegar_teclado_numerico_cedula)
+        self.salida_cedula.clicked.connect(self.Retirar_desplegar_teclado_numerico_cedula)
         #AccionClcikIngresarUser
         self.configuracion_avanzada_user.clicked.connect(self.Ad_Conf_desplegar_teclado)
         #AccionClcikIngresarPass
@@ -586,176 +601,9 @@ class MainWindow(QMainWindow,Boton): #Ventana principal
             dialogo_error.setInformativeText("Error, intente nuevamente\n\nSi el error persiste comuniquese con el fabricante")
             dialogo_error.show()
 
-    def restar_deltas(self,HoraOut,HoraIn):
-        '''
-        Devuelve la diferencia en minutos
-        '''
-        #Ojo, si las fechas son distintas pueden haber problemas
-        Fecha_Hoy = datetime.today().strftime('%d-%m-%Y')
-        #Fecha = Fecha.split(':')
-        HoraOut= HoraOut.split(':')
-        HoraIn= HoraIn.split(':')
+    
 
-        #Tiempo total en minutos
-        if not Fecha_Hoy=="aaa":
-            NumOut=int(HoraOut[0])*60+int(HoraOut[1])
-            NumIn=int(HoraIn[0])*60+int(HoraIn[1])
-
-            delta = NumOut-NumIn
-            return str(delta)
-        else:
-            dialogo_error_fecha = QMessageBox(self.centralWidget)
-            dialogo_error_fecha.setWindowTitle(self.title)
-            dialogo_error_fecha.addButton("Aceptar", 0)
-            dialogo_error_fecha.setInformativeText("Ha ocurrido un error al verifcar    \nlas fechas, si persiste comuniquese   \n  con el fabricante \n    ")
-            dialogo_error_fecha.show()
-    '''
-    Acá leemos la base de datos para procesar y o modificar la informacion
-    '''
-    def Leer(self):
-        try:
-            df = pd.read_csv('../DB.csv')
-            Lista = df['Cedula']
-            self.carnet = '*'
-            self.HoraOut = datetime.today().strftime('%H:%M')
-            if self.salida_nombre.text()!="" and self.salida_cedula.text()!="":  #lógica para leer si los campos están vacíos
-                if not self.salida_nombre.text().isdigit() and not self.salida_cedula.text().isalpha():  #detecta si numeros o letras donde no deben
-                    flag = True
-                    if str(df['Cedula'][0]) == str(self.salida_cedula.text()) and str(df['IsIn'][0]) == 'True':
-                        flag = False
-                        self.df_as_txt = open ("../DB.csv", "r")
-                        lineas = self.df_as_txt.readlines()
-                        self.df_as_txt.close()
-                        lineas[1] = lineas[1].replace('HO*',self.HoraOut).replace('D*',self.restar_deltas(self.HoraOut,df['HoraIn'][0])).replace('True','False')
-                        print(lineas[1])
-                        self.df_as_txt = open("../DB.csv", "w")
-                        for l in lineas:
-                            self.df_as_txt.write(l)
-                        self.df_as_txt.close()
-                        #Confirmacion
-                        dialogo_exitoso = QMessageBox(self.centralWidget)
-                        dialogo_exitoso.setWindowTitle(self.title)
-                        dialogo_exitoso.addButton("Aceptar", 0)
-                        dialogo_exitoso.setInformativeText("Se ha retirado correctamente\n    ")
-                        dialogo_exitoso.show()
-                        self.HomeWindow()
-
-                    for ced in range(len(Lista) - 1, 0, -1):
-                        if str(df['Cedula'][ced]) == str(self.ingresar_cedula_out.text()) and str(df['IsIn'][ced]) == 'True':
-                            flag =False
-                            self.df_as_txt = open ("../DB.csv", "r")
-                            lineas = self.df_as_txt.readlines()
-                            self.df_as_txt.close()
-                            lineas[ced+1] = lineas[ced+1].replace('HO*',self.HoraOut).replace('D*',self.restar_deltas(self.HoraOut,df['HoraIn'][ced])).replace('True','False')
-                            self.df_as_txt = open("../DB.csv", "w")
-                            for l in lineas:
-                                self.df_as_txt.write(l)
-                            self.df_as_txt.close()
-                            #Confirmacion
-                            dialogo_exitoso = QMessageBox(self.centralWidget)
-                            dialogo_exitoso.setWindowTitle(self.title)
-                            dialogo_exitoso.addButton("Aceptar", 0)
-                            dialogo_exitoso.setInformativeText("Se ha retirado correctamente\n    ")
-                            dialogo_exitoso.show()
-                            self.HomeWindow()
-                    if flag:
-                        dialogo_error_busqueda = QMessageBox(self.centralWidget)
-                        dialogo_error_busqueda.setWindowTitle(self.title)
-                        dialogo_error_busqueda.addButton("Aceptar", 0)
-                        dialogo_error_busqueda.setInformativeText("Error, no se encontró a ese usuario\n    ")
-                        dialogo_error_busqueda.show()
-                else:
-                    dialogo_error_typ_out = QMessageBox(self.centralWidget)
-                    dialogo_error_typ_out.setWindowTitle(self.title)
-                    dialogo_error_typ_out.addButton("Aceptar", 0)
-                    dialogo_error_typ_out.setInformativeText("Error, verifique los datos ingresados\n   ")
-                    dialogo_error_typ_out.show()
-            else:
-                dialogo_error_incompleto_out = QMessageBox(self.centralWidget)
-                dialogo_error_incompleto_out.setWindowTitle(self.title)
-                dialogo_error_incompleto_out.addButton("Aceptar", 0)
-                dialogo_error_incompleto_out.setInformativeText("Debe llenar todos los campos\nantes de continuar")
-                dialogo_error_incompleto_out.show()
-        except:
-            dialogo_error_lectura = QMessageBox(self.centralWidget)
-            dialogo_error_lectura.setWindowTitle(self.title)
-            dialogo_error_lectura.addButton("Aceptar", 0)
-            dialogo_error_lectura.setInformativeText("Error, intente nuevamente\n\nSi el error persiste comuniquese con el fabricante")
-            dialogo_error_lectura.show()
-
-    def Escribir(self):
-        #if not IsIn:
-        #definimos la fecha y hora
-        cedula= str(self.ingresar_cedula.text())
-        carnet = '*' #Entra por arduino
-        temp= str(self.ingresar_temp.text())
-        self.Fecha = datetime.today().strftime('%d-%m-%Y')
-        self.HoraIn = datetime.today().strftime('%H:%M')
-        self.HoraOut = 'HO*'
-        self.Delta = 'D*'
-        self.Numingresos = 0 #Se inicia en 0
-        self.IsIn = 'True'
-        cedulaExist=False
-        try:
-            df = pd.read_csv('../DB.csv')
-            Lista = df['Cedula']
-            Lista_carnet = df['Carnet']
-            '''
-            Suma ingresos    MOVER DE ACÁ AL LUGAR CORRECTO!
-            '''
-            for cont in range(len(Lista)):
-                if (str(Lista_carnet[cont]) == str(self.carnet) and not str(self.carnet) == '*') or str(Lista[cont]) == str(self.ingresar_cedula.text()):
-                    self.Numingresos+=1
-            self.Numingresos=str(self.Numingresos)
-            print(self.Numingresos)
-
-            if self.ingresar_nombre.text()!="" and self.ingresar_cedula.text()!="" and self.ingresar_temp.text()!="":  #lógica para leer si los campos están vacíos
-                if not self.ingresar_nombre.text().isdigit() and not self.ingresar_cedula.text().isalpha() and not self.ingresar_temp.text().isalpha():  #detecta si numeros o letras donde no deben
-                    # mirar si la cédula ya existe
-                    # Recorrido del arreglo
-                    if str(df['Cedula'][0]) == str(self.ingresar_cedula.text()) and str(df['IsIn'][0]) == 'True':
-                        cedulaExist = True
-                    for ced in range(len(Lista) - 1, 0, -1):
-                        if str(df['Cedula'][ced]) == str(self.ingresar_cedula.text()) and str(df['IsIn'][ced]) == 'True':
-                            cedulaExist = True
-
-                    if not cedulaExist:
-                        self.df_as_txt = open ("../DB.csv", "a")
-                        #ParaPandas
-                        #Enviar vector persona a DB
-                        persona = '\n'+self.ingresar_nombre.text()+','+cedula+','+carnet+','+temp+','+self.Fecha+','+self.HoraIn+','+self.HoraOut+','+self.Delta+','+self.Numingresos+','+self.IsIn
-                        self.df_as_txt.write(persona)
-                        self.df_as_txt.close()
-                        dialogo_exitoso = QMessageBox(self.centralWidget)
-                        dialogo_exitoso.setWindowTitle(self.title)
-                        dialogo_exitoso.addButton("Aceptar", 0)
-                        dialogo_exitoso.setInformativeText("Se ha ingresado correctamente   \n")
-                        dialogo_exitoso.show()
-                        self.HomeWindow()
-                    else:
-                        dialogo_error_cedulaExistente = QMessageBox(self.centralWidget)
-                        dialogo_error_cedulaExistente.setWindowTitle(self.title)
-                        dialogo_error_cedulaExistente.addButton("Aceptar", 0)
-                        dialogo_error_cedulaExistente.setInformativeText("El usuario ya está adentro    \n")
-                        dialogo_error_cedulaExistente.show()
-                else:
-                    dialogo_error_typ = QMessageBox(self.centralWidget)
-                    dialogo_error_typ.setWindowTitle(self.title)
-                    dialogo_error_typ.addButton("Aceptar", 0)
-                    dialogo_error_typ.setInformativeText("Error, verifique los datos ingresados\n   ")
-                    dialogo_error_typ.show()
-            else:
-                dialogo_error_incompleto = QMessageBox(self.centralWidget)
-                dialogo_error_incompleto.setWindowTitle(self.title)
-                dialogo_error_incompleto.addButton("Aceptar", 0)
-                dialogo_error_incompleto.setInformativeText("Debe llenar todos los campos\nantes de continuar")
-                dialogo_error_incompleto.show()
-        except:
-            dialogo_error_escritura = QMessageBox(self.centralWidget)
-            dialogo_error_escritura.setWindowTitle(self.title)
-            dialogo_error_escritura.addButton("Aceptar", 0)
-            dialogo_error_escritura.setInformativeText("Error, intente nuevamente\n\nSi el error persiste comuniquese con el fabricante")
-            dialogo_error_escritura.show()
+    
 
     def Ingresar_desplegar_teclado_numerico_cedula(self):
         self.campo = 'ingresar-cedula'
@@ -803,9 +651,9 @@ class MainWindow(QMainWindow,Boton): #Ventana principal
     def Retirar_desplegar_teclado(self):
         MOV = -100
         #movimiento botones
-        self.ingresar_nombre_out.setGeometry(164.2,237+MOV,290,70)
-        self.ingresar_cedula_out.setGeometry(164.2,341+MOV,290,70)
-        self.retirar.setGeometry(570, 237+MOV, 290, 176.3)
+        self.salida_nombre.setGeometry(164.2,237+MOV,290,70)
+        self.salida_cedula.setGeometry(164.2,341+MOV,290,70)
+        self.salida_salida.setGeometry(570, 237+MOV, 290, 176.3)
         self.Teclado()
         self.NotTecladoNumerico()
         self.campo = 'retirar-nombre'
@@ -813,17 +661,17 @@ class MainWindow(QMainWindow,Boton): #Ventana principal
     def Retirar_guardar_teclado(self):
         MOV = 0
         #movimiento botones
-        self.ingresar_nombre_out.setGeometry(164.2,237+MOV,290,70)
-        self.ingresar_cedula_out.setGeometry(164.2,341+MOV,290,70)
-        self.retirar.setGeometry(570, 237+MOV, 290, 176.3)
+        self.salida_nombre.setGeometry(164.2,237+MOV,290,70)
+        self.salida_cedula.setGeometry(164.2,341+MOV,290,70)
+        self.salida_salida.setGeometry(570, 237+MOV, 290, 176.3)
         self.NotTeclado()
 
     def Retirar_desplegar_teclado_numerico_cedula(self):
         MOV = -100
         #movimiento botones
-        self.ingresar_nombre_out.setGeometry(164.2,237+MOV,290,70)
-        self.ingresar_cedula_out.setGeometry(164.2,341+MOV,290,70)
-        self.retirar.setGeometry(570, 237+MOV, 290, 176.3)
+        self.salida_nombre.setGeometry(164.2,237+MOV,290,70)
+        self.salida_cedula.setGeometry(164.2,341+MOV,290,70)
+        self.salida_salida.setGeometry(570, 237+MOV, 290, 176.3)
         self.NotTeclado()
         self.TecladoNumerico()
         self.campo = 'retirar-cedula'
@@ -888,7 +736,7 @@ class MainWindow(QMainWindow,Boton): #Ventana principal
 
         self.qr_manual = QToolButton(self.centralWidget)
         self.qr_manual.setObjectName("button_trasnparente")  # nombre de enlace a css
-        self.qr_manual.setIcon(QIcon('views/static/icons/QRDRIVE.png'))  # icono
+        self.qr_manual.setIcon(QIcon('src/views/static/icons/QRDRIVE.png'))  # icono
         self.qr_manual.setIconSize(QSize(300, 300))
         self.qr_manual.setGeometry(self.width/3.5, self.height/5, 400, 400)
         self.qr_manual.setVisible(False)
@@ -942,381 +790,7 @@ class MainWindow(QMainWindow,Boton): #Ventana principal
         self.manual_de_usuario.setVisible(True)
         self.informacion_fabricante.setVisible(True)
 
-    def BotonesTecladoNumerico(self):
-        sep_lado = 12
-        sep_arriba = 12
-        base = 73
-        altura = 65
-        y_inicia = 350
-        x_inicia =300
 
-        x=0
-        y=0
-        self.numero_7 = QToolButton(self.centralWidget)
-        self.numero_7.setText('7')
-        self.numero_7.setObjectName("buttonTeclado") #nombre de enlace a css
-        self.numero_7.setGeometry(x_inicia+(base*x) + (x+1)*sep_lado, y_inicia+ (altura*y) + sep_arriba, base, altura)
-        self.numero_7.clicked.connect(self.fun_numero_7)
-
-        x=1
-        y=0
-        self.numero_8 = QToolButton(self.centralWidget)
-        self.numero_8.setText('8')
-        self.numero_8.setObjectName("buttonTeclado") #nombre de enlace a css
-        self.numero_8.setGeometry(x_inicia+(base*x) + (x+1)*sep_lado, y_inicia+ (altura*y) + sep_arriba, base, altura)
-        self.numero_8.clicked.connect(self.fun_numero_8)
-
-        x=2
-        y=0
-        self.numero_9 = QToolButton(self.centralWidget)
-        self.numero_9.setText('9')
-        self.numero_9.setObjectName("buttonTeclado") #nombre de enlace a css
-        self.numero_9.setGeometry(x_inicia+(base*x) + (x+1)*sep_lado, y_inicia+ (altura*y) + sep_arriba, base, altura)
-        self.numero_9.clicked.connect(self.fun_numero_9)
-
-        x=3
-        y=0
-        self.numero_BORRAR = QToolButton(self.centralWidget)
-        self.numero_BORRAR.setText('Borrar')
-        self.numero_BORRAR.setObjectName("buttonTeclado") #nombre de enlace a css
-        self.numero_BORRAR.setGeometry(x_inicia+(base*x) + (x+1)*sep_lado, y_inicia+ (altura*y) + sep_arriba, base*2+sep_lado, altura)
-        self.numero_BORRAR.clicked.connect(self.fun_numero_BORRAR)
-
-        x=0
-        y=1
-        self.numero_4 = QToolButton(self.centralWidget)
-        self.numero_4.setText('4')
-        self.numero_4.setObjectName("buttonTeclado") #nombre de enlace a css
-        self.numero_4.setGeometry(x_inicia+(base*x) + (x+1)*sep_lado, y_inicia+ (altura*y) + 2*sep_arriba, base, altura)
-        self.numero_4.clicked.connect(self.fun_numero_4)
-
-        x=1
-        y=1
-        self.numero_5 = QToolButton(self.centralWidget)
-        self.numero_5.setText('5')
-        self.numero_5.setObjectName("buttonTeclado") #nombre de enlace a css
-        self.numero_5.setGeometry(x_inicia+(base*x) + (x+1)*sep_lado, y_inicia+ (altura*y) + 2*sep_arriba, base, altura)
-        self.numero_5.clicked.connect(self.fun_numero_5)
-
-        x=2
-        y=1
-        self.numero_6 = QToolButton(self.centralWidget)
-        self.numero_6.setText('6')
-        self.numero_6.setObjectName("buttonTeclado") #nombre de enlace a css
-        self.numero_6.setGeometry(x_inicia+(base*x) + (x+1)*sep_lado, y_inicia+ (altura*y) + 2*sep_arriba, base, altura)
-        self.numero_6.clicked.connect(self.fun_numero_6)
-
-        x=3
-        y=1
-        self.numero_PUNTO = QToolButton(self.centralWidget)
-        self.numero_PUNTO.setText('.')
-        self.numero_PUNTO.setObjectName("buttonTeclado") #nombre de enlace a css
-        self.numero_PUNTO.setGeometry(x_inicia+(base*x) + (x+1)*sep_lado, y_inicia+ (altura*y) + 2*sep_arriba, base, altura)
-        self.numero_PUNTO.clicked.connect(self.fun_numero_PUNTO)
-
-        x=4
-        y=1
-        self.numero_ENTER = QToolButton(self.centralWidget)
-        self.numero_ENTER.setText(chr(16))
-        self.numero_ENTER.setObjectName("buttonTeclado") #nombre de enlace a css
-        self.numero_ENTER.setGeometry(x_inicia+(base*x) + (x+1)*sep_lado, y_inicia+ (altura*y) + 2*sep_arriba, base, altura*2+sep_arriba)
-        self.numero_ENTER.clicked.connect(self.fun_numero_ENTER)
-
-        x=0
-        y=2
-        self.numero_1 = QToolButton(self.centralWidget)
-        self.numero_1.setText('1')
-        self.numero_1.setObjectName("buttonTeclado") #nombre de enlace a css
-        self.numero_1.setGeometry(x_inicia+(base*x) + (x+1)*sep_lado, y_inicia+ (altura*y) + 3*sep_arriba, base, altura)
-        self.numero_1.clicked.connect(self.fun_numero_1)
-        
-        x=1
-        y=2
-        self.numero_2 = QToolButton(self.centralWidget)
-        self.numero_2.setText('2')
-        self.numero_2.setObjectName("buttonTeclado") #nombre de enlace a css
-        self.numero_2.setGeometry(x_inicia+(base*x) + (x+1)*sep_lado, y_inicia+ (altura*y) + 3*sep_arriba, base, altura)
-        self.numero_2.clicked.connect(self.fun_numero_2)
-
-        x=2
-        y=2
-        self.numero_3 = QToolButton(self.centralWidget)
-        self.numero_3.setText('3')
-        self.numero_3.setObjectName("buttonTeclado") #nombre de enlace a css
-        self.numero_3.setGeometry(x_inicia+(base*x) + (x+1)*sep_lado, y_inicia+ (altura*y) + 3*sep_arriba, base, altura)
-        self.numero_3.clicked.connect(self.fun_numero_3)
-
-        x=3
-        y=2
-        self.numero_0 = QToolButton(self.centralWidget)
-        self.numero_0.setText('0')
-        self.numero_0.setObjectName("buttonTeclado") #nombre de enlace a css
-        self.numero_0.setGeometry(x_inicia+(base*x) + (x+1)*sep_lado, y_inicia+ (altura*y) + 3*sep_arriba, base, altura)
-        self.numero_0.clicked.connect(self.fun_numero_0)
-
-        self.NotTecladoNumerico()
-
-    def BotonesTeclado(self):
-        sep_lado = 12
-        sep_arriba = 12
-        base = 73
-        altura = 65
-        y_inicia = 350
-        
-        x=0
-        y=0
-        self.letra_q = QToolButton(self.centralWidget)
-        self.letra_q.setText('q')
-        self.letra_q.setObjectName("buttonTeclado") #nombre de enlace a css
-        self.letra_q.setGeometry((base*x) + (x+1)*sep_lado, y_inicia+ (altura*y) + sep_arriba, base, altura)
-        self.letra_q.clicked.connect(self.q)
-        
-
-        x=1
-        y=0
-        self.letra_w = QToolButton(self.centralWidget)
-        self.letra_w.setText('w')
-        self.letra_w.setObjectName("buttonTeclado") #nombre de enlace a css
-        self.letra_w.setGeometry((base*x) + (x+1)*sep_lado, y_inicia+ (altura*y) + sep_arriba, base, altura)
-        self.letra_w.clicked.connect(self.w)
-        
-
-        x=2
-        y=0
-        self.letra_e = QToolButton(self.centralWidget)
-        self.letra_e.setText('e')
-        self.letra_e.setObjectName("buttonTeclado") #nombre de enlace a css
-        self.letra_e.setGeometry((base*x) + (x+1)*sep_lado, y_inicia+ (altura*y) + sep_arriba, base, altura)
-        self.letra_e.clicked.connect(self.e)
-        
-        x=3
-        y=0
-        self.letra_r = QToolButton(self.centralWidget)
-        self.letra_r.setText('r')
-        self.letra_r.setObjectName("buttonTeclado") #nombre de enlace a css
-        self.letra_r.setGeometry((base*x) + (x+1)*sep_lado, y_inicia+ (altura*y) + sep_arriba, base, altura)
-        self.letra_r.clicked.connect(self.r)
-
-        x=4
-        y=0
-        self.letra_t = QToolButton(self.centralWidget)
-        self.letra_t.setText('t')
-        self.letra_t.setObjectName("buttonTeclado") #nombre de enlace a css
-        self.letra_t.setGeometry((base*x) + (x+1)*sep_lado, y_inicia+ (altura*y) + sep_arriba, base, altura)
-        self.letra_t.clicked.connect(self.t)
-
-        x=5
-        y=0
-        self.letra_y = QToolButton(self.centralWidget)
-        self.letra_y.setText('y')
-        self.letra_y.setObjectName("buttonTeclado") #nombre de enlace a css
-        self.letra_y.setGeometry((base*x) + (x+1)*sep_lado, y_inicia+ (altura*y) + sep_arriba, base, altura)
-        self.letra_y.clicked.connect(self.y)
-
-        x=6
-        y=0
-        self.letra_u = QToolButton(self.centralWidget)
-        self.letra_u.setText('u')
-        self.letra_u.setObjectName("buttonTeclado") #nombre de enlace a css
-        self.letra_u.setGeometry((base*x) + (x+1)*sep_lado, y_inicia+ (altura*y) + sep_arriba, base, altura)
-        self.letra_u.clicked.connect(self.u)
-
-        x=7
-        y=0
-        self.letra_i = QToolButton(self.centralWidget)
-        self.letra_i.setText('i')
-        self.letra_i.setObjectName("buttonTeclado") #nombre de enlace a css
-        self.letra_i.setGeometry((base*x) + (x+1)*sep_lado, y_inicia+ (altura*y) + sep_arriba, base, altura)
-        self.letra_i.clicked.connect(self.i)
-
-        x=8
-        y=0
-        self.letra_o = QToolButton(self.centralWidget)
-        self.letra_o.setText('o')
-        self.letra_o.setObjectName("buttonTeclado") #nombre de enlace a css
-        self.letra_o.setGeometry((base*x) + (x+1)*sep_lado, y_inicia+ (altura*y) + sep_arriba, base, altura)
-        self.letra_o.clicked.connect(self.o)
-
-        x=9
-        y=0
-        self.letra_p = QToolButton(self.centralWidget)
-        self.letra_p.setText('p')
-        self.letra_p.setObjectName("buttonTeclado") #nombre de enlace a css
-        self.letra_p.setGeometry((base*x) + (x+1)*sep_lado, y_inicia+ (altura*y) + sep_arriba, base, altura)
-        self.letra_p.clicked.connect(self.p)
-
-        x=10
-        y=0
-        self.letra_BORRAR = QToolButton(self.centralWidget)
-        self.letra_BORRAR.setText('Borrar')
-        self.letra_BORRAR.setObjectName("buttonTeclado") #nombre de enlace a css
-        self.letra_BORRAR.setGeometry((base*x) + (x+1)*sep_lado, y_inicia+ (altura*y) + sep_arriba, base*2, altura)
-        self.letra_BORRAR.clicked.connect(self.BORRAR)
-
-        x=0
-        y=1
-        self.letra_a = QToolButton(self.centralWidget)
-        self.letra_a.setText('a')
-        self.letra_a.setObjectName("buttonTeclado") #nombre de enlace a css
-        self.letra_a.setGeometry((base*x) + (x+1)*sep_lado,y*sep_arriba+ y_inicia+ (altura*y) + sep_arriba, base, altura)
-        self.letra_a.clicked.connect(self.a)
-
-        x=1
-        y=1
-        self.letra_s = QToolButton(self.centralWidget)
-        self.letra_s.setText('s')
-        self.letra_s.setObjectName("buttonTeclado") #nombre de enlace a css
-        self.letra_s.setGeometry((base*x) + (x+1)*sep_lado,y*sep_arriba+ y_inicia+ (altura*y) + sep_arriba, base, altura)
-        self.letra_s.clicked.connect(self.s)
-
-        x=2
-        y=1
-        self.letra_d = QToolButton(self.centralWidget)
-        self.letra_d.setText('d')
-        self.letra_d.setObjectName("buttonTeclado") #nombre de enlace a css
-        self.letra_d.setGeometry((base*x) + (x+1)*sep_lado,y*sep_arriba+ y_inicia+ (altura*y) + sep_arriba, base, altura)
-        self.letra_d.clicked.connect(self.d)
-
-        x=3
-        y=1
-        self.letra_f = QToolButton(self.centralWidget)
-        self.letra_f.setText('f')
-        self.letra_f.setObjectName("buttonTeclado") #nombre de enlace a css
-        self.letra_f.setGeometry((base*x) + (x+1)*sep_lado,y*sep_arriba+ y_inicia+ (altura*y) + sep_arriba, base, altura)
-        self.letra_f.clicked.connect(self.f)
-
-        x=4
-        y=1
-        self.letra_g = QToolButton(self.centralWidget)
-        self.letra_g.setText('g')
-        self.letra_g.setObjectName("buttonTeclado") #nombre de enlace a css
-        self.letra_g.setGeometry((base*x) + (x+1)*sep_lado,y*sep_arriba+ y_inicia+ (altura*y) + sep_arriba, base, altura)
-        self.letra_g.clicked.connect(self.g)
-
-        x=5
-        y=1
-        self.letra_h = QToolButton(self.centralWidget)
-        self.letra_h.setText('h')
-        self.letra_h.setObjectName("buttonTeclado") #nombre de enlace a css
-        self.letra_h.setGeometry((base*x) + (x+1)*sep_lado,y*sep_arriba+ y_inicia+ (altura*y) + sep_arriba, base, altura)
-        self.letra_h.clicked.connect(self.h)
-
-        x=6
-        y=1
-        self.letra_j = QToolButton(self.centralWidget)
-        self.letra_j.setText('j')
-        self.letra_j.setObjectName("buttonTeclado") #nombre de enlace a css
-        self.letra_j.setGeometry((base*x) + (x+1)*sep_lado,y*sep_arriba+ y_inicia+ (altura*y) + sep_arriba, base, altura)
-        self.letra_j.clicked.connect(self.j)
-
-        x=7
-        y=1
-        self.letra_k = QToolButton(self.centralWidget)
-        self.letra_k.setText('k')
-        self.letra_k.setObjectName("buttonTeclado") #nombre de enlace a css
-        self.letra_k.setGeometry((base*x) + (x+1)*sep_lado,y*sep_arriba+ y_inicia+ (altura*y) + sep_arriba, base, altura)
-        self.letra_k.clicked.connect(self.k)
-
-        x=8
-        y=1
-        self.letra_l = QToolButton(self.centralWidget)
-        self.letra_l.setText('l')
-        self.letra_l.setObjectName("buttonTeclado") #nombre de enlace a css
-        self.letra_l.setGeometry((base*x) + (x+1)*sep_lado,y*sep_arriba+ y_inicia+ (altura*y) + sep_arriba, base, altura)
-        self.letra_l.clicked.connect(self.l)
-
-        x=9
-        y=1
-        self.letra_ene = QToolButton(self.centralWidget)
-        self.letra_ene.setText('ñ')
-        self.letra_ene.setObjectName("buttonTeclado") #nombre de enlace a css
-        self.letra_ene.setGeometry((base*x) + (x+1)*sep_lado,y*sep_arriba+ y_inicia+ (altura*y) + sep_arriba, base, altura)
-        self.letra_ene.clicked.connect(self.ene)
-
-        x=10
-        y=1
-        self.letra_MAYUS = QToolButton(self.centralWidget)
-        self.letra_MAYUS.setText('Mayus')
-        self.letra_MAYUS.setObjectName("buttonTecladoMAYUS") #nombre de enlace a css
-        self.letra_MAYUS.setGeometry((base*x) + (x+1)*sep_lado,y*sep_arriba+ y_inicia+ (altura*y) + sep_arriba, base*2, altura)
-        self.letra_MAYUS.clicked.connect(self.MAYUS)
-        self.isMAYUS=False
-
-        x=0
-        y=2
-        self.letra_z = QToolButton(self.centralWidget)
-        self.letra_z.setText('z')
-        self.letra_z.setObjectName("buttonTeclado") #nombre de enlace a css
-        self.letra_z.setGeometry((base*x) + (x+1)*sep_lado, y_inicia + (altura*y) + (y+1)*sep_arriba, base, altura)
-        self.letra_z.clicked.connect(self.z)
-        
-
-        x=1
-        y=2
-        self.letra_x = QToolButton(self.centralWidget)
-        self.letra_x.setText('x')
-        self.letra_x.setObjectName("buttonTeclado") #nombre de enlace a css
-        self.letra_x.setGeometry((base*x) + (x+1)*sep_lado, y_inicia+ (altura*y) + (y+1)*sep_arriba, base, altura)
-        self.letra_x.clicked.connect(self.x)
-        
-
-        x=2
-        y=2
-        self.letra_c = QToolButton(self.centralWidget)
-        self.letra_c.setText('c')
-        self.letra_c.setObjectName("buttonTeclado") #nombre de enlace a css
-        self.letra_c.setGeometry((base*x) + (x+1)*sep_lado, y_inicia+ (altura*y) + (y+1)*sep_arriba, base, altura)
-        self.letra_c.clicked.connect(self.c)
-        
-        x=3
-        y=2
-        self.letra_v = QToolButton(self.centralWidget)
-        self.letra_v.setText('v')
-        self.letra_v.setObjectName("buttonTeclado") #nombre de enlace a css
-        self.letra_v.setGeometry((base*x) + (x+1)*sep_lado, y_inicia+ (altura*y) + (y+1)*sep_arriba, base, altura)
-        self.letra_v.clicked.connect(self.v)
-
-        x=7
-        y=2
-        self.letra_SPACE = QToolButton(self.centralWidget)
-        self.letra_SPACE.setText('')
-        self.letra_SPACE.setObjectName("buttonTeclado") #nombre de enlace a css
-        self.letra_SPACE.setGeometry((base*x) + (x+1)*sep_lado, y_inicia+ (altura*y) + (y+1)*sep_arriba,2*sep_lado+ 4*base, altura)
-        self.letra_SPACE.clicked.connect(self.SPACE)
-
-        x=4
-        y=2
-        self.letra_b = QToolButton(self.centralWidget)
-        self.letra_b.setText('b')
-        self.letra_b.setObjectName("buttonTeclado") #nombre de enlace a css
-        self.letra_b.setGeometry((base*x) + (x+1)*sep_lado, y_inicia+ (altura*y) + (y+1)*sep_arriba, base, altura)
-        self.letra_b.clicked.connect(self.b)
-
-        x=5
-        y=2
-        self.letra_n = QToolButton(self.centralWidget)
-        self.letra_n.setText('n')
-        self.letra_n.setObjectName("buttonTeclado") #nombre de enlace a css
-        self.letra_n.setGeometry((base*x) + (x+1)*sep_lado, y_inicia+ (altura*y) + (y+1)*sep_arriba, base, altura)
-        self.letra_n.clicked.connect(self.n)
-
-        x=6
-        y=2
-        self.letra_m = QToolButton(self.centralWidget)
-        self.letra_m.setText('m')
-        self.letra_m.setObjectName("buttonTeclado") #nombre de enlace a css
-        self.letra_m.setGeometry((base*x) + (x+1)*sep_lado, y_inicia+ (altura*y) + (y+1)*sep_arriba, base, altura)
-        self.letra_m.clicked.connect(self.m)
-
-        x=11
-        y=2
-        self.letra_ENTER = QToolButton(self.centralWidget)
-        self.letra_ENTER.setText(chr(25))
-        self.letra_ENTER.setObjectName("buttonTeclado") #nombre de enlace a css
-        self.letra_ENTER.setGeometry((base*x) + (x+1)*sep_lado-sep_lado, y_inicia+ (altura*y) + (y+1)*sep_arriba, base, altura)
-        self.letra_ENTER.clicked.connect(self.ENTER)
-
-        self.NotTeclado()
 
 
 

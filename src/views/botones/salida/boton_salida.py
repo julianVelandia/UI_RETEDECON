@@ -32,7 +32,7 @@ class Boton_salida(Funcion_salida):
         self.salida_salida.setIcon(QIcon('src/views/static/icons/icono_salir')) #icono
         self.salida_salida.setIconSize(QSize(60,60))
         self.salida_salida.setToolButtonStyle(Qt.ToolButtonTextUnderIcon)
-        self.salida_salida.clicked.connect(self.SalidaSalida(widget))
+        self.salida_salida.clicked.connect(self.SalidaSalida)
         self.salida_salida.setGeometry(570, 237, 290, 176.3)
 
         self.salida_nombre.setVisible(False)

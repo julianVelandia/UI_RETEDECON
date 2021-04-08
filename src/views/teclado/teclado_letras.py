@@ -1,7 +1,11 @@
-    
+from PyQt5.QtWidgets import *
+from PyQt5.QtCore import *
+from PyQt5.QtGui import *
+
+
 class TecladoLetras:
 
-    def BotonesTeclado(self):
+    def BotonesTeclado(self,widget):
         sep_lado = 12
         sep_arriba = 12
         base = 73
@@ -10,7 +14,7 @@ class TecladoLetras:
         
         x=0
         y=0
-        self.letra_q = QToolButton(self.centralWidget)
+        self.letra_q = QToolButton(widget)
         self.letra_q.setText('q')
         self.letra_q.setObjectName("buttonTeclado") #nombre de enlace a css
         self.letra_q.setGeometry((base*x) + (x+1)*sep_lado, y_inicia+ (altura*y) + sep_arriba, base, altura)
@@ -19,7 +23,7 @@ class TecladoLetras:
 
         x=1
         y=0
-        self.letra_w = QToolButton(self.centralWidget)
+        self.letra_w = QToolButton(widget)
         self.letra_w.setText('w')
         self.letra_w.setObjectName("buttonTeclado") #nombre de enlace a css
         self.letra_w.setGeometry((base*x) + (x+1)*sep_lado, y_inicia+ (altura*y) + sep_arriba, base, altura)
@@ -28,7 +32,7 @@ class TecladoLetras:
 
         x=2
         y=0
-        self.letra_e = QToolButton(self.centralWidget)
+        self.letra_e = QToolButton(widget)
         self.letra_e.setText('e')
         self.letra_e.setObjectName("buttonTeclado") #nombre de enlace a css
         self.letra_e.setGeometry((base*x) + (x+1)*sep_lado, y_inicia+ (altura*y) + sep_arriba, base, altura)
@@ -36,7 +40,7 @@ class TecladoLetras:
         
         x=3
         y=0
-        self.letra_r = QToolButton(self.centralWidget)
+        self.letra_r = QToolButton(widget)
         self.letra_r.setText('r')
         self.letra_r.setObjectName("buttonTeclado") #nombre de enlace a css
         self.letra_r.setGeometry((base*x) + (x+1)*sep_lado, y_inicia+ (altura*y) + sep_arriba, base, altura)
@@ -44,7 +48,7 @@ class TecladoLetras:
 
         x=4
         y=0
-        self.letra_t = QToolButton(self.centralWidget)
+        self.letra_t = QToolButton(widget)
         self.letra_t.setText('t')
         self.letra_t.setObjectName("buttonTeclado") #nombre de enlace a css
         self.letra_t.setGeometry((base*x) + (x+1)*sep_lado, y_inicia+ (altura*y) + sep_arriba, base, altura)
@@ -52,7 +56,7 @@ class TecladoLetras:
 
         x=5
         y=0
-        self.letra_y = QToolButton(self.centralWidget)
+        self.letra_y = QToolButton(widget)
         self.letra_y.setText('y')
         self.letra_y.setObjectName("buttonTeclado") #nombre de enlace a css
         self.letra_y.setGeometry((base*x) + (x+1)*sep_lado, y_inicia+ (altura*y) + sep_arriba, base, altura)
@@ -60,7 +64,7 @@ class TecladoLetras:
 
         x=6
         y=0
-        self.letra_u = QToolButton(self.centralWidget)
+        self.letra_u = QToolButton(widget)
         self.letra_u.setText('u')
         self.letra_u.setObjectName("buttonTeclado") #nombre de enlace a css
         self.letra_u.setGeometry((base*x) + (x+1)*sep_lado, y_inicia+ (altura*y) + sep_arriba, base, altura)
@@ -68,7 +72,7 @@ class TecladoLetras:
 
         x=7
         y=0
-        self.letra_i = QToolButton(self.centralWidget)
+        self.letra_i = QToolButton(widget)
         self.letra_i.setText('i')
         self.letra_i.setObjectName("buttonTeclado") #nombre de enlace a css
         self.letra_i.setGeometry((base*x) + (x+1)*sep_lado, y_inicia+ (altura*y) + sep_arriba, base, altura)
@@ -76,7 +80,7 @@ class TecladoLetras:
 
         x=8
         y=0
-        self.letra_o = QToolButton(self.centralWidget)
+        self.letra_o = QToolButton(widget)
         self.letra_o.setText('o')
         self.letra_o.setObjectName("buttonTeclado") #nombre de enlace a css
         self.letra_o.setGeometry((base*x) + (x+1)*sep_lado, y_inicia+ (altura*y) + sep_arriba, base, altura)
@@ -84,7 +88,7 @@ class TecladoLetras:
 
         x=9
         y=0
-        self.letra_p = QToolButton(self.centralWidget)
+        self.letra_p = QToolButton(widget)
         self.letra_p.setText('p')
         self.letra_p.setObjectName("buttonTeclado") #nombre de enlace a css
         self.letra_p.setGeometry((base*x) + (x+1)*sep_lado, y_inicia+ (altura*y) + sep_arriba, base, altura)
@@ -92,7 +96,7 @@ class TecladoLetras:
 
         x=10
         y=0
-        self.letra_BORRAR = QToolButton(self.centralWidget)
+        self.letra_BORRAR = QToolButton(widget)
         self.letra_BORRAR.setText('Borrar')
         self.letra_BORRAR.setObjectName("buttonTeclado") #nombre de enlace a css
         self.letra_BORRAR.setGeometry((base*x) + (x+1)*sep_lado, y_inicia+ (altura*y) + sep_arriba, base*2, altura)
@@ -100,7 +104,7 @@ class TecladoLetras:
 
         x=0
         y=1
-        self.letra_a = QToolButton(self.centralWidget)
+        self.letra_a = QToolButton(widget)
         self.letra_a.setText('a')
         self.letra_a.setObjectName("buttonTeclado") #nombre de enlace a css
         self.letra_a.setGeometry((base*x) + (x+1)*sep_lado,y*sep_arriba+ y_inicia+ (altura*y) + sep_arriba, base, altura)
@@ -108,7 +112,7 @@ class TecladoLetras:
 
         x=1
         y=1
-        self.letra_s = QToolButton(self.centralWidget)
+        self.letra_s = QToolButton(widget)
         self.letra_s.setText('s')
         self.letra_s.setObjectName("buttonTeclado") #nombre de enlace a css
         self.letra_s.setGeometry((base*x) + (x+1)*sep_lado,y*sep_arriba+ y_inicia+ (altura*y) + sep_arriba, base, altura)
@@ -116,7 +120,7 @@ class TecladoLetras:
 
         x=2
         y=1
-        self.letra_d = QToolButton(self.centralWidget)
+        self.letra_d = QToolButton(widget)
         self.letra_d.setText('d')
         self.letra_d.setObjectName("buttonTeclado") #nombre de enlace a css
         self.letra_d.setGeometry((base*x) + (x+1)*sep_lado,y*sep_arriba+ y_inicia+ (altura*y) + sep_arriba, base, altura)
@@ -124,7 +128,7 @@ class TecladoLetras:
 
         x=3
         y=1
-        self.letra_f = QToolButton(self.centralWidget)
+        self.letra_f = QToolButton(widget)
         self.letra_f.setText('f')
         self.letra_f.setObjectName("buttonTeclado") #nombre de enlace a css
         self.letra_f.setGeometry((base*x) + (x+1)*sep_lado,y*sep_arriba+ y_inicia+ (altura*y) + sep_arriba, base, altura)
@@ -132,7 +136,7 @@ class TecladoLetras:
 
         x=4
         y=1
-        self.letra_g = QToolButton(self.centralWidget)
+        self.letra_g = QToolButton(widget)
         self.letra_g.setText('g')
         self.letra_g.setObjectName("buttonTeclado") #nombre de enlace a css
         self.letra_g.setGeometry((base*x) + (x+1)*sep_lado,y*sep_arriba+ y_inicia+ (altura*y) + sep_arriba, base, altura)
@@ -140,7 +144,7 @@ class TecladoLetras:
 
         x=5
         y=1
-        self.letra_h = QToolButton(self.centralWidget)
+        self.letra_h = QToolButton(widget)
         self.letra_h.setText('h')
         self.letra_h.setObjectName("buttonTeclado") #nombre de enlace a css
         self.letra_h.setGeometry((base*x) + (x+1)*sep_lado,y*sep_arriba+ y_inicia+ (altura*y) + sep_arriba, base, altura)
@@ -148,7 +152,7 @@ class TecladoLetras:
 
         x=6
         y=1
-        self.letra_j = QToolButton(self.centralWidget)
+        self.letra_j = QToolButton(widget)
         self.letra_j.setText('j')
         self.letra_j.setObjectName("buttonTeclado") #nombre de enlace a css
         self.letra_j.setGeometry((base*x) + (x+1)*sep_lado,y*sep_arriba+ y_inicia+ (altura*y) + sep_arriba, base, altura)
@@ -156,7 +160,7 @@ class TecladoLetras:
 
         x=7
         y=1
-        self.letra_k = QToolButton(self.centralWidget)
+        self.letra_k = QToolButton(widget)
         self.letra_k.setText('k')
         self.letra_k.setObjectName("buttonTeclado") #nombre de enlace a css
         self.letra_k.setGeometry((base*x) + (x+1)*sep_lado,y*sep_arriba+ y_inicia+ (altura*y) + sep_arriba, base, altura)
@@ -164,7 +168,7 @@ class TecladoLetras:
 
         x=8
         y=1
-        self.letra_l = QToolButton(self.centralWidget)
+        self.letra_l = QToolButton(widget)
         self.letra_l.setText('l')
         self.letra_l.setObjectName("buttonTeclado") #nombre de enlace a css
         self.letra_l.setGeometry((base*x) + (x+1)*sep_lado,y*sep_arriba+ y_inicia+ (altura*y) + sep_arriba, base, altura)
@@ -172,7 +176,7 @@ class TecladoLetras:
 
         x=9
         y=1
-        self.letra_ene = QToolButton(self.centralWidget)
+        self.letra_ene = QToolButton(widget)
         self.letra_ene.setText('ñ')
         self.letra_ene.setObjectName("buttonTeclado") #nombre de enlace a css
         self.letra_ene.setGeometry((base*x) + (x+1)*sep_lado,y*sep_arriba+ y_inicia+ (altura*y) + sep_arriba, base, altura)
@@ -180,7 +184,7 @@ class TecladoLetras:
 
         x=10
         y=1
-        self.letra_MAYUS = QToolButton(self.centralWidget)
+        self.letra_MAYUS = QToolButton(widget)
         self.letra_MAYUS.setText('Mayus')
         self.letra_MAYUS.setObjectName("buttonTecladoMAYUS") #nombre de enlace a css
         self.letra_MAYUS.setGeometry((base*x) + (x+1)*sep_lado,y*sep_arriba+ y_inicia+ (altura*y) + sep_arriba, base*2, altura)
@@ -189,7 +193,7 @@ class TecladoLetras:
 
         x=0
         y=2
-        self.letra_z = QToolButton(self.centralWidget)
+        self.letra_z = QToolButton(widget)
         self.letra_z.setText('z')
         self.letra_z.setObjectName("buttonTeclado") #nombre de enlace a css
         self.letra_z.setGeometry((base*x) + (x+1)*sep_lado, y_inicia + (altura*y) + (y+1)*sep_arriba, base, altura)
@@ -198,7 +202,7 @@ class TecladoLetras:
 
         x=1
         y=2
-        self.letra_x = QToolButton(self.centralWidget)
+        self.letra_x = QToolButton(widget)
         self.letra_x.setText('x')
         self.letra_x.setObjectName("buttonTeclado") #nombre de enlace a css
         self.letra_x.setGeometry((base*x) + (x+1)*sep_lado, y_inicia+ (altura*y) + (y+1)*sep_arriba, base, altura)
@@ -207,7 +211,7 @@ class TecladoLetras:
 
         x=2
         y=2
-        self.letra_c = QToolButton(self.centralWidget)
+        self.letra_c = QToolButton(widget)
         self.letra_c.setText('c')
         self.letra_c.setObjectName("buttonTeclado") #nombre de enlace a css
         self.letra_c.setGeometry((base*x) + (x+1)*sep_lado, y_inicia+ (altura*y) + (y+1)*sep_arriba, base, altura)
@@ -215,7 +219,7 @@ class TecladoLetras:
         
         x=3
         y=2
-        self.letra_v = QToolButton(self.centralWidget)
+        self.letra_v = QToolButton(widget)
         self.letra_v.setText('v')
         self.letra_v.setObjectName("buttonTeclado") #nombre de enlace a css
         self.letra_v.setGeometry((base*x) + (x+1)*sep_lado, y_inicia+ (altura*y) + (y+1)*sep_arriba, base, altura)
@@ -223,7 +227,7 @@ class TecladoLetras:
 
         x=7
         y=2
-        self.letra_SPACE = QToolButton(self.centralWidget)
+        self.letra_SPACE = QToolButton(widget)
         self.letra_SPACE.setText('')
         self.letra_SPACE.setObjectName("buttonTeclado") #nombre de enlace a css
         self.letra_SPACE.setGeometry((base*x) + (x+1)*sep_lado, y_inicia+ (altura*y) + (y+1)*sep_arriba,2*sep_lado+ 4*base, altura)
@@ -231,7 +235,7 @@ class TecladoLetras:
 
         x=4
         y=2
-        self.letra_b = QToolButton(self.centralWidget)
+        self.letra_b = QToolButton(widget)
         self.letra_b.setText('b')
         self.letra_b.setObjectName("buttonTeclado") #nombre de enlace a css
         self.letra_b.setGeometry((base*x) + (x+1)*sep_lado, y_inicia+ (altura*y) + (y+1)*sep_arriba, base, altura)
@@ -239,7 +243,7 @@ class TecladoLetras:
 
         x=5
         y=2
-        self.letra_n = QToolButton(self.centralWidget)
+        self.letra_n = QToolButton(widget)
         self.letra_n.setText('n')
         self.letra_n.setObjectName("buttonTeclado") #nombre de enlace a css
         self.letra_n.setGeometry((base*x) + (x+1)*sep_lado, y_inicia+ (altura*y) + (y+1)*sep_arriba, base, altura)
@@ -247,7 +251,7 @@ class TecladoLetras:
 
         x=6
         y=2
-        self.letra_m = QToolButton(self.centralWidget)
+        self.letra_m = QToolButton(widget)
         self.letra_m.setText('m')
         self.letra_m.setObjectName("buttonTeclado") #nombre de enlace a css
         self.letra_m.setGeometry((base*x) + (x+1)*sep_lado, y_inicia+ (altura*y) + (y+1)*sep_arriba, base, altura)
@@ -255,12 +259,11 @@ class TecladoLetras:
 
         x=11
         y=2
-        self.letra_ENTER = QToolButton(self.centralWidget)
+        self.letra_ENTER = QToolButton(widget)
         self.letra_ENTER.setText(chr(25))
         self.letra_ENTER.setObjectName("buttonTeclado") #nombre de enlace a css
         self.letra_ENTER.setGeometry((base*x) + (x+1)*sep_lado-sep_lado, y_inicia+ (altura*y) + (y+1)*sep_arriba, base, altura)
         self.letra_ENTER.clicked.connect(self.ENTER)
-
         self.NotTeclado()
 
 
@@ -276,10 +279,10 @@ class TecladoLetras:
 
         elif self.campo == 'retirar-nombre':
             if not self.isMAYUS:
-                texto = self.ingresar_nombre_out.text() + 'q'
+                texto = self.salida_nombre.text() + 'q'
             else:
-                texto = self.ingresar_nombre_out.text() + 'Q'
-            self.ingresar_nombre_out.setText(texto)
+                texto = self.salida_nombre.text() + 'Q'
+            self.salida_nombre.setText(texto)
 
         elif self.campo == 'AdConf-User':
             if not self.isMAYUS:
@@ -298,10 +301,10 @@ class TecladoLetras:
 
         elif self.campo == 'retirar-nombre':
             if not self.isMAYUS:
-                texto = self.ingresar_nombre_out.text() + 'w'
+                texto = self.salida_nombre.text() + 'w'
             else:
-                texto = self.ingresar_nombre_out.text() + 'W'
-            self.ingresar_nombre_out.setText(texto)
+                texto = self.salida_nombre.text() + 'W'
+            self.salida_nombre.setText(texto)
 
         elif self.campo == 'AdConf-User':
             if not self.isMAYUS:
@@ -320,10 +323,10 @@ class TecladoLetras:
 
         elif self.campo == 'retirar-nombre':
             if not self.isMAYUS:
-                texto = self.ingresar_nombre_out.text() + 'e'
+                texto = self.salida_nombre.text() + 'e'
             else:
-                texto = self.ingresar_nombre_out.text() + 'E'
-            self.ingresar_nombre_out.setText(texto)
+                texto = self.salida_nombre.text() + 'E'
+            self.salida_nombre.setText(texto)
 
         elif self.campo == 'AdConf-User':
             if not self.isMAYUS:
@@ -342,10 +345,10 @@ class TecladoLetras:
 
         elif self.campo == 'retirar-nombre':
             if not self.isMAYUS:
-                texto = self.ingresar_nombre_out.text() + 'r'
+                texto = self.salida_nombre.text() + 'r'
             else:
-                texto = self.ingresar_nombre_out.text() + 'R'
-            self.ingresar_nombre_out.setText(texto)
+                texto = self.salida_nombre.text() + 'R'
+            self.salida_nombre.setText(texto)
 
         elif self.campo == 'AdConf-User':
             if not self.isMAYUS:
@@ -364,10 +367,10 @@ class TecladoLetras:
 
         elif self.campo == 'retirar-nombre':
             if not self.isMAYUS:
-                texto = self.ingresar_nombre_out.text() + 't'
+                texto = self.salida_nombre.text() + 't'
             else:
-                texto = self.ingresar_nombre_out.text() + 'T'
-            self.ingresar_nombre_out.setText(texto)
+                texto = self.salida_nombre.text() + 'T'
+            self.salida_nombre.setText(texto)
 
         elif self.campo == 'AdConf-User':
             if not self.isMAYUS:
@@ -386,10 +389,10 @@ class TecladoLetras:
 
         elif self.campo == 'retirar-nombre':
             if not self.isMAYUS:
-                texto = self.ingresar_nombre_out.text() + 'y'
+                texto = self.salida_nombre.text() + 'y'
             else:
-                texto = self.ingresar_nombre_out.text() + 'Y'
-            self.ingresar_nombre_out.setText(texto)
+                texto = self.salida_nombre.text() + 'Y'
+            self.salida_nombre.setText(texto)
 
         elif self.campo == 'AdConf-User':
             if not self.isMAYUS:
@@ -408,10 +411,10 @@ class TecladoLetras:
 
         elif self.campo == 'retirar-nombre':
             if not self.isMAYUS:
-                texto = self.ingresar_nombre_out.text() + 'u'
+                texto = self.salida_nombre.text() + 'u'
             else:
-                texto = self.ingresar_nombre_out.text() + 'U'
-            self.ingresar_nombre_out.setText(texto)
+                texto = self.salida_nombre.text() + 'U'
+            self.salida_nombre.setText(texto)
 
         elif self.campo == 'AdConf-User':
             if not self.isMAYUS:
@@ -430,10 +433,10 @@ class TecladoLetras:
 
         elif self.campo == 'retirar-nombre':
             if not self.isMAYUS:
-                texto = self.ingresar_nombre_out.text() + 'i'
+                texto = self.salida_nombre.text() + 'i'
             else:
-                texto = self.ingresar_nombre_out.text() + 'I'
-            self.ingresar_nombre_out.setText(texto)
+                texto = self.salida_nombre.text() + 'I'
+            self.salida_nombre.setText(texto)
 
         elif self.campo == 'AdConf-User':
             if not self.isMAYUS:
@@ -452,10 +455,10 @@ class TecladoLetras:
 
         elif self.campo == 'retirar-nombre':
             if not self.isMAYUS:
-                texto = self.ingresar_nombre_out.text() + 'o'
+                texto = self.salida_nombre.text() + 'o'
             else:
-                texto = self.ingresar_nombre_out.text() + 'O'
-            self.ingresar_nombre_out.setText(texto)
+                texto = self.salida_nombre.text() + 'O'
+            self.salida_nombre.setText(texto)
 
         elif self.campo == 'AdConf-User':
             if not self.isMAYUS:
@@ -474,10 +477,10 @@ class TecladoLetras:
 
         elif self.campo == 'retirar-nombre':
             if not self.isMAYUS:
-                texto = self.ingresar_nombre_out.text() + 'p'
+                texto = self.salida_nombre.text() + 'p'
             else:
-                texto = self.ingresar_nombre_out.text() + 'P'
-            self.ingresar_nombre_out.setText(texto)
+                texto = self.salida_nombre.text() + 'P'
+            self.salida_nombre.setText(texto)
 
         elif self.campo == 'AdConf-User':
             if not self.isMAYUS:
@@ -496,10 +499,10 @@ class TecladoLetras:
 
         elif self.campo == 'retirar-nombre':
             if not self.isMAYUS:
-                texto = self.ingresar_nombre_out.text() + 'a'
+                texto = self.salida_nombre.text() + 'a'
             else:
-                texto = self.ingresar_nombre_out.text() + 'A'
-            self.ingresar_nombre_out.setText(texto)
+                texto = self.salida_nombre.text() + 'A'
+            self.salida_nombre.setText(texto)
 
         elif self.campo == 'AdConf-User':
             if not self.isMAYUS:
@@ -518,10 +521,10 @@ class TecladoLetras:
 
         elif self.campo == 'retirar-nombre':
             if not self.isMAYUS:
-                texto = self.ingresar_nombre_out.text() + 's'
+                texto = self.salida_nombre.text() + 's'
             else:
-                texto = self.ingresar_nombre_out.text() + 'S'
-            self.ingresar_nombre_out.setText(texto)
+                texto = self.salida_nombre.text() + 'S'
+            self.salida_nombre.setText(texto)
 
         elif self.campo == 'AdConf-User':
             if not self.isMAYUS:
@@ -540,10 +543,10 @@ class TecladoLetras:
 
         elif self.campo == 'retirar-nombre':
             if not self.isMAYUS:
-                texto = self.ingresar_nombre_out.text() + 'd'
+                texto = self.salida_nombre.text() + 'd'
             else:
-                texto = self.ingresar_nombre_out.text() + 'D'
-            self.ingresar_nombre_out.setText(texto)
+                texto = self.salida_nombre.text() + 'D'
+            self.salida_nombre.setText(texto)
 
         elif self.campo == 'AdConf-User':
             if not self.isMAYUS:
@@ -562,10 +565,10 @@ class TecladoLetras:
 
         elif self.campo == 'retirar-nombre':
             if not self.isMAYUS:
-                texto = self.ingresar_nombre_out.text() + 'f'
+                texto = self.salida_nombre.text() + 'f'
             else:
-                texto = self.ingresar_nombre_out.text() + 'F'
-            self.ingresar_nombre_out.setText(texto)
+                texto = self.salida_nombre.text() + 'F'
+            self.salida_nombre.setText(texto)
 
         elif self.campo == 'AdConf-User':
             if not self.isMAYUS:
@@ -584,10 +587,10 @@ class TecladoLetras:
 
         elif self.campo == 'retirar-nombre':
             if not self.isMAYUS:
-                texto = self.ingresar_nombre_out.text() + 'g'
+                texto = self.salida_nombre.text() + 'g'
             else:
-                texto = self.ingresar_nombre_out.text() + 'G'
-            self.ingresar_nombre_out.setText(texto)
+                texto = self.salida_nombre.text() + 'G'
+            self.salida_nombre.setText(texto)
 
         elif self.campo == 'AdConf-User':
             if not self.isMAYUS:
@@ -606,10 +609,10 @@ class TecladoLetras:
 
         elif self.campo == 'retirar-nombre':
             if not self.isMAYUS:
-                texto = self.ingresar_nombre_out.text() + 'h'
+                texto = self.salida_nombre.text() + 'h'
             else:
-                texto = self.ingresar_nombre_out.text() + 'H'
-            self.ingresar_nombre_out.setText(texto)
+                texto = self.salida_nombre.text() + 'H'
+            self.salida_nombre.setText(texto)
 
         elif self.campo == 'AdConf-User':
             if not self.isMAYUS:
@@ -628,10 +631,10 @@ class TecladoLetras:
 
         elif self.campo == 'retirar-nombre':
             if not self.isMAYUS:
-                texto = self.ingresar_nombre_out.text() + 'j'
+                texto = self.salida_nombre.text() + 'j'
             else:
-                texto = self.ingresar_nombre_out.text() + 'J'
-            self.ingresar_nombre_out.setText(texto)
+                texto = self.salida_nombre.text() + 'J'
+            self.salida_nombre.setText(texto)
 
         elif self.campo == 'AdConf-User':
             if not self.isMAYUS:
@@ -650,10 +653,10 @@ class TecladoLetras:
 
         elif self.campo == 'retirar-nombre':
             if not self.isMAYUS:
-                texto = self.ingresar_nombre_out.text() + 'k'
+                texto = self.salida_nombre.text() + 'k'
             else:
-                texto = self.ingresar_nombre_out.text() + 'K'
-            self.ingresar_nombre_out.setText(texto)
+                texto = self.salida_nombre.text() + 'K'
+            self.salida_nombre.setText(texto)
 
         elif self.campo == 'AdConf-User':
             if not self.isMAYUS:
@@ -672,10 +675,10 @@ class TecladoLetras:
 
         elif self.campo == 'retirar-nombre':
             if not self.isMAYUS:
-                texto = self.ingresar_nombre_out.text() + 'l'
+                texto = self.salida_nombre.text() + 'l'
             else:
-                texto = self.ingresar_nombre_out.text() + 'L'
-            self.ingresar_nombre_out.setText(texto)
+                texto = self.salida_nombre.text() + 'L'
+            self.salida_nombre.setText(texto)
 
         elif self.campo == 'AdConf-User':
             if not self.isMAYUS:
@@ -694,10 +697,10 @@ class TecladoLetras:
 
         elif self.campo == 'retirar-nombre':
             if not self.isMAYUS:
-                texto = self.ingresar_nombre_out.text() + 'ñ'
+                texto = self.salida_nombre.text() + 'ñ'
             else:
-                texto = self.ingresar_nombre_out.text() + 'Ñ'
-            self.ingresar_nombre_out.setText(texto)
+                texto = self.salida_nombre.text() + 'Ñ'
+            self.salida_nombre.setText(texto)
 
         elif self.campo == 'AdConf-User':
             if not self.isMAYUS:
@@ -716,10 +719,10 @@ class TecladoLetras:
 
         elif self.campo == 'retirar-nombre':
             if not self.isMAYUS:
-                texto = self.ingresar_nombre_out.text() + 'z'
+                texto = self.salida_nombre.text() + 'z'
             else:
-                texto = self.ingresar_nombre_out.text() + 'Z'
-            self.ingresar_nombre_out.setText(texto)
+                texto = self.salida_nombre.text() + 'Z'
+            self.salida_nombre.setText(texto)
 
         elif self.campo == 'AdConf-User':
             if not self.isMAYUS:
@@ -738,10 +741,10 @@ class TecladoLetras:
 
         elif self.campo == 'retirar-nombre':
             if not self.isMAYUS:
-                texto = self.ingresar_nombre_out.text() + 'x'
+                texto = self.salida_nombre.text() + 'x'
             else:
-                texto = self.ingresar_nombre_out.text() + 'X'
-            self.ingresar_nombre_out.setText(texto)
+                texto = self.salida_nombre.text() + 'X'
+            self.salida_nombre.setText(texto)
 
         elif self.campo == 'AdConf-User':
             if not self.isMAYUS:
@@ -760,10 +763,10 @@ class TecladoLetras:
 
         elif self.campo == 'retirar-nombre':
             if not self.isMAYUS:
-                texto = self.ingresar_nombre_out.text() + 'c'
+                texto = self.salida_nombre.text() + 'c'
             else:
-                texto = self.ingresar_nombre_out.text() + 'C'
-            self.ingresar_nombre_out.setText(texto)
+                texto = self.salida_nombre.text() + 'C'
+            self.salida_nombre.setText(texto)
 
         elif self.campo == 'AdConf-User':
             if not self.isMAYUS:
@@ -782,10 +785,10 @@ class TecladoLetras:
 
         elif self.campo == 'retirar-nombre':
             if not self.isMAYUS:
-                texto = self.ingresar_nombre_out.text() + 'v'
+                texto = self.salida_nombre.text() + 'v'
             else:
-                texto = self.ingresar_nombre_out.text() + 'V'
-            self.ingresar_nombre_out.setText(texto)
+                texto = self.salida_nombre.text() + 'V'
+            self.salida_nombre.setText(texto)
 
         elif self.campo == 'AdConf-User':
             if not self.isMAYUS:
@@ -804,10 +807,10 @@ class TecladoLetras:
 
         elif self.campo == 'retirar-nombre':
             if not self.isMAYUS:
-                texto = self.ingresar_nombre_out.text() + 'b'
+                texto = self.salida_nombre.text() + 'b'
             else:
-                texto = self.ingresar_nombre_out.text() + 'B'
-            self.ingresar_nombre_out.setText(texto)
+                texto = self.salida_nombre.text() + 'B'
+            self.salida_nombre.setText(texto)
 
         elif self.campo == 'AdConf-User':
             if not self.isMAYUS:
@@ -826,10 +829,10 @@ class TecladoLetras:
 
         elif self.campo == 'retirar-nombre':
             if not self.isMAYUS:
-                texto = self.ingresar_nombre_out.text() + 'n'
+                texto = self.salida_nombre.text() + 'n'
             else:
-                texto = self.ingresar_nombre_out.text() + 'N'
-            self.ingresar_nombre_out.setText(texto)
+                texto = self.salida_nombre.text() + 'N'
+            self.salida_nombre.setText(texto)
 
         elif self.campo == 'AdConf-User':
             if not self.isMAYUS:
@@ -848,10 +851,10 @@ class TecladoLetras:
 
         elif self.campo == 'retirar-nombre':
             if not self.isMAYUS:
-                texto = self.ingresar_nombre_out.text() + 'm'
+                texto = self.salida_nombre.text() + 'm'
             else:
-                texto = self.ingresar_nombre_out.text() + 'M'
-            self.ingresar_nombre_out.setText(texto)
+                texto = self.salida_nombre.text() + 'M'
+            self.salida_nombre.setText(texto)
 
         elif self.campo == 'AdConf-User':
             if not self.isMAYUS:
@@ -868,8 +871,8 @@ class TecladoLetras:
 
         elif self.campo == 'retirar-nombre':
             
-            texto = self.ingresar_nombre_out.text() + ' '
-            self.ingresar_nombre_out.setText(texto)
+            texto = self.salida_nombre.text() + ' '
+            self.salida_nombre.setText(texto)
 
         elif self.campo == 'AdConf-User':
 
@@ -880,7 +883,7 @@ class TecladoLetras:
         if self.campo == 'ingresar-nombre':
             var_texto=self.ingresar_nombre.text()
         elif self.campo == 'retirar-nombre':
-            var_texto=self.ingresar_nombre_out.text()
+            var_texto=self.salida_nombre.text()
         elif self.campo == 'AdConf-User':
             var_texto=self.configuracion_avanzada_user.text()
 
@@ -900,7 +903,7 @@ class TecladoLetras:
         if self.campo == 'ingresar-nombre':
             self.ingresar_nombre.setText(texto)
         elif self.campo == 'retirar-nombre':
-            self.ingresar_nombre_out.setText(texto)
+            self.salida_nombre.setText(texto)
         elif self.campo == 'AdConf-User':
             self.configuracion_avanzada_user.setText(texto)
 

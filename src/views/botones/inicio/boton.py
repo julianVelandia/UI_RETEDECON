@@ -3,8 +3,8 @@ from PyQt5.QtCore import *
 from PyQt5.QtGui import *
 
 from .funciones import Funciones
-from .ingresar.boton_ingresar import Boton_ingresar
-from .salida.boton_salida import Boton_salida
+from src.views.botones.ingresar.boton_ingresar import Boton_ingresar
+from src.views.botones.salida.boton_salida import Boton_salida
 
 
 class Boton(Funciones,Boton_ingresar,Boton_salida):

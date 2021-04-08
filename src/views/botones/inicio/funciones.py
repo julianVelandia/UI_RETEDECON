@@ -1,6 +1,6 @@
 import pandas as pd
-
-
+from src.views.teclado.teclado_letras import *
+from src.views.teclado.teclado_numeros import *
 
 class Funciones:
     def HomeWindow(self):
@@ -27,7 +27,7 @@ class Funciones:
         self.salida_cedula.setVisible(False)
         self.salida_salida.setVisible(False)
 
-        
+
         self.configuracion_apagar.setVisible(False)
         self.configuracion_pantalla.setVisible(False)
         self.configuracion_datos.setVisible(False)
@@ -53,8 +53,10 @@ class Funciones:
         self.qr_manual.setVisible(False)
         self.bar_chart.setVisible(False)
         self.pie_chart.setVisible(False)
-        self.NotTeclado()
-        self.NotTecladoNumerico()
+
+
+        TecladoLetras.NotTeclado(self)
+        TecladoNumeros.NotTecladoNumerico(self)
     
     
     def Ingresar(self):
@@ -73,9 +75,11 @@ class Funciones:
         self.ingresar_temp.setVisible(True)
         self.ingresar_temp.clear()
         self.ingresar_ingresar.setVisible(True)
-        self.ingresar_nombre_out.setVisible(False)
-        self.ingresar_cedula_out.setVisible(False)
-        self.retirar.setVisible(False)
+
+
+        self.salida_nombre.setVisible(False)
+        self.salida_cedula.setVisible(False)
+        self.salida_salida.setVisible(False)
         self.Ingresar_guardar_teclado()
 
 
@@ -160,11 +164,15 @@ class Funciones:
         self.salida_manual.setVisible(False)
         self.configuracion.setVisible(False)
         self.informacion.setVisible(False)
-        self.ingresar_nombre_out.setVisible(True)
-        self.ingresar_nombre_out.clear()
-        self.ingresar_cedula_out.setVisible(True)
-        self.ingresar_cedula_out.clear()
-        self.retirar.setVisible(True)
+
+        self.salida_nombre.setVisible(True)
+        self.salida_nombre.clear()
+
+        self.salida_cedula.setVisible(True)
+        self.salida_cedula.clear()
+
+        self.salida_salida.setVisible(True)
+        
         self.ingresar_ingresar.setVisible(False)
         self.Retirar_guardar_teclado()
 
