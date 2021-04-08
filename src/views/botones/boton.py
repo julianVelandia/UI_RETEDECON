@@ -4,8 +4,10 @@ from PyQt5.QtGui import *
 
 from .funciones import Funciones
 from .ingresar.boton_ingresar import Boton_ingresar
+from .salida.boton_salida import Boton_salida
 
-class Boton(Funciones,Boton_ingresar):
+
+class Boton(Funciones,Boton_ingresar,Boton_salida):
 
     '''
     Botones Pantalla inicio
