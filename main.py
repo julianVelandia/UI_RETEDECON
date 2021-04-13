@@ -2,7 +2,6 @@ from PyQt5.QtWidgets import *
 from PyQt5.QtCore import *
 from PyQt5.QtGui import *
 from configparser import ConfigParser
-import sys
 import hashlib
 from matplotlib.backends.backend_qt5agg import FigureCanvasQTAgg as FigureCanvas
 from matplotlib.figure import Figure
@@ -40,6 +39,13 @@ class MainWindow(QMainWindow,Boton,TecladoNumeros,TecladoLetras): #Ventana princ
         self.setCentralWidget(self.centralWidget)
         self.centralWidget.setObjectName("window") #nombre que enlaza en css
         
+        #Mensajes
+        self.dialogo_mensaje = 'Error404'
+        self.dialogo = QMessageBox(self.centralWidget)
+        self.dialogo.setWindowTitle('RETEDECON')
+        self.dialogo.addButton("Aceptar", 0)
+        self.dialogo.setInformativeText(self.dialogo_mensaje)
+
         #Imagen central 
         self.label_img_central = QLabel(self)
         self.label_img_central.setGeometry(289,-10,1024,600)
@@ -53,6 +59,10 @@ class MainWindow(QMainWindow,Boton,TecladoNumeros,TecladoLetras): #Ventana princ
         self.timer.setSingleShot(True)
         self.timer.start()
         self.timer.timeout.connect(self.HomeWindow) #función a ejecutar pasados los 3 seg
+
+        #teclados
+        self.BotonesTeclado(self.centralWidget)
+        self.BotonesTecladoNumerico(self.centralWidget)
 
         #Botones Inicio
         self.boton_home(self.centralWidget)
@@ -76,18 +86,17 @@ class MainWindow(QMainWindow,Boton,TecladoNumeros,TecladoLetras): #Ventana princ
         self.texto_salida_cedula_out(self.centralWidget)
         self.boton_salida_salida(self.centralWidget)
 
-        self.BotonesTeclado(self.centralWidget)
-        self.BotonesTecladoNumerico(self.centralWidget)
+        #Botones configuracion
+        self.boton_configuraciones_ajustes(self.centralWidget)
+        self.boton_configuraciones_avanzada(self.centralWidget)
+        self.boton_configuraciones_apagar(self.centralWidget)
+        self.boton_configuraciones_datos(self.centralWidget)
 
-
-
-        #luego lo pongo en alguna clase y lo paso bien
-        self.dialogo_mensaje = 'Error404'
-        self.dialogo = QMessageBox(self.centralWidget)
-        self.dialogo.setWindowTitle('RETEDECON')
-        self.dialogo.addButton("Aceptar", 0)
-        self.dialogo.setInformativeText(self.dialogo_mensaje)
-
+        #Botones configuracion avanzada
+        self.texto_avanzada_user(self.centralWidget)
+        self.texto_avanzada_pass(self.centralWidget)
+        self.boton_avanzada_ingresar(self.centralWidget)
+       
 
 
 
@@ -102,25 +111,7 @@ class MainWindow(QMainWindow,Boton,TecladoNumeros,TecladoLetras): #Ventana princ
         self.configuracion_capacidad_text.setMaxLength(5)
         self.configuracion_capacidad_text.setVisible(False)
 
-        'ADMINISTRADOR_USER'
-        self.configuracion_avanzada_user = QLineEditClick(self.centralWidget)
-        self.configuracion_avanzada_user.setPlaceholderText("USUARIO")
-        self.configuracion_avanzada_user.setObjectName("input") #nombre de enlace a css
-        self.configuracion_avanzada_user.setClearButtonEnabled(True)
-        self.configuracion_avanzada_user.setGeometry(164,237,290,70)
-        self.configuracion_avanzada_user.setMaxLength(40)
-        self.configuracion_avanzada_user.setVisible(False)
-
-        'ADMINISTRADOR_PASS'
-        self.configuracion_avanzada_pass = QLineEditClick(self.centralWidget)
-        self.configuracion_avanzada_pass.setPlaceholderText("CONTRASEÑA")
-        self.configuracion_avanzada_pass.setObjectName("input")  # nombre de enlace a css
-        self.configuracion_avanzada_pass.setClearButtonEnabled(True)
-        self.configuracion_avanzada_pass.setGeometry(164, 341, 290, 70)
-        self.configuracion_avanzada_pass.setMaxLength(15)
-        self.configuracion_avanzada_pass.setVisible(False)
-        self.configuracion_avanzada_pass.setEchoMode(QLineEdit.Password)
-
+        
         'NewAdmin User'
         self.new_admin_username = QLineEditClick(self.centralWidget)
         self.new_admin_username.setPlaceholderText("USUARIO")
@@ -157,13 +148,9 @@ class MainWindow(QMainWindow,Boton,TecladoNumeros,TecladoLetras): #Ventana princ
         #AccionClcikIngresarCedulaOut
         self.salida_cedula.clicked.connect(self.Retirar_desplegar_teclado_numerico_cedula)
         #AccionClcikIngresarUser
-        self.configuracion_avanzada_user.clicked.connect(self.Ad_Conf_desplegar_teclado)
         #AccionClcikIngresarPass
-        self.configuracion_avanzada_pass.clicked.connect(self.Ad_Conf_desplegar_teclado_numerico)
-        #Botones de configuraciones
-        self.BotonesConfig()
-        #Botones Ad Conf
-        self.BotonesConfiguracionAvanzada()
+        
+        
         # Botones Ad Conf In
         self.BotonesConfiguracionAvanzadaInside()
         # Botones Ad Conf In
@@ -201,46 +188,8 @@ class MainWindow(QMainWindow,Boton,TecladoNumeros,TecladoLetras): #Ventana princ
 
 
 
-    def BotonesConfig(self):
-        self.configuracion_avanzada = QToolButton(self.centralWidget)
-        self.configuracion_avanzada.setText('Configuración Avanzada\n(Administrador)')
-        self.configuracion_avanzada.setObjectName("button") #nombre de enlace a css
-        self.configuracion_avanzada.setIcon(QIcon('src/views/static/icons/icono_config_avanzada')) #icono
-        self.configuracion_avanzada.setIconSize(QSize(65,65))
-        self.configuracion_avanzada.setToolButtonStyle(Qt.ToolButtonTextUnderIcon)
-        self.configuracion_avanzada.setGeometry(534, 120, 290, 180)
-        self.configuracion_avanzada.clicked.connect(self.ConfiguracionAvanzada)
-        self.configuracion_avanzada.setVisible(False)
-
-        self.configuracion_apagar = QToolButton(self.centralWidget)
-        self.configuracion_apagar.setText('Apagar')
-        self.configuracion_apagar.setObjectName("button") #nombre de enlace a css
-        self.configuracion_apagar.setIcon(QIcon('src/views/static/icons/icono_apagar')) #icono
-        self.configuracion_apagar.setIconSize(QSize(60,60))
-        self.configuracion_apagar.setToolButtonStyle(Qt.ToolButtonTextUnderIcon)
-        self.configuracion_apagar.clicked.connect(self.Apagar)
-        self.configuracion_apagar.setGeometry(534, 340, 290, 180)
-        self.configuracion_apagar.setVisible(False)
-
-        self.configuracion_pantalla = QToolButton(self.centralWidget)
-        self.configuracion_pantalla.setText('Ajustes de Pantallas')
-        self.configuracion_pantalla.setObjectName("button")  # nombre de enlace a css
-        self.configuracion_pantalla.setIcon(QIcon('src/views/static/icons/icono_config_pantalla'))  # icono
-        self.configuracion_pantalla.setIconSize(QSize(60, 60))
-        self.configuracion_pantalla.setToolButtonStyle(Qt.ToolButtonTextUnderIcon)
-        self.configuracion_pantalla.clicked.connect(self.HomeWindow)
-        self.configuracion_pantalla.setGeometry(200, 120, 290, 180)
-        self.configuracion_pantalla.setVisible(False)
-
-        self.configuracion_datos = QToolButton(self.centralWidget)
-        self.configuracion_datos.setText('Cambiar Estilo De Gráfica\nDe Datos')
-        self.configuracion_datos.setObjectName("button")  # nombre de enlace a css
-        self.configuracion_datos.setIcon(QIcon('src/views/static/icons/icono_estadisticas'))  # icono
-        self.configuracion_datos.setIconSize(QSize(70, 70))
-        self.configuracion_datos.setToolButtonStyle(Qt.ToolButtonTextUnderIcon)
-        self.configuracion_datos.clicked.connect(self.HomeWindow)
-        self.configuracion_datos.setGeometry(200, 340, 290, 180)
-        self.configuracion_datos.setVisible(False)
+    
+        
 
 
     def BotonesNewAdmin(self):
@@ -303,38 +252,8 @@ class MainWindow(QMainWindow,Boton,TecladoNumeros,TecladoLetras): #Ventana princ
         self.cambiar_password_admin_boton.setVisible(False)
         self.enviar_datos_servidor.setVisible(False)
 
-    def BotonesConfiguracionAvanzada(self):
-        self.ingresar_Ad_Conf = QToolButton(self.centralWidget)
-        self.ingresar_Ad_Conf.setText('ACCEDER')
-        self.ingresar_Ad_Conf.setObjectName("button")  # nombre de enlace a css
-        self.ingresar_Ad_Conf.setIcon(QIcon('src/views/static/icons/icono_entrar'))  # icono
-        self.ingresar_Ad_Conf.setIconSize(QSize(60, 60))
-        self.ingresar_Ad_Conf.setToolButtonStyle(Qt.ToolButtonTextUnderIcon)
-        self.ingresar_Ad_Conf.clicked.connect(self.AdConfPass)
-        self.ingresar_Ad_Conf.setGeometry(570, 230, 290, 180)
-        self.ingresar_Ad_Conf.setVisible(False)
-        self.configuracion_avanzada_user.setVisible(False)
-        self.configuracion_avanzada_pass.setVisible(False)
 
-    def ConfiguracionAvanzada(self):
-        self.configuracion_apagar.setVisible(False)
-        self.configuracion_pantalla.setVisible(False)
-        self.configuracion_datos.setVisible(False)
-        self.configuracion_avanzada.setVisible(False)
-        self.label_img_central.setVisible(False)
-        self.label_img_esquina.setVisible(True)
-        self.ingresar.setVisible(False)
-        self.estadisticas.setVisible(False)
-        self.detener_alarma.setVisible(False)
-        self.salida_manual.setVisible(False)
-        self.configuracion.setVisible(False)
-        self.informacion.setVisible(False)
-        self.configuracion_avanzada_user.setVisible(True)
-        self.configuracion_avanzada_user.clear()
-        self.configuracion_avanzada_pass.setVisible(True)
-        self.configuracion_avanzada_pass.clear()
-        self.ingresar_Ad_Conf.setVisible(True)
-        self.Ad_Conf_guardar_teclado()
+    
 
     def BotonesConfiguracionAvanzadaInside(self):
         self.configuracion_capacidad = QToolButton(self.centralWidget)
@@ -533,74 +452,9 @@ class MainWindow(QMainWindow,Boton,TecladoNumeros,TecladoLetras): #Ventana princ
             dialogo_error.setInformativeText("Error, intente nuevamente\n\nSi el error persiste comuniquese con el fabricante")
             dialogo_error.show()
 
-    def Apagar(self):
-        sys.exit()
 
-    def AdConfPass(self):
-        try:
-            #Reading the config.ini file
-            self.config.read('../config.ini')
-            users = list(self.config['users'])
-            passwords = list(self.config['passwords'])
-            users_values = []
-            passwords_values = []
-            #Use the cycle to append values to the list from the document
-            for key in users:
-                users_values.append(self.config.get('users', str(key)))
-            # Check if user is in the list
-            if self.configuracion_avanzada_user.text() in users_values:
-                correct_user = True
-                indU = users_values.index(self.configuracion_avanzada_user.text())
-            else:
-                correct_user = False
-            # Use the cycle to append values to the list from the document
-            for key in passwords:
-                p1=self.config.get('passwords', str(key))
-                passwords_values.append(p1)
-            # Check if password is in the list
-            p = self.configuracion_avanzada_pass.text()
-            h = hashlib.new("sha1", p.encode())
-            # Verifications
-            if str(h.digest()) in passwords_values:
-                correct_password = True
-                indP = passwords_values.index(str(h.digest()))
-            else:
-                correct_password = False
-            # Checking other conditions and connecting functions
-            if self.configuracion_avanzada_user.text()!="" and self.configuracion_avanzada_pass.text()!="" :  #lógica para leer si los campos están vacíos
-                if not self.configuracion_avanzada_user.text().isdigit() and not self.configuracion_avanzada_pass.text().isalpha():  #detecta si numeros donde no deben
-                    if correct_user and correct_password and indU==indP:
-                        dialogo_acceso_concedido = QMessageBox(self.centralWidget)
-                        dialogo_acceso_concedido.setWindowTitle(self.title)
-                        dialogo_acceso_concedido.addButton("Aceptar", 0)
-                        dialogo_acceso_concedido.setInformativeText("Bienvenido: "+ self.configuracion_avanzada_user.text()+ "  \n    ")
-                        dialogo_acceso_concedido.show()
-                        self.ConfiguracionAvanzadaInside()
-                    else:
-                        dialogo_error_escritura = QMessageBox(self.centralWidget)
-                        dialogo_error_escritura.setWindowTitle(self.title)
-                        dialogo_error_escritura.addButton("Aceptar", 0)
-                        dialogo_error_escritura.setInformativeText("Error, verifique los datos ingresados  \nSi el error persiste comuniquese con el fabricante")
-                        dialogo_error_escritura.show()
-                else:
-                    dialogo_error_typ = QMessageBox(self.centralWidget)
-                    dialogo_error_typ.setWindowTitle(self.title)
-                    dialogo_error_typ.addButton("Aceptar", 0)
-                    dialogo_error_typ.setInformativeText("Error, verifique los datos ingresados     \n")
-                    dialogo_error_typ.show()
-            else:
-                dialogo_error_incompleto = QMessageBox(self.centralWidget)
-                dialogo_error_incompleto.setWindowTitle(self.title)
-                dialogo_error_incompleto.addButton("Aceptar", 0)
-                dialogo_error_incompleto.setInformativeText("Debe llenar todos los campos\nantes de continuar")
-                dialogo_error_incompleto.show()
-        except:
-            dialogo_error = QMessageBox(self.centralWidget)
-            dialogo_error.setWindowTitle(self.title)
-            dialogo_error.addButton("Aceptar", 0)
-            dialogo_error.setInformativeText("Error, intente nuevamente\n\nSi el error persiste comuniquese con el fabricante")
-            dialogo_error.show()
 
+    
     
 
     
@@ -682,25 +536,9 @@ class MainWindow(QMainWindow,Boton,TecladoNumeros,TecladoLetras): #Ventana princ
         self.ingresar_Ad_Conf.setGeometry(570, 240, 280, 160)
         self.NotTeclado()
 
-    def Ad_Conf_desplegar_teclado(self):
-        MOV = -100
-        #movimiento botones
-        self.configuracion_avanzada_user.setGeometry(164.2,237+MOV,290,70)
-        self.configuracion_avanzada_pass.setGeometry(164.2,341+MOV,290,70)
-        self.ingresar_Ad_Conf.setGeometry(570, 237+MOV, 290, 176.3)
-        self.Teclado()
-        self.NotTecladoNumerico()
-        self.campo = 'AdConf-User'
 
-    def Ad_Conf_desplegar_teclado_numerico(self):
-        MOV = -100
-        #movimiento botones
-        self.configuracion_avanzada_user.setGeometry(164.2,237+MOV,290,70)
-        self.configuracion_avanzada_pass.setGeometry(164.2,341+MOV,290,70)
-        self.ingresar_Ad_Conf.setGeometry(570, 237+MOV, 290, 176.3)
-        self.NotTeclado()
-        self.TecladoNumerico()
-        self.campo = 'AdConf-Pass'
+
+
 
     def LabelsBotonesEstadisticas(self):
         self.info_ocupacion_actual = QToolButton(self.centralWidget)

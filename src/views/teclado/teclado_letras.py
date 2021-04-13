@@ -60,7 +60,7 @@ class TecladoLetras:
         self.letra_y.setText('y')
         self.letra_y.setObjectName("buttonTeclado") #nombre de enlace a css
         self.letra_y.setGeometry((base*x) + (x+1)*sep_lado, y_inicia+ (altura*y) + sep_arriba, base, altura)
-        self.letra_y.clicked.connect(self.y)
+        self.letra_y.clicked.connect(self.yy)
 
         x=6
         y=0
@@ -206,7 +206,7 @@ class TecladoLetras:
         self.letra_x.setText('x')
         self.letra_x.setObjectName("buttonTeclado") #nombre de enlace a css
         self.letra_x.setGeometry((base*x) + (x+1)*sep_lado, y_inicia+ (altura*y) + (y+1)*sep_arriba, base, altura)
-        self.letra_x.clicked.connect(self.x)
+        self.letra_x.clicked.connect(self.xx)
         
 
         x=2
@@ -286,10 +286,10 @@ class TecladoLetras:
 
         elif self.campo == 'AdConf-User':
             if not self.isMAYUS:
-                texto = self.configuracion_avanzada_user.text() + 'q'
+                texto = self.avanzada_user.text() + 'q'
             else:
-                texto = self.configuracion_avanzada_user.text() + 'Q'
-            self.configuracion_avanzada_user.setText(texto)
+                texto = self.avanzada_user.text() + 'Q'
+            self.avanzada_user.setText(texto)
 
     def w(self):
         if self.campo == 'ingresar-nombre':
@@ -308,10 +308,10 @@ class TecladoLetras:
 
         elif self.campo == 'AdConf-User':
             if not self.isMAYUS:
-                texto = self.configuracion_avanzada_user.text() + 'w'
+                texto = self.avanzada_user.text() + 'w'
             else:
-                texto = self.configuracion_avanzada_user.text() + 'W'
-            self.configuracion_avanzada_user.setText(texto)
+                texto = self.avanzada_user.text() + 'W'
+            self.avanzada_user.setText(texto)
 
     def e(self):
         if self.campo == 'ingresar-nombre':
@@ -330,10 +330,10 @@ class TecladoLetras:
 
         elif self.campo == 'AdConf-User':
             if not self.isMAYUS:
-                texto = self.configuracion_avanzada_user.text() + 'e'
+                texto = self.avanzada_user.text() + 'e'
             else:
-                texto = self.configuracion_avanzada_user.text() + 'E'
-            self.configuracion_avanzada_user.setText(texto)
+                texto = self.avanzada_user.text() + 'E'
+            self.avanzada_user.setText(texto)
 
     def r(self):
         if self.campo == 'ingresar-nombre':
@@ -352,10 +352,10 @@ class TecladoLetras:
 
         elif self.campo == 'AdConf-User':
             if not self.isMAYUS:
-                texto = self.configuracion_avanzada_user.text() + 'r'
+                texto = self.avanzada_user.text() + 'r'
             else:
-                texto = self.configuracion_avanzada_user.text() + 'R'
-            self.configuracion_avanzada_user.setText(texto)
+                texto = self.avanzada_user.text() + 'R'
+            self.avanzada_user.setText(texto)
 
     def t(self):
         if self.campo == 'ingresar-nombre':
@@ -374,12 +374,12 @@ class TecladoLetras:
 
         elif self.campo == 'AdConf-User':
             if not self.isMAYUS:
-                texto = self.configuracion_avanzada_user.text() + 't'
+                texto = self.avanzada_user.text() + 't'
             else:
-                texto = self.configuracion_avanzada_user.text() + 'T'
-            self.configuracion_avanzada_user.setText(texto)
+                texto = self.avanzada_user.text() + 'T'
+            self.avanzada_user.setText(texto)
 
-    def y(self):
+    def yy(self):
         if self.campo == 'ingresar-nombre':
             if not self.isMAYUS:
                 texto = self.ingresar_nombre.text() + 'y'
@@ -396,10 +396,10 @@ class TecladoLetras:
 
         elif self.campo == 'AdConf-User':
             if not self.isMAYUS:
-                texto = self.configuracion_avanzada_user.text() + 'y'
+                texto = self.avanzada_user.text() + 'y'
             else:
-                texto = self.configuracion_avanzada_user.text() + 'Y'
-            self.configuracion_avanzada_user.setText(texto)
+                texto = self.avanzada_user.text() + 'Y'
+            self.avanzada_user.setText(texto)
     
     def u(self):
         if self.campo == 'ingresar-nombre':
@@ -418,10 +418,10 @@ class TecladoLetras:
 
         elif self.campo == 'AdConf-User':
             if not self.isMAYUS:
-                texto = self.configuracion_avanzada_user.text() + 'u'
+                texto = self.avanzada_user.text() + 'u'
             else:
-                texto = self.configuracion_avanzada_user.text() + 'U'
-            self.configuracion_avanzada_user.setText(texto)
+                texto = self.avanzada_user.text() + 'U'
+            self.avanzada_user.setText(texto)
 
     def i(self):
         if self.campo == 'ingresar-nombre':
@@ -440,10 +440,10 @@ class TecladoLetras:
 
         elif self.campo == 'AdConf-User':
             if not self.isMAYUS:
-                texto = self.configuracion_avanzada_user.text() + 'i'
+                texto = self.avanzada_user.text() + 'i'
             else:
-                texto = self.configuracion_avanzada_user.text() + 'I'
-            self.configuracion_avanzada_user.setText(texto)
+                texto = self.avanzada_user.text() + 'I'
+            self.avanzada_user.setText(texto)
 
     def o(self):
         if self.campo == 'ingresar-nombre':
@@ -462,10 +462,10 @@ class TecladoLetras:
 
         elif self.campo == 'AdConf-User':
             if not self.isMAYUS:
-                texto = self.configuracion_avanzada_user.text() + 'o'
+                texto = self.avanzada_user.text() + 'o'
             else:
-                texto = self.configuracion_avanzada_user.text() + 'O'
-            self.configuracion_avanzada_user.setText(texto)
+                texto = self.avanzada_user.text() + 'O'
+            self.avanzada_user.setText(texto)
 
     def p(self):
         if self.campo == 'ingresar-nombre':
@@ -484,10 +484,10 @@ class TecladoLetras:
 
         elif self.campo == 'AdConf-User':
             if not self.isMAYUS:
-                texto = self.configuracion_avanzada_user.text() + 'p'
+                texto = self.avanzada_user.text() + 'p'
             else:
-                texto = self.configuracion_avanzada_user.text() + 'P'
-            self.configuracion_avanzada_user.setText(texto)
+                texto = self.avanzada_user.text() + 'P'
+            self.avanzada_user.setText(texto)
 
     def a(self):
         if self.campo == 'ingresar-nombre':
@@ -506,10 +506,10 @@ class TecladoLetras:
 
         elif self.campo == 'AdConf-User':
             if not self.isMAYUS:
-                texto = self.configuracion_avanzada_user.text() + 'a'
+                texto = self.avanzada_user.text() + 'a'
             else:
-                texto = self.configuracion_avanzada_user.text() + 'A'
-            self.configuracion_avanzada_user.setText(texto)
+                texto = self.avanzada_user.text() + 'A'
+            self.avanzada_user.setText(texto)
 
     def s(self):
         if self.campo == 'ingresar-nombre':
@@ -528,10 +528,10 @@ class TecladoLetras:
 
         elif self.campo == 'AdConf-User':
             if not self.isMAYUS:
-                texto = self.configuracion_avanzada_user.text() + 's'
+                texto = self.avanzada_user.text() + 's'
             else:
-                texto = self.configuracion_avanzada_user.text() + 'S'
-            self.configuracion_avanzada_user.setText(texto)
+                texto = self.avanzada_user.text() + 'S'
+            self.avanzada_user.setText(texto)
 
     def d(self):
         if self.campo == 'ingresar-nombre':
@@ -550,10 +550,10 @@ class TecladoLetras:
 
         elif self.campo == 'AdConf-User':
             if not self.isMAYUS:
-                texto = self.configuracion_avanzada_user.text() + 'd'
+                texto = self.avanzada_user.text() + 'd'
             else:
-                texto = self.configuracion_avanzada_user.text() + 'D'
-            self.configuracion_avanzada_user.setText(texto)
+                texto = self.avanzada_user.text() + 'D'
+            self.avanzada_user.setText(texto)
 
     def f(self):
         if self.campo == 'ingresar-nombre':
@@ -572,10 +572,10 @@ class TecladoLetras:
 
         elif self.campo == 'AdConf-User':
             if not self.isMAYUS:
-                texto = self.configuracion_avanzada_user.text() + 'f'
+                texto = self.avanzada_user.text() + 'f'
             else:
-                texto = self.configuracion_avanzada_user.text() + 'F'
-            self.configuracion_avanzada_user.setText(texto)
+                texto = self.avanzada_user.text() + 'F'
+            self.avanzada_user.setText(texto)
 
     def g(self):
         if self.campo == 'ingresar-nombre':
@@ -594,10 +594,10 @@ class TecladoLetras:
 
         elif self.campo == 'AdConf-User':
             if not self.isMAYUS:
-                texto = self.configuracion_avanzada_user.text() + 'g'
+                texto = self.avanzada_user.text() + 'g'
             else:
-                texto = self.configuracion_avanzada_user.text() + 'G'
-            self.configuracion_avanzada_user.setText(texto)
+                texto = self.avanzada_user.text() + 'G'
+            self.avanzada_user.setText(texto)
 
     def h(self):
         if self.campo == 'ingresar-nombre':
@@ -616,10 +616,10 @@ class TecladoLetras:
 
         elif self.campo == 'AdConf-User':
             if not self.isMAYUS:
-                texto = self.configuracion_avanzada_user.text() + 'h'
+                texto = self.avanzada_user.text() + 'h'
             else:
-                texto = self.configuracion_avanzada_user.text() + 'H'
-            self.configuracion_avanzada_user.setText(texto)
+                texto = self.avanzada_user.text() + 'H'
+            self.avanzada_user.setText(texto)
 
     def j(self):
         if self.campo == 'ingresar-nombre':
@@ -638,10 +638,10 @@ class TecladoLetras:
 
         elif self.campo == 'AdConf-User':
             if not self.isMAYUS:
-                texto = self.configuracion_avanzada_user.text() + 'j'
+                texto = self.avanzada_user.text() + 'j'
             else:
-                texto = self.configuracion_avanzada_user.text() + 'J'
-            self.configuracion_avanzada_user.setText(texto)
+                texto = self.avanzada_user.text() + 'J'
+            self.avanzada_user.setText(texto)
 
     def k(self):
         if self.campo == 'ingresar-nombre':
@@ -660,10 +660,10 @@ class TecladoLetras:
 
         elif self.campo == 'AdConf-User':
             if not self.isMAYUS:
-                texto = self.configuracion_avanzada_user.text() + 'k'
+                texto = self.avanzada_user.text() + 'k'
             else:
-                texto = self.configuracion_avanzada_user.text() + 'K'
-            self.configuracion_avanzada_user.setText(texto)
+                texto = self.avanzada_user.text() + 'K'
+            self.avanzada_user.setText(texto)
 
     def l(self):
         if self.campo == 'ingresar-nombre':
@@ -682,10 +682,10 @@ class TecladoLetras:
 
         elif self.campo == 'AdConf-User':
             if not self.isMAYUS:
-                texto = self.configuracion_avanzada_user.text() + 'l'
+                texto = self.avanzada_user.text() + 'l'
             else:
-                texto = self.configuracion_avanzada_user.text() + 'L'
-            self.configuracion_avanzada_user.setText(texto)
+                texto = self.avanzada_user.text() + 'L'
+            self.avanzada_user.setText(texto)
 
     def ene(self):
         if self.campo == 'ingresar-nombre':
@@ -704,10 +704,10 @@ class TecladoLetras:
 
         elif self.campo == 'AdConf-User':
             if not self.isMAYUS:
-                texto = self.configuracion_avanzada_user.text() + 'ñ'
+                texto = self.avanzada_user.text() + 'ñ'
             else:
-                texto = self.configuracion_avanzada_user.text() + 'Ñ'
-            self.configuracion_avanzada_user.setText(texto)
+                texto = self.avanzada_user.text() + 'Ñ'
+            self.avanzada_user.setText(texto)
 
     def z(self):
         if self.campo == 'ingresar-nombre':
@@ -726,12 +726,12 @@ class TecladoLetras:
 
         elif self.campo == 'AdConf-User':
             if not self.isMAYUS:
-                texto = self.configuracion_avanzada_user.text() + 'z'
+                texto = self.avanzada_user.text() + 'z'
             else:
-                texto = self.configuracion_avanzada_user.text() + 'Z'
-            self.configuracion_avanzada_user.setText(texto)
+                texto = self.avanzada_user.text() + 'Z'
+            self.avanzada_user.setText(texto)
 
-    def x(self):
+    def xx(self):
         if self.campo == 'ingresar-nombre':
             if not self.isMAYUS:
                 texto = self.ingresar_nombre.text() + 'x'
@@ -748,10 +748,10 @@ class TecladoLetras:
 
         elif self.campo == 'AdConf-User':
             if not self.isMAYUS:
-                texto = self.configuracion_avanzada_user.text() + 'x'
+                texto = self.avanzada_user.text() + 'x'
             else:
-                texto = self.configuracion_avanzada_user.text() + 'X'
-            self.configuracion_avanzada_user.setText(texto)
+                texto = self.avanzada_user.text() + 'X'
+            self.avanzada_user.setText(texto)
 
     def c(self):
         if self.campo == 'ingresar-nombre':
@@ -770,10 +770,10 @@ class TecladoLetras:
 
         elif self.campo == 'AdConf-User':
             if not self.isMAYUS:
-                texto = self.configuracion_avanzada_user.text() + 'c'
+                texto = self.avanzada_user.text() + 'c'
             else:
-                texto = self.configuracion_avanzada_user.text() + 'C'
-            self.configuracion_avanzada_user.setText(texto)
+                texto = self.avanzada_user.text() + 'C'
+            self.avanzada_user.setText(texto)
 
     def v(self):
         if self.campo == 'ingresar-nombre':
@@ -792,10 +792,10 @@ class TecladoLetras:
 
         elif self.campo == 'AdConf-User':
             if not self.isMAYUS:
-                texto = self.configuracion_avanzada_user.text() + 'v'
+                texto = self.avanzada_user.text() + 'v'
             else:
-                texto = self.configuracion_avanzada_user.text() + 'V'
-            self.configuracion_avanzada_user.setText(texto)
+                texto = self.avanzada_user.text() + 'V'
+            self.avanzada_user.setText(texto)
 
     def b(self):
         if self.campo == 'ingresar-nombre':
@@ -814,10 +814,10 @@ class TecladoLetras:
 
         elif self.campo == 'AdConf-User':
             if not self.isMAYUS:
-                texto = self.configuracion_avanzada_user.text() + 'b'
+                texto = self.avanzada_user.text() + 'b'
             else:
-                texto = self.configuracion_avanzada_user.text() + 'B'
-            self.configuracion_avanzada_user.setText(texto)
+                texto = self.avanzada_user.text() + 'B'
+            self.avanzada_user.setText(texto)
 
     def n(self):
         if self.campo == 'ingresar-nombre':
@@ -836,10 +836,10 @@ class TecladoLetras:
 
         elif self.campo == 'AdConf-User':
             if not self.isMAYUS:
-                texto = self.configuracion_avanzada_user.text() + 'n'
+                texto = self.avanzada_user.text() + 'n'
             else:
-                texto = self.configuracion_avanzada_user.text() + 'N'
-            self.configuracion_avanzada_user.setText(texto)
+                texto = self.avanzada_user.text() + 'N'
+            self.avanzada_user.setText(texto)
 
     def m(self):
         if self.campo == 'ingresar-nombre':
@@ -858,10 +858,10 @@ class TecladoLetras:
 
         elif self.campo == 'AdConf-User':
             if not self.isMAYUS:
-                texto = self.configuracion_avanzada_user.text() + 'm'
+                texto = self.avanzada_user.text() + 'm'
             else:
-                texto = self.configuracion_avanzada_user.text() + 'M'
-            self.configuracion_avanzada_user.setText(texto)
+                texto = self.avanzada_user.text() + 'M'
+            self.avanzada_user.setText(texto)
 
     def SPACE(self):
         if self.campo == 'ingresar-nombre':
@@ -876,8 +876,8 @@ class TecladoLetras:
 
         elif self.campo == 'AdConf-User':
 
-            texto = self.configuracion_avanzada_user.text() + ' '
-            self.configuracion_avanzada_user.setText(texto)
+            texto = self.avanzada_user.text() + ' '
+            self.avanzada_user.setText(texto)
 
     def BORRAR(self):
         if self.campo == 'ingresar-nombre':
@@ -885,7 +885,7 @@ class TecladoLetras:
         elif self.campo == 'retirar-nombre':
             var_texto=self.salida_nombre.text()
         elif self.campo == 'AdConf-User':
-            var_texto=self.configuracion_avanzada_user.text()
+            var_texto=self.avanzada_user.text()
 
         if len(var_texto)==1 or len(var_texto)==0:
             texto=''
@@ -905,7 +905,7 @@ class TecladoLetras:
         elif self.campo == 'retirar-nombre':
             self.salida_nombre.setText(texto)
         elif self.campo == 'AdConf-User':
-            self.configuracion_avanzada_user.setText(texto)
+            self.avanzada_user.setText(texto)
 
     def MAYUS(self):
         if not self.isMAYUS:

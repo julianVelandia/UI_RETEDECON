@@ -1,3 +1,4 @@
+from src.views.botones.configuraciones.boton_configuraciones import Boton_configuraciones
 from PyQt5.QtWidgets import *
 from PyQt5.QtCore import *
 from PyQt5.QtGui import *
@@ -5,9 +6,10 @@ from PyQt5.QtGui import *
 from .funciones import Funciones
 from src.views.botones.ingresar.boton_ingresar import Boton_ingresar
 from src.views.botones.salida.boton_salida import Boton_salida
+from src.views.botones.configuraciones.boton_configuraciones import Boton_configuraciones
 
 
-class Boton(Funciones,Boton_ingresar,Boton_salida):
+class Boton(Funciones,Boton_ingresar,Boton_salida,Boton_configuraciones):
 
     '''
     Botones Pantalla inicio

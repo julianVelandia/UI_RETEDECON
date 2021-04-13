@@ -27,15 +27,19 @@ class Funciones:
         self.salida_cedula.setVisible(False)
         self.salida_salida.setVisible(False)
 
+        #configuraciones        
+        self.configuraciones_ajustes.setVisible(False)
+        self.configuraciones_apagar.setVisible(False)
+        self.configuraciones_datos.setVisible(False)
+        self.configuraciones_avanzada.setVisible(False)
 
-        self.configuracion_apagar.setVisible(False)
-        self.configuracion_pantalla.setVisible(False)
-        self.configuracion_datos.setVisible(False)
+        #avanzada
+        self.avanzada_user.setVisible(False)
+        self.avanzada_pass.setVisible(False)
+        self.avanzada_ingresar.setVisible(False)
+
+
         self.configuracion_capacidad_text.setVisible(False)
-        self.configuracion_avanzada_user.setVisible(False)
-        self.configuracion_avanzada_pass.setVisible(False)
-        self.configuracion_avanzada.setVisible(False)
-        self.ingresar_Ad_Conf.setVisible(False)
         self.configuracion_capacidad.setVisible(False)
         self.new_admin_username.setVisible(False)
         self.new_admin_password.setVisible(False)
@@ -176,11 +180,12 @@ class Funciones:
         self.ingresar_ingresar.setVisible(False)
         self.Retirar_guardar_teclado()
 
-    def Configuracion(self):
-        self.configuracion_apagar.setVisible(True)
-        self.configuracion_pantalla.setVisible(True)
-        self.configuracion_datos.setVisible(True)
-        self.configuracion_avanzada.setVisible(True)
+    def Configuracion(self):        
+        self.configuraciones_ajustes.setVisible(True)
+        self.configuraciones_apagar.setVisible(True)
+        self.configuraciones_avanzada.setVisible(True)
+        self.configuraciones_datos.setVisible(True)
+
         self.label_img_central.setVisible(False)  
         self.label_img_esquina.setVisible(True)  
         self.ingresar.setVisible(False)

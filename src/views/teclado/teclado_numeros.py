@@ -137,7 +137,7 @@ class TecladoNumeros:
         elif self.campo == 'retirar-cedula':
             var_texto=self.salida_cedula.text()
         elif self.campo == 'AdConf-Pass':
-            var_texto=self.configuracion_avanzada_pass.text()
+            var_texto=self.avanzada_pass.text()
 
         if len(var_texto)==1 or len(var_texto)==0:
             texto=''
@@ -159,7 +159,7 @@ class TecladoNumeros:
         elif self.campo == 'retirar-cedula':
             self.salida_cedula.setText(texto)
         elif self.campo == 'AdConf-Pass':
-            self.configuracion_avanzada_pass.setText(texto)
+            self.avanzada_pass.setText(texto)
 
     def fun_numero_PUNTO(self):
         if self.campo == 'ingresar-temp':
@@ -181,8 +181,8 @@ class TecladoNumeros:
             self.salida_cedula.setText(texto)
 
         elif self.campo == 'AdConf-Pass':
-            texto = self.configuracion_avanzada_pass.text() + '1'
-            self.configuracion_avanzada_pass.setText(texto)
+            texto = self.avanzada_pass.text() + '1'
+            self.avanzada_pass.setText(texto)
 
     def fun_numero_2(self):
         if self.campo == 'ingresar-cedula':
@@ -199,8 +199,8 @@ class TecladoNumeros:
             self.salida_cedula.setText(texto)
 
         elif self.campo == 'AdConf-Pass':
-            texto = self.configuracion_avanzada_pass.text() + '2'
-            self.configuracion_avanzada_pass.setText(texto)
+            texto = self.avanzada_pass.text() + '2'
+            self.avanzada_pass.setText(texto)
 
     def fun_numero_3(self):
         if self.campo == 'ingresar-cedula':
@@ -217,8 +217,8 @@ class TecladoNumeros:
             self.salida_cedula.setText(texto)
 
         elif self.campo == 'AdConf-Pass':
-            texto = self.configuracion_avanzada_pass.text() + '3'
-            self.configuracion_avanzada_pass.setText(texto)
+            texto = self.avanzada_pass.text() + '3'
+            self.avanzada_pass.setText(texto)
 
     def fun_numero_4(self):
         if self.campo == 'ingresar-cedula':
@@ -235,8 +235,8 @@ class TecladoNumeros:
             self.salida_cedula.setText(texto)
 
         elif self.campo == 'AdConf-Pass':
-            texto = self.configuracion_avanzada_pass.text() + '4'
-            self.configuracion_avanzada_pass.setText(texto)
+            texto = self.avanzada_pass.text() + '4'
+            self.avanzada_pass.setText(texto)
 
     def fun_numero_5(self):
         if self.campo == 'ingresar-cedula':
@@ -253,8 +253,8 @@ class TecladoNumeros:
             self.salida_cedula.setText(texto)
 
         elif self.campo == 'AdConf-Pass':
-            texto = self.configuracion_avanzada_pass.text() + '5'
-            self.configuracion_avanzada_pass.setText(texto)
+            texto = self.avanzada_pass.text() + '5'
+            self.avanzada_pass.setText(texto)
 
     def fun_numero_6(self):
         if self.campo == 'ingresar-cedula':
@@ -271,8 +271,8 @@ class TecladoNumeros:
             self.salida_cedula.setText(texto)
 
         elif self.campo == 'AdConf-Pass':
-            texto = self.configuracion_avanzada_pass.text() + '6'
-            self.configuracion_avanzada_pass.setText(texto)
+            texto = self.avanzada_pass.text() + '6'
+            self.avanzada_pass.setText(texto)
 
     def fun_numero_7(self):
         if self.campo == 'ingresar-cedula':
@@ -289,8 +289,8 @@ class TecladoNumeros:
             self.salida_cedula.setText(texto)
 
         elif self.campo == 'AdConf-Pass':
-            texto = self.configuracion_avanzada_pass.text() + '7'
-            self.configuracion_avanzada_pass.setText(texto)
+            texto = self.avanzada_pass.text() + '7'
+            self.avanzada_pass.setText(texto)
 
     def fun_numero_8(self):
         if self.campo == 'ingresar-cedula':
@@ -307,8 +307,8 @@ class TecladoNumeros:
             self.salida_cedula.setText(texto)
 
         elif self.campo == 'AdConf-Pass':
-            texto = self.configuracion_avanzada_pass.text() + '8'
-            self.configuracion_avanzada_pass.setText(texto)
+            texto = self.avanzada_pass.text() + '8'
+            self.avanzada_pass.setText(texto)
 
     def fun_numero_9(self):
         if self.campo == 'ingresar-cedula':
@@ -325,8 +325,8 @@ class TecladoNumeros:
             self.salida_cedula.setText(texto)
 
         elif self.campo == 'AdConf-Pass':
-            texto = self.configuracion_avanzada_pass.text() + '9'
-            self.configuracion_avanzada_pass.setText(texto)
+            texto = self.avanzada_pass.text() + '9'
+            self.avanzada_pass.setText(texto)
 
     def fun_numero_0(self):
         if self.campo == 'ingresar-cedula':
@@ -343,8 +343,8 @@ class TecladoNumeros:
             self.salida_cedula.setText(texto)
 
         elif self.campo == 'AdConf-Pass':
-            texto = self.configuracion_avanzada_pass.text() + '0'
-            self.configuracion_avanzada_pass.setText(texto)
+            texto = self.avanzada_pass.text() + '0'
+            self.avanzada_pass.setText(texto)
 
 
 
