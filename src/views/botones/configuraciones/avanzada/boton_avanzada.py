@@ -1,13 +1,15 @@
+from src.views.botones.configuraciones.avanzada.inside.boton_inside import Boton_inside
 from PyQt5.QtWidgets import *
 from PyQt5.QtCore import *
 from PyQt5.QtGui import *
 
 #locals
 from .funciones_avanzada import Funcion_avanzada
+from .inside.boton_inside import Boton_inside
 from src.controler.QLineClick import QLineEditClick
 
 
-class Boton_avanzada(Funcion_avanzada):
+class Boton_avanzada(Funcion_avanzada, Boton_inside):
     def texto_avanzada_user(self, widget):
 
         self.avanzada_user = QLineEditClick(widget)
@@ -42,7 +44,9 @@ class Boton_avanzada(Funcion_avanzada):
         self.avanzada_ingresar.setToolButtonStyle(Qt.ToolButtonTextUnderIcon)
         self.avanzada_ingresar.clicked.connect(self.AvanzadaIngresar)
         self.avanzada_ingresar.setGeometry(570, 230, 290, 180)
-
         self.avanzada_ingresar.setVisible(False)
-        self.avanzada_user.setVisible(False)
-        self.avanzada_pass.setVisible(False)
+
+
+
+
+    

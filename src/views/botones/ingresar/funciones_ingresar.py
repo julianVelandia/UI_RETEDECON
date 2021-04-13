@@ -6,6 +6,49 @@ import pandas as pd
 
 class Funcion_ingresar:
 
+    def Ingresar_desplegar_teclado_numerico_cedula(self):
+        self.campo = 'ingresar-cedula'
+        self.Ingresar_desplegar_teclado_numerico()
+
+    def Ingresar_desplegar_teclado_numerico_temp(self):
+        self.campo = 'ingresar-temp'
+        self.Ingresar_desplegar_teclado_numerico()
+
+    def Ingresar_desplegar_teclado_numerico(self):
+        MOV = -100
+        #movimiento botones
+        self.ingresar_nombre.setGeometry(164, 240+MOV, 320, 70)
+        self.ingresar_cedula.setGeometry(164,330+MOV,180,70)
+        self.ingresar_temp.setGeometry(360,330+MOV,120,70)
+        self.ingresar_ingresar.setGeometry(570, 240+MOV, 280, 160)
+        self.NotTeclado()
+        self.TecladoNumerico()
+
+    def Ingresar_guardar_teclado_numerico(self):
+        self.ingresar_nombre.setGeometry(164, 240, 320, 70)
+        self.ingresar_cedula.setGeometry(164,330,180,70)
+        self.ingresar_temp.setGeometry(360,330,120,70)
+        self.ingresar_ingresar.setGeometry(570, 240, 280, 160)
+        self.NotTecladoNumerico()
+
+    def Ingresar_desplegar_teclado(self):
+        MOV = -100
+        #movimiento botones
+        self.ingresar_nombre.setGeometry(164, 240+MOV, 320, 70)
+        self.ingresar_cedula.setGeometry(164,330+MOV,180,70)
+        self.ingresar_temp.setGeometry(360,330+MOV,120,70)
+        self.ingresar_ingresar.setGeometry(570, 240+MOV, 280, 160)
+        self.Teclado()
+        self.NotTecladoNumerico()
+        self.campo = 'ingresar-nombre'
+
+    def Ingresar_guardar_teclado(self):
+        self.ingresar_nombre.setGeometry(164, 240, 320, 70)
+        self.ingresar_cedula.setGeometry(164,330,180,70)
+        self.ingresar_temp.setGeometry(360,330,120,70)
+        self.ingresar_ingresar.setGeometry(570, 240, 280, 160)
+        self.NotTeclado()
+
 
     def IngresarIngresar(self):
         #variables locales

@@ -96,8 +96,19 @@ class MainWindow(QMainWindow,Boton,TecladoNumeros,TecladoLetras): #Ventana princ
         self.texto_avanzada_user(self.centralWidget)
         self.texto_avanzada_pass(self.centralWidget)
         self.boton_avanzada_ingresar(self.centralWidget)
-       
 
+        #Botones configuracion avanzada inside
+        self.boton_inside_agregar(self.centralWidget)
+        self.boton_inside_cambiar(self.centralWidget)
+        self.boton_inside_capacidad(self.centralWidget)
+        self.boton_inside_eliminar(self.centralWidget)
+        self.boton_inside_enviar(self.centralWidget)
+
+        #Botones configuracion avanzada inside agregar
+        self.boton_agregar_username(self.centralWidget)
+        self.boton_agregar_pass(self.centralWidget)
+        self.boton_agregar_agregar(self.centralWidget)
+        
 
 
 
@@ -112,24 +123,9 @@ class MainWindow(QMainWindow,Boton,TecladoNumeros,TecladoLetras): #Ventana princ
         self.configuracion_capacidad_text.setVisible(False)
 
         
-        'NewAdmin User'
-        self.new_admin_username = QLineEditClick(self.centralWidget)
-        self.new_admin_username.setPlaceholderText("USUARIO")
-        self.new_admin_username.setObjectName("input")  # nombre de enlace a css
-        self.new_admin_username.setClearButtonEnabled(True)
-        self.new_admin_username.setGeometry(164, 237, 290, 70)
-        self.new_admin_username.setMaxLength(40)
-        self.new_admin_username.setVisible(False)
+        
 
-        'NewAdmin password'
-        self.new_admin_password = QLineEditClick(self.centralWidget)
-        self.new_admin_password.setPlaceholderText("CONTRASEÑA")
-        self.new_admin_password.setObjectName("input")  # nombre de enlace a css
-        self.new_admin_password.setClearButtonEnabled(True)
-        self.new_admin_password.setGeometry(164, 341, 290, 70)
-        self.new_admin_password.setMaxLength(15)
-        self.new_admin_password.setVisible(False)
-        self.new_admin_password.setEchoMode(QLineEdit.Password)
+        
 
         self.campo ='null'
 
@@ -151,8 +147,7 @@ class MainWindow(QMainWindow,Boton,TecladoNumeros,TecladoLetras): #Ventana princ
         #AccionClcikIngresarPass
         
         
-        # Botones Ad Conf In
-        self.BotonesConfiguracionAvanzadaInside()
+        
         # Botones Ad Conf In
         self.BotonesCapacidad()
         # Botones Informacion
@@ -193,17 +188,7 @@ class MainWindow(QMainWindow,Boton,TecladoNumeros,TecladoLetras): #Ventana princ
 
 
     def BotonesNewAdmin(self):
-        'crear new admin'
-        self.new_admin = QToolButton(self.centralWidget)
-        self.new_admin.setText('REGISTRAR')
-        self.new_admin.setObjectName("button") #nombre de enlace a css
-        self.new_admin.setIcon(QIcon('src/views/static/icons/icono_entrar')) #icono
-        self.new_admin.setIconSize(QSize(60,60))
-        self.new_admin.setToolButtonStyle(Qt.ToolButtonTextUnderIcon)
-        self.new_admin.setGeometry(570, 150, 290, 180)
-        self.new_admin.clicked.connect(self.NewAdmin)
-        self.new_admin.setVisible(False)
-
+        
         self.quitar_admin = QToolButton(self.centralWidget)
         self.quitar_admin.setText('ELIMINAR')
         self.quitar_admin.setObjectName("button")  # nombre de enlace a css
@@ -241,95 +226,6 @@ class MainWindow(QMainWindow,Boton,TecladoNumeros,TecladoLetras): #Ventana princ
         self.ingresar_capacidad.setGeometry(570, 230, 290, 231)
         self.ingresar_capacidad.setVisible(False)
 
-    def Capacidad(self):
-        self.configuracion_capacidad_text.setVisible(True)
-        self.ingresar_capacidad.setVisible(True)
-        self.configuracion_capacidad.setVisible(False)
-        self.new_admin_username.setVisible(False)
-        self.new_admin_password.setVisible(False)
-        self.new_admin.setVisible(False)
-        self.agregar_eliminar_admin_boton.setVisible(False)
-        self.cambiar_password_admin_boton.setVisible(False)
-        self.enviar_datos_servidor.setVisible(False)
-
-
-    
-
-    def BotonesConfiguracionAvanzadaInside(self):
-        self.configuracion_capacidad = QToolButton(self.centralWidget)
-        self.configuracion_capacidad.setText('Capacidad Máxima')
-        self.configuracion_capacidad.setObjectName("button")  # nombre de enlace a css
-        self.configuracion_capacidad.setIcon(QIcon('src/views/static/icons/icono_capacidad'))  # icono
-        self.configuracion_capacidad.setIconSize(QSize(60, 60))
-        self.configuracion_capacidad.setToolButtonStyle(Qt.ToolButtonTextUnderIcon)
-        self.configuracion_capacidad.clicked.connect(self.Capacidad)
-        self.configuracion_capacidad.setGeometry(534, 340, 290, 180)
-        self.configuracion_capacidad.setVisible(False)
-        
-        self.agregar_eliminar_admin_boton = QToolButton(self.centralWidget)
-        self.agregar_eliminar_admin_boton.setText('Agregar o Eliminar\nAdministrador')
-        self.agregar_eliminar_admin_boton.setObjectName("button")  # nombre de enlace a css
-        self.agregar_eliminar_admin_boton.setIcon(QIcon('src/views/static/icons/icono_add_delete_admin'))  # icono
-        self.agregar_eliminar_admin_boton.setIconSize(QSize(60, 60))
-        self.agregar_eliminar_admin_boton.setToolButtonStyle(Qt.ToolButtonTextUnderIcon)
-        self.agregar_eliminar_admin_boton.clicked.connect(self.AgregarAdmin)
-        self.agregar_eliminar_admin_boton.setGeometry(200, 120, 290, 180)
-        self.agregar_eliminar_admin_boton.setVisible(False)
-
-        self.cambiar_password_admin_boton = QToolButton(self.centralWidget)
-        self.cambiar_password_admin_boton.setText('Cambiar contraseña')
-        self.cambiar_password_admin_boton.setObjectName("button")  # nombre de enlace a css
-        self.cambiar_password_admin_boton.setIcon(QIcon('src/views/static/icons/icono_capacidad'))  # icono
-        self.cambiar_password_admin_boton.setIconSize(QSize(60, 60))
-        self.cambiar_password_admin_boton.setToolButtonStyle(Qt.ToolButtonTextUnderIcon)
-        self.cambiar_password_admin_boton.clicked.connect(self.HomeWindow)
-        self.cambiar_password_admin_boton.setGeometry(200, 340, 290, 180)
-        self.cambiar_password_admin_boton.setVisible(False)
-
-        self.enviar_datos_servidor = QToolButton(self.centralWidget)
-        self.enviar_datos_servidor.setText('Enviar Datos Al Servidor')
-        self.enviar_datos_servidor.setObjectName("button")  # nombre de enlace a css
-        self.enviar_datos_servidor.setIcon(QIcon('src/views/views/static/icons/icono_config_datos'))  # icono
-        self.enviar_datos_servidor.setIconSize(QSize(60, 60))
-        self.enviar_datos_servidor.setToolButtonStyle(Qt.ToolButtonTextUnderIcon)
-        self.enviar_datos_servidor.clicked.connect(self.HomeWindow)
-        self.enviar_datos_servidor.setGeometry(534, 120, 290, 180)
-        self.enviar_datos_servidor.setVisible(False)
-
-    def ConfiguracionAvanzadaInside(self):
-        self.configuracion_capacidad.setVisible(True)
-        self.cambiar_password_admin_boton.setVisible(True)
-        self.agregar_eliminar_admin_boton.setVisible(True)
-        self.enviar_datos_servidor.setVisible(True)
-        self.configuracion_apagar.setVisible(False)
-        self.configuracion_pantalla.setVisible(False)
-        self.configuracion_datos.setVisible(False)
-        self.configuracion_avanzada.setVisible(False)
-        self.label_img_central.setVisible(False)
-        self.label_img_esquina.setVisible(True)
-        self.ingresar.setVisible(False)
-        self.estadisticas.setVisible(False)
-        self.detener_alarma.setVisible(False)
-        self.salida_manual.setVisible(False)
-        self.configuracion.setVisible(False)
-        self.informacion.setVisible(False)
-        self.configuracion_avanzada_user.setVisible(False)
-        self.configuracion_avanzada_pass.setVisible(False)
-        self.ingresar_Ad_Conf.setVisible(False)
-        self.ingresar_capacidad.setVisible(False)
-        self.configuracion_capacidad_text.setVisible(False)
-        self.Ad_Conf_guardar_teclado()
-        self.NotTecladoNumerico()
-
-    def AgregarAdmin(self):
-        self.configuracion_capacidad.setVisible(False)
-        self.new_admin_username.setVisible(True)
-        self.new_admin_password.setVisible(True)
-        self.new_admin.setVisible(True)
-        self.quitar_admin.setVisible(True)
-        self.agregar_eliminar_admin_boton.setVisible(False)
-        self.cambiar_password_admin_boton.setVisible(False)
-        self.enviar_datos_servidor.setVisible(False)
 
     def NewAdmin(self):
         try:
@@ -459,82 +355,13 @@ class MainWindow(QMainWindow,Boton,TecladoNumeros,TecladoLetras): #Ventana princ
 
     
 
-    def Ingresar_desplegar_teclado_numerico_cedula(self):
-        self.campo = 'ingresar-cedula'
-        self.Ingresar_desplegar_teclado_numerico()
 
-    def Ingresar_desplegar_teclado_numerico_temp(self):
-        self.campo = 'ingresar-temp'
-        self.Ingresar_desplegar_teclado_numerico()
 
-    def Ingresar_desplegar_teclado_numerico(self):
-        MOV = -100
-        #movimiento botones
-        self.ingresar_nombre.setGeometry(164, 240+MOV, 320, 70)
-        self.ingresar_cedula.setGeometry(164,330+MOV,180,70)
-        self.ingresar_temp.setGeometry(360,330+MOV,120,70)
-        self.ingresar_ingresar.setGeometry(570, 240+MOV, 280, 160)
-        self.NotTeclado()
-        self.TecladoNumerico()
 
-    def Ingresar_guardar_teclado_numerico(self):
-        self.ingresar_nombre.setGeometry(164, 240, 320, 70)
-        self.ingresar_cedula.setGeometry(164,330,180,70)
-        self.ingresar_temp.setGeometry(360,330,120,70)
-        self.ingresar_ingresar.setGeometry(570, 240, 280, 160)
-        self.NotTecladoNumerico()
 
-    def Ingresar_desplegar_teclado(self):
-        MOV = -100
-        #movimiento botones
-        self.ingresar_nombre.setGeometry(164, 240+MOV, 320, 70)
-        self.ingresar_cedula.setGeometry(164,330+MOV,180,70)
-        self.ingresar_temp.setGeometry(360,330+MOV,120,70)
-        self.ingresar_ingresar.setGeometry(570, 240+MOV, 280, 160)
-        self.Teclado()
-        self.NotTecladoNumerico()
-        self.campo = 'ingresar-nombre'
 
-    def Ingresar_guardar_teclado(self):
-        self.ingresar_nombre.setGeometry(164, 240, 320, 70)
-        self.ingresar_cedula.setGeometry(164,330,180,70)
-        self.ingresar_temp.setGeometry(360,330,120,70)
-        self.ingresar_ingresar.setGeometry(570, 240, 280, 160)
-        self.NotTeclado()
 
-    def Retirar_desplegar_teclado(self):
-        MOV = -100
-        #movimiento botones
-        self.salida_nombre.setGeometry(164.2,237+MOV,290,70)
-        self.salida_cedula.setGeometry(164.2,341+MOV,290,70)
-        self.salida_salida.setGeometry(570, 237+MOV, 290, 176.3)
-        self.Teclado()
-        self.NotTecladoNumerico()
-        self.campo = 'retirar-nombre'
 
-    def Retirar_guardar_teclado(self):
-        MOV = 0
-        #movimiento botones
-        self.salida_nombre.setGeometry(164.2,237+MOV,290,70)
-        self.salida_cedula.setGeometry(164.2,341+MOV,290,70)
-        self.salida_salida.setGeometry(570, 237+MOV, 290, 176.3)
-        self.NotTeclado()
-
-    def Retirar_desplegar_teclado_numerico_cedula(self):
-        MOV = -100
-        #movimiento botones
-        self.salida_nombre.setGeometry(164.2,237+MOV,290,70)
-        self.salida_cedula.setGeometry(164.2,341+MOV,290,70)
-        self.salida_salida.setGeometry(570, 237+MOV, 290, 176.3)
-        self.NotTeclado()
-        self.TecladoNumerico()
-        self.campo = 'retirar-cedula'
-
-    def Ad_Conf_guardar_teclado(self):
-        self.configuracion_avanzada_user.setGeometry(164, 240, 320, 70)
-        self.configuracion_avanzada_pass.setGeometry(164,330,320,70)
-        self.ingresar_Ad_Conf.setGeometry(570, 240, 280, 160)
-        self.NotTeclado()
 
 
 

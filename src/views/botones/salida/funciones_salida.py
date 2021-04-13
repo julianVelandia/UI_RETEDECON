@@ -7,6 +7,33 @@ import pandas as pd
 
 class Funcion_salida:
 
+    def Retirar_desplegar_teclado(self):
+        MOV = -100
+        #movimiento botones
+        self.salida_nombre.setGeometry(164.2,237+MOV,290,70)
+        self.salida_cedula.setGeometry(164.2,341+MOV,290,70)
+        self.salida_salida.setGeometry(570, 237+MOV, 290, 176.3)
+        self.Teclado()
+        self.NotTecladoNumerico()
+        self.campo = 'retirar-nombre'
+
+    def Retirar_guardar_teclado(self):
+        MOV = 0
+        #movimiento botones
+        self.salida_nombre.setGeometry(164.2,237+MOV,290,70)
+        self.salida_cedula.setGeometry(164.2,341+MOV,290,70)
+        self.salida_salida.setGeometry(570, 237+MOV, 290, 176.3)
+        self.NotTeclado()
+
+    def Retirar_desplegar_teclado_numerico_cedula(self):
+        MOV = -100
+        #movimiento botones
+        self.salida_nombre.setGeometry(164.2,237+MOV,290,70)
+        self.salida_cedula.setGeometry(164.2,341+MOV,290,70)
+        self.salida_salida.setGeometry(570, 237+MOV, 290, 176.3)
+        self.NotTeclado()
+        self.TecladoNumerico()
+        self.campo = 'retirar-cedula'
 
     def restar_deltas(self,HoraOut,HoraIn):
         '''
