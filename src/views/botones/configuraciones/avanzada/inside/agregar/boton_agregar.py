@@ -36,5 +36,5 @@ class Boton_agregar(Funcion_agregar):
         self.agregar_agregar.setIconSize(QSize(60,60))
         self.agregar_agregar.setToolButtonStyle(Qt.ToolButtonTextUnderIcon)
         self.agregar_agregar.setGeometry(570, 230, 290, 180)
-        self.agregar_agregar.clicked.connect(self.NewAdmin)
+        self.agregar_agregar.clicked.connect(self.AgregarAgregar)
         self.agregar_agregar.setVisible(False)

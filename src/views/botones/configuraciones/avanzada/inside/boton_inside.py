@@ -1,4 +1,4 @@
-from src.views.botones.configuraciones.avanzada.inside.agregar.boton_agregar import Boton_agregar
+from src.views.botones.configuraciones.avanzada.inside.capacidad.boton_capacidad import Boton_capacidad
 from PyQt5.QtWidgets import *
 from PyQt5.QtCore import *
 from PyQt5.QtGui import *
@@ -6,8 +6,11 @@ from PyQt5.QtGui import *
 #locals
 from .funciones_inside import Funcion_inside
 from .agregar.boton_agregar import Boton_agregar
+from .eliminar.boton_eliminar import Boton_eliminar
+from .capacidad.boton_capacidad import Boton_capacidad
 
-class Boton_inside(Funcion_inside, Boton_agregar):
+
+class Boton_inside(Funcion_inside, Boton_agregar, Boton_eliminar, Boton_capacidad):
     def boton_inside_agregar(self, widget):
         self.inside_agregar = QToolButton(widget)
         self.inside_agregar.setText('Agregar administrador')

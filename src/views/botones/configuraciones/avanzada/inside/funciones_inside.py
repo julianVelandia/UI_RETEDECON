@@ -1,4 +1,3 @@
-from src.views.botones.configuraciones.avanzada.inside.agregar.boton_agregar import Boton_agregar
 from PyQt5.QtWidgets import *
 from PyQt5.QtCore import *
 from PyQt5.QtGui import *
@@ -22,21 +21,29 @@ class Funcion_inside:#(Boton_agregar):
         self.agregar_agregar.setVisible(True)
 
     def InsideEliminar(self):
-        pass
+        self.inside_agregar.setVisible(False)
+        self.inside_eliminar.setVisible(False)
+        self.inside_enviar.setVisible(False)
+        self.inside_capacidad.setVisible(False)
+        self.inside_cambiar.setVisible(False)
+
+        self.eliminar_username.setVisible(True)
+        self.eliminar_pass.setVisible(True)
+        self.eliminar_eliminar.setVisible(True)
 
     def InsideEnviar(self):
         pass
 
     def InsideCapacidad(self):
-        self.configuracion_capacidad_text.setVisible(True)
-        self.ingresar_capacidad.setVisible(True)
-        self.configuracion_capacidad.setVisible(False)
-        self.new_admin_username.setVisible(False)
-        self.new_admin_password.setVisible(False)
-        self.new_admin.setVisible(False)
-        self.agregar_eliminar_admin_boton.setVisible(False)
-        self.cambiar_password_admin_boton.setVisible(False)
-        self.enviar_datos_servidor.setVisible(False)
+        self.inside_agregar.setVisible(False)
+        self.inside_eliminar.setVisible(False)
+        self.inside_enviar.setVisible(False)
+        self.inside_capacidad.setVisible(False)
+        self.inside_cambiar.setVisible(False)
+        
+        self.capacidad_newcapacidad.setVisible(True)
+        self.capacidad_setnew.setVisible(True)
+
 
 
     def InsideCambiar(self):

@@ -108,19 +108,16 @@ class MainWindow(QMainWindow,Boton,TecladoNumeros,TecladoLetras): #Ventana princ
         self.boton_agregar_username(self.centralWidget)
         self.boton_agregar_pass(self.centralWidget)
         self.boton_agregar_agregar(self.centralWidget)
+
+        #Botones configuracion avanzada inside agregar
+        self.boton_eliminar_username(self.centralWidget)
+        self.boton_eliminar_pass(self.centralWidget)
+        self.boton_eliminar_eliminar(self.centralWidget)
         
+        #Botones configuracion avanzada inside capacidad
+        self.boton_capacidad_setnew(self.centralWidget)
+        self.text_capacidad_newcapacidad(self.centralWidget)
 
-
-
-        #config
-        'Capacidad'
-        self.configuracion_capacidad_text = QLineEditClick(self.centralWidget)
-        self.configuracion_capacidad_text.setPlaceholderText("CAPACIDAD")
-        self.configuracion_capacidad_text.setObjectName("input") #nombre de enlace a css
-        self.configuracion_capacidad_text.setClearButtonEnabled(True)
-        self.configuracion_capacidad_text.setGeometry(164,237,290,70)
-        self.configuracion_capacidad_text.setMaxLength(5)
-        self.configuracion_capacidad_text.setVisible(False)
 
         
         
@@ -133,31 +130,17 @@ class MainWindow(QMainWindow,Boton,TecladoNumeros,TecladoLetras): #Ventana princ
         
         
 
-        #AccionClcikIngresarNombre
-        self.ingresar_nombre.clicked.connect(self.Ingresar_desplegar_teclado)
-        #AccionClcikIngresarCedula
-        self.ingresar_cedula.clicked.connect(self.Ingresar_desplegar_teclado_numerico_cedula)
-        #AccionIngresarTemperatura
-        self.ingresar_temp.clicked.connect(self.Ingresar_desplegar_teclado_numerico_temp)
-        #AccionClcikIngresarNombreOut
-        self.salida_nombre.clicked.connect(self.Retirar_desplegar_teclado)
-        #AccionClcikIngresarCedulaOut
-        self.salida_cedula.clicked.connect(self.Retirar_desplegar_teclado_numerico_cedula)
-        #AccionClcikIngresarUser
-        #AccionClcikIngresarPass
         
+
         
-        
-        # Botones Ad Conf In
-        self.BotonesCapacidad()
+
         # Botones Informacion
         self.BotonesInformacion()
         # Label infos
         self.LabelsInformacion()
         # Labels y Botones Estadisticas
         self.LabelsBotonesEstadisticas()
-        # Botones new admin
-        self.BotonesNewAdmin()
+
         '''
         Valores BD
         '''
@@ -187,17 +170,7 @@ class MainWindow(QMainWindow,Boton,TecladoNumeros,TecladoLetras): #Ventana princ
         
 
 
-    def BotonesNewAdmin(self):
-        
-        self.quitar_admin = QToolButton(self.centralWidget)
-        self.quitar_admin.setText('ELIMINAR')
-        self.quitar_admin.setObjectName("button")  # nombre de enlace a css
-        self.quitar_admin.setIcon(QIcon('src/views/static/icons/icono_salir'))  # icono
-        self.quitar_admin.setIconSize(QSize(60, 60))
-        self.quitar_admin.setToolButtonStyle(Qt.ToolButtonTextUnderIcon)
-        self.quitar_admin.setGeometry(570, 350, 290, 180)
-        self.quitar_admin.clicked.connect(self.EliminarAdmin)
-        self.quitar_admin.setVisible(False)
+
 
     def setCapacidadMaxima(self):
         # Reading the config.ini file
@@ -215,67 +188,11 @@ class MainWindow(QMainWindow,Boton,TecladoNumeros,TecladoLetras): #Ventana princ
             dialogo_error.setInformativeText("Error, intente nuevamente\n\nSi el error persiste comuniquese con el fabricante")
             dialogo_error.show()
 
-    def BotonesCapacidad(self):
-        self.ingresar_capacidad = QToolButton(self.centralWidget)
-        self.ingresar_capacidad.setText('CAMBIAR CAPACIDAD\nMÁXIMA')
-        self.ingresar_capacidad.setObjectName("button")  # nombre de enlace a css
-        self.ingresar_capacidad.setIcon(QIcon('src/views/static/icons/icono_capacidad'))  # icono
-        self.ingresar_capacidad.setIconSize(QSize(60, 60))
-        self.ingresar_capacidad.setToolButtonStyle(Qt.ToolButtonTextUnderIcon)
-        self.ingresar_capacidad.clicked.connect(self.setCapacidadMaxima)
-        self.ingresar_capacidad.setGeometry(570, 230, 290, 231)
-        self.ingresar_capacidad.setVisible(False)
 
 
-    def NewAdmin(self):
-        try:
-            self.config.read('../config.ini')
-            users = list(self.config['users'])
-            users_values = []
-            if self.new_admin_username.text() != "" and self.new_admin_password.text() != "":  # lógica para leer si los campos están vacíos
-                if not self.new_admin_username.text().isdigit() and not self.new_admin_password.text().isalpha():  # detecta si numeros o letras donde no deben
-                    # Use the cycle to append values to the list from the document
-                    for key in users:
-                        users_values.append(self.config.get('users', str(key)))
-                    # Check if user is in the list
-                    if self.new_admin_username.text() in users_values:
-                        is_user = True
-                    else:
-                        is_user = False
-                    # Existance verification
-                    if not is_user:
-                        dialogo_registro_exitoso = QMessageBox(self.centralWidget)
-                        dialogo_registro_exitoso.setWindowTitle(self.title)
-                        dialogo_registro_exitoso.addButton("Aceptar", 0)
-                        dialogo_registro_exitoso.setInformativeText("Se ha registrado correctamente   \n")
-                        dialogo_registro_exitoso.show()
-                        self.HomeWindow()
-                    else:
-                        dialogo_error_existencia = QMessageBox(self.centralWidget)
-                        dialogo_error_existencia.setWindowTitle(self.title)
-                        dialogo_error_existencia.addButton("Aceptar", 0)
-                        dialogo_error_existencia.setInformativeText("El usuario ya existe\n ")
-                        dialogo_error_existencia.show()
-                else:
-                    dialogo_error_typ = QMessageBox(self.centralWidget)
-                    dialogo_error_typ.setWindowTitle(self.title)
-                    dialogo_error_typ.addButton("Aceptar", 0)
-                    dialogo_error_typ.setInformativeText("Error, verifique los datos ingresados\n  "
-                                                         "La contraseña debe tener solo numeros\n  ")
-                    dialogo_error_typ.show()
-            else:
-                dialogo_error_incompleto = QMessageBox(self.centralWidget)
-                dialogo_error_incompleto.setWindowTitle(self.title)
-                dialogo_error_incompleto.addButton("Aceptar", 0)
-                dialogo_error_incompleto.setInformativeText("Debe llenar todos los campos\nantes de continuar")
-                dialogo_error_incompleto.show()
-        except:
-            dialogo_error = QMessageBox(self.centralWidget)
-            dialogo_error.setWindowTitle(self.title)
-            dialogo_error.addButton("Aceptar", 0)
-            dialogo_error.setInformativeText(
-                "Error, intente nuevamente\n\nSi el error persiste comuniquese con el fabricante")
-            dialogo_error.show()
+
+
+    
 
     def EliminarAdmin(self):
         try:

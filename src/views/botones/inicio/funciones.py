@@ -45,26 +45,30 @@ class Funciones:
         self.inside_capacidad.setVisible(False)
         self.inside_eliminar.setVisible(False)
 
-        #self.configuracion_capacidad_text.setVisible(False)
-        #self.configuracion_capacidad.setVisible(False)
-        #self.new_admin_username.setVisible(False)
-        #self.new_admin_password.setVisible(False)
-        #self.new_admin.setVisible(False)
-        #self.quitar_admin.setVisible(False)
-        #self.manual_de_usuario.setVisible(False)
-        #self.informacion_fabricante.setVisible(False)
-        #self.label_texto_info_fab.setVisible(False)
-        '''
-        self.img_esquina_2.setVisible(False)
-        self.ingresar_capacidad.setVisible(False)
-        self.agregar_eliminar_admin_boton.setVisible(False)
-        self.cambiar_password_admin_boton.setVisible(False)
-        self.enviar_datos_servidor.setVisible(False)
+        #agregar
+        self.agregar_username.setVisible(False)
+        self.agregar_pass.setVisible(False)
+        self.agregar_agregar.setVisible(False)
+
+        #eliminar
+        self.eliminar_username.setVisible(False)
+        self.eliminar_pass.setVisible(False)
+        self.eliminar_eliminar.setVisible(False)
+
+        #capacidad
+        self.capacidad_newcapacidad.setVisible(False)
+        self.capacidad_setnew.setVisible(False)
+
+        
+        
+        
         self.info_ocupacion_actual.setVisible(False)
+
+        self.img_esquina_2.setVisible(False)
         self.qr_manual.setVisible(False)
         self.bar_chart.setVisible(False)
         self.pie_chart.setVisible(False)
-        '''
+        
 
         TecladoLetras.NotTeclado(self)
         TecladoNumeros.NotTecladoNumerico(self)

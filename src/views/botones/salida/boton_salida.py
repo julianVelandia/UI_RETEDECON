@@ -15,6 +15,8 @@ class Boton_salida(Funcion_salida):
         self.salida_nombre.setClearButtonEnabled(True)
         self.salida_nombre.setGeometry(164, 237, 290, 70)
         self.salida_nombre.setMaxLength(40)
+        self.salida_nombre.clicked.connect(self.Retirar_desplegar_teclado)
+
 
     def texto_salida_cedula_out(self, widget):
 
@@ -24,6 +26,8 @@ class Boton_salida(Funcion_salida):
         self.salida_cedula.setClearButtonEnabled(True)
         self.salida_cedula.setGeometry(164, 341, 290, 70)
         self.salida_cedula.setMaxLength(15)
+        self.salida_cedula.clicked.connect(self.Retirar_desplegar_teclado_numerico_cedula)
+
 
     def boton_salida_salida(self,widget):
         self.salida_salida = QToolButton(widget)
