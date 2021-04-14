@@ -36,5 +36,5 @@ class Boton_eliminar(Funcion_eliminar):
         self.eliminar_eliminar.setIconSize(QSize(60,60))
         self.eliminar_eliminar.setToolButtonStyle(Qt.ToolButtonTextUnderIcon)
         self.eliminar_eliminar.setGeometry(570, 230, 290, 180)
-        self.eliminar_eliminar.clicked.connect(self.EliminarAdmin)
+        self.eliminar_eliminar.clicked.connect(self.EliminarEliminar)
         self.eliminar_eliminar.setVisible(False)

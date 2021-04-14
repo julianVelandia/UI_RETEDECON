@@ -24,6 +24,6 @@ class Boton_capacidad(Funcion_capacidad):
         self.capacidad_setnew.setIcon(QIcon('src/views/static/icons/icono_capacidad'))  # icono
         self.capacidad_setnew.setIconSize(QSize(60, 60))
         self.capacidad_setnew.setToolButtonStyle(Qt.ToolButtonTextUnderIcon)
-        self.capacidad_setnew.clicked.connect(self.setCapacidadMaxima)
+        self.capacidad_setnew.clicked.connect(self.CapacidadSetnew)
         self.capacidad_setnew.setGeometry(570, 230, 290, 231)
         self.capacidad_setnew.setVisible(False)

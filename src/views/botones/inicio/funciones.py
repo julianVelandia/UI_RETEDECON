@@ -9,6 +9,8 @@ class Funciones:
 
         #inicio
         self.label_img_esquina.setVisible(True)
+        self.label_img_esquina_2.setVisible(False)
+
         self.ingresar.setVisible(True)
         self.estadisticas.setVisible(True)
         self.detener_alarma.setVisible(True)
@@ -32,6 +34,17 @@ class Funciones:
         self.configuraciones_apagar.setVisible(False)
         self.configuraciones_datos.setVisible(False)
         self.configuraciones_avanzada.setVisible(False)
+
+        #informacion
+        self.informacion_manual.setVisible(False)
+        self.informacion_fabricante.setVisible(False)
+        self.informacion_qr.setVisible(False)
+        self.informacion_label.setVisible(False)
+
+        #estadisticas
+        self.estadisticas_ocupacion.setVisible(False)
+        self.estadisticas_bar_chart.setVisible(False)
+        self.estadisticas_pie_chart.setVisible(False)
 
         #avanzada
         self.avanzada_user.setVisible(False)
@@ -58,18 +71,7 @@ class Funciones:
         #capacidad
         self.capacidad_newcapacidad.setVisible(False)
         self.capacidad_setnew.setVisible(False)
-
         
-        
-        
-        self.info_ocupacion_actual.setVisible(False)
-
-        self.img_esquina_2.setVisible(False)
-        self.qr_manual.setVisible(False)
-        self.bar_chart.setVisible(False)
-        self.pie_chart.setVisible(False)
-        
-
         TecladoLetras.NotTeclado(self)
         TecladoNumeros.NotTecladoNumerico(self)
     
@@ -107,7 +109,7 @@ class Funciones:
         self.salida_manual.setVisible(False)
         self.configuracion.setVisible(False)
         self.informacion.setVisible(False)
-        self.info_ocupacion_actual.setVisible(True)
+        self.estadisticas_ocupacion.setVisible(True)
 
         df = pd.read_csv('src/models/data/DB.csv')
         Lista = df['IsIn']
@@ -117,9 +119,9 @@ class Funciones:
             if i == True:
                 self.ocupacion_actual +=1
         print('Ocupacion Actual: '+str(self.ocupacion_actual))
-        self.info_ocupacion_actual.setText('Ocupación Actual: ' + str(self.ocupacion_actual))
+        self.estadisticas_ocupacion.setText('Ocupación Actual: ' + str(self.ocupacion_actual))
 
-        self.bar_chart.setVisible(True)
+        self.estadisticas_bar_chart.setVisible(True)
         #self.pie_chart.setVisible(True) #tambien esta configurado como torta
         #ACÁ CREA LA GRAFICA PERO POR EL MOMENTO LO HACE EN UNA VENTANA NUEVA
         ######
@@ -196,8 +198,20 @@ class Funciones:
         self.configuraciones_apagar.setVisible(True)
         self.configuraciones_avanzada.setVisible(True)
         self.configuraciones_datos.setVisible(True)
+        self.label_img_esquina.setVisible(True)  
 
         self.label_img_central.setVisible(False)  
+        self.ingresar.setVisible(False)
+        self.estadisticas.setVisible(False)
+        self.detener_alarma.setVisible(False)
+        self.salida_manual.setVisible(False)
+        self.configuracion.setVisible(False)
+        self.informacion.setVisible(False)
+
+    def Informacion(self):
+        self.informacion_manual.setVisible(True)
+        self.informacion_fabricante.setVisible(True) 
+
         self.label_img_esquina.setVisible(True)  
         self.ingresar.setVisible(False)
         self.estadisticas.setVisible(False)
@@ -205,3 +219,5 @@ class Funciones:
         self.salida_manual.setVisible(False)
         self.configuracion.setVisible(False)
         self.informacion.setVisible(False)
+       
+        self.label_img_central.setVisible(False)  
