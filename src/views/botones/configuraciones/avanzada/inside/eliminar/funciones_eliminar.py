@@ -48,7 +48,7 @@ class Funcion_eliminar:
                         with open('config.ini', 'w') as f:
                             self.config.write(f)
                             f.close()
-                        #############self.update_keys()
+                        self.update_keys()
                         self.dialogo_mensaje = "Se ha eliminado correctamente   \n"
                         self.dialogo.setInformativeText(self.dialogo_mensaje)
                         self.dialogo.show()
@@ -75,16 +75,16 @@ class Funcion_eliminar:
             self.dialogo.show()
 
     def update_keys(self):
-        config.read('config.ini')
-        users = list(config['users'])
-        passwords = list(config['passwords'])
+        self.config.read('config.ini')
+        users = list(self.config['users'])
+        passwords = list(self.config['passwords'])
         users_values = []
         passwords_values = []
         key = 0
         for keyy in users:
-            users_values.append(config.get('users', str(keyy)))
+            users_values.append(self.config.get('users', str(keyy)))
         for keyy in users:
-            passwords_values.append(config.get('passwords', str(keyy)))
+            passwords_values.append(self.config.get('passwords', str(keyy)))
 
         for keys in users:
             key += 1
@@ -99,11 +99,11 @@ class Funcion_eliminar:
         print(b)
 
         for k in range(b, len(users)):
-            config.remove_option('users', 'key' + str(k + 2))
-            config.set('users', 'key' + str(k + 1), users_values[k])
+            self.config.remove_option('users', 'key' + str(k + 2))
+            self.config.set('users', 'key' + str(k + 1), users_values[k])
             #####
-            config.remove_option('passwords', 'key' + str(k + 2))
-            config.set('passwords', 'key' + str(k + 1), passwords_values[k])
+            self.config.remove_option('passwords', 'key' + str(k + 2))
+            self.config.set('passwords', 'key' + str(k + 1), passwords_values[k])
         with open('config.ini', 'w') as f:
-            config.write(f)
+            self.config.write(f)
             f.close()
