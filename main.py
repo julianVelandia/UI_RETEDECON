@@ -2,14 +2,10 @@ from PyQt5.QtWidgets import *
 from PyQt5.QtCore import *
 from PyQt5.QtGui import *
 from configparser import ConfigParser
-
-
-
 #locals
 from src.views.botones.inicio.boton import Boton
 from src.views.teclado.teclado_numeros import TecladoNumeros
 from src.views.teclado.teclado_letras import TecladoLetras
-
 
 class MainWindow(QMainWindow,Boton,TecladoNumeros,TecladoLetras): #Ventana principal
     def __init__(self, parent=None, *args):
@@ -29,7 +25,6 @@ class MainWindow(QMainWindow,Boton,TecladoNumeros,TecladoLetras): #Ventana princ
         self.setMaximumSize(self.width,self.height) #tamaño máximo
         self.setWindowTitle(self.title)   #titulo
         self.setWindowIcon(QIcon("src/views/static/icons/favicon3.png")) #Favicon
-
 
         #Widget principal
         self.centralWidget = QWidget()

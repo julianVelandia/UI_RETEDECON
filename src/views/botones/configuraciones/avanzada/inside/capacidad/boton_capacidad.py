@@ -1,11 +1,9 @@
 from PyQt5.QtWidgets import *
 from PyQt5.QtCore import *
 from PyQt5.QtGui import *
-
 #locals
 from .funciones_capacidad import Funcion_capacidad
 from src.controler.QLineClick import QLineEditClick
-
 
 class Boton_capacidad(Funcion_capacidad):
     def text_capacidad_newcapacidad(self, widget):

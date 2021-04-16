@@ -1,7 +1,6 @@
 from PyQt5.QtWidgets import *
 from PyQt5.QtCore import *
 from PyQt5.QtGui import *
-
 #locals
 from src.views.teclado.teclado_letras import *
 from src.views.teclado.teclado_numeros import *
@@ -15,7 +14,6 @@ class Funcion_inside:#(Boton_agregar):
         self.inside_enviar.setVisible(False)
         self.inside_capacidad.setVisible(False)
         self.inside_cambiar.setVisible(False)
-
         self.agregar_username.setVisible(True)
         self.agregar_pass.setVisible(True)
         self.agregar_agregar.setVisible(True)
@@ -26,7 +24,6 @@ class Funcion_inside:#(Boton_agregar):
         self.inside_enviar.setVisible(False)
         self.inside_capacidad.setVisible(False)
         self.inside_cambiar.setVisible(False)
-
         self.eliminar_username.setVisible(True)
         self.eliminar_pass.setVisible(True)
         self.eliminar_eliminar.setVisible(True)
@@ -40,11 +37,8 @@ class Funcion_inside:#(Boton_agregar):
         self.inside_enviar.setVisible(False)
         self.inside_capacidad.setVisible(False)
         self.inside_cambiar.setVisible(False)
-        
         self.capacidad_newcapacidad.setVisible(True)
         self.capacidad_setnew.setVisible(True)
-
-
 
     def InsideCambiar(self):
         pass

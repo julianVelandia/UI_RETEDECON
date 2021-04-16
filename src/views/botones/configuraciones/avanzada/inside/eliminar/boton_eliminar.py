@@ -1,11 +1,9 @@
 from PyQt5.QtWidgets import *
 from PyQt5.QtCore import *
 from PyQt5.QtGui import *
-
 #locals
 from .funciones_eliminar import Funcion_eliminar
 from src.controler.QLineClick import QLineEditClick
-
 
 class Boton_eliminar(Funcion_eliminar):
     def boton_eliminar_username(self, widget):
@@ -26,7 +24,6 @@ class Boton_eliminar(Funcion_eliminar):
         self.eliminar_pass.setMaxLength(15)
         self.eliminar_pass.setVisible(False)
         self.eliminar_pass.setEchoMode(QLineEdit.Password)
-
 
     def boton_eliminar_eliminar(self, widget):
         self.eliminar_eliminar = QToolButton(widget)

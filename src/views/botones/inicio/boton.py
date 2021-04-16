@@ -3,15 +3,12 @@ from src.views.botones.configuraciones.boton_configuraciones import Boton_config
 from PyQt5.QtWidgets import *
 from PyQt5.QtCore import *
 from PyQt5.QtGui import *
-
 from .funciones import Funciones
 from src.views.botones.ingresar.boton_ingresar import Boton_ingresar
 from src.views.botones.salida.boton_salida import Boton_salida
 from src.views.botones.configuraciones.boton_configuraciones import Boton_configuraciones
 from src.views.botones.informacion.boton_informacion import Boton_informacion
 from src.views.botones.estadisticas.boton_estadisticas import Boton_estadisticas
-
-
 
 class Boton(Funciones,Boton_ingresar,Boton_salida,Boton_configuraciones,Boton_informacion, Boton_estadisticas):
 
@@ -69,7 +66,6 @@ class Boton(Funciones,Boton_ingresar,Boton_salida,Boton_configuraciones,Boton_in
         self.salida_manual.setGeometry(44.7, 348.9, 290, 180)
         self.salida_manual.setVisible(False)
 
-
     def boton_inicio_configuracion(self,widget):
         self.configuracion = QToolButton(widget)
         self.configuracion.setText('CONFIGURACIÓN')
@@ -80,7 +76,6 @@ class Boton(Funciones,Boton_ingresar,Boton_salida,Boton_configuraciones,Boton_in
         self.configuracion.clicked.connect(self.Configuracion)
         self.configuracion.setGeometry(367, 348.9, 290, 180)
         self.configuracion.setVisible(False)
-
 
     def boton_inicio_informacion(self,widget):
         self.informacion = QToolButton(widget)

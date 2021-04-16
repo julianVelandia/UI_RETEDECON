@@ -1,11 +1,9 @@
 from PyQt5.QtWidgets import *
 from PyQt5.QtCore import *
 from PyQt5.QtGui import *
-
 #locals
 from .funciones_agregar import Funcion_agregar
 from src.controler.QLineClick import QLineEditClick
-
 
 class Boton_agregar(Funcion_agregar):
     def boton_agregar_username(self, widget):
@@ -26,7 +24,6 @@ class Boton_agregar(Funcion_agregar):
         self.agregar_pass.setMaxLength(15)
         self.agregar_pass.setVisible(False)
         self.agregar_pass.setEchoMode(QLineEdit.Password)
-
 
     def boton_agregar_agregar(self, widget):
         self.agregar_agregar = QToolButton(widget)
