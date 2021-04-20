@@ -43,6 +43,8 @@ class Funciones:
 
         #estadisticas
         self.estadisticas_ocupacion.setVisible(False)
+        self.estadisticas_cambiar_semana_adelante.setVisible(False)
+        self.estadisticas_cambiar_semana_atras.setVisible(False)
         self.estadisticas_bar_chart.setVisible(False)
         self.estadisticas_pie_chart.setVisible(False)
 
@@ -110,6 +112,9 @@ class Funciones:
         self.configuracion.setVisible(False)
         self.informacion.setVisible(False)
         self.estadisticas_ocupacion.setVisible(True)
+        self.estadisticas_cambiar_semana_adelante.setVisible(True)
+        self.estadisticas_cambiar_semana_atras.setVisible(True)
+
 
         df = pd.read_csv('src/models/data/DB.csv')
         Lista = df['IsIn']

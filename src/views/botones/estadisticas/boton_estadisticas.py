@@ -10,16 +10,36 @@ from .graficas import *
 class Boton_estadisticas(Funcion_estadisticas):
     def boton_estadisticas_ocupacion(self, widget):
         self.estadisticas_ocupacion = QToolButton(widget)
-        self.estadisticas_ocupacion.setObjectName("button")  # nombre de enlace a css
+        self.estadisticas_ocupacion.setObjectName("NotButton")  # nombre de enlace a css
+        self.estadisticas_ocupacion.setStyleSheet('font-size: 20px;font-family: Helvetica; color: white; ')
         self.estadisticas_ocupacion.setIcon(QIcon('src/views/static/icons/icono_capacidad'))  # icono
-        self.estadisticas_ocupacion.setIconSize(QSize(60, 60))
+        self.estadisticas_ocupacion.setIconSize(QSize(50, 50))
         self.estadisticas_ocupacion.setToolButtonStyle(Qt.ToolButtonTextUnderIcon)
-        self.estadisticas_ocupacion.setGeometry(120, 120, 290, 140)
+        self.estadisticas_ocupacion.setGeometry(80, 120, 280, 120)
         self.estadisticas_ocupacion.setVisible(False)
+
+    def boton_estadisticas_cambiar_semana(self, widget):
+        #semana adelante
+        self.estadisticas_cambiar_semana_adelante = QToolButton(widget)
+        self.estadisticas_cambiar_semana_adelante.setObjectName("button")  # nombre de enlace a css
+        self.estadisticas_cambiar_semana_adelante.setStyleSheet('border-radius:4px;')
+        self.estadisticas_cambiar_semana_adelante.setGeometry(470, 530,50, 30)
+        self.estadisticas_cambiar_semana_adelante.setVisible(False)
+        self.estadisticas_cambiar_semana_adelante.setText('<')
+        self.estadisticas_cambiar_semana_adelante.clicked.connect(self.EstadisticasCambiarSemanaAdelante)
+
+        #semana atras
+        self.estadisticas_cambiar_semana_atras = QToolButton(widget)
+        self.estadisticas_cambiar_semana_atras.setObjectName("button")  # nombre de enlace a css
+        self.estadisticas_cambiar_semana_atras.setStyleSheet('border-radius:4px;')
+        self.estadisticas_cambiar_semana_atras.setGeometry(870, 530,50, 30)
+        self.estadisticas_cambiar_semana_atras.setVisible(False)
+        self.estadisticas_cambiar_semana_atras.setText('>')
+        self.estadisticas_cambiar_semana_atras.clicked.connect(self.EstadisticasCambiarSemanaAtras)
 
     def graficas_estadisticas(self):
         
-        info = self.get_info()
+        info = self.EstadisticasGetInfo()
         #Barras
         self.estadisticas_bar_chart = PlotCanvas(self, width=5, height=4)
         self.estadisticas_bar_chart.move(450, 120)
