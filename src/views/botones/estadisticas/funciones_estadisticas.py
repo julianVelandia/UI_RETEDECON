@@ -11,7 +11,6 @@ class Funcion_estadisticas:
     def EstadisticasCambiarSemanaAtras(self):
         if self.posicion_fechas < 20 and self.posicion_fechas >= 0:
             self.posicion_fechas +=1
-            self.estadisticas_bar_chart.
             self.estadisticas_bar_chart.actualizar(self.EstadisticasGetInfo())
             #[['hola','hla','holads','hodla','holda'],[0,0,1,0,0]]
             #self.estadisticas_bar_chart.setVisible(False)
