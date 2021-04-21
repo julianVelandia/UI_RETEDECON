@@ -63,3 +63,14 @@ class Funcion_estadisticas:
         
         return [x,y]
     
+
+    def EstadisticasOcupacion(self):
+        df = pd.read_csv('src/models/data/DB.csv')
+        Lista = df['IsIn']
+        print(Lista)
+        self.ocupacion_actual =0
+        for i in Lista:
+            if i == True:
+                self.ocupacion_actual +=1
+        print('Ocupacion Actual: '+str(self.ocupacion_actual))
+        self.estadisticas_ocupacion.setText('Ocupación Actual: ' + str(self.ocupacion_actual))

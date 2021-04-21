@@ -17,6 +17,7 @@ class Boton_estadisticas(Funcion_estadisticas):
         self.estadisticas_ocupacion.setToolButtonStyle(Qt.ToolButtonTextUnderIcon)
         self.estadisticas_ocupacion.setGeometry(80, 120, 280, 120)
         self.estadisticas_ocupacion.setVisible(False)
+        self.EstadisticasOcupacion()
 
     def boton_estadisticas_cambiar_semana(self, widget):
         #semana adelante

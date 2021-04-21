@@ -84,6 +84,10 @@ class MainWindow(QMainWindow,Boton,TecladoNumeros,TecladoLetras): #Ventana princ
         self.boton_configuraciones_apagar(self.centralWidget)
         self.boton_configuraciones_datos(self.centralWidget)
 
+        #Botones Datos
+        self.boton_datos_barras(self.centralWidget)
+        self.boton_datos_pie(self.centralWidget)
+
         #Botones informacion 
         self.qr_informacion_qr(self.centralWidget)
         self.label_informacion_label(self.centralWidget)

@@ -41,7 +41,16 @@ class Funcion_configuraciones:
 
 
     def ConfiguracionesDatos(self):
-        pass
+        self.configuraciones_apagar.setVisible(False)
+        self.configuraciones_ajustes.setVisible(False)
+        self.configuraciones_datos.setVisible(False)
+        self.configuraciones_avanzada.setVisible(False)
+
+        self.datos_barras.setVisible(True)
+        self.datos_pie.setVisible(True)
+
+            
+
 
     def ConfiguracionesApagar(self):
         sys.exit()
