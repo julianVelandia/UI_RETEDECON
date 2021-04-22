@@ -1,19 +1,23 @@
 from PyQt5.QtWidgets import *
 from PyQt5.QtCore import *
 from PyQt5.QtGui import *
-#locals
+# locals
 from src.views.teclado.teclado_letras import *
 from src.views.teclado.teclado_numeros import *
-#from .agregar.boton_agregar import Boton_agregar
+# from .agregar.boton_agregar import Boton_agregar
 
-#smtp
+# smtp
 import smtplib
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
 from email.mime.base import MIMEBase
 from email import encoders
 
-class Funcion_inside:#(Boton_agregar):
+# libreria de tiempo
+from datetime import datetime
+
+
+class Funcion_inside:  # (Boton_agregar):
 
     def InsideAgregar(self):
         self.pantalla = 'agregar'
@@ -38,12 +42,15 @@ class Funcion_inside:#(Boton_agregar):
         self.eliminar_eliminar.setVisible(True)
 
     def InsideEnviar(self):
+
         try:
+            # Hora actual
+            now = datetime.now()
             # Iniciar parámetros
             remitente = 'retedeconunal@gmail.com'
             destinatarios = ['retedeconunal@gmail.com']
-            asunto = 'Correo de prueba'
-            cuerpo = 'Este es el contenido del mensaje'
+            asunto = 'Datos obtenidos hasta el día ' + str(now.date())
+            cuerpo = ''
             ruta_adjunto = 'src/models/data/DB.csv'
             nombre_adjunto = 'DB.csv'
 
@@ -99,7 +106,6 @@ class Funcion_inside:#(Boton_agregar):
             self.dialogo_mensaje = "Error, intente nuevamente\n\nSi el error persiste comuniquese con el fabricante"
             self.dialogo.setInformativeText(self.dialogo_mensaje)
             self.dialogo.show()
-
 
     def InsideCapacidad(self):
         self.pantalla = 'capacidad'
