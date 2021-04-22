@@ -3,9 +3,15 @@ from src.views.teclado.teclado_letras import *
 from src.views.teclado.teclado_numeros import *
 
 class Funciones:
+    pantalla = 'inicio'
+
+
     def HomeWindow(self):
+        self.pantalla = 'inicio'
+
         #imagen central
         self.label_img_central.setVisible(False)
+        self.atras.setVisible(False)
 
         #inicio
         self.label_img_esquina.setVisible(True)
@@ -87,6 +93,8 @@ class Funciones:
     
     
     def Ingresar(self):
+        self.pantalla = 'ingresar'
+
         self.label_img_central.setVisible(False)  
         self.label_img_esquina.setVisible(True)  
         self.ingresar.setVisible(False)
@@ -111,6 +119,8 @@ class Funciones:
 
 
     def Estadisticas(self):
+        self.pantalla = 'estadisticas'
+
         self.label_img_central.setVisible(False)  
         self.label_img_esquina.setVisible(True)  
         self.ingresar.setVisible(False)
@@ -135,11 +145,15 @@ class Funciones:
         
 
     def DetenerAlarma(self):
+        self.pantalla = 'detener'
+
         self.stop = 1
         print(self.stop)
         self.HomeWindow()
 
     def Salida_manual(self):
+        self.pantalla = 'salida'
+
         self.label_img_central.setVisible(False)
         self.label_img_esquina.setVisible(True)
         self.ingresar.setVisible(False)
@@ -160,7 +174,9 @@ class Funciones:
         self.ingresar_ingresar.setVisible(False)
         self.Retirar_guardar_teclado()
 
-    def Configuracion(self):        
+    def Configuracion(self):  
+        self.pantalla = 'configuracion'
+      
         self.configuraciones_ajustes.setVisible(True)
         self.configuraciones_apagar.setVisible(True)
         self.configuraciones_avanzada.setVisible(True)
@@ -176,6 +192,8 @@ class Funciones:
         self.informacion.setVisible(False)
 
     def Informacion(self):
+        self.pantalla = 'informacion'
+
         self.informacion_manual.setVisible(True)
         self.informacion_fabricante.setVisible(True) 
 
@@ -188,3 +206,37 @@ class Funciones:
         self.informacion.setVisible(False)
        
         self.label_img_central.setVisible(False)  
+
+
+    def Atras(self):
+        if self.pantalla == 'datos' or self.pantalla == 'inside':
+            self.pantalla = 'configuracion'
+            self.HomeWindow()
+            self.Configuracion()
+        
+        elif self.pantalla == 'agregar' or self.pantalla == 'eliminar' or self.pantalla == 'capacidad' or self.pantalla == 'cambiar':
+            self.pantalla = 'inside'
+
+
+            #agregar
+            self.agregar_username.setVisible(False)
+            self.agregar_pass.setVisible(False)
+            self.agregar_agregar.setVisible(False)
+
+            #eliminar
+            self.eliminar_username.setVisible(False)
+            self.eliminar_pass.setVisible(False)
+            self.eliminar_eliminar.setVisible(False)
+
+            #capacidad
+            self.capacidad_newcapacidad.setVisible(False)
+            self.capacidad_setnew.setVisible(False)
+            self.AvanzadaInsideInside()
+
+        elif self.pantalla == 'manual' or self.pantalla == 'fabricante':
+            self.HomeWindow()
+            self.Informacion()
+            self.pantalla = 'informacion'
+
+
+    

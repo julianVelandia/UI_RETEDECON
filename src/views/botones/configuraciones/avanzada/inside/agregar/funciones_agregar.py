@@ -37,7 +37,13 @@ class Funcion_agregar:
                         self.dialogo_mensaje = "Se ha registrado correctamente   \n"
                         self.dialogo.setInformativeText(self.dialogo_mensaje)
                         self.dialogo.show()
-                        self.HomeWindow()
+
+                        self.pantalla = 'inside'
+                        self.AvanzadaInsideInside()
+                        #agregar
+                        self.agregar_username.setVisible(False)
+                        self.agregar_pass.setVisible(False)
+                        self.agregar_agregar.setVisible(False)
                     else:
                         self.dialogo_mensaje = "El usuario ya existe\n "
                         self.dialogo.setInformativeText(self.dialogo_mensaje)

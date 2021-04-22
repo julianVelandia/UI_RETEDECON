@@ -45,6 +45,7 @@ class Boton_informacion(Funcion_informacion):
                            "RETEDECON es fabricado por:\n"
                            " - Julián C. Velandia\n"
                            " - Sebastian Cubides\n"
+                           " - Brayan Guevara\n"
                            " - Jhon B. Muñoz\n"
                            "Con la coolaboración de: \n"
                            " - Diego A. Tibaduiza\n"

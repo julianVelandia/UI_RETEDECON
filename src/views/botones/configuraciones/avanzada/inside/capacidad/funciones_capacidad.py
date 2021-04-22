@@ -19,7 +19,13 @@ class Funcion_capacidad:
             self.dialogo_mensaje = "Se ha cambiado la capacidad máxima\n\n Capacidad antigua:  "+str(capacidad_vieja)+ '\n Capacidad actual: '+str(self.config.getint('capacity','key1'))
             self.dialogo.setInformativeText(self.dialogo_mensaje)
             self.dialogo.show()
-            self.HomeWindow()
+
+
+            self.pantalla = 'inside'
+            #capacidad
+            self.capacidad_newcapacidad.setVisible(False)
+            self.capacidad_setnew.setVisible(False)
+            self.AvanzadaInsideInside()
         except:
             self.dialogo_mensaje = "Error, intente nuevamente\n\nSi el error persiste comuniquese con el fabricante"
             self.dialogo.setInformativeText(self.dialogo_mensaje)

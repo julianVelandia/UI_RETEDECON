@@ -22,6 +22,14 @@ class Boton(Funciones,Boton_ingresar,Boton_salida,Boton_configuraciones,Boton_in
         self.label_img_esquina.clicked.connect(self.HomeWindow)
         self.label_img_esquina.setVisible(False)
 
+        self.atras = QToolButton(widget)
+        self.atras.setGeometry(900,5,60,60)        
+        self.atras.setObjectName("NotButton") #nombre de enlace a css
+        self.atras.setIcon(QIcon('src/views/static/icons/icono_atras')) #icono
+        self.atras.setIconSize(QSize(40,40))
+        self.atras.clicked.connect(self.Atras)
+        self.atras.setVisible(False)
+
     def boton_inicio_ingresar(self, widget):
         self.ingresar = QToolButton(widget)
         self.ingresar.setText('INGRESO MANUAL')

@@ -93,6 +93,7 @@ class Funcion_avanzada():
             self.dialogo.show()
 
     def AvanzadaInsideInside(self):
+        self.pantalla = 'inside'
         self.inside_agregar.setVisible(True)
         self.inside_enviar.setVisible(True)
         self.inside_cambiar.setVisible(True)
@@ -101,24 +102,9 @@ class Funcion_avanzada():
         self.avanzada_ingresar.setVisible(False)
         self.avanzada_user.setVisible(False)
         self.avanzada_pass.setVisible(False)
-        '''
-        self.configuraciones_apagar.setVisible(False)
-        self.configuraciones_ajustes.setVisible(False)
-        self.configuraciones_datos.setVisible(False)
-        self.configuraciones_avanzada.setVisible(False)
-        self.label_img_central.setVisible(False)
-        self.label_img_esquina.setVisible(True)
-        self.ingresar.setVisible(False)
-        self.estadisticas.setVisible(False)
-        self.detener_alarma.setVisible(False)
-        self.salida_manual.setVisible(False)
-        self.configuracion.setVisible(False)
-        self.informacion.setVisible(False)
-        self.configuracion_avanzada_user.setVisible(False)
-        self.configuracion_avanzada_pass.setVisible(False)
-        self.ingresar_Ad_Conf.setVisible(False)
-        self.ingresar_capacidad.setVisible(False)
-        self.configuracion_capacidad_text.setVisible(False)
-        '''
+
+
+        self.atras.setVisible(True)
+        
         self.Ad_Conf_guardar_teclado()
         self.NotTecladoNumerico()

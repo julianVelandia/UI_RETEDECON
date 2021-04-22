@@ -41,6 +41,7 @@ class Funcion_configuraciones:
 
 
     def ConfiguracionesDatos(self):
+        self.pantalla = 'datos'
         self.configuraciones_apagar.setVisible(False)
         self.configuraciones_ajustes.setVisible(False)
         self.configuraciones_datos.setVisible(False)
@@ -48,7 +49,7 @@ class Funcion_configuraciones:
 
         self.datos_barras.setVisible(True)
         self.datos_pie.setVisible(True)
-
+        self.atras.setVisible(True)
             
 
 

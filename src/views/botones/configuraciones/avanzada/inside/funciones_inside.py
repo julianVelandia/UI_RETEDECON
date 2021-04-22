@@ -9,6 +9,7 @@ from src.views.teclado.teclado_numeros import *
 class Funcion_inside:#(Boton_agregar):
 
     def InsideAgregar(self):
+        self.pantalla = 'agregar'
         self.inside_agregar.setVisible(False)
         self.inside_eliminar.setVisible(False)
         self.inside_enviar.setVisible(False)
@@ -21,6 +22,7 @@ class Funcion_inside:#(Boton_agregar):
         self.enviar_setnew.setVisible(False)
 
     def InsideEliminar(self):
+        self.pantalla = 'eliminar'
         self.inside_agregar.setVisible(False)
         self.inside_eliminar.setVisible(False)
         self.inside_enviar.setVisible(False)
@@ -33,6 +35,7 @@ class Funcion_inside:#(Boton_agregar):
         self.enviar_setnew.setVisible(False)
 
     def InsideEnviar(self):
+        self.pantalla = 'enviar'
         self.inside_agregar.setVisible(False)
         self.inside_eliminar.setVisible(False)
         self.inside_enviar.setVisible(False)
@@ -45,6 +48,7 @@ class Funcion_inside:#(Boton_agregar):
 
 
     def InsideCapacidad(self):
+        self.pantalla = 'capacidad'
         self.inside_agregar.setVisible(False)
         self.inside_eliminar.setVisible(False)
         self.inside_enviar.setVisible(False)
@@ -56,4 +60,5 @@ class Funcion_inside:#(Boton_agregar):
         self.enviar_setnew.setVisible(False)
 
     def InsideCambiar(self):
-        pass
+        self.pantalla = 'cambiar'
+        print(self.pantalla)

@@ -52,7 +52,16 @@ class Funcion_eliminar:
                         self.dialogo_mensaje = "Se ha eliminado correctamente   \n"
                         self.dialogo.setInformativeText(self.dialogo_mensaje)
                         self.dialogo.show()
-                        self.HomeWindow()
+
+
+                        self.pantalla = 'inside'
+                        #eliminar
+                        self.eliminar_username.setVisible(False)
+                        self.eliminar_pass.setVisible(False)
+                        self.eliminar_eliminar.setVisible(False)
+                        self.AvanzadaInsideInside()
+
+
                     elif correct_user and not correct_password or not indU==indP:
                         self.dialogo_mensaje = "Verifique los datos ingresados\n "
                         self.dialogo.setInformativeText(self.dialogo_mensaje)
