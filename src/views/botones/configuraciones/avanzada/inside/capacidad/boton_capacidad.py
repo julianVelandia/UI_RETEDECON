@@ -16,7 +16,7 @@ class Boton_capacidad(Funcion_capacidad):
         self.capacidad_newcapacidad.setVisible(False)
 
     def boton_capacidad_setnew(self, widget):
-        self.capacidad_setnew = QToolButton(self.centralWidget)
+        self.capacidad_setnew = QToolButton(widget)
         self.capacidad_setnew.setText('CAMBIAR CAPACIDAD\nMÁXIMA')
         self.capacidad_setnew.setObjectName("button")  # nombre de enlace a css
         self.capacidad_setnew.setIcon(QIcon('src/views/static/icons/icono_capacidad'))  # icono

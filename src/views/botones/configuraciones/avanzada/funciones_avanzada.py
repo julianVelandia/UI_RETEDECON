@@ -7,7 +7,9 @@ import hashlib
 from src.views.teclado.teclado_letras import *
 from src.views.teclado.teclado_numeros import *
 
-class Funcion_avanzada:
+
+
+class Funcion_avanzada():
     def AvanzadaUserTeclado(self):
         MOV = -100
         #movimiento botones

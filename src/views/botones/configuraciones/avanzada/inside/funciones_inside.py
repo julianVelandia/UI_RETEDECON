@@ -17,6 +17,8 @@ class Funcion_inside:#(Boton_agregar):
         self.agregar_username.setVisible(True)
         self.agregar_pass.setVisible(True)
         self.agregar_agregar.setVisible(True)
+        self.enviar_newenviar.setVisible(False)
+        self.enviar_setnew.setVisible(False)
 
     def InsideEliminar(self):
         self.inside_agregar.setVisible(False)
@@ -27,9 +29,20 @@ class Funcion_inside:#(Boton_agregar):
         self.eliminar_username.setVisible(True)
         self.eliminar_pass.setVisible(True)
         self.eliminar_eliminar.setVisible(True)
+        self.enviar_newenviar.setVisible(False)
+        self.enviar_setnew.setVisible(False)
 
     def InsideEnviar(self):
-        pass
+        self.inside_agregar.setVisible(False)
+        self.inside_eliminar.setVisible(False)
+        self.inside_enviar.setVisible(False)
+        self.inside_capacidad.setVisible(False)
+        self.inside_cambiar.setVisible(False)
+        self.capacidad_newcapacidad.setVisible(False)
+        self.capacidad_setnew.setVisible(False)
+        self.enviar_newenviar.setVisible(True)
+        self.enviar_setnew.setVisible(True)
+
 
     def InsideCapacidad(self):
         self.inside_agregar.setVisible(False)
@@ -39,6 +52,8 @@ class Funcion_inside:#(Boton_agregar):
         self.inside_cambiar.setVisible(False)
         self.capacidad_newcapacidad.setVisible(True)
         self.capacidad_setnew.setVisible(True)
+        self.enviar_newenviar.setVisible(False)
+        self.enviar_setnew.setVisible(False)
 
     def InsideCambiar(self):
         pass

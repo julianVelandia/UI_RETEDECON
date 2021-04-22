@@ -77,6 +77,10 @@ class Funciones:
         #capacidad
         self.capacidad_newcapacidad.setVisible(False)
         self.capacidad_setnew.setVisible(False)
+
+        #enviar
+        self.enviar_newenviar.setVisible(False)
+        self.enviar_setnew.setVisible(False)
         
         TecladoLetras.NotTeclado(self)
         TecladoNumeros.NotTecladoNumerico(self)
