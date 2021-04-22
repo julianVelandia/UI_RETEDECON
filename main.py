@@ -125,10 +125,6 @@ class MainWindow(QMainWindow,Boton,TecladoNumeros,TecladoLetras): #Ventana princ
         self.boton_capacidad_setnew(self.centralWidget)
         self.text_capacidad_newcapacidad(self.centralWidget)
 
-        # Botones configuracion avanzada inside enviar
-        self.boton_enviar_setnew(self.centralWidget)
-        self.text_enviar(self.centralWidget)
-
 if __name__=='__main__':
     app = QApplication([])
     window = MainWindow()
