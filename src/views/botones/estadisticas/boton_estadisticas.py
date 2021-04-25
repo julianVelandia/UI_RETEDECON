@@ -15,9 +15,20 @@ class Boton_estadisticas(Funcion_estadisticas):
         self.estadisticas_ocupacion.setIcon(QIcon('src/views/static/icons/icono_capacidad'))  # icono
         self.estadisticas_ocupacion.setIconSize(QSize(50, 50))
         self.estadisticas_ocupacion.setToolButtonStyle(Qt.ToolButtonTextUnderIcon)
-        self.estadisticas_ocupacion.setGeometry(80, 120, 280, 120)
+        self.estadisticas_ocupacion.setGeometry(80, 100, 280, 120)
         self.estadisticas_ocupacion.setVisible(False)
         self.EstadisticasOcupacion()
+
+    def boton_estadisticas_duracion(self, widget):
+        self.estadisticas_duracion = QToolButton(widget)
+        self.estadisticas_duracion.setObjectName("NotButton")  # nombre de enlace a css
+        self.estadisticas_duracion.setStyleSheet('font-size: 20px;font-family: Helvetica; color: white; ')
+        self.estadisticas_duracion.setIcon(QIcon('src/views/static/icons/icono_capacidad'))  # icono
+        self.estadisticas_duracion.setIconSize(QSize(50, 50))
+        self.estadisticas_duracion.setToolButtonStyle(Qt.ToolButtonTextUnderIcon)
+        self.estadisticas_duracion.setGeometry(80, 220, 280, 120)
+        self.estadisticas_duracion.setVisible(False)
+        self.EstadisticasDuracion()
 
     def boton_estadisticas_cambiar_semana(self, widget):
         #semana adelante

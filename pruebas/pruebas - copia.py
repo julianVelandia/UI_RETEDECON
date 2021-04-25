@@ -13,7 +13,7 @@ for key in a:
     if '0000' == config.get('passwords',str(key)):
         indC = contras.index('0000')
         correct = 1
-        print(indC)
+        # print(indC)
     else:
         correct = 0
 for key in b:
@@ -21,10 +21,10 @@ for key in b:
 
 if 'JulianVelandia' in usuarios :
 
-    print(usuarios.index('JulianVelandia'))
+    # print(usuarios.index('JulianVelandia'))
     correct2 = 1
 else:
-    print('E')
+    # print('E')
     correct2 = 0
 '''
 if correct==1 and correct2==1 and indU==indC:

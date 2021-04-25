@@ -96,6 +96,7 @@ class MainWindow(QMainWindow,Boton,TecladoNumeros,TecladoLetras): #Ventana princ
 
         #Botones estadisticas
         self.boton_estadisticas_ocupacion(self.centralWidget)
+        self.boton_estadisticas_duracion(self.centralWidget)
         self.boton_estadisticas_cambiar_semana(self.centralWidget)
         self.graficas_estadisticas()
 
