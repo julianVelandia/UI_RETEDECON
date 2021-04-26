@@ -30,6 +30,17 @@ class Boton_estadisticas(Funcion_estadisticas):
         self.estadisticas_duracion.setVisible(False)
         self.EstadisticasDuracion()
 
+    def boton_estadisticas_personasDia(self, widget):
+        self.estadisticas_personasDia = QToolButton(widget)
+        self.estadisticas_personasDia.setObjectName("NotButton")  # nombre de enlace a css
+        self.estadisticas_personasDia.setStyleSheet('font-size: 20px;font-family: Helvetica; color: white; ')
+        self.estadisticas_personasDia.setIcon(QIcon('src/views/static/icons/icono_capacidad'))  # icono
+        self.estadisticas_personasDia.setIconSize(QSize(50, 50))
+        self.estadisticas_personasDia.setToolButtonStyle(Qt.ToolButtonTextUnderIcon)
+        self.estadisticas_personasDia.setGeometry(80, 340, 280, 120)
+        self.estadisticas_personasDia.setVisible(False)
+        self.EstadisticasPersonasDia()
+
     def boton_estadisticas_cambiar_semana(self, widget):
         #semana adelante
         self.estadisticas_cambiar_semana_adelante = QToolButton(widget)

@@ -54,6 +54,7 @@ class Funciones:
         #estadisticas
         self.estadisticas_ocupacion.setVisible(False)
         self.estadisticas_duracion.setVisible(False)
+        self.estadisticas_personasDia.setVisible(False)
         self.estadisticas_cambiar_semana_adelante.setVisible(False)
         self.estadisticas_cambiar_semana_atras.setVisible(False)
         self.estadisticas_bar_chart.setVisible(False)
@@ -128,6 +129,7 @@ class Funciones:
         self.informacion.setVisible(False)
         self.estadisticas_ocupacion.setVisible(True)
         self.estadisticas_duracion.setVisible(True)
+        self.estadisticas_personasDia.setVisible(True)
         self.estadisticas_cambiar_semana_adelante.setVisible(True)
         self.estadisticas_cambiar_semana_atras.setVisible(True)
 

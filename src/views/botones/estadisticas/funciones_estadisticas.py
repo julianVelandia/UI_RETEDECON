@@ -74,7 +74,13 @@ class Funcion_estadisticas:
     def EstadisticasDuracion(self):
         df = pd.read_csv('src/models/data/DB.csv')
         deltas = df['Delta']
-        deltas = deltas[deltas != "D*"]  # Seleccionar solamente los que ya salieron
-        deltas = deltas[deltas != "*"].astype(int)  # se puede borrar si ya no estan utilizando esta convencion
+        deltas = deltas[deltas != "D*"].astype(int)  # Seleccionar solamente los que ya salieron
         self.duracion = sum(deltas) // len(deltas)
         self.estadisticas_duracion.setText('Duración promedio\nen minutos: ' + str(self.duracion))
+
+    def EstadisticasPersonasDia(self):
+        df = pd.read_csv('src/models/data/DB.csv')
+        dates = df['Fecha']
+        keys = set(dates.to_list())
+        prom = len(dates) // len(keys)
+        self.estadisticas_personasDia.setText('Promedio de personas\npor día: ' + str(prom))
