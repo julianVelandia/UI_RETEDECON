@@ -1,4 +1,5 @@
 from PyQt5.QtWidgets import *
+import numpy as np
 
 from matplotlib.backends.backend_qt5agg import FigureCanvasQTAgg as FigureCanvas
 from matplotlib.figure import Figure
@@ -49,15 +50,38 @@ class PlotCanvas(FigureCanvas):
 #pie
 class PlotCanvasP(FigureCanvas):
     def __init__(self, parent=None, width=5, height=4, dpi=100):
-        fig = Figure(figsize=(width, height), dpi=dpi)  # facecolor es el color del fondo del canvas
+        fig = Figure(figsize=(width, height), dpi=dpi)  
         # Se instancia FigureCanvas para fig.
         FigureCanvas.__init__(self, fig)
-        self.setParent(parent)#######SUPER IMPORTANTE, ESTE PARÁMETRO CONVIERTE DE VENTANA A OBJETO
+        self.setParent(parent)
         FigureCanvas.setSizePolicy(self, QSizePolicy.Expanding, QSizePolicy.Expanding)
         FigureCanvas.updateGeometry(self)
         
     def pie(self,info):
+        self.xa = self.figure.add_subplot(111)
+        for i in range(len(info[1])):
+            if info[1][i] == 0:
+                info[1][i]=0.1
 
-        ax = self.figure.add_subplot(111)
-        ax.pie(info[1], labels=info[1], autopct='%1.1f%%',shadow=True, startangle=90)
-        ax.axis('equal')  # Equal aspect ratio ensures that pie is drawn as a circle.
+        colors = ['#1F77B4']
+        explode = (0.1,0.1,0.1,0.1,0.1)
+        print(len(info[0]))
+        wedges,text = self.xa.pie(info[1], colors = colors,wedgeprops=dict(width=0.5), startangle=-40, explode = explode)
+        bbox_props = dict(boxstyle="square,pad=0.3", fc="w", ec="k", lw=0.72)
+        kw = dict(arrowprops=dict(arrowstyle="-"),
+                bbox=bbox_props, zorder=0, va="center")
+
+        for i, p in enumerate(wedges):
+            ang = (p.theta2 - p.theta1)/2. + p.theta1
+            y = np.sin(np.deg2rad(ang))
+            x = np.cos(np.deg2rad(ang))
+            horizontalalignment = {-1: "right", 1: "left"}[int(np.sign(x))]
+            connectionstyle = "angle,angleA=0,angleB={}".format(ang)
+            kw["arrowprops"].update({"connectionstyle": connectionstyle})
+            self.xa.annotate(info[0][i], xy=(x, y), xytext=(1.35*np.sign(x), 1.4*y),
+                        horizontalalignment=horizontalalignment, **kw)
+                        
+        self.xa.set_title("Porcentaje de ingresos")
+        self.xa.set_facecolor('black')
+
+        

@@ -135,7 +135,7 @@ class Funciones:
 
         self.EstadisticasOcupacion()
         #NNNNNNNNNNNNNOOOOOOOOOOO
-        if self.SiBarrasNoPie:
+        if not self.SiBarrasNoPie:
             self.estadisticas_bar_chart.bara(self.EstadisticasGetInfo(),True)
 
             self.estadisticas_bar_chart.setVisible(True)
