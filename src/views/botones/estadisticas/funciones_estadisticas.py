@@ -2,28 +2,29 @@ from PyQt5.QtWidgets import *
 from PyQt5.QtCore import *
 from PyQt5.QtGui import *
 import pandas as pd
+from datetime import datetime
 
 
 class Funcion_estadisticas:
     posicion_fechas = 0
 
     def EstadisticasCambiarSemanaAtras(self):
-        if self.posicion_fechas < 20 and self.posicion_fechas >= 0:
-            self.posicion_fechas += 1
-            self.estadisticas_bar_chart.actualizar(self.EstadisticasGetInfo())
-            # [['hola','hla','holads','hodla','holda'],[0,0,1,0,0]]
-            # self.estadisticas_bar_chart.setVisible(False)
-            # del self.estadisticas_bar_chart
-            # del self.estadisticas_pie_chart
-            # self.graficas_estadisticas()
-
-        # print('p1:'+str(self.posicion_fechas))
+        
+        self.posicion_fechas += 1
+        
+        print(self.EstadisticasGetInfo())
+        self.estadisticas_bar_chart.actualizar(self.EstadisticasGetInfo())
+        
 
     def EstadisticasCambiarSemanaAdelante(self):
-        if self.posicion_fechas < 20 and self.posicion_fechas > 0:
+        if  self.posicion_fechas > 0:
             self.posicion_fechas -= 1
-            self.estadisticas_bar_chart.setVisible(True)
-        # print('p2:'+str(self.posicion_fechas))
+            self.estadisticas_bar_chart.actualizar(self.EstadisticasGetInfo())
+
+           
+    
+
+        
 
     def EstadisticasGetInfo(self):
         self.df = pd.read_csv('src/models/data/DB.csv')
@@ -32,32 +33,59 @@ class Funcion_estadisticas:
 
         df = pd.read_csv('src/models/data/DB.csv')
         fechas_unicas = []
+        hoy = datetime.today().strftime('%d-%m')
+        fechas_unicas.append(hoy)
+        dia = int(datetime.today().strftime('%d'))
+        mes = int(datetime.today().strftime('%m'))
+        
+        for _ in range(364):
+            if dia > 1:
+                dia-=1
+            elif mes == 3:
+                mes-=1
+                dia = 28
+            
+            elif mes == 1 or (mes%2==0 and mes<=8) or (mes%2!=0 and mes>8):
+                mes-=1
+                dia = 31
+            else:
+                mes-=1
+                dia = 30
+            if mes==0:
+                mes = 12
+            
+            if dia<10:
+                disstr = str(0)+str(dia)
+            else:
+                disstr = str(dia)
 
-        aux = ''
-        for f in df['Fecha']:
-            if f != aux:
-                fechas_unicas.append(f)
-                aux = f
+            if mes<10:
+                messtr = str(0)+str(mes)
+            else:
+                dismes = str(mes)
+
+            fechas_unicas.append(disstr+'-'+messtr)
+       
 
         fechas_unicas.reverse()
-        # print('fechas ' + str(self.posicion_fechas))
+        #
         for _ in range(self.posicion_fechas):
             try:
                 fechas_unicas.pop()
-                print(fechas_unicas)
             except:
                 pass
 
+        fechas_unicas.reverse()
         for fecha in fechas_unicas:
             cont = 0
             for ent in self.df['Fecha']:
-                if fecha == ent:
+                
+                if fecha+'-2021' == ent:
                     cont += 1
             y.append(cont)
-            x.append(str(fecha).replace('-2021', ''))
+            x.append(fecha)
             if len(x) > 4:
                 break
-
         return [x, y]
 
     def EstadisticasOcupacion(self):

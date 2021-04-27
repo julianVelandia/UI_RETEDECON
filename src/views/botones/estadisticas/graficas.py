@@ -3,8 +3,6 @@ from PyQt5.QtWidgets import *
 from matplotlib.backends.backend_qt5agg import FigureCanvasQTAgg as FigureCanvas
 from matplotlib.figure import Figure
 
-
-
 #bar
 class PlotCanvas(FigureCanvas):
     def __init__(self, parent=None, width=5, height=4, dpi=100, facecolor = 'black'):
@@ -14,16 +12,13 @@ class PlotCanvas(FigureCanvas):
         self.setParent(parent)
         FigureCanvas.setSizePolicy(self,QSizePolicy.Expanding, QSizePolicy.Expanding)
         FigureCanvas.updateGeometry(self)
-        #se llama a la funcion plot()
         
-        #self.bar()
 
-    def bar(self,info):
-        #Se agrega un subplot y creo que el 111 define como las dimensiones
+
+    def bara(self,info):
         self.ax = self.figure.add_subplot(111)
-        self.ax.set_xlabel('Fechas',color ='white')  #Texto de las leyendas y color
+        self.ax.set_xlabel('Fechas',color ='white')  
         self.ax.set_ylabel('Ingresos totales',color ='white')
-        #ax.plot(data, 'r-', color='red') ------> Esto está comentado porque es para añadir una grafica de linea
 
         self.ax.set_facecolor('black') #color fondo de la grafica
         self.ax.spines['left'].set_color('white')    #pinta la regla de la izquierda
@@ -36,9 +31,19 @@ class PlotCanvas(FigureCanvas):
         self.draw() #Dibuja en el canvas
     
     def actualizar(self, info):
-        #self.flush_events()
+        self.ax = self.figure.add_subplot(111)
+        #self.ax.set_xlabel('Fechas',color ='white')  
+        #self.ax.set_ylabel('Ingresos totales',color ='white')
+
+        self.ax.set_facecolor('black') #color fondo de la grafica
+        #self.ax.spines['left'].set_color('white')    #pinta la regla de la izquierda
+        #self.ax.spines['bottom'].set_color('white')   #pinta la regla de abajo
+        self.ax.tick_params(axis='x', colors='white')    #pinta los valores del eje x
+        self.ax.tick_params(axis='y', colors='white')    #pinta los valores del eje y
+
+
         self.ax.bar(info[0],info[1]) #Esta funcion crea las barras donde a esta en x y b en y
-        self.draw()
+        self.draw() #Dibuja en el canvas
 #pie
 class PlotCanvasP(FigureCanvas):
     def __init__(self, parent=None, width=5, height=4, dpi=100):

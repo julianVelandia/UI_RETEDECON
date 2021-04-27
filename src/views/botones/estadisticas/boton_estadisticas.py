@@ -66,7 +66,7 @@ class Boton_estadisticas(Funcion_estadisticas):
         #Barras
         self.estadisticas_bar_chart = PlotCanvas(self, width=5, height=4)
         self.estadisticas_bar_chart.move(450, 120)
-        self.estadisticas_bar_chart.bar(info)
+        self.estadisticas_bar_chart.bara(info)
         self.estadisticas_bar_chart.setVisible(False)
         #Pie
         self.estadisticas_pie_chart = PlotCanvasP(self, width=5, height=4)
