@@ -13,18 +13,13 @@ class Funcion_estadisticas:
         self.posicion_fechas += 1
         
         print(self.EstadisticasGetInfo())
-        self.estadisticas_bar_chart.actualizar(self.EstadisticasGetInfo())
+        self.estadisticas_bar_chart.bara(self.EstadisticasGetInfo(),True)
         
 
     def EstadisticasCambiarSemanaAdelante(self):
         if  self.posicion_fechas > 0:
             self.posicion_fechas -= 1
-            self.estadisticas_bar_chart.actualizar(self.EstadisticasGetInfo())
-
-           
-    
-
-        
+            self.estadisticas_bar_chart.bara(self.EstadisticasGetInfo(),True)
 
     def EstadisticasGetInfo(self):
         self.df = pd.read_csv('src/models/data/DB.csv')
