@@ -2,12 +2,10 @@ from src.views.botones.configuraciones.avanzada.boton_avanzada import Boton_avan
 from PyQt5.QtWidgets import *
 from PyQt5.QtCore import *
 from PyQt5.QtGui import *
-
 #locals
 from .funciones_configuraciones import Funcion_configuraciones
 from .avanzada.boton_avanzada import Boton_avanzada
 from .datos.boton_datos import Boton_datos
-
 
 class Boton_configuraciones(Funcion_configuraciones,Boton_avanzada,Boton_datos):
     def boton_configuraciones_ajustes(self, widget):
@@ -32,7 +30,6 @@ class Boton_configuraciones(Funcion_configuraciones,Boton_avanzada,Boton_datos):
         self.configuraciones_avanzada.clicked.connect(self.ConfiguracionesAvanzada)
         self.configuraciones_avanzada.setVisible(False)
 
-
     def boton_configuraciones_apagar(self, widget):
 
         self.configuraciones_apagar = QToolButton(widget)
@@ -44,7 +41,6 @@ class Boton_configuraciones(Funcion_configuraciones,Boton_avanzada,Boton_datos):
         self.configuraciones_apagar.clicked.connect(self.ConfiguracionesApagar)
         self.configuraciones_apagar.setGeometry(534, 340, 290, 180)
         self.configuraciones_apagar.setVisible(False)
-
         
     def boton_configuraciones_datos(self, widget):
 

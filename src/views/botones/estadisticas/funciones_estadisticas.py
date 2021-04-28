@@ -4,17 +4,13 @@ from PyQt5.QtGui import *
 import pandas as pd
 from datetime import datetime
 
-
 class Funcion_estadisticas:
     posicion_fechas = 0
 
     def EstadisticasCambiarSemanaAtras(self):
-        
         self.posicion_fechas += 1
-        
         print(self.EstadisticasGetInfo())
         self.estadisticas_bar_chart.bara(self.EstadisticasGetInfo(),True)
-        
 
     def EstadisticasCambiarSemanaAdelante(self):
         if  self.posicion_fechas > 0:
@@ -60,7 +56,6 @@ class Funcion_estadisticas:
                 dismes = str(mes)
 
             fechas_unicas.append(disstr+'-'+messtr)
-       
 
         fechas_unicas.reverse()
         #

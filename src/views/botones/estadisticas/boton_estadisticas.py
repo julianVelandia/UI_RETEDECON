@@ -1,11 +1,9 @@
 from PyQt5.QtWidgets import *
 from PyQt5.QtCore import *
 from PyQt5.QtGui import *
-
 #locals
 from .funciones_estadisticas import Funcion_estadisticas
 from .graficas import *
-
 
 class Boton_estadisticas(Funcion_estadisticas):
     def boton_estadisticas_ocupacion(self, widget):
@@ -15,7 +13,7 @@ class Boton_estadisticas(Funcion_estadisticas):
         self.estadisticas_ocupacion.setIcon(QIcon('src/views/static/icons/icono_capacidad'))  # icono
         self.estadisticas_ocupacion.setIconSize(QSize(50, 50))
         self.estadisticas_ocupacion.setToolButtonStyle(Qt.ToolButtonTextUnderIcon)
-        self.estadisticas_ocupacion.setGeometry(80, 100, 280, 120)
+        self.estadisticas_ocupacion.setGeometry(80, 130, 280, 120)
         self.estadisticas_ocupacion.setVisible(False)
         self.EstadisticasOcupacion()
 
@@ -23,10 +21,10 @@ class Boton_estadisticas(Funcion_estadisticas):
         self.estadisticas_duracion = QToolButton(widget)
         self.estadisticas_duracion.setObjectName("NotButton")  # nombre de enlace a css
         self.estadisticas_duracion.setStyleSheet('font-size: 20px;font-family: Helvetica; color: white; ')
-        self.estadisticas_duracion.setIcon(QIcon('src/views/static/icons/icono_capacidad'))  # icono
+        self.estadisticas_duracion.setIcon(QIcon('src/views/static/icons/icono_tiempo'))  # icono
         self.estadisticas_duracion.setIconSize(QSize(50, 50))
         self.estadisticas_duracion.setToolButtonStyle(Qt.ToolButtonTextUnderIcon)
-        self.estadisticas_duracion.setGeometry(80, 220, 280, 120)
+        self.estadisticas_duracion.setGeometry(80, 240, 280, 120)
         self.estadisticas_duracion.setVisible(False)
         self.EstadisticasDuracion()
 
@@ -37,7 +35,7 @@ class Boton_estadisticas(Funcion_estadisticas):
         self.estadisticas_personasDia.setIcon(QIcon('src/views/static/icons/icono_capacidad'))  # icono
         self.estadisticas_personasDia.setIconSize(QSize(50, 50))
         self.estadisticas_personasDia.setToolButtonStyle(Qt.ToolButtonTextUnderIcon)
-        self.estadisticas_personasDia.setGeometry(80, 340, 280, 120)
+        self.estadisticas_personasDia.setGeometry(80, 375, 280, 120)
         self.estadisticas_personasDia.setVisible(False)
         self.EstadisticasPersonasDia()
 
@@ -63,7 +61,6 @@ class Boton_estadisticas(Funcion_estadisticas):
     def graficas_estadisticas(self):
         
         info = self.EstadisticasGetInfo()
-
         #Barras
         self.estadisticas_bar_chart = PlotCanvas(self, width=5, height=4)
         self.estadisticas_bar_chart.move(450, 120)
@@ -74,5 +71,3 @@ class Boton_estadisticas(Funcion_estadisticas):
         self.estadisticas_pie_chart.move(450, 120)
         self.estadisticas_pie_chart.pie(info)
         self.estadisticas_pie_chart.setVisible(False)
-
-    

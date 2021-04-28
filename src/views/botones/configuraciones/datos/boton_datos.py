@@ -16,6 +16,7 @@ class Boton_datos(Funcion_datos):
         self.datos_barras.clicked.connect(self.DatosBarras)
         self.datos_barras.setGeometry(534,230, 290, 180)
         self.datos_barras.setVisible(False)
+        self.datos_barras.setStyleSheet("background-color: #A2A2A2;")
 
     def boton_datos_pie(self, widget):
         self.datos_pie = QToolButton(widget)
@@ -27,6 +28,4 @@ class Boton_datos(Funcion_datos):
         self.datos_pie.clicked.connect(self.DatosPie)
         self.datos_pie.setGeometry(200, 230, 290, 180)
         self.datos_pie.setVisible(False)
-
-        self.datos_barras.setStyleSheet("background-color: #A2A2A2;")
         self.datos_pie.setStyleSheet("background-color: none;")
