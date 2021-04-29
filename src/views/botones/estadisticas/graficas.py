@@ -34,8 +34,8 @@ class PlotCanvas(FigureCanvas):
 
 # pie
 class PlotCanvasP(FigureCanvas):
-    def __init__(self, parent=None, width=5, height=4, dpi=100):
-        fig = Figure(figsize=(width, height), dpi=dpi)
+    def __init__(self, parent=None, width=5, height=4, dpi=100, facecolor='black'):
+        fig = Figure(figsize=(width, height), dpi=dpi, facecolor=facecolor)
         # Se instancia FigureCanvas para fig.
         FigureCanvas.__init__(self, fig)
         self.setParent(parent)
@@ -54,9 +54,9 @@ class PlotCanvasP(FigureCanvas):
             print(len(info[0]))
             wedges, text = self.xa.pie(info[1], colors=colors, wedgeprops=dict(width=0.5), startangle=-40,
                                        explode=explode, normalize=True)
-            bbox_props = dict(boxstyle="square,pad=0.3", fc="w", ec="k", lw=0.72)
-            kw = dict(arrowprops=dict(arrowstyle="-"),
-                      bbox=bbox_props, zorder=0, va="center")
+            bbox_props = dict(boxstyle="square,pad=0.3", fc="black", ec="black", lw=0.72)
+            kw = dict(arrowprops=dict(arrowstyle="-", color="white"),
+                      bbox=bbox_props, zorder=0, va="center", color="white")
 
             for i, p in enumerate(wedges):
                 ang = (p.theta2 - p.theta1) / 2. + p.theta1
@@ -68,7 +68,7 @@ class PlotCanvasP(FigureCanvas):
                 self.xa.annotate(info[0][i], xy=(x, y), xytext=(1.35 * np.sign(x), 1.4 * y),
                                  horizontalalignment=horizontalalignment, **kw)
 
-            self.xa.set_title("Porcentaje de ingresos")
+            self.xa.set_title("Porcentaje de ingresos", color="white")
             self.draw()  # Dibuja en el canvas
         else:
             self.xa.cla()
