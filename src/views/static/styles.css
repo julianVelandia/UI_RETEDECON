@@ -13,6 +13,16 @@ QToolButton#button {
     border: 1px solid white;
 }
 
+QToolButton#small {
+    padding: 5px;
+    font-size: 20px;
+    font-family: Helvetica;
+    color: white;
+    background-color: none;
+    border-radius: 15px;
+    border: 1px solid white;
+}
+
 QToolButton#NotButton {
 
     color: none; 

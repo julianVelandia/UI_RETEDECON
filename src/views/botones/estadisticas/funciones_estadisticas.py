@@ -4,21 +4,21 @@ from PyQt5.QtGui import *
 import pandas as pd
 from datetime import datetime
 
+
 class Funcion_estadisticas:
     posicion_fechas = 0
 
     def EstadisticasCambiarSemanaAtras(self):
         self.posicion_fechas += 1
         print(self.EstadisticasGetInfo())
-        self.estadisticas_bar_chart.bara(self.EstadisticasGetInfo(),True)
-        self.estadisticas_pie_chart.pies(self.EstadisticasGetInfo(),True)
+        self.estadisticas_bar_chart.bara(self.EstadisticasGetInfo(), True)
+        self.estadisticas_pie_chart.pies(self.EstadisticasGetInfo(), True)
 
     def EstadisticasCambiarSemanaAdelante(self):
-        if  self.posicion_fechas > 0:
+        if self.posicion_fechas > 0:
             self.posicion_fechas -= 1
-            self.estadisticas_bar_chart.bara(self.EstadisticasGetInfo(),True)
-            self.estadisticas_pie_chart.pies(self.EstadisticasGetInfo(),True)
-
+            self.estadisticas_bar_chart.bara(self.EstadisticasGetInfo(), True)
+            self.estadisticas_pie_chart.pies(self.EstadisticasGetInfo(), True)
 
     def EstadisticasGetInfo(self):
         self.df = pd.read_csv('src/models/data/DB.csv')
@@ -31,34 +31,34 @@ class Funcion_estadisticas:
         fechas_unicas.append(hoy)
         dia = int(datetime.today().strftime('%d'))
         mes = int(datetime.today().strftime('%m'))
-        
+
         for _ in range(364):
             if dia > 1:
-                dia-=1
+                dia -= 1
             elif mes == 3:
-                mes-=1
+                mes -= 1
                 dia = 28
-            
-            elif mes == 1 or (mes%2==0 and mes<=8) or (mes%2!=0 and mes>8):
-                mes-=1
+
+            elif mes == 1 or (mes % 2 == 0 and mes <= 8) or (mes % 2 != 0 and mes > 8):
+                mes -= 1
                 dia = 31
             else:
-                mes-=1
+                mes -= 1
                 dia = 30
-            if mes==0:
+            if mes == 0:
                 mes = 12
-            
-            if dia<10:
-                disstr = str(0)+str(dia)
+
+            if dia < 10:
+                disstr = str(0) + str(dia)
             else:
                 disstr = str(dia)
 
-            if mes<10:
-                messtr = str(0)+str(mes)
+            if mes < 10:
+                messtr = str(0) + str(mes)
             else:
                 dismes = str(mes)
 
-            fechas_unicas.append(disstr+'-'+messtr)
+            fechas_unicas.append(disstr + '-' + messtr)
 
         fechas_unicas.reverse()
         #
@@ -72,8 +72,8 @@ class Funcion_estadisticas:
         for fecha in fechas_unicas:
             cont = 0
             for ent in self.df['Fecha']:
-                
-                if fecha+'-2021' == ent:
+
+                if fecha + '-2021' == ent:
                     cont += 1
             y.append(cont)
             x.append(fecha)
@@ -105,3 +105,13 @@ class Funcion_estadisticas:
         keys = set(dates.to_list())
         prom = len(dates) // len(keys)
         self.estadisticas_personasDia.setText('Promedio de personas\npor día: ' + str(prom))
+
+    def barras(self):
+        self.estadisticas_barras.setStyleSheet("background-color: #A2A2A2;")
+        self.estadisticas_torta.setStyleSheet("background-color: none;")
+        self.SiBarrasNoPie = True
+
+    def torta(self):
+        self.estadisticas_torta.setStyleSheet("background-color:#A2A2A2;")
+        self.estadisticas_barras.setStyleSheet("background-color: none; ")
+        self.SiBarrasNoPie = False
