@@ -119,4 +119,13 @@ class Funcion_inside:  # (Boton_agregar):
 
     def InsideCambiar(self):
         self.pantalla = 'cambiar'
-        print(self.pantalla)
+        self.inside_agregar.setVisible(False)
+        self.inside_eliminar.setVisible(False)
+        self.inside_enviar.setVisible(False)
+        self.inside_capacidad.setVisible(False)
+        self.inside_cambiar.setVisible(False)
+
+        self.cambiar_pass.setVisible(True)
+        self.pass_new_0.setVisible(True)
+        self.pass_new_1.setVisible(True)
+        self.cambiar_cambiar.setVisible(True)

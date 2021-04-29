@@ -127,6 +127,11 @@ class MainWindow(QMainWindow,Boton,TecladoNumeros,TecladoLetras): #Ventana princ
         self.boton_capacidad_setnew(self.centralWidget)
         self.text_capacidad_newcapacidad(self.centralWidget)
 
+        #Botones Configuracion avanzada inside cambiar
+        self.text_cambiar_pass(self.centralWidget)
+        self.text_pass_new(self.centralWidget)
+        self.boton_cambiar_cambiar(self.centralWidget)
+
 if __name__=='__main__':
     app = QApplication([])
     window = MainWindow()

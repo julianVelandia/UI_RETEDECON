@@ -85,6 +85,14 @@ class Funciones:
         #capacidad
         self.capacidad_newcapacidad.setVisible(False)
         self.capacidad_setnew.setVisible(False)
+
+
+        #cambiar
+        self.cambiar_pass.setVisible(False)
+        self.pass_new_0.setVisible(False)
+        self.pass_new_1.setVisible(False)
+        self.cambiar_cambiar.setVisible(False)
+
         
         TecladoLetras.NotTeclado(self)
         TecladoNumeros.NotTecladoNumerico(self)
@@ -234,6 +242,12 @@ class Funciones:
             self.capacidad_newcapacidad.setVisible(False)
             self.capacidad_setnew.setVisible(False)
             self.AvanzadaInsideInside()
+
+            #cambiar
+            self.cambiar_pass.setVisible(False)
+            self.pass_new_0.setVisible(False)
+            self.pass_new_1.setVisible(False)
+            self.cambiar_cambiar.setVisible(False)
 
         elif self.pantalla == 'manual' or self.pantalla == 'fabricante':
             self.HomeWindow()

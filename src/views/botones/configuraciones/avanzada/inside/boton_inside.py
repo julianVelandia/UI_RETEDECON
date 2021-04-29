@@ -7,8 +7,9 @@ from .funciones_inside import Funcion_inside
 from .agregar.boton_agregar import Boton_agregar
 from .eliminar.boton_eliminar import Boton_eliminar
 from .capacidad.boton_capacidad import Boton_capacidad
+from .cambiar.boton_cambiar import Boton_cambiar
 
-class Boton_inside(Funcion_inside, Boton_agregar, Boton_eliminar, Boton_capacidad):
+class Boton_inside(Funcion_inside, Boton_agregar, Boton_eliminar, Boton_capacidad, Boton_cambiar):
     def boton_inside_agregar(self, widget):
         self.inside_agregar = QToolButton(widget)
         self.inside_agregar.setText('Agregar Administrador')
