@@ -14,6 +14,8 @@ class Boton_agregar(Funcion_agregar):
         self.agregar_username.setGeometry(164,237,290,70)
         self.agregar_username.setMaxLength(40)
         self.agregar_username.setVisible(False)
+        self.agregar_username.clicked.connect(self.AgregarUsername)
+
 
     def boton_agregar_pass(self, widget):
         self.agregar_pass = QLineEditClick(widget)
@@ -24,6 +26,8 @@ class Boton_agregar(Funcion_agregar):
         self.agregar_pass.setMaxLength(15)
         self.agregar_pass.setVisible(False)
         self.agregar_pass.setEchoMode(QLineEdit.Password)
+        self.agregar_pass.clicked.connect(self.AgregarPass)
+
 
     def boton_agregar_agregar(self, widget):
         self.agregar_agregar = QToolButton(widget)

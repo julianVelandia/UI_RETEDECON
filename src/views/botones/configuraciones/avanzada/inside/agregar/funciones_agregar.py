@@ -7,6 +7,33 @@ from src.views.teclado.teclado_letras import *
 from src.views.teclado.teclado_numeros import *
 
 class Funcion_agregar:
+    def AgregarUsername(self):
+        MOV = -100
+        #movimiento botones
+        self.agregar_username.setGeometry(164.2,237+MOV,290,70)
+        self.agregar_pass.setGeometry(164.2,341+MOV,290,70)
+        self.agregar_agregar.setGeometry(570, 237+MOV, 290, 176.3)
+        self.Teclado()
+        self.NotTecladoNumerico()
+        self.campo = 'Agregar-User'
+
+    def AgregarPass(self):
+        MOV = -100
+        #movimiento botones
+        self.agregar_username.setGeometry(164.2,237+MOV,290,70)
+        self.agregar_pass.setGeometry(164.2,341+MOV,290,70)
+        self.agregar_agregar.setGeometry(570, 237+MOV, 290, 176.3)
+        self.NotTeclado()
+        self.TecladoNumerico()
+        self.campo = 'Agregar-Pass'
+
+    def Agregar_guardar_teclado(self):
+        self.agregar_username.setGeometry(164, 240, 320, 70)
+        self.agregar_pass.setGeometry(164,330,320,70)
+        self.agregar_agregar.setGeometry(570, 240, 280, 160)
+        self.NotTeclado()
+    
+
     def AgregarAgregar(self):
         try:
             self.config.read('config.ini')

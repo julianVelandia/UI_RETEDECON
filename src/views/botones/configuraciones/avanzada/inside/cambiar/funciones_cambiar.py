@@ -7,14 +7,54 @@ from src.views.teclado.teclado_letras import *
 from src.views.teclado.teclado_numeros import *
 
 class Funcion_cambiar:
+
+    def CambiarPass(self):
+        MOV = -100
+        #movimiento botones
+        self.cambiar_pass.setGeometry(164,157+MOV,290,70)
+        self.pass_new_0.setGeometry(164, 261+MOV, 290, 70)
+        self.pass_new_1.setGeometry(164, 361+MOV, 290, 70)
+        self.cambiar_cambiar.setGeometry(570, 230+MOV, 290, 180)
+
+        self.NotTeclado()
+        self.TecladoNumerico()
+        self.campo = 'Cambiar-Pass'
+
+    def PassNew0(self):
+        MOV = -100
+        #movimiento botones
+        self.cambiar_pass.setGeometry(164,157+MOV,290,70)
+        self.pass_new_0.setGeometry(164, 261+MOV, 290, 70)
+        self.pass_new_1.setGeometry(164, 361+MOV, 290, 70)
+        self.cambiar_cambiar.setGeometry(570, 230+MOV, 290, 180)
+        self.NotTeclado()
+        self.TecladoNumerico()
+        self.campo = 'Cambiar-Pass0'
+
+    def PassNew1(self):
+        MOV = -100
+        #movimiento botones
+        self.cambiar_pass.setGeometry(164,157+MOV,290,70)
+        self.pass_new_0.setGeometry(164, 261+MOV, 290, 70)
+        self.pass_new_1.setGeometry(164, 361+MOV, 290, 70)
+        self.cambiar_cambiar.setGeometry(570, 230+MOV, 290, 180)
+        self.NotTeclado()
+        self.TecladoNumerico()
+        self.campo = 'Cambiar-Pass1'
+
+    def Cambiar_guardar_teclado(self):
+        self.cambiar_pass.setGeometry(164,157,290,70)
+        self.pass_new_0.setGeometry(164, 261, 290, 70)
+        self.pass_new_1.setGeometry(164, 361, 290, 70)
+        self.cambiar_cambiar.setGeometry(570, 230, 290, 180)
+        self.NotTeclado()
+
+
+
     def CambiarCambiar(self):
-        '''
-        cambiar_pass
-        pass_new_0
-        pass_new_1
-        cambiar_cambiar
-        '''
-        try:
+        
+        #try:
+        if True:
             self.config.read('config.ini')
             users = list(self.config['users'])
             passwords = list(self.config['passwords'])
@@ -67,7 +107,7 @@ class Funcion_cambiar:
 
 
 
-                            k = len(users_values)
+                            k = len(users_values)-1
                             b = 'key'+str(k+1)
                             self.config.set('users',b, self.avanzada_user.text())
                             p = password_new_0
@@ -108,11 +148,12 @@ class Funcion_cambiar:
                 self.dialogo_mensaje = "Debe llenar todos los campos\nantes de continuar"
                 self.dialogo.setInformativeText(self.dialogo_mensaje)
                 self.dialogo.show()
+        '''
         except:
             self.dialogo_mensaje = "Error, intente nuevamente\n\nSi el error persiste comuniquese con el fabricante"
             self.dialogo.setInformativeText(self.dialogo_mensaje)
             self.dialogo.show()
-
+        '''
     def update_keys(self):
         self.config.read('config.ini')
         users = list(self.config['users'])
@@ -134,8 +175,7 @@ class Funcion_cambiar:
                 print(str(keys))
         a = len(users) - key + 1
         b = len(users) - a
-        print(a)
-        print(b)
+        
 
         for k in range(b, len(users)):
             self.config.remove_option('users', 'key' + str(k + 2))

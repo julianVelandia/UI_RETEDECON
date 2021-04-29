@@ -15,6 +15,8 @@ class Boton_cambiar(Funcion_cambiar):
         self.cambiar_pass.setMaxLength(40)
         self.cambiar_pass.setVisible(False)
         self.cambiar_pass.setEchoMode(QLineEdit.Password)
+        self.cambiar_pass.clicked.connect(self.CambiarPass)
+
 
     def text_pass_new(self, widget):
         self.pass_new_0 = QLineEditClick(widget)
@@ -25,6 +27,8 @@ class Boton_cambiar(Funcion_cambiar):
         self.pass_new_0.setMaxLength(15)
         self.pass_new_0.setVisible(False)
         self.pass_new_0.setEchoMode(QLineEdit.Password)
+        self.pass_new_0.clicked.connect(self.PassNew0)
+
 
         self.pass_new_1 = QLineEditClick(widget)
         self.pass_new_1.setPlaceholderText("CONTRASEÑA NUEVA")
@@ -34,6 +38,8 @@ class Boton_cambiar(Funcion_cambiar):
         self.pass_new_1.setMaxLength(15)
         self.pass_new_1.setVisible(False)
         self.pass_new_1.setEchoMode(QLineEdit.Password)
+        self.pass_new_1.clicked.connect(self.PassNew1)
+
 
     def boton_cambiar_cambiar(self, widget):
         self.cambiar_cambiar = QToolButton(widget)
