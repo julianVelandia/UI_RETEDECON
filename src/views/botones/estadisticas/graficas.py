@@ -53,7 +53,7 @@ class PlotCanvasP(FigureCanvas):
             explode = (0.1, 0.1, 0.1, 0.1, 0.1)
             print(len(info[0]))
             wedges, text = self.xa.pie(info[1], colors=colors, wedgeprops=dict(width=0.5), startangle=-40,
-                                       explode=explode)
+                                       explode=explode, normalize=True)
             bbox_props = dict(boxstyle="square,pad=0.3", fc="w", ec="k", lw=0.72)
             kw = dict(arrowprops=dict(arrowstyle="-"),
                       bbox=bbox_props, zorder=0, va="center")
@@ -69,8 +69,8 @@ class PlotCanvasP(FigureCanvas):
                                  horizontalalignment=horizontalalignment, **kw)
 
             self.xa.set_title("Porcentaje de ingresos")
-            self.xa.set_facecolor('black')
             self.draw()  # Dibuja en el canvas
         else:
             self.xa.cla()
+            self.xa.set_axis_off()
             self.pies(info, False)
