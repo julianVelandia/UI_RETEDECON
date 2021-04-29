@@ -41,7 +41,7 @@ class PlotCanvasP(FigureCanvas):
         FigureCanvas.setSizePolicy(self, QSizePolicy.Expanding, QSizePolicy.Expanding)
         FigureCanvas.updateGeometry(self)
         
-    def pie(self,info,new):
+    def pies(self,info,new):
         if not new:
             self.xa = self.figure.add_subplot(111)
             for i in range(len(info[1])):
@@ -70,4 +70,4 @@ class PlotCanvasP(FigureCanvas):
             self.xa.set_facecolor('black')
         else:
             self.xa.axis('off')
-            self.pie(info,False)
+            self.pies(info,False)

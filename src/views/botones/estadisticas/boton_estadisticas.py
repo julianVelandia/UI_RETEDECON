@@ -69,5 +69,5 @@ class Boton_estadisticas(Funcion_estadisticas):
         #Pie
         self.estadisticas_pie_chart = PlotCanvasP(self, width=5, height=4)
         self.estadisticas_pie_chart.move(450, 120)
-        self.estadisticas_pie_chart.pie(info,False)
+        self.estadisticas_pie_chart.pies(info,False)
         self.estadisticas_pie_chart.setVisible(False)

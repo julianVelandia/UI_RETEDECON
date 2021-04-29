@@ -142,8 +142,8 @@ class Funciones:
         self.estadisticas_cambiar_semana_atras.setVisible(True)
 
         self.EstadisticasOcupacion()
-        #NNNNNNNNNNNNNOOOOOOOOOOO
-        if not self.SiBarrasNoPie:
+        #
+        if  self.SiBarrasNoPie:
             self.estadisticas_bar_chart.bara(self.EstadisticasGetInfo(),True)
 
             self.estadisticas_bar_chart.setVisible(True)
