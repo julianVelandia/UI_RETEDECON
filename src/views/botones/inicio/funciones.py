@@ -1,19 +1,19 @@
-import pandas as pd
 from src.views.teclado.teclado_letras import *
 from src.views.teclado.teclado_numeros import *
+import simpleaudio as sa
+
 
 class Funciones:
     pantalla = 'inicio'
 
-
     def HomeWindow(self):
         self.pantalla = 'inicio'
 
-        #imagen central
+        # imagen central
         self.label_img_central.setVisible(False)
         self.atras.setVisible(False)
 
-        #inicio
+        # inicio
         self.label_img_esquina.setVisible(True)
         self.label_img_esquina_2.setVisible(False)
 
@@ -24,34 +24,34 @@ class Funciones:
         self.configuracion.setVisible(True)
         self.informacion.setVisible(True)
 
-        #ingresar
+        # ingresar
         self.ingresar_nombre.setVisible(False)
         self.ingresar_cedula.setVisible(False)
         self.ingresar_temp.setVisible(False)
         self.ingresar_ingresar.setVisible(False)
 
-        #salida
+        # salida
         self.salida_nombre.setVisible(False)
         self.salida_cedula.setVisible(False)
         self.salida_salida.setVisible(False)
 
-        #configuraciones        
+        # configuraciones
         self.configuraciones_ajustes.setVisible(False)
         self.configuraciones_apagar.setVisible(False)
         self.configuraciones_datos.setVisible(False)
         self.configuraciones_avanzada.setVisible(False)
 
-        #Datos
+        # Datos
         self.datos_barras.setVisible(False)
         self.datos_pie.setVisible(False)
 
-        #informacion
+        # informacion
         self.informacion_manual.setVisible(False)
         self.informacion_fabricante.setVisible(False)
         self.informacion_qr.setVisible(False)
         self.informacion_label.setVisible(False)
 
-        #estadisticas
+        # estadisticas
         self.estadisticas_ocupacion.setVisible(False)
         self.estadisticas_duracion.setVisible(False)
         self.estadisticas_personasDia.setVisible(False)
@@ -62,49 +62,46 @@ class Funciones:
         self.estadisticas_bar_chart.setVisible(False)
         self.estadisticas_pie_chart.setVisible(False)
 
-        #avanzada
+        # avanzada
         self.avanzada_user.setVisible(False)
         self.avanzada_pass.setVisible(False)
         self.avanzada_ingresar.setVisible(False)
 
-        #inside
+        # inside
         self.inside_agregar.setVisible(False)
         self.inside_enviar.setVisible(False)
         self.inside_cambiar.setVisible(False)
         self.inside_capacidad.setVisible(False)
         self.inside_eliminar.setVisible(False)
 
-        #agregar
+        # agregar
         self.agregar_username.setVisible(False)
         self.agregar_pass.setVisible(False)
         self.agregar_agregar.setVisible(False)
 
-        #eliminar
+        # eliminar
         self.eliminar_username.setVisible(False)
         self.eliminar_pass.setVisible(False)
         self.eliminar_eliminar.setVisible(False)
 
-        #capacidad
+        # capacidad
         self.capacidad_newcapacidad.setVisible(False)
         self.capacidad_setnew.setVisible(False)
 
-
-        #cambiar
+        # cambiar
         self.cambiar_pass.setVisible(False)
         self.pass_new_0.setVisible(False)
         self.pass_new_1.setVisible(False)
         self.cambiar_cambiar.setVisible(False)
 
-        
         TecladoLetras.NotTeclado(self)
         TecladoNumeros.NotTecladoNumerico(self)
-    
-    
+
     def Ingresar(self):
         self.pantalla = 'ingresar'
 
-        self.label_img_central.setVisible(False)  
-        self.label_img_esquina.setVisible(True)  
+        self.label_img_central.setVisible(False)
+        self.label_img_esquina.setVisible(True)
         self.ingresar.setVisible(False)
         self.estadisticas.setVisible(False)
         self.detener_alarma.setVisible(False)
@@ -119,18 +116,16 @@ class Funciones:
         self.ingresar_temp.clear()
         self.ingresar_ingresar.setVisible(True)
 
-
         self.salida_nombre.setVisible(False)
         self.salida_cedula.setVisible(False)
         self.salida_salida.setVisible(False)
         self.Ingresar_guardar_teclado()
 
-
     def Estadisticas(self):
         self.pantalla = 'estadisticas'
 
-        self.label_img_central.setVisible(False)  
-        self.label_img_esquina.setVisible(True)  
+        self.label_img_central.setVisible(False)
+        self.label_img_esquina.setVisible(True)
         self.ingresar.setVisible(False)
         self.estadisticas.setVisible(False)
         self.detener_alarma.setVisible(False)
@@ -147,8 +142,8 @@ class Funciones:
 
         self.EstadisticasOcupacion()
         #
-        if  self.SiBarrasNoPie:
-            self.estadisticas_bar_chart.bara(self.EstadisticasGetInfo(),True)
+        if self.SiBarrasNoPie:
+            self.estadisticas_bar_chart.bara(self.EstadisticasGetInfo(), True)
 
             self.estadisticas_bar_chart.setVisible(True)
             self.estadisticas_pie_chart.setVisible(False)
@@ -156,13 +151,9 @@ class Funciones:
             self.estadisticas_bar_chart.setVisible(False)
             self.estadisticas_pie_chart.setVisible(True)
 
-        
-
     def DetenerAlarma(self):
         self.pantalla = 'detener'
-
-        self.stop = 1
-        print(self.stop)
+        sa.stop_all()
         self.HomeWindow()
 
     def Salida_manual(self):
@@ -184,20 +175,20 @@ class Funciones:
         self.salida_cedula.clear()
 
         self.salida_salida.setVisible(True)
-        
+
         self.ingresar_ingresar.setVisible(False)
         self.Retirar_guardar_teclado()
 
-    def Configuracion(self):  
+    def Configuracion(self):
         self.pantalla = 'configuracion'
-      
+
         self.configuraciones_ajustes.setVisible(True)
         self.configuraciones_apagar.setVisible(True)
         self.configuraciones_avanzada.setVisible(True)
         self.configuraciones_datos.setVisible(True)
-        self.label_img_esquina.setVisible(True)  
+        self.label_img_esquina.setVisible(True)
 
-        self.label_img_central.setVisible(False)  
+        self.label_img_central.setVisible(False)
         self.ingresar.setVisible(False)
         self.estadisticas.setVisible(False)
         self.detener_alarma.setVisible(False)
@@ -209,45 +200,43 @@ class Funciones:
         self.pantalla = 'informacion'
 
         self.informacion_manual.setVisible(True)
-        self.informacion_fabricante.setVisible(True) 
+        self.informacion_fabricante.setVisible(True)
 
-        self.label_img_esquina.setVisible(True)  
+        self.label_img_esquina.setVisible(True)
         self.ingresar.setVisible(False)
         self.estadisticas.setVisible(False)
         self.detener_alarma.setVisible(False)
         self.salida_manual.setVisible(False)
         self.configuracion.setVisible(False)
         self.informacion.setVisible(False)
-       
-        self.label_img_central.setVisible(False)  
 
+        self.label_img_central.setVisible(False)
 
     def Atras(self):
         if self.pantalla == 'datos' or self.pantalla == 'inside':
             self.pantalla = 'configuracion'
             self.HomeWindow()
             self.Configuracion()
-        
+
         elif self.pantalla == 'agregar' or self.pantalla == 'eliminar' or self.pantalla == 'capacidad' or self.pantalla == 'cambiar':
             self.pantalla = 'inside'
 
-
-            #agregar
+            # agregar
             self.agregar_username.setVisible(False)
             self.agregar_pass.setVisible(False)
             self.agregar_agregar.setVisible(False)
 
-            #eliminar
+            # eliminar
             self.eliminar_username.setVisible(False)
             self.eliminar_pass.setVisible(False)
             self.eliminar_eliminar.setVisible(False)
 
-            #capacidad
+            # capacidad
             self.capacidad_newcapacidad.setVisible(False)
             self.capacidad_setnew.setVisible(False)
             self.AvanzadaInsideInside()
 
-            #cambiar
+            # cambiar
             self.cambiar_pass.setVisible(False)
             self.pass_new_0.setVisible(False)
             self.pass_new_1.setVisible(False)
@@ -257,6 +246,3 @@ class Funciones:
             self.HomeWindow()
             self.Informacion()
             self.pantalla = 'informacion'
-
-
-    
