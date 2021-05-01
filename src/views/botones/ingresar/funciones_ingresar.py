@@ -2,7 +2,6 @@ from datetime import datetime
 import pandas as pd
 import simpleaudio as sa
 
-
 class Funcion_ingresar:
 
     def Ingresar_desplegar_teclado_numerico_cedula(self):
@@ -104,10 +103,10 @@ class Funcion_ingresar:
                             self.dialogo.show()
                     else:
                         # reproducir alarma
-                        filename = "src/views/static/alarm.wav"
+                        #filename = "src/views/static/alarm.wav"
 
-                        wave_obj = sa.WaveObject.from_wave_file(filename)
-                        play_obj = wave_obj.play()
+                        #wave_obj = sa.WaveObject.from_wave_file(filename)
+                        #play_obj = wave_obj.play()
 
                         self.dialogo_mensaje = "EL USUARIO TIENE FIEBRE    \n"
                         self.dialogo.setInformativeText(self.dialogo_mensaje)

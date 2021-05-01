@@ -13,7 +13,6 @@ class MainWindow(QMainWindow, Boton, TecladoNumeros, TecladoLetras):  # Ventana 
         with open("src/views/static/styles.css") as f:
             self.setStyleSheet(f.read())
 
-        # INICIALIZAR EN UN ARCHIVO parameter.ini o algo así PARA NO HACER HARDCODING
         self.cedula_cache = ''
         self.carnet = ''
         self.title = 'RETEDECON'
@@ -58,7 +57,6 @@ class MainWindow(QMainWindow, Boton, TecladoNumeros, TecladoLetras):  # Ventana 
 
         # Botones Inicio
         self.boton_home(self.centralWidget)
-
         self.boton_inicio_ingresar(self.centralWidget)
         self.boton_inicio_estadisticas(self.centralWidget)
         self.boton_inicio_detener_alarma(self.centralWidget)

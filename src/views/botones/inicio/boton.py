@@ -11,7 +11,6 @@ from src.views.botones.informacion.boton_informacion import Boton_informacion
 from src.views.botones.estadisticas.boton_estadisticas import Boton_estadisticas
 
 class Boton(Funciones,Boton_ingresar,Boton_salida,Boton_configuraciones,Boton_informacion, Boton_estadisticas):
-
     '''
     Botones Pantalla inicio
     '''
