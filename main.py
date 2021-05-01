@@ -7,7 +7,6 @@ from src.views.botones.inicio.boton import Boton
 from src.views.teclado.teclado_numeros import TecladoNumeros
 from src.views.teclado.teclado_letras import TecladoLetras
 
-
 class MainWindow(QMainWindow, Boton, TecladoNumeros, TecladoLetras):  # Ventana principal
     def __init__(self, parent=None, *args):
         super(MainWindow, self).__init__(parent=parent)
@@ -134,7 +133,6 @@ class MainWindow(QMainWindow, Boton, TecladoNumeros, TecladoLetras):  # Ventana 
         self.text_cambiar_pass(self.centralWidget)
         self.text_pass_new(self.centralWidget)
         self.boton_cambiar_cambiar(self.centralWidget)
-
 
 if __name__ == '__main__':
     app = QApplication([])

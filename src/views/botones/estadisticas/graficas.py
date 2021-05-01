@@ -3,7 +3,6 @@ import numpy as np
 from matplotlib.backends.backend_qt5agg import FigureCanvasQTAgg as FigureCanvas
 from matplotlib.figure import Figure
 
-
 # bar
 class PlotCanvas(FigureCanvas):
     def __init__(self, parent=None, width=5, height=4, dpi=100, facecolor='black'):
@@ -30,7 +29,6 @@ class PlotCanvas(FigureCanvas):
         else:
             self.ax.axis('off')
             self.bara(info, False)
-
 
 # pie
 class PlotCanvasP(FigureCanvas):

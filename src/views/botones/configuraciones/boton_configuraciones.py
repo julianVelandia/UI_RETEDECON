@@ -7,7 +7,6 @@ from .funciones_configuraciones import Funcion_configuraciones
 from .avanzada.boton_avanzada import Boton_avanzada
 from .datos.boton_datos import Boton_datos
 
-
 class Boton_configuraciones(Funcion_configuraciones, Boton_avanzada, Boton_datos):
     def boton_configuraciones_ajustes(self, widget):
         self.configuraciones_ajustes = QToolButton(widget)
