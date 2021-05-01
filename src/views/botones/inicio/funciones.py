@@ -1,6 +1,6 @@
 from src.views.teclado.teclado_letras import *
 from src.views.teclado.teclado_numeros import *
-import simpleaudio as sa
+from PyQt5.QtMultimedia import QSound
 
 class Funciones:
     pantalla = 'inicio'
@@ -152,7 +152,7 @@ class Funciones:
 
     def DetenerAlarma(self):
         self.pantalla = 'detener'
-        sa.stop_all()
+        self.alarm.stop()
         self.HomeWindow()
 
     def Salida_manual(self):

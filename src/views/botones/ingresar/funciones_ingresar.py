@@ -1,6 +1,6 @@
 from datetime import datetime
 import pandas as pd
-import simpleaudio as sa
+from PyQt5.QtMultimedia import QSound
 
 class Funcion_ingresar:
 
@@ -103,11 +103,8 @@ class Funcion_ingresar:
                             self.dialogo.show()
                     else:
                         # reproducir alarma
-                        #filename = "src/views/static/alarm.wav"
-
-                        #wave_obj = sa.WaveObject.from_wave_file(filename)
-                        #play_obj = wave_obj.play()
-
+                        self.alarm.play()
+                        #####
                         self.dialogo_mensaje = "EL USUARIO TIENE FIEBRE    \n"
                         self.dialogo.setInformativeText(self.dialogo_mensaje)
                         self.dialogo.show()

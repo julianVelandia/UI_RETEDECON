@@ -1,6 +1,7 @@
 from PyQt5.QtWidgets import *
 from PyQt5.QtCore import *
 from PyQt5.QtGui import *
+from PyQt5.QtMultimedia import QSound
 from configparser import ConfigParser
 # locals
 from src.views.botones.inicio.boton import Boton
@@ -19,6 +20,9 @@ class MainWindow(QMainWindow, Boton, TecladoNumeros, TecladoLetras):  # Ventana 
         self.config = ConfigParser()
         self.width = 1024
         self.height = 600
+
+        #alarma
+        self.alarm = QSound("src/views/static/alarm.wav")
 
         self.setMinimumSize(self.width, self.height)  # tamaño mínimo
         self.setMaximumSize(self.width, self.height)  # tamaño máximo
