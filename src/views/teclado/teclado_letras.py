@@ -290,12 +290,18 @@ class TecladoLetras:
             else:
                 texto = self.avanzada_user.text() + 'Q'
             self.avanzada_user.setText(texto)
-        elif self.campo == 'AdConf-User':
+        elif self.campo == 'Agregar-User':
             if not self.isMAYUS:
-                texto = self.avanzada_user.text() + 'q'
+                texto = self.agregar_username.text() + 'q'
             else:
-                texto = self.avanzada_user.text() + 'Q'
-            self.avanzada_user.setText(texto)
+                texto = self.agregar_username.text() + 'Q'
+            self.agregar_username.setText(texto)
+        elif self.campo == 'Eliminar-Username':
+            if not self.isMAYUS:
+                texto = self.eliminar_username.text() + 'q'
+            else:
+                texto = self.eliminar_username.text() + 'Q'
+            self.eliminar_username.setText(texto)
 
     def w(self):
         if self.campo == 'ingresar-nombre':
@@ -318,6 +324,18 @@ class TecladoLetras:
             else:
                 texto = self.avanzada_user.text() + 'W'
             self.avanzada_user.setText(texto)
+        elif self.campo == 'Agregar-User':
+            if not self.isMAYUS:
+                texto = self.agregar_username.text() + 'w'
+            else:
+                texto = self.agregar_username.text() + 'W'
+            self.agregar_username.setText(texto)
+        elif self.campo == 'Eliminar-Username':
+            if not self.isMAYUS:
+                texto = self.eliminar_username.text() + 'w'
+            else:
+                texto = self.eliminar_username.text() + 'W'
+            self.eliminar_username.setText(texto)
 
     def e(self):
         if self.campo == 'ingresar-nombre':
@@ -340,6 +358,18 @@ class TecladoLetras:
             else:
                 texto = self.avanzada_user.text() + 'E'
             self.avanzada_user.setText(texto)
+        elif self.campo == 'Agregar-User':
+            if not self.isMAYUS:
+                texto = self.agregar_username.text() + 'e'
+            else:
+                texto = self.agregar_username.text() + 'E'
+            self.agregar_username.setText(texto)
+        elif self.campo == 'Eliminar-Username':
+            if not self.isMAYUS:
+                texto = self.eliminar_username.text() + 'e'
+            else:
+                texto = self.eliminar_username.text() + 'E'
+            self.eliminar_username.setText(texto)
 
     def r(self):
         if self.campo == 'ingresar-nombre':
@@ -362,6 +392,18 @@ class TecladoLetras:
             else:
                 texto = self.avanzada_user.text() + 'R'
             self.avanzada_user.setText(texto)
+        elif self.campo == 'Agregar-User':
+            if not self.isMAYUS:
+                texto = self.agregar_username.text() + 'r'
+            else:
+                texto = self.agregar_username.text() + 'R'
+            self.agregar_username.setText(texto)
+        elif self.campo == 'Eliminar-Username':
+            if not self.isMAYUS:
+                texto = self.eliminar_username.text() + 'r'
+            else:
+                texto = self.eliminar_username.text() + 'R'
+            self.eliminar_username.setText(texto)
 
     def t(self):
         if self.campo == 'ingresar-nombre':
@@ -384,6 +426,18 @@ class TecladoLetras:
             else:
                 texto = self.avanzada_user.text() + 'T'
             self.avanzada_user.setText(texto)
+        elif self.campo == 'Agregar-User':
+            if not self.isMAYUS:
+                texto = self.agregar_username.text() + 't'
+            else:
+                texto = self.agregar_username.text() + 'T'
+            self.agregar_username.setText(texto)
+        elif self.campo == 'Eliminar-Username':
+            if not self.isMAYUS:
+                texto = self.eliminar_username.text() + 't'
+            else:
+                texto = self.eliminar_username.text() + 'T'
+            self.eliminar_username.setText(texto)
 
     def yy(self):
         if self.campo == 'ingresar-nombre':
@@ -406,6 +460,18 @@ class TecladoLetras:
             else:
                 texto = self.avanzada_user.text() + 'Y'
             self.avanzada_user.setText(texto)
+        elif self.campo == 'Agregar-User':
+            if not self.isMAYUS:
+                texto = self.agregar_username.text() + 'y'
+            else:
+                texto = self.agregar_username.text() + 'Y'
+            self.agregar_username.setText(texto)
+        elif self.campo == 'Eliminar-Username':
+            if not self.isMAYUS:
+                texto = self.eliminar_username.text() + 'y'
+            else:
+                texto = self.eliminar_username.text() + 'Y'
+            self.eliminar_username.setText(texto)
     
     def u(self):
         if self.campo == 'ingresar-nombre':
@@ -428,6 +494,18 @@ class TecladoLetras:
             else:
                 texto = self.avanzada_user.text() + 'U'
             self.avanzada_user.setText(texto)
+        elif self.campo == 'Agregar-User':
+            if not self.isMAYUS:
+                texto = self.agregar_username.text() + 'u'
+            else:
+                texto = self.agregar_username.text() + 'U'
+            self.agregar_username.setText(texto)
+        elif self.campo == 'Eliminar-Username':
+            if not self.isMAYUS:
+                texto = self.eliminar_username.text() + 'u'
+            else:
+                texto = self.eliminar_username.text() + 'U'
+            self.eliminar_username.setText(texto)
 
     def i(self):
         if self.campo == 'ingresar-nombre':
@@ -450,6 +528,18 @@ class TecladoLetras:
             else:
                 texto = self.avanzada_user.text() + 'I'
             self.avanzada_user.setText(texto)
+        elif self.campo == 'Agregar-User':
+            if not self.isMAYUS:
+                texto = self.agregar_username.text() + 'i'
+            else:
+                texto = self.agregar_username.text() + 'I'
+            self.agregar_username.setText(texto)
+        elif self.campo == 'Eliminar-Username':
+            if not self.isMAYUS:
+                texto = self.eliminar_username.text() + 'i'
+            else:
+                texto = self.eliminar_username.text() + 'I'
+            self.eliminar_username.setText(texto)
 
     def o(self):
         if self.campo == 'ingresar-nombre':
@@ -472,6 +562,18 @@ class TecladoLetras:
             else:
                 texto = self.avanzada_user.text() + 'O'
             self.avanzada_user.setText(texto)
+        elif self.campo == 'Agregar-User':
+            if not self.isMAYUS:
+                texto = self.agregar_username.text() + 'o'
+            else:
+                texto = self.agregar_username.text() + 'O'
+            self.agregar_username.setText(texto)
+        elif self.campo == 'Eliminar-Username':
+            if not self.isMAYUS:
+                texto = self.eliminar_username.text() + 'o'
+            else:
+                texto = self.eliminar_username.text() + 'O'
+            self.eliminar_username.setText(texto)
 
     def p(self):
         if self.campo == 'ingresar-nombre':
@@ -494,6 +596,18 @@ class TecladoLetras:
             else:
                 texto = self.avanzada_user.text() + 'P'
             self.avanzada_user.setText(texto)
+        elif self.campo == 'Agregar-User':
+            if not self.isMAYUS:
+                texto = self.agregar_username.text() + 'p'
+            else:
+                texto = self.agregar_username.text() + 'P'
+            self.agregar_username.setText(texto)
+        elif self.campo == 'Eliminar-Username':
+            if not self.isMAYUS:
+                texto = self.eliminar_username.text() + 'p'
+            else:
+                texto = self.eliminar_username.text() + 'P'
+            self.eliminar_username.setText(texto)
 
     def a(self):
         if self.campo == 'ingresar-nombre':
@@ -516,6 +630,18 @@ class TecladoLetras:
             else:
                 texto = self.avanzada_user.text() + 'A'
             self.avanzada_user.setText(texto)
+        elif self.campo == 'Agregar-User':
+            if not self.isMAYUS:
+                texto = self.agregar_username.text() + 'a'
+            else:
+                texto = self.agregar_username.text() + 'A'
+            self.agregar_username.setText(texto)
+        elif self.campo == 'Eliminar-Username':
+            if not self.isMAYUS:
+                texto = self.eliminar_username.text() + 'a'
+            else:
+                texto = self.eliminar_username.text() + 'A'
+            self.eliminar_username.setText(texto)
 
     def s(self):
         if self.campo == 'ingresar-nombre':
@@ -538,6 +664,18 @@ class TecladoLetras:
             else:
                 texto = self.avanzada_user.text() + 'S'
             self.avanzada_user.setText(texto)
+        elif self.campo == 'Agregar-User':
+            if not self.isMAYUS:
+                texto = self.agregar_username.text() + 's'
+            else:
+                texto = self.agregar_username.text() + 'S'
+            self.agregar_username.setText(texto)
+        elif self.campo == 'Eliminar-Username':
+            if not self.isMAYUS:
+                texto = self.eliminar_username.text() + 's'
+            else:
+                texto = self.eliminar_username.text() + 'S'
+            self.eliminar_username.setText(texto)
 
     def d(self):
         if self.campo == 'ingresar-nombre':
@@ -560,6 +698,18 @@ class TecladoLetras:
             else:
                 texto = self.avanzada_user.text() + 'D'
             self.avanzada_user.setText(texto)
+        elif self.campo == 'Agregar-User':
+            if not self.isMAYUS:
+                texto = self.agregar_username.text() + 'd'
+            else:
+                texto = self.agregar_username.text() + 'D'
+            self.agregar_username.setText(texto)
+        elif self.campo == 'Eliminar-Username':
+            if not self.isMAYUS:
+                texto = self.eliminar_username.text() + 'd'
+            else:
+                texto = self.eliminar_username.text() + 'D'
+            self.eliminar_username.setText(texto)
 
     def f(self):
         if self.campo == 'ingresar-nombre':
@@ -582,6 +732,18 @@ class TecladoLetras:
             else:
                 texto = self.avanzada_user.text() + 'F'
             self.avanzada_user.setText(texto)
+        elif self.campo == 'Agregar-User':
+            if not self.isMAYUS:
+                texto = self.agregar_username.text() + 'f'
+            else:
+                texto = self.agregar_username.text() + 'F'
+            self.agregar_username.setText(texto)
+        elif self.campo == 'Eliminar-Username':
+            if not self.isMAYUS:
+                texto = self.eliminar_username.text() + 'f'
+            else:
+                texto = self.eliminar_username.text() + 'F'
+            self.eliminar_username.setText(texto)
 
     def g(self):
         if self.campo == 'ingresar-nombre':
@@ -604,6 +766,18 @@ class TecladoLetras:
             else:
                 texto = self.avanzada_user.text() + 'G'
             self.avanzada_user.setText(texto)
+        elif self.campo == 'Agregar-User':
+            if not self.isMAYUS:
+                texto = self.agregar_username.text() + 'g'
+            else:
+                texto = self.agregar_username.text() + 'G'
+            self.agregar_username.setText(texto)
+        elif self.campo == 'Eliminar-Username':
+            if not self.isMAYUS:
+                texto = self.eliminar_username.text() + 'g'
+            else:
+                texto = self.eliminar_username.text() + 'G'
+            self.eliminar_username.setText(texto)
 
     def h(self):
         if self.campo == 'ingresar-nombre':
@@ -626,6 +800,18 @@ class TecladoLetras:
             else:
                 texto = self.avanzada_user.text() + 'H'
             self.avanzada_user.setText(texto)
+        elif self.campo == 'Agregar-User':
+            if not self.isMAYUS:
+                texto = self.agregar_username.text() + 'h'
+            else:
+                texto = self.agregar_username.text() + 'H'
+            self.agregar_username.setText(texto)
+        elif self.campo == 'Eliminar-Username':
+            if not self.isMAYUS:
+                texto = self.eliminar_username.text() + 'h'
+            else:
+                texto = self.eliminar_username.text() + 'H'
+            self.eliminar_username.setText(texto)
 
     def j(self):
         if self.campo == 'ingresar-nombre':
@@ -648,6 +834,18 @@ class TecladoLetras:
             else:
                 texto = self.avanzada_user.text() + 'J'
             self.avanzada_user.setText(texto)
+        elif self.campo == 'Agregar-User':
+            if not self.isMAYUS:
+                texto = self.agregar_username.text() + 'j'
+            else:
+                texto = self.agregar_username.text() + 'J'
+            self.agregar_username.setText(texto)
+        elif self.campo == 'Eliminar-Username':
+            if not self.isMAYUS:
+                texto = self.eliminar_username.text() + 'j'
+            else:
+                texto = self.eliminar_username.text() + 'J'
+            self.eliminar_username.setText(texto)
 
     def k(self):
         if self.campo == 'ingresar-nombre':
@@ -670,6 +868,18 @@ class TecladoLetras:
             else:
                 texto = self.avanzada_user.text() + 'K'
             self.avanzada_user.setText(texto)
+        elif self.campo == 'Agregar-User':
+            if not self.isMAYUS:
+                texto = self.agregar_username.text() + 'k'
+            else:
+                texto = self.agregar_username.text() + 'K'
+            self.agregar_username.setText(texto)
+        elif self.campo == 'Eliminar-Username':
+            if not self.isMAYUS:
+                texto = self.eliminar_username.text() + 'k'
+            else:
+                texto = self.eliminar_username.text() + 'K'
+            self.eliminar_username.setText(texto)
 
     def l(self):
         if self.campo == 'ingresar-nombre':
@@ -692,6 +902,18 @@ class TecladoLetras:
             else:
                 texto = self.avanzada_user.text() + 'L'
             self.avanzada_user.setText(texto)
+        elif self.campo == 'Agregar-User':
+            if not self.isMAYUS:
+                texto = self.agregar_username.text() + 'l'
+            else:
+                texto = self.agregar_username.text() + 'L'
+            self.agregar_username.setText(texto)
+        elif self.campo == 'Eliminar-Username':
+            if not self.isMAYUS:
+                texto = self.eliminar_username.text() + 'l'
+            else:
+                texto = self.eliminar_username.text() + 'L'
+            self.eliminar_username.setText(texto)
 
     def ene(self):
         if self.campo == 'ingresar-nombre':
@@ -714,6 +936,18 @@ class TecladoLetras:
             else:
                 texto = self.avanzada_user.text() + 'Ñ'
             self.avanzada_user.setText(texto)
+        elif self.campo == 'Agregar-User':
+            if not self.isMAYUS:
+                texto = self.agregar_username.text() + 'ñ'
+            else:
+                texto = self.agregar_username.text() + 'Ñ'
+            self.agregar_username.setText(texto)
+        elif self.campo == 'Eliminar-Username':
+            if not self.isMAYUS:
+                texto = self.eliminar_username.text() + 'ñ'
+            else:
+                texto = self.eliminar_username.text() + 'Ñ'
+            self.eliminar_username.setText(texto)
 
     def z(self):
         if self.campo == 'ingresar-nombre':
@@ -736,6 +970,18 @@ class TecladoLetras:
             else:
                 texto = self.avanzada_user.text() + 'Z'
             self.avanzada_user.setText(texto)
+        elif self.campo == 'Agregar-User':
+            if not self.isMAYUS:
+                texto = self.agregar_username.text() + 'z'
+            else:
+                texto = self.agregar_username.text() + 'Z'
+            self.agregar_username.setText(texto)
+        elif self.campo == 'Eliminar-Username':
+            if not self.isMAYUS:
+                texto = self.eliminar_username.text() + 'z'
+            else:
+                texto = self.eliminar_username.text() + 'Z'
+            self.eliminar_username.setText(texto)
 
     def xx(self):
         if self.campo == 'ingresar-nombre':
@@ -758,6 +1004,18 @@ class TecladoLetras:
             else:
                 texto = self.avanzada_user.text() + 'X'
             self.avanzada_user.setText(texto)
+        elif self.campo == 'Agregar-User':
+            if not self.isMAYUS:
+                texto = self.agregar_username.text() + 'x'
+            else:
+                texto = self.agregar_username.text() + 'X'
+            self.agregar_username.setText(texto)
+        elif self.campo == 'Eliminar-Username':
+            if not self.isMAYUS:
+                texto = self.eliminar_username.text() + 'x'
+            else:
+                texto = self.eliminar_username.text() + 'X'
+            self.eliminar_username.setText(texto)
 
     def c(self):
         if self.campo == 'ingresar-nombre':
@@ -773,6 +1031,18 @@ class TecladoLetras:
             else:
                 texto = self.salida_nombre.text() + 'C'
             self.salida_nombre.setText(texto)
+        elif self.campo == 'Agregar-User':
+            if not self.isMAYUS:
+                texto = self.agregar_username.text() + 'c'
+            else:
+                texto = self.agregar_username.text() + 'C'
+            self.agregar_username.setText(texto)
+        elif self.campo == 'Eliminar-Username':
+            if not self.isMAYUS:
+                texto = self.eliminar_username.text() + 'c'
+            else:
+                texto = self.eliminar_username.text() + 'C'
+            self.eliminar_username.setText(texto)
 
         elif self.campo == 'AdConf-User':
             if not self.isMAYUS:
@@ -802,6 +1072,18 @@ class TecladoLetras:
             else:
                 texto = self.avanzada_user.text() + 'V'
             self.avanzada_user.setText(texto)
+        elif self.campo == 'Agregar-User':
+            if not self.isMAYUS:
+                texto = self.agregar_username.text() + 'v'
+            else:
+                texto = self.agregar_username.text() + 'V'
+            self.agregar_username.setText(texto)
+        elif self.campo == 'Eliminar-Username':
+            if not self.isMAYUS:
+                texto = self.eliminar_username.text() + 'v'
+            else:
+                texto = self.eliminar_username.text() + 'V'
+            self.eliminar_username.setText(texto)
 
     def b(self):
         if self.campo == 'ingresar-nombre':
@@ -824,6 +1106,18 @@ class TecladoLetras:
             else:
                 texto = self.avanzada_user.text() + 'B'
             self.avanzada_user.setText(texto)
+        elif self.campo == 'Agregar-User':
+            if not self.isMAYUS:
+                texto = self.agregar_username.text() + 'b'
+            else:
+                texto = self.agregar_username.text() + 'B'
+            self.agregar_username.setText(texto)
+        elif self.campo == 'Eliminar-Username':
+            if not self.isMAYUS:
+                texto = self.eliminar_username.text() + 'b'
+            else:
+                texto = self.eliminar_username.text() + 'B'
+            self.eliminar_username.setText(texto)
 
     def n(self):
         if self.campo == 'ingresar-nombre':
@@ -846,6 +1140,18 @@ class TecladoLetras:
             else:
                 texto = self.avanzada_user.text() + 'N'
             self.avanzada_user.setText(texto)
+        elif self.campo == 'Agregar-User':
+            if not self.isMAYUS:
+                texto = self.agregar_username.text() + 'n'
+            else:
+                texto = self.agregar_username.text() + 'N'
+            self.agregar_username.setText(texto)
+        elif self.campo == 'Eliminar-Username':
+            if not self.isMAYUS:
+                texto = self.eliminar_username.text() + 'n'
+            else:
+                texto = self.eliminar_username.text() + 'N'
+            self.eliminar_username.setText(texto)
 
     def m(self):
         if self.campo == 'ingresar-nombre':
@@ -868,6 +1174,18 @@ class TecladoLetras:
             else:
                 texto = self.avanzada_user.text() + 'M'
             self.avanzada_user.setText(texto)
+        elif self.campo == 'Agregar-User':
+            if not self.isMAYUS:
+                texto = self.agregar_username.text() + 'm'
+            else:
+                texto = self.agregar_username.text() + 'M'
+            self.agregar_username.setText(texto)
+        elif self.campo == 'Eliminar-Username':
+            if not self.isMAYUS:
+                texto = self.eliminar_username.text() + 'm'
+            else:
+                texto = self.eliminar_username.text() + 'M'
+            self.eliminar_username.setText(texto)
 
     def SPACE(self):
         if self.campo == 'ingresar-nombre':
@@ -884,6 +1202,14 @@ class TecladoLetras:
 
             texto = self.avanzada_user.text() + ' '
             self.avanzada_user.setText(texto)
+        elif self.campo == 'Agregar-User':
+
+            texto = self.agregar_username.text() + ' '
+            self.agregar_username.setText(texto)
+        elif self.campo == 'Eliminar-Username':
+
+            texto = self.eliminar_username.text() + ' '
+            self.eliminar_username.setText(texto)
 
     def BORRAR(self):
         if self.campo == 'ingresar-nombre':
@@ -892,6 +1218,11 @@ class TecladoLetras:
             var_texto=self.salida_nombre.text()
         elif self.campo == 'AdConf-User':
             var_texto=self.avanzada_user.text()
+        
+        elif self.campo == 'Agregar-User':
+            var_texto=self.agregar_username.text()
+        elif self.campo == 'Eliminar-Username':
+            var_texto=self.eliminar_username.text()
 
         if len(var_texto)==1 or len(var_texto)==0:
             texto=''
@@ -912,6 +1243,10 @@ class TecladoLetras:
             self.salida_nombre.setText(texto)
         elif self.campo == 'AdConf-User':
             self.avanzada_user.setText(texto)
+        elif self.campo == 'Agregar-User':
+            self.agregar_username.setText(texto)
+        elif self.campo == 'Eliminar-Username':
+            self.eliminar_username.setText(texto)
 
     def MAYUS(self):
         if not self.isMAYUS:
@@ -927,7 +1262,8 @@ class TecladoLetras:
         self.Retirar_guardar_teclado()
         self.Ingresar_guardar_teclado()
         self.Ad_Conf_guardar_teclado()
-
+        self.Agregar_guardar_teclado()
+        self.Eliminar_guardar_teclado()
 
     def Teclado(self):
         self.letra_q.setVisible(True)

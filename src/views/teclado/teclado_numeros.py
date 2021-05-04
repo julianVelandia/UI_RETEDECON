@@ -128,6 +128,10 @@ class TecladoNumeros:
         self.Ingresar_guardar_teclado_numerico()
         self.Ingresar_guardar_teclado()
         self.Ad_Conf_guardar_teclado()
+        self.Eliminar_guardar_teclado()
+        self.Capacidad_guardar_teclado()
+        self.Cambiar_guardar_teclado()
+        self.Agregar_guardar_teclado()
 
     def fun_numero_BORRAR(self):
         if self.campo == 'ingresar-cedula':
@@ -138,6 +142,19 @@ class TecladoNumeros:
             var_texto=self.salida_cedula.text()
         elif self.campo == 'AdConf-Pass':
             var_texto=self.avanzada_pass.text()
+        elif self.campo == 'Agregar-Pass':
+            var_texto=self.agregar_pass.text()
+        elif self.campo == 'Cambiar-Pass':
+            var_texto=self.cambiar_pass.text()
+        elif self.campo == 'Cambiar-Pass0':
+            var_texto=self.pass_new_0.text()
+        elif self.campo == 'Cambiar-Pass1':
+            var_texto=self.pass_new_1.text()
+        elif self.campo == 'New-Capacidad':
+            var_texto=self.capacidad_newcapacidad.text()
+        elif self.campo == 'Eliminar-Pass':
+            var_texto=self.eliminar_pass.text()
+        
 
         if len(var_texto)==1 or len(var_texto)==0:
             texto=''
@@ -160,6 +177,18 @@ class TecladoNumeros:
             self.salida_cedula.setText(texto)
         elif self.campo == 'AdConf-Pass':
             self.avanzada_pass.setText(texto)
+        elif self.campo == 'Agregar-Pass':
+            self.agregar_pass.setText(texto)
+        elif self.campo == 'Cambiar-Pass':
+            self.cambiar_pass.setText(texto)
+        elif self.campo == 'Cambiar-Pass0':
+            self.pass_new_0.setText(texto)
+        elif self.campo == 'Cambiar-Pass1':
+            self.pass_new_1.setText(texto)
+        elif self.campo == 'New-Capacidad':
+            self.capacidad_newcapacidad.setText(texto)
+        elif self.campo == 'Eliminar-Pass':
+            self.eliminar_pass.setText(texto)
 
     def fun_numero_PUNTO(self):
         if self.campo == 'ingresar-temp':
@@ -184,6 +213,25 @@ class TecladoNumeros:
             texto = self.avanzada_pass.text() + '1'
             self.avanzada_pass.setText(texto)
 
+        elif self.campo == 'Agregar-Pass':
+            texto = self.agregar_pass.text() + '1'
+            self.agregar_pass.setText(texto)
+        elif self.campo == 'Cambiar-Pass':
+            texto = self.cambiar_pass.text() + '1'
+            self.cambiar_pass.setText(texto)
+        elif self.campo == 'Cambiar-Pass0':
+            texto = self.pass_new_0.text() + '1'
+            self.pass_new_0.setText(texto)
+        elif self.campo == 'Cambiar-Pass1':
+            texto = self.pass_new_1.text() + '1'
+            self.pass_new_1.setText(texto)
+        elif self.campo == 'New-Capacidad':
+            texto = self.capacidad_newcapacidad.text() + '1'
+            self.capacidad_newcapacidad.setText(texto)
+        elif self.campo == 'Eliminar-Pass':
+            texto = self.eliminar_pass.text() + '1'
+            self.eliminar_pass.setText(texto)
+
     def fun_numero_2(self):
         if self.campo == 'ingresar-cedula':
             texto = self.ingresar_cedula.text() + '2'
@@ -201,6 +249,27 @@ class TecladoNumeros:
         elif self.campo == 'AdConf-Pass':
             texto = self.avanzada_pass.text() + '2'
             self.avanzada_pass.setText(texto)
+
+
+        elif self.campo == 'Agregar-Pass':
+            texto = self.agregar_pass.text() + '2'
+            self.agregar_pass.setText(texto)
+        elif self.campo == 'Cambiar-Pass':
+            texto = self.cambiar_pass.text() +'2'
+            self.cambiar_pass.setText(texto)
+        elif self.campo == 'Cambiar-Pass0':
+            texto = self.pass_new_0.text() + '2'
+            self.pass_new_0.setText(texto)
+        elif self.campo == 'Cambiar-Pass1':
+            texto = self.pass_new_1.text() + '2'
+            self.pass_new_1.setText(texto)
+        elif self.campo == 'New-Capacidad':
+            texto = self.capacidad_newcapacidad.text() + '2'
+            self.capacidad_newcapacidad.setText(texto)
+        elif self.campo == 'Eliminar-Pass':
+            texto = self.eliminar_pass.text() + '2'
+            self.eliminar_pass.setText(texto)
+
 
     def fun_numero_3(self):
         if self.campo == 'ingresar-cedula':
@@ -220,6 +289,27 @@ class TecladoNumeros:
             texto = self.avanzada_pass.text() + '3'
             self.avanzada_pass.setText(texto)
 
+
+        elif self.campo == 'Agregar-Pass':
+            texto = self.agregar_pass.text() + '3'
+            self.agregar_pass.setText(texto)
+        elif self.campo == 'Cambiar-Pass':
+            texto = self.cambiar_pass.text() + '3'
+            self.cambiar_pass.setText(texto)
+        elif self.campo == 'Cambiar-Pass0':
+            texto = self.pass_new_0.text() + '3'
+            self.pass_new_0.setText(texto)
+        elif self.campo == 'Cambiar-Pass1':
+            texto = self.pass_new_1.text() +'3'
+            self.pass_new_1.setText(texto)
+        elif self.campo == 'New-Capacidad':
+            texto = self.capacidad_newcapacidad.text() + '3'
+            self.capacidad_newcapacidad.setText(texto)
+        elif self.campo == 'Eliminar-Pass':
+            texto = self.eliminar_pass.text() + '3'
+            self.eliminar_pass.setText(texto)
+
+
     def fun_numero_4(self):
         if self.campo == 'ingresar-cedula':
             texto = self.ingresar_cedula.text() + '4'
@@ -237,6 +327,27 @@ class TecladoNumeros:
         elif self.campo == 'AdConf-Pass':
             texto = self.avanzada_pass.text() + '4'
             self.avanzada_pass.setText(texto)
+
+
+        elif self.campo == 'Agregar-Pass':
+            texto = self.agregar_pass.text() + '4'
+            self.agregar_pass.setText(texto)
+        elif self.campo == 'Cambiar-Pass':
+            texto = self.cambiar_pass.text() + '4'
+            self.cambiar_pass.setText(texto)
+        elif self.campo == 'Cambiar-Pass0':
+            texto = self.pass_new_0.text() + '4'
+            self.pass_new_0.setText(texto)
+        elif self.campo == 'Cambiar-Pass1':
+            texto = self.pass_new_1.text() + '4'
+            self.pass_new_1.setText(texto)
+        elif self.campo == 'New-Capacidad':
+            texto = self.capacidad_newcapacidad.text() + '4'
+            self.capacidad_newcapacidad.setText(texto)
+        elif self.campo == 'Eliminar-Pass':
+            texto = self.eliminar_pass.text() + '4'
+            self.eliminar_pass.setText(texto)
+
 
     def fun_numero_5(self):
         if self.campo == 'ingresar-cedula':
@@ -256,6 +367,26 @@ class TecladoNumeros:
             texto = self.avanzada_pass.text() + '5'
             self.avanzada_pass.setText(texto)
 
+        elif self.campo == 'Agregar-Pass':
+            texto = self.agregar_pass.text() + '5'
+            self.agregar_pass.setText(texto)
+        elif self.campo == 'Cambiar-Pass':
+            texto = self.cambiar_pass.text() + '5'
+            self.cambiar_pass.setText(texto)
+        elif self.campo == 'Cambiar-Pass0':
+            texto = self.pass_new_0.text() + '5'
+            self.pass_new_0.setText(texto)
+        elif self.campo == 'Cambiar-Pass1':
+            texto = self.pass_new_1.text() + '5'
+            self.pass_new_1.setText(texto)
+        elif self.campo == 'New-Capacidad':
+            texto = self.capacidad_newcapacidad.text() + '5'
+            self.capacidad_newcapacidad.setText(texto)
+        elif self.campo == 'Eliminar-Pass':
+            texto = self.eliminar_pass.text() + '5'
+            self.eliminar_pass.setText(texto)
+
+
     def fun_numero_6(self):
         if self.campo == 'ingresar-cedula':
             texto = self.ingresar_cedula.text() + '6'
@@ -273,6 +404,26 @@ class TecladoNumeros:
         elif self.campo == 'AdConf-Pass':
             texto = self.avanzada_pass.text() + '6'
             self.avanzada_pass.setText(texto)
+
+        elif self.campo == 'Agregar-Pass':
+            texto = self.agregar_pass.text() + '6'
+            self.agregar_pass.setText(texto)
+        elif self.campo == 'Cambiar-Pass':
+            texto = self.cambiar_pass.text() + '6'
+            self.cambiar_pass.setText(texto)
+        elif self.campo == 'Cambiar-Pass0':
+            texto = self.pass_new_0.text() + '6'
+            self.pass_new_0.setText(texto)
+        elif self.campo == 'Cambiar-Pass1':
+            texto = self.pass_new_1.text() + '6'
+            self.pass_new_1.setText(texto)
+        elif self.campo == 'New-Capacidad':
+            texto = self.capacidad_newcapacidad.text() + '6'
+            self.capacidad_newcapacidad.setText(texto)
+        elif self.campo == 'Eliminar-Pass':
+            texto = self.eliminar_pass.text() + '6'
+            self.eliminar_pass.setText(texto)
+
 
     def fun_numero_7(self):
         if self.campo == 'ingresar-cedula':
@@ -292,6 +443,26 @@ class TecladoNumeros:
             texto = self.avanzada_pass.text() + '7'
             self.avanzada_pass.setText(texto)
 
+        elif self.campo == 'Agregar-Pass':
+            texto = self.agregar_pass.text() +'7'
+            self.agregar_pass.setText(texto)
+        elif self.campo == 'Cambiar-Pass':
+            texto = self.cambiar_pass.text() +'7'
+            self.cambiar_pass.setText(texto)
+        elif self.campo == 'Cambiar-Pass0':
+            texto = self.pass_new_0.text() +'7'
+            self.pass_new_0.setText(texto)
+        elif self.campo == 'Cambiar-Pass1':
+            texto = self.pass_new_1.text() + '7'
+            self.pass_new_1.setText(texto)
+        elif self.campo == 'New-Capacidad':
+            texto = self.capacidad_newcapacidad.text() +'7'
+            self.capacidad_newcapacidad.setText(texto)
+        elif self.campo == 'Eliminar-Pass':
+            texto = self.eliminar_pass.text() +'7'
+            self.eliminar_pass.setText(texto)
+
+
     def fun_numero_8(self):
         if self.campo == 'ingresar-cedula':
             texto = self.ingresar_cedula.text() + '8'
@@ -309,6 +480,26 @@ class TecladoNumeros:
         elif self.campo == 'AdConf-Pass':
             texto = self.avanzada_pass.text() + '8'
             self.avanzada_pass.setText(texto)
+
+        elif self.campo == 'Agregar-Pass':
+            texto = self.agregar_pass.text() + '8'
+            self.agregar_pass.setText(texto)
+        elif self.campo == 'Cambiar-Pass':
+            texto = self.cambiar_pass.text() + '8'
+            self.cambiar_pass.setText(texto)
+        elif self.campo == 'Cambiar-Pass0':
+            texto = self.pass_new_0.text() + '8'
+            self.pass_new_0.setText(texto)
+        elif self.campo == 'Cambiar-Pass1':
+            texto = self.pass_new_1.text() + '8'
+            self.pass_new_1.setText(texto)
+        elif self.campo == 'New-Capacidad':
+            texto = self.capacidad_newcapacidad.text() + '8'
+            self.capacidad_newcapacidad.setText(texto)
+        elif self.campo == 'Eliminar-Pass':
+            texto = self.eliminar_pass.text() + '8'
+            self.eliminar_pass.setText(texto)
+
 
     def fun_numero_9(self):
         if self.campo == 'ingresar-cedula':
@@ -328,6 +519,26 @@ class TecladoNumeros:
             texto = self.avanzada_pass.text() + '9'
             self.avanzada_pass.setText(texto)
 
+        elif self.campo == 'Agregar-Pass':
+            texto = self.agregar_pass.text() + '9'
+            self.agregar_pass.setText(texto)
+        elif self.campo == 'Cambiar-Pass':
+            texto = self.cambiar_pass.text() + '9'
+            self.cambiar_pass.setText(texto)
+        elif self.campo == 'Cambiar-Pass0':
+            texto = self.pass_new_0.text() + '9'
+            self.pass_new_0.setText(texto)
+        elif self.campo == 'Cambiar-Pass1':
+            texto = self.pass_new_1.text() + '9'
+            self.pass_new_1.setText(texto)
+        elif self.campo == 'New-Capacidad':
+            texto = self.capacidad_newcapacidad.text() + '9'
+            self.capacidad_newcapacidad.setText(texto)
+        elif self.campo == 'Eliminar-Pass':
+            texto = self.eliminar_pass.text() + '9'
+            self.eliminar_pass.setText(texto)
+
+
     def fun_numero_0(self):
         if self.campo == 'ingresar-cedula':
             texto = self.ingresar_cedula.text() + '0'
@@ -345,6 +556,26 @@ class TecladoNumeros:
         elif self.campo == 'AdConf-Pass':
             texto = self.avanzada_pass.text() + '0'
             self.avanzada_pass.setText(texto)
+
+        elif self.campo == 'Agregar-Pass':
+            texto = self.agregar_pass.text() + '0'
+            self.agregar_pass.setText(texto)
+        elif self.campo == 'Cambiar-Pass':
+            texto = self.cambiar_pass.text() + '0'
+            self.cambiar_pass.setText(texto)
+        elif self.campo == 'Cambiar-Pass0':
+            texto = self.pass_new_0.text() + '0'
+            self.pass_new_0.setText(texto)
+        elif self.campo == 'Cambiar-Pass1':
+            texto = self.pass_new_1.text() + '0'
+            self.pass_new_1.setText(texto)
+        elif self.campo == 'New-Capacidad':
+            texto = self.capacidad_newcapacidad.text() + '0'
+            self.capacidad_newcapacidad.setText(texto)
+        elif self.campo == 'Eliminar-Pass':
+            texto = self.eliminar_pass.text() +'0'
+            self.eliminar_pass.setText(texto)
+
 
 
 
