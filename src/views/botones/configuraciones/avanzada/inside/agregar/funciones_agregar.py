@@ -2,37 +2,37 @@ from PyQt5.QtWidgets import *
 from PyQt5.QtCore import *
 from PyQt5.QtGui import *
 import hashlib
-#locals
+# locals
 from src.views.teclado.teclado_letras import *
 from src.views.teclado.teclado_numeros import *
+
 
 class Funcion_agregar:
     def AgregarUsername(self):
         MOV = -100
-        #movimiento botones
-        self.agregar_username.setGeometry(164.2,237+MOV,290,70)
-        self.agregar_pass.setGeometry(164.2,341+MOV,290,70)
-        self.agregar_agregar.setGeometry(570, 237+MOV, 290, 176.3)
+        # movimiento botones
+        self.agregar_username.setGeometry(164.2, 237 + MOV, 290, 70)
+        self.agregar_pass.setGeometry(164.2, 341 + MOV, 290, 70)
+        self.agregar_agregar.setGeometry(570, 237 + MOV, 290, 176.3)
         self.Teclado()
         self.NotTecladoNumerico()
         self.campo = 'Agregar-User'
 
     def AgregarPass(self):
         MOV = -100
-        #movimiento botones
-        self.agregar_username.setGeometry(164.2,237+MOV,290,70)
-        self.agregar_pass.setGeometry(164.2,341+MOV,290,70)
-        self.agregar_agregar.setGeometry(570, 237+MOV, 290, 176.3)
+        # movimiento botones
+        self.agregar_username.setGeometry(164.2, 237 + MOV, 290, 70)
+        self.agregar_pass.setGeometry(164.2, 341 + MOV, 290, 70)
+        self.agregar_agregar.setGeometry(570, 237 + MOV, 290, 176.3)
         self.NotTeclado()
         self.TecladoNumerico()
         self.campo = 'Agregar-Pass'
 
     def Agregar_guardar_teclado(self):
         self.agregar_username.setGeometry(164, 240, 320, 70)
-        self.agregar_pass.setGeometry(164,330,320,70)
+        self.agregar_pass.setGeometry(164, 330, 320, 70)
         self.agregar_agregar.setGeometry(570, 240, 280, 160)
         self.NotTeclado()
-    
 
     def AgregarAgregar(self):
         try:
@@ -52,11 +52,11 @@ class Funcion_agregar:
                     # Existance verification
                     if not is_user:
                         k = len(users_values)
-                        b = 'key'+str(k+1)
-                        self.config.set('users',b, self.agregar_username.text())
+                        b = 'key' + str(k + 1)
+                        self.config.set('users', b, self.agregar_username.text())
                         p = self.agregar_pass.text()
                         h = hashlib.new("sha1", p.encode())
-                        self.config.set('passwords',b, str(h.digest()))
+                        self.config.set('passwords', b, str(h.digest()).replace("%", "%%"))
                         with open('config.ini', 'w') as f:
                             self.config.write(f)
                             f.close()
@@ -67,7 +67,7 @@ class Funcion_agregar:
 
                         self.pantalla = 'inside'
                         self.AvanzadaInsideInside()
-                        #agregar
+                        # agregar
                         self.agregar_username.setVisible(False)
                         self.agregar_pass.setVisible(False)
                         self.agregar_agregar.setVisible(False)
