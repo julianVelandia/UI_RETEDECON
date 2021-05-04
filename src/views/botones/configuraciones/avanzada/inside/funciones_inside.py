@@ -29,6 +29,7 @@ class Funcion_inside:  # (Boton_agregar):
         self.agregar_username.setVisible(True)
         self.agregar_pass.setVisible(True)
         self.agregar_agregar.setVisible(True)
+        self.Agregar_guardar_teclado()
 
     def InsideEliminar(self):
         self.pantalla = 'eliminar'
@@ -40,6 +41,7 @@ class Funcion_inside:  # (Boton_agregar):
         self.eliminar_username.setVisible(True)
         self.eliminar_pass.setVisible(True)
         self.eliminar_eliminar.setVisible(True)
+        self.Eliminar_guardar_teclado()
 
     def InsideEnviar(self):
 
@@ -116,6 +118,7 @@ class Funcion_inside:  # (Boton_agregar):
         self.inside_cambiar.setVisible(False)
         self.capacidad_newcapacidad.setVisible(True)
         self.capacidad_setnew.setVisible(True)
+        self.Capacidad_guardar_teclado()
 
     def InsideCambiar(self):
         self.pantalla = 'cambiar'
@@ -129,3 +132,6 @@ class Funcion_inside:  # (Boton_agregar):
         self.pass_new_0.setVisible(True)
         self.pass_new_1.setVisible(True)
         self.cambiar_cambiar.setVisible(True)
+        self.cambiar_user.setVisible(True)
+        self.Cambiar_guardar_teclado()
+

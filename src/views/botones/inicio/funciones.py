@@ -88,6 +88,7 @@ class Funciones:
         self.capacidad_setnew.setVisible(False)
 
         # cambiar
+        self.cambiar_user.setVisible(False)
         self.cambiar_pass.setVisible(False)
         self.pass_new_0.setVisible(False)
         self.pass_new_1.setVisible(False)
@@ -236,6 +237,7 @@ class Funciones:
             self.AvanzadaInsideInside()
 
             # cambiar
+            self.cambiar_user.setVisible(False)
             self.cambiar_pass.setVisible(False)
             self.pass_new_0.setVisible(False)
             self.pass_new_1.setVisible(False)

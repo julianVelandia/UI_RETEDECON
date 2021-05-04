@@ -9,13 +9,28 @@ from src.views.teclado.teclado_numeros import *
 
 class Funcion_cambiar:
 
+    def CambiarUser(self):
+        MOV = -100
+        # movimiento botones
+        self.cambiar_user.setGeometry(85,237+MOV, 260, 70)
+        self.cambiar_pass.setGeometry(85, 341+MOV,260,70)
+        self.pass_new_0.setGeometry(375, 237+MOV, 260, 70)
+        self.pass_new_1.setGeometry(375, 341+MOV, 260, 70)
+        self.cambiar_cambiar.setGeometry(670, 230+MOV, 250, 180)
+
+        self.Teclado()
+        self.NotTecladoNumerico()
+        self.campo = 'Cambiar-user'
+
+
     def CambiarPass(self):
         MOV = -100
         # movimiento botones
-        self.cambiar_pass.setGeometry(164, 157 + MOV, 290, 70)
-        self.pass_new_0.setGeometry(164, 261 + MOV, 290, 70)
-        self.pass_new_1.setGeometry(164, 361 + MOV, 290, 70)
-        self.cambiar_cambiar.setGeometry(570, 230 + MOV, 290, 180)
+        self.cambiar_user.setGeometry(85,237+MOV, 260, 70)
+        self.cambiar_pass.setGeometry(85, 341+MOV,260,70)
+        self.pass_new_0.setGeometry(375, 237+MOV, 260, 70)
+        self.pass_new_1.setGeometry(375, 341+MOV, 260, 70)
+        self.cambiar_cambiar.setGeometry(670, 230+MOV, 250, 180)
 
         self.NotTeclado()
         self.TecladoNumerico()
@@ -24,10 +39,13 @@ class Funcion_cambiar:
     def PassNew0(self):
         MOV = -100
         # movimiento botones
-        self.cambiar_pass.setGeometry(164, 157 + MOV, 290, 70)
-        self.pass_new_0.setGeometry(164, 261 + MOV, 290, 70)
-        self.pass_new_1.setGeometry(164, 361 + MOV, 290, 70)
-        self.cambiar_cambiar.setGeometry(570, 230 + MOV, 290, 180)
+        self.cambiar_user.setGeometry(85,237+MOV, 260, 70)
+        self.cambiar_pass.setGeometry(85, 341+MOV,260,70)
+        self.pass_new_0.setGeometry(375, 237+MOV, 260, 70)
+        self.pass_new_1.setGeometry(375, 341+MOV, 260, 70)
+        self.cambiar_cambiar.setGeometry(670, 230+MOV, 250, 180)
+
+
         self.NotTeclado()
         self.TecladoNumerico()
         self.campo = 'Cambiar-Pass0'
@@ -35,19 +53,23 @@ class Funcion_cambiar:
     def PassNew1(self):
         MOV = -100
         # movimiento botones
-        self.cambiar_pass.setGeometry(164, 157 + MOV, 290, 70)
-        self.pass_new_0.setGeometry(164, 261 + MOV, 290, 70)
-        self.pass_new_1.setGeometry(164, 361 + MOV, 290, 70)
-        self.cambiar_cambiar.setGeometry(570, 230 + MOV, 290, 180)
+        self.cambiar_user.setGeometry(85,237+MOV, 260, 70)
+        self.cambiar_pass.setGeometry(85, 341+MOV,260,70)
+        self.pass_new_0.setGeometry(375, 237+MOV, 260, 70)
+        self.pass_new_1.setGeometry(375, 341+MOV, 260, 70)
+        self.cambiar_cambiar.setGeometry(670, 230+MOV, 250, 180)
+
         self.NotTeclado()
         self.TecladoNumerico()
         self.campo = 'Cambiar-Pass1'
 
     def Cambiar_guardar_teclado(self):
-        self.cambiar_pass.setGeometry(164, 157, 290, 70)
-        self.pass_new_0.setGeometry(164, 261, 290, 70)
-        self.pass_new_1.setGeometry(164, 361, 290, 70)
-        self.cambiar_cambiar.setGeometry(570, 230, 290, 180)
+        self.cambiar_user.setGeometry(85,237, 260, 70)
+        self.cambiar_pass.setGeometry(85, 341,260,70)
+        self.pass_new_0.setGeometry(375, 237, 260, 70)
+        self.pass_new_1.setGeometry(375, 341, 260, 70)
+        self.cambiar_cambiar.setGeometry(670, 230, 250, 180)
+
         self.NotTeclado()
 
     def CambiarCambiar(self):
@@ -60,42 +82,44 @@ class Funcion_cambiar:
             users_values = []
             passwords_values = []
 
+            user = self.cambiar_user.text()
             password_anterior = self.cambiar_pass.text()
             password_new_0 = self.pass_new_0.text()
             password_new_1 = self.pass_new_1.text()
+
 
             if password_anterior != "" and password_new_0 != "" and password_new_1 != "":  # lógica para leer si los campos están vacíos
                 if not password_anterior.isalpha() and not password_new_0.isalpha() and not password_new_1.isalpha():  # detecta si numeros o letras donde no deben
                     if password_new_0 == password_new_1:  # contraseñas iguales
 
-                        # Use the cycle to append values to the list from the document
                         for key in users:
                             users_values.append(self.config.get('users', str(key)))
                         # Check if user is in the list
-
+                        if user in users_values:
+                            correct_user = True
+                            indU = users_values.index(user)
+                        else:
+                            correct_user = False
                         # Use the cycle to append values to the list from the document
                         for key in passwords:
                             passwords_values.append(self.config.get('passwords', str(key)))
                         # Check if password is in the list
-                        indU = users_values.index(self.avanzada_user.text())
-
                         p = password_anterior
                         h = hashlib.new("sha1", p.encode())
                         # Verifications
                         if str(h.digest()) == passwords_values[indU]:
                             correct_password = True
-                            # indP = passwords_values.index(str(h.digest()))
+                            #indP = passwords_values.index(str(h.digest()))
                             indP = indU
                         else:
                             correct_password = False
                         # Existance verification
-                        if correct_password and indP == indU:
-                            # index a remove the values wanted
-
-                            d = 'key' + str(indU + 1)
+                        if correct_user and correct_password and indP==indU:
+                            #index a remove the values wanted
+                            d = 'key' + str(indU+1)
                             self.config.remove_option('users', d)
                             self.config.remove_option('passwords', d)
-                            # write again
+                            #write again
                             with open('config.ini', 'w') as f:
                                 self.config.write(f)
                                 f.close()
@@ -103,7 +127,7 @@ class Funcion_cambiar:
 
                             k = len(users_values) - 1
                             b = 'key' + str(k + 1)
-                            self.config.set('users', b, self.avanzada_user.text())
+                            self.config.set('users', b, user)
                             p = password_new_0
                             h = hashlib.new('sha1', p.encode())
                             self.config.set('passwords', b, str(h.digest()).replace("%", "%%"))
@@ -117,6 +141,7 @@ class Funcion_cambiar:
 
                             self.pantalla = 'inside'
                             # eliminar
+                            self.cambiar_user.setVisible(False)
                             self.cambiar_pass.setVisible(False)
                             self.pass_new_0.setVisible(False)
                             self.pass_new_1.setVisible(False)

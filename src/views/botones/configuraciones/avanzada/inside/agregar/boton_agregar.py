@@ -17,6 +17,8 @@ class Boton_agregar(Funcion_agregar):
         self.agregar_username.clicked.connect(self.AgregarUsername)
 
 
+
+
     def boton_agregar_pass(self, widget):
         self.agregar_pass = QLineEditClick(widget)
         self.agregar_pass.setPlaceholderText("CONTRASEÑA")
