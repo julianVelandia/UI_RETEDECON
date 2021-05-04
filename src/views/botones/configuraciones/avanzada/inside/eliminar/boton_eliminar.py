@@ -14,6 +14,8 @@ class Boton_eliminar(Funcion_eliminar):
         self.eliminar_username.setGeometry(164,237,290,70)
         self.eliminar_username.setMaxLength(40)
         self.eliminar_username.setVisible(False)
+        self.eliminar_username.clicked.connect(self.EliminarUsername)
+
 
     def boton_eliminar_pass(self, widget):
         self.eliminar_pass = QLineEditClick(widget)
@@ -24,6 +26,8 @@ class Boton_eliminar(Funcion_eliminar):
         self.eliminar_pass.setMaxLength(15)
         self.eliminar_pass.setVisible(False)
         self.eliminar_pass.setEchoMode(QLineEdit.Password)
+        self.eliminar_pass.clicked.connect(self.EliminarPass)
+
 
     def boton_eliminar_eliminar(self, widget):
         self.eliminar_eliminar = QToolButton(widget)

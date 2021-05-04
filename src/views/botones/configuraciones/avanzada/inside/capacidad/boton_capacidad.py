@@ -14,6 +14,8 @@ class Boton_capacidad(Funcion_capacidad):
         self.capacidad_newcapacidad.setGeometry(164,237,290,70)
         self.capacidad_newcapacidad.setMaxLength(5)
         self.capacidad_newcapacidad.setVisible(False)
+        self.capacidad_newcapacidad.clicked.connect(self.CapacidadNewCapacidad)
+
 
     def boton_capacidad_setnew(self, widget):
         self.capacidad_setnew = QToolButton(widget)

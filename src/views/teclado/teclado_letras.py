@@ -290,6 +290,12 @@ class TecladoLetras:
             else:
                 texto = self.avanzada_user.text() + 'Q'
             self.avanzada_user.setText(texto)
+        elif self.campo == 'AdConf-User':
+            if not self.isMAYUS:
+                texto = self.avanzada_user.text() + 'q'
+            else:
+                texto = self.avanzada_user.text() + 'Q'
+            self.avanzada_user.setText(texto)
 
     def w(self):
         if self.campo == 'ingresar-nombre':

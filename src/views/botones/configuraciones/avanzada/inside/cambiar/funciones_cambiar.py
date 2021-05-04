@@ -111,7 +111,7 @@ class Funcion_cambiar:
                             b = 'key'+str(k+1)
                             self.config.set('users',b, self.avanzada_user.text())
                             p = password_new_0
-                            h = hashlib.new("sha1", p.encode())
+                            h = hashlib.new('sha1', p.encode())
                             self.config.set('passwords',b, str(h.digest()))
                             with open('config.ini', 'w') as f:
                                 self.config.write(f)

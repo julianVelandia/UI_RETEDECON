@@ -6,6 +6,22 @@ from src.views.teclado.teclado_letras import *
 from src.views.teclado.teclado_numeros import *
 
 class Funcion_capacidad:
+    def CapacidadNewCapacidad(self):
+        MOV = -100
+        #movimiento botones
+        self.capacidad_newcapacidad.setGeometry(164,237+MOV,290,70)
+        self.capacidad_setnew.setGeometry(570, 230+MOV, 290, 231)
+        self.NotTeclado()
+        self.TecladoNumerico()
+        self.campo = 'New-Capacidad'
+    
+    def Capacidad_guardar_teclado(self):
+        self.capacidad_newcapacidad.setGeometry(164,237,290,70)
+        self.capacidad_setnew.setGeometry(570, 230, 290, 231)
+        self.NotTeclado()
+    
+
+    
     def CapacidadSetnew(self):
         # Reading the config.ini file
         try:
