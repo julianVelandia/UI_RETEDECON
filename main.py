@@ -136,8 +136,55 @@ class MainWindow(QMainWindow, Boton, TecladoNumeros, TecladoLetras):  # Ventana 
         self.text_pass_new(self.centralWidget)
         self.boton_cambiar_cambiar(self.centralWidget)
 
+
+class StudentWindow(QMainWindow, Boton, TecladoNumeros, TecladoLetras):  # Ventana principal
+    def __init__(self, parent=None, *args):
+        super(StudentWindow, self).__init__(parent=parent)
+        with open("src/views/static/styles.css") as f:
+            self.setStyleSheet(f.read())
+
+        self.cedula_cache = ''
+        self.carnet = ''
+        self.title = 'RETEDECON'
+        self.config = ConfigParser()
+        # self.width = 1024
+        # self.height = 600
+        #
+        # self.setMinimumSize(self.width, self.height)  # tamaño mínimo
+        # self.setMaximumSize(self.width, self.height)  # tamaño máximo
+        self.setWindowTitle(self.title)  # titulo
+        self.setWindowIcon(QIcon("src/views/static/icons/favicon3.png"))  # Favicon
+
+        # Widget principal
+        self.centralWidget = QWidget()
+        self.setCentralWidget(self.centralWidget)
+        self.centralWidget.setObjectName("window")  # nombre que enlaza en css
+
+        # Mensajes
+        self.dialogo_mensaje = 'Error404'
+        self.dialogo = QMessageBox(self.centralWidget)
+        self.dialogo.setWindowTitle('RETEDECON')
+        self.dialogo.addButton("Aceptar", 0)
+        self.dialogo.setInformativeText(self.dialogo_mensaje)
+
+        # Imagen central
+        self.label_img_central = QLabel(self)
+        self.label_img_central.setGeometry(289, -10, 1024, 600)
+        self.pixmap = QPixmap('src/views/static/icons/Logo_central.png')  # Imagen central
+        self.label_img_central.setPixmap(self.pixmap)
+        self.label_img_central.setVisible(True)
+
+        # Timer animación
+        self.timer = QTimer()
+        self.timer.setInterval(2500)
+        self.timer.setSingleShot(True)
+        self.timer.start()
+        # self.timer.timeout.connect(self.HomeWindow)  # función a ejecutar pasados los 3 seg
+
 if __name__ == '__main__':
     app = QApplication([])
     window = MainWindow()
     window.show()
+    student = StudentWindow()
+    student.showMaximized()
     app.exec_()
