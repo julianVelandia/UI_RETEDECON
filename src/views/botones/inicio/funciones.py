@@ -247,3 +247,32 @@ class Funciones:
             self.HomeWindow()
             self.Informacion()
             self.pantalla = 'informacion'
+
+    def instrucciones(self):
+        print("sdaf")
+        # self.s0()
+
+    def s0(self):
+        self.label_img_central.setVisible(False)
+        self.labelS0.setVisible(True)
+        self.movie0.start()
+        self.checkS0()
+
+
+    def checkS0(self):
+        #aquí va el codigo para conectar con arduino y verificar el s0
+        n=input("ingresar número de prueba")
+        # print(n, n=="0")
+        # n="0"
+        if n == "0":
+            print(1)
+            # global alarm
+            # alarm.play()
+        else:
+            self.s1()
+
+    def s1(self):
+        self.movie1 = QMovie('src/views/static/gif/s1.gif')  # Gif paso 1
+        self.labelS0.setMovie(self.movie1)
+        self.labelS0.setVisible(True)
+        self.movie1.start()
