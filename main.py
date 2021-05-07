@@ -177,12 +177,14 @@ class StudentWindow(QMainWindow, Boton, TecladoNumeros, TecladoLetras):  # Venta
         self.heightGif = 207
 
         # s0
-        self.labelS0 = QLabel(self.centralWidget)
+        self.giflabel = QLabel(self.centralWidget)
         self.movie0 = QMovie('src/views/static/gif/s0.gif')  # Gif paso 1
-        self.labelS0.setGeometry(self.width / 2 - self.widthGif / 2, self.height / 2 - self.heightGif / 2,
+        self.giflabel.setGeometry(self.width / 2 - self.widthGif / 2, self.height / 2 - self.heightGif / 2,
                                  self.widthGif, self.heightGif)
-        self.labelS0.setMovie(self.movie0)
-        self.labelS0.setVisible(False)
+        self.giflabel.setMovie(self.movie0)
+        self.giflabel.setVisible(False)
+
+        self.state = 0
 
         # Imagen central
         self.label_img_central = QLabel(self)
@@ -198,58 +200,18 @@ class StudentWindow(QMainWindow, Boton, TecladoNumeros, TecladoLetras):  # Venta
         self.timer.setInterval(2500)
         self.timer.setSingleShot(True)
         self.timer.start()
-        self.s0()
-        self.timer.timeout.connect(self.instrucciones)  # función a ejecutar pasados los 3 seg
+        self.timer.timeout.connect(self.checkState)  # función a ejecutar pasados los 3 seg
 
 
-
-
-        # # s1
-        # self.labelS1 = QLabel(self.centralWidget)
-        # self.movie1 = QMovie('src/views/static/gif/s1.gif')  # Gif paso 1
-        # self.labelS1.setGeometry(self.width / 2 - self.widthGif / 2, self.height / 2 - self.heightGif / 2,
-        #                          self.widthGif, self.heightGif)
-        # self.labelS1.setMovie(self.movie1)
-        # self.labelS1.setVisible(False)
-        #
-        # # s2
-        # self.labelS2 = QLabel(self.centralWidget)
-        # self.movie2 = QMovie('src/views/static/gif/s2.gif')  # Gif paso 1
-        # self.labelS2.setGeometry(self.width / 2 - self.widthGif / 2, self.height / 2 - self.heightGif / 2,
-        #                          self.widthGif, self.heightGif)
-        # self.labelS2.setMovie(self.movie1)
-        # self.labelS2.setVisible(False)
-        #
-        # # s3
-        # self.labelS3 = QLabel(self.centralWidget)
-        # self.movie3 = QMovie('src/views/static/gif/s3.gif')  # Gif paso 1
-        # self.labelS3.setGeometry(self.width / 2 - self.widthGif / 2, self.height / 2 - self.heightGif / 2,
-        #                          self.widthGif, self.heightGif)
-        # self.labelS3.setMovie(self.movie1)
-        # self.labelS3.setVisible(False)
-        #
-        # # s4
-        # self.labelS4 = QLabel(self.centralWidget)
-        # self.movie4 = QMovie('src/views/static/gif/s4.gif')  # Gif paso 1
-        # self.labelS4.setGeometry(self.width / 2 - self.widthGif / 2, self.height / 2 - self.heightGif / 2,
-        #                          self.widthGif, self.heightGif)
-        # self.labelS4.setMovie(self.movie1)
-        # self.labelS4.setVisible(False)
-        #
-        # # s5
-        # self.labelS5 = QLabel(self.centralWidget)
-        # self.movie1 = QMovie('src/views/static/gif/s5.gif')  # Gif paso 1
-        # self.labelS5.setGeometry(self.width / 2 - self.widthGif / 2, self.height / 2 - self.heightGif / 2,
-        #                          self.widthGif, self.heightGif)
-        # self.labelS5.setMovie(self.movie1)
-        # self.labelS5.setVisible(False)
+        # Solo para pruebas
+        self.botonesPrueba(self.centralWidget)
 
 
 if __name__ == '__main__':
     app = QApplication([])
     window = MainWindow()
     window.show()
-    # student = StudentWindow()
-    # student.showFullScreen()
-    # student.show()
+    student = StudentWindow()
+    student.showFullScreen()
+    student.show()
     app.exec_()
