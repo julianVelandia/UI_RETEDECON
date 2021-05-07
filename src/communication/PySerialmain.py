@@ -46,5 +46,5 @@ class NANO:
 
 uno = UNO()
 uno.datain()
-nano = NANO()
-nano.dataout()
+#nano = NANO()
+#nano.dataout()
