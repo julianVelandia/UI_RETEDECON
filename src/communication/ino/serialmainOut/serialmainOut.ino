@@ -34,13 +34,13 @@ void loop() {
     return;
   }
   // Dump debug info about the card; PICC_HaltA() is automatically called
-  mfrc522.PICC_DumpToSerial(&(mfrc522.uid));
-  //String bus;
-  //for (byte i = 0; i < mfrc522.uid.size; i++) {
-          //Serial.print(mfrc522.uid.uidByte[i] < 0x10 ? " 0" : " ");
-    //      bus = String(mfrc522.uid.uidByte[i]);
-  //}
-  //Serial.println(bus);
+  //mfrc522.PICC_DumpToSerial(&(mfrc522.uid));
+  String bus;
+  for (byte i = 0; i < mfrc522.uid.size; i++) {
+          Serial.print(mfrc522.uid.uidByte[i] < 0x10 ? " 0" : " ");
+          bus = String(mfrc522.uid.uidByte[i]);
+  }
+  Serial.println(bus);
 /////////////HC-05////////////////////
   //if (mfrc522.PICC_IsNewCardPresent()){
     //EXDataBus = mfrc522.PICC_ReadCardSerial();
