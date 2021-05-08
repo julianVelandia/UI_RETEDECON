@@ -14,8 +14,7 @@ void setup() {
   while (!Serial);                    // Do nothing if no serial port is opened (added for Arduinos based on ATMEGA32U4)
   SPI.begin();                        // Init SPI bus
   mfrc522.PCD_Init();                 // Init MFRC522
-  delay(5);                           // Optional delay. Some board do need more time after init to be ready, see Readme
-  mfrc522.PCD_DumpVersionToSerial();  // Show details of PCD - MFRC522 Card Reader details
+  delay(5);                           // Optional delay.
   
   /////////////////IRSENSOR///////////////////
   pinMode (IRSensor, INPUT);          //Set IRSensor digital pin 2 as INPUT
@@ -42,7 +41,7 @@ void loop() {
   ///////////////////HC-05///////////////////
   String EXDataBus;
   if(mySerial.available() > 0){
-    EXDataBus = mySerial.read();
+    EXDataBus = mySerial.readString();
     Serial.println(EXDataBus);
   }
   
@@ -56,6 +55,6 @@ void loop() {
     return;
   }
   // Dump debug info about the card; PICC_HaltA() is automatically called
+  Serial.println("IN");
   mfrc522.PICC_DumpToSerial(&(mfrc522.uid));
-
 }

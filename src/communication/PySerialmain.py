@@ -4,47 +4,54 @@ class UNO:
     def __init__(self):
         self.arduinoUNO = serial.Serial('COM5', 9600)
 
-    def datain(self):
-        while True:
+    def data_in(self):
+        try:
+            #while True:
             line = self.arduinoUNO.readline()
             linea = str(line)
-            uid_find = linea.find("Card UID: ")
-            IRstatus = linea.find("IR ")
-            status = linea[IRstatus + 3]
-            for lines in line:
-                if status == '1':
-                    isIn = True
-                    print(isIn)
-                    break
-                if not uid_find == -1 :
-                    #print(line)
-                    IDstr = ""
-                    for i in range(11):
-                        IDstr += linea[uid_find+(i+10)]
-                    print(IDstr)
-                    break
-        self.arduinoUNO.close()  # Finalizamos la comunicacion con UNO
-
-class NANO:
-    def __init__(self):
-        self.arduinoNANO = serial.Serial('COM4', 9600)
-
-    def dataout(self):
-        while True:
-            line = self.arduinoNANO.readline()
-            for lines in line:
+            id_find = linea.find("IN")                  #CHECK IF IT COMES FROM IN
+            ir_status = linea.find("IR ")                #SEARCH FOR IR STATUS
+            status = linea[ir_status + 3]                #READ IR STATUS
+            if status == '1':
+                crossed = True
+                print(crossed)
+            if not id_find == -1:
+                line = self.arduinoUNO.readline()
                 linea = str(line)
-                uid_find = linea.find("Card UID: ")
+                uid_find = linea.find("Card UID: ")         #SEARCH FOR CARD UID
                 if not uid_find == -1:
-                    # print(line)
-                    IDstr = ""
+                    uid_str = ""
                     for i in range(11):
-                        IDstr += linea[uid_find + (i + 10)]
-                    print(IDstr)
-                    break
-        self.arduinoNANO.close() #Finalizamos la comunicacion con NANO
+                        uid_str += linea[uid_find+(i+10)]
+                    print(uid_str+" IN")
+        except:
+            self.arduinoUNO.close()                         #CLOSE THE SERIAL PORT
 
-uno = UNO()
-uno.datain()
-#nano = NANO()
-#nano.dataout()
+    def data_out(self):
+        try:
+            #while True:
+            line = self.arduinoUNO.readline()
+            linea = str(line)
+            id_find = linea.find("EXIT")                #CHECK IF IT COMES FROM EXIT
+            if not id_find == -1:
+                line = self.arduinoUNO.readline()
+                linea = str(line)
+                uid_find = linea.find("Card UID: ")         #SEARCH FOR CARD UID
+                if not uid_find == -1:
+                    uid_str = ""
+                    for i in range(11):
+                        uid_str += linea[uid_find+(i+10)]
+                    uid_str = uid_str +" EXIT"
+                    print(uid_str)
+        except:
+            self.arduinoUNO.close()                         #CLOSE THE SERIAL PORT
+
+class Read(UNO):
+    def execute(self):
+        while True:
+            UNO.data_in(self)
+            UNO.data_out(self)
+
+
+re = Read()
+re.execute()
