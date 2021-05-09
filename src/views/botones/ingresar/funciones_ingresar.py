@@ -1,6 +1,5 @@
 from datetime import datetime
 import pandas as pd
-from PyQt5.QtMultimedia import QSound
 
 class Funcion_ingresar:
 

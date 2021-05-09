@@ -1,7 +1,6 @@
 from PyQt5.QtWidgets import *
 from PyQt5.QtCore import *
 from PyQt5.QtGui import *
-from PyQt5.QtMultimedia import QSound
 from configparser import ConfigParser
 # locals
 from src.views.botones.inicio.boton import Boton
@@ -9,10 +8,13 @@ from src.views.teclado.teclado_numeros import TecladoNumeros
 from src.views.teclado.teclado_letras import TecladoLetras
 
 class MainWindow(QMainWindow, Boton, TecladoNumeros, TecladoLetras):  # Ventana principal
-    def __init__(self, alarm, parent=None, *args):
+    def __init__(self, alarm, sw, parent=None, *args):
         super(MainWindow, self).__init__(parent=parent)
         with open("src/views/static/styles.css") as f:
             self.setStyleSheet(f.read())
+
+        #conexion con studentWindow
+        self.sw = sw
 
         self.cedula_cache = ''
         self.carnet = ''

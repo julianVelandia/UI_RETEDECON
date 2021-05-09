@@ -4,13 +4,14 @@ from PyQt5.QtWidgets import *
 from PyQt5.QtCore import *
 from PyQt5.QtGui import *
 from .funciones import Funciones
+from .funcionesEstudiantes import FuncionesEstudiantes
 from src.views.botones.ingresar.boton_ingresar import Boton_ingresar
 from src.views.botones.salida.boton_salida import Boton_salida
 from src.views.botones.configuraciones.boton_configuraciones import Boton_configuraciones
 from src.views.botones.informacion.boton_informacion import Boton_informacion
 from src.views.botones.estadisticas.boton_estadisticas import Boton_estadisticas
 
-class Boton(Funciones,Boton_ingresar,Boton_salida,Boton_configuraciones,Boton_informacion, Boton_estadisticas):
+class Boton(Funciones, FuncionesEstudiantes, Boton_ingresar,Boton_salida,Boton_configuraciones,Boton_informacion, Boton_estadisticas):
     '''
     Botones Pantalla inicio
     '''

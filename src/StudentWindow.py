@@ -1,7 +1,6 @@
 from PyQt5.QtWidgets import *
 from PyQt5.QtCore import *
 from PyQt5.QtGui import *
-from PyQt5.QtMultimedia import QSound
 from configparser import ConfigParser
 # locals
 from src.views.botones.inicio.boton import Boton
@@ -74,7 +73,6 @@ class StudentWindow(QMainWindow, Boton, TecladoNumeros, TecladoLetras):  # Venta
         self.timer.setSingleShot(True)
         self.timer.start()
         self.timer.timeout.connect(self.checkState)  # función a ejecutar pasados los 3 seg
-
 
         # Solo para pruebas
         self.botonesPrueba(self.centralWidget)

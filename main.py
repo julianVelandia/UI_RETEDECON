@@ -7,11 +7,11 @@ from src.StudentWindow import StudentWindow
 def main():
     app = QApplication([])
     alarm = QSound("src/views/static/alarm.wav")
-    window = MainWindow(alarm)
-    window.show()
     student = StudentWindow(alarm)
     student.showFullScreen()
     student.show()
+    window = MainWindow(alarm,student)
+    window.show()
     app.exec_()
 
 
