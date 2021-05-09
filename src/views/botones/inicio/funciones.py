@@ -1,7 +1,7 @@
 from src.views.teclado.teclado_letras import *
 from src.views.teclado.teclado_numeros import *
 from PyQt5.QtMultimedia import QSound
-
+# from main import alarm
 
 class Funciones:
     pantalla = 'inicio'
@@ -299,6 +299,7 @@ class Funciones:
         self.giflabel.setMovie(self.movie5)
         self.giflabel.setVisible(True)
         self.movie5.start()
+        self.alarm.play()
 
     ## botones de prueba
 
