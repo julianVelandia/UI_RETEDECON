@@ -1,12 +1,9 @@
 import serial
 
 class UNO:
-    def __init__(self):
-        self.arduinoUNO = serial.Serial('COM5', 9600)
 
     def data_in(self):
         try:
-            #while True:
             line = self.arduinoUNO.readline()
             linea = str(line)
             id_find = linea.find("IN")                  #CHECK IF IT COMES FROM IN
@@ -29,7 +26,6 @@ class UNO:
 
     def data_out(self):
         try:
-            #while True:
             line = self.arduinoUNO.readline()
             linea = str(line)
             id_find = linea.find("EXIT")                #CHECK IF IT COMES FROM EXIT
@@ -47,11 +43,13 @@ class UNO:
             self.arduinoUNO.close()                         #CLOSE THE SERIAL PORT
 
 class Read(UNO):
+    def __init__(self):
+        self.arduinoUNO = serial.Serial('COM5', 9600)
+
     def execute(self):
         while True:
             UNO.data_in(self)
             UNO.data_out(self)
-
 
 re = Read()
 re.execute()
