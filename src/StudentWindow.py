@@ -8,7 +8,9 @@ from src.views.teclado.teclado_numeros import TecladoNumeros
 from src.views.teclado.teclado_letras import TecladoLetras
 
 # informacion de las pantallas
-from screeninfo import get_monitors
+# from screeninfo import get_monitors
+import ctypes
+
 
 class StudentWindow(QMainWindow, Boton, TecladoNumeros, TecladoLetras):  # Ventana principal
     def __init__(self, alarm, parent=None, *args):
@@ -20,8 +22,12 @@ class StudentWindow(QMainWindow, Boton, TecladoNumeros, TecladoLetras):  # Venta
         self.carnet = ''
         self.title = 'RETEDECON'
         self.config = ConfigParser()
-        self.width = get_monitors()[0].width
-        self.height = get_monitors()[0].height
+        # self.width = get_monitors()[0].width
+        # self.height = get_monitors()[0].height
+        user32 = ctypes.windll.user32
+        user32.SetProcessDPIAware()
+        self.width = user32.GetSystemMetrics(0)
+        self.height = user32.GetSystemMetrics(1)
 
         # alarma
         self.alarm = alarm
@@ -52,7 +58,7 @@ class StudentWindow(QMainWindow, Boton, TecladoNumeros, TecladoLetras):  # Venta
         self.giflabel = QLabel(self.centralWidget)
         self.movie0 = QMovie('src/views/static/gif/s0.gif')  # Gif paso 1
         self.giflabel.setGeometry(self.width / 2 - self.widthGif / 2, self.height / 2 - self.heightGif / 2,
-                                 self.widthGif, self.heightGif)
+                                  self.widthGif, self.heightGif)
         self.giflabel.setMovie(self.movie0)
         self.giflabel.setVisible(False)
 
