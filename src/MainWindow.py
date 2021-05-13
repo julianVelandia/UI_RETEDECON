@@ -1,3 +1,4 @@
+from PyQt5 import QtSerialPort
 from PyQt5.QtWidgets import *
 from PyQt5.QtCore import *
 from PyQt5.QtGui import *
@@ -6,14 +7,16 @@ from configparser import ConfigParser
 from src.views.botones.inicio.boton import Boton
 from src.views.teclado.teclado_numeros import TecladoNumeros
 from src.views.teclado.teclado_letras import TecladoLetras
+from src.communication.FuncionesArduino import FuncionesArduino
 
-class MainWindow(QMainWindow, Boton, TecladoNumeros, TecladoLetras):  # Ventana principal
+
+class MainWindow(QMainWindow, Boton, TecladoNumeros, TecladoLetras, FuncionesArduino):  # Ventana principal
     def __init__(self, alarm, sw, parent=None, *args):
         super(MainWindow, self).__init__(parent=parent)
         with open("src/views/static/styles.css") as f:
             self.setStyleSheet(f.read())
 
-        #conexion con studentWindow
+        # conexion con studentWindow
         self.sw = sw
 
         self.cedula_cache = ''
@@ -137,3 +140,14 @@ class MainWindow(QMainWindow, Boton, TecladoNumeros, TecladoLetras):  # Ventana 
         self.text_cambiar_pass(self.centralWidget)
         self.text_pass_new(self.centralWidget)
         self.boton_cambiar_cambiar(self.centralWidget)
+
+        # Serial arduino
+        self.arduinoUNO = QtSerialPort.QSerialPort('COM5', self)
+        self.arduinoUNO.setBaudRate(QtSerialPort.QSerialPort.Baud9600)
+        self.arduinoUNO.readyRead.connect(self.onReadyRead)
+
+    # Funcion para cerrar el puerto serial
+    def closeEvent(self, event):
+        if self.arduinoUNO.isOpen():
+            self.arduinoUNO.close()
+        super(MainWindow, self).closeEvent(event)

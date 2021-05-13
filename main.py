@@ -13,9 +13,9 @@ def main():
     student.show()
     window = MainWindow(alarm,student)
     window.show()
+    # re = Read(window)
+    # re.execute()
     app.exec_()
-    re = Read(window)
-    re.execute()
 
 
 if __name__ == '__main__':
