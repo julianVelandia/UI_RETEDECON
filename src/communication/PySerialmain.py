@@ -13,7 +13,7 @@ class UNO:
             if status == '1':
                 crossed = True
                 print(crossed)
-            if not id_find == -1:
+            if not id_find == -1: #and self.window.sw.state == 0:
                 line = self.arduinoUNO.readline()
                 linea = str(line)
                 uid_find = linea.find("Card UID: ")  # SEARCH FOR CARD UID
@@ -22,6 +22,9 @@ class UNO:
                     for i in range(11):
                         uid_str += linea[uid_find + (i + 10)]
                     print(uid_str + " IN")
+                    # cambio de estado
+                    self.window.sw.state = 1
+                    self.window.sw.checkState()
         except:
             self.arduinoUNO.close()  # CLOSE THE SERIAL PORT
 
@@ -30,7 +33,7 @@ class UNO:
             line = self.arduinoUNO.readline()
             linea = str(line)
             id_find = linea.find("EXIT")  # CHECK IF IT COMES FROM EXIT
-            if not id_find == -1 and self.window.sw.state == 0:
+            if not id_find == -1:
                 line = self.arduinoUNO.readline()
                 linea = str(line)
                 uid_find = linea.find("Card UID: ")  # SEARCH FOR CARD UID
@@ -40,9 +43,6 @@ class UNO:
                         uid_str += linea[uid_find + (i + 10)]
                     uid_str = uid_str + " EXIT"
                     print(uid_str)
-                    # cambio de estado
-                    self.window.sw.state = 1
-                    self.window.sw.checkState()
         except:
             self.arduinoUNO.close()  # CLOSE THE SERIAL PORT
 
