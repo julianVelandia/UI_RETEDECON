@@ -1,7 +1,6 @@
 from src.views.teclado.teclado_letras import *
 from src.views.teclado.teclado_numeros import *
 
-
 class Funciones:
     pantalla = 'inicio'
 

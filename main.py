@@ -1,9 +1,9 @@
 from PyQt5.QtMultimedia import QSound
 from PyQt5.QtWidgets import QApplication
-
+#LOCALS
 from src.MainWindow import MainWindow
 from src.StudentWindow import StudentWindow
-from src.communication.PySerialmain import Read, UNO
+from src.communication.PySerialmain import *
 
 def main():
     app = QApplication([])
@@ -13,8 +13,8 @@ def main():
     student.show()
     window = MainWindow(alarm,student)
     window.show()
-    # re = Read(window)
-    # re.execute()
+    #re = Read()
+    #re.execute()
     app.exec_()
 
 

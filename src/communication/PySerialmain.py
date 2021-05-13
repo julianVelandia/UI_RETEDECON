@@ -44,6 +44,7 @@ class UNO:
             self.arduinoUNO.close()                         #CLOSE THE SERIAL PORT
 
 class Read(UNO):
+
     def __init__(self):
         self.arduinoUNO = serial.Serial('COM5', 9600)
 

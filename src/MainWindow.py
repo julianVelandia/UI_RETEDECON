@@ -7,10 +7,10 @@ from configparser import ConfigParser
 from src.views.botones.inicio.boton import Boton
 from src.views.teclado.teclado_numeros import TecladoNumeros
 from src.views.teclado.teclado_letras import TecladoLetras
-from src.communication.FuncionesArduino import FuncionesArduino
+from src.communication.PySerialmain import UNO
 
 
-class MainWindow(QMainWindow, Boton, TecladoNumeros, TecladoLetras, FuncionesArduino):  # Ventana principal
+class MainWindow(QMainWindow, Boton, TecladoNumeros, TecladoLetras, UNO):  # Ventana principal
     def __init__(self, alarm, sw, parent=None, *args):
         super(MainWindow, self).__init__(parent=parent)
         with open("src/views/static/styles.css") as f:
@@ -140,14 +140,15 @@ class MainWindow(QMainWindow, Boton, TecladoNumeros, TecladoLetras, FuncionesArd
         self.text_cambiar_pass(self.centralWidget)
         self.text_pass_new(self.centralWidget)
         self.boton_cambiar_cambiar(self.centralWidget)
-
+'''
         # Serial arduino
         self.arduinoUNO = QtSerialPort.QSerialPort('COM5', self)
         self.arduinoUNO.setBaudRate(QtSerialPort.QSerialPort.Baud9600)
         self.arduinoUNO.readyRead.connect(self.onReadyRead)
-
+        
     # Funcion para cerrar el puerto serial
     def closeEvent(self, event):
         if self.arduinoUNO.isOpen():
             self.arduinoUNO.close()
         super(MainWindow, self).closeEvent(event)
+'''
