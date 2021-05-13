@@ -3,6 +3,7 @@ from PyQt5.QtWidgets import QApplication
 
 from src.MainWindow import MainWindow
 from src.StudentWindow import StudentWindow
+from src.communication.PySerialmain import Read, UNO
 
 def main():
     app = QApplication([])
@@ -13,6 +14,8 @@ def main():
     window = MainWindow(alarm,student)
     window.show()
     app.exec_()
+    re = Read(window)
+    re.execute()
 
 
 if __name__ == '__main__':
