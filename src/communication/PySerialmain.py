@@ -53,8 +53,8 @@ class Read(UNO):
     def execute(self):
         while True:
             UNO.data_in(self)
-            hilo_out = threading.Thread(name='out', target=self.data_out)
-
+            hilo_out = threading.Thread(name='out', target=self.data_out, args=())
+            hilo_out.start()
 
 re = Read()
 re.execute()
