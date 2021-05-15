@@ -68,11 +68,12 @@ void loop() {
     return;
   }
   else {
-    Serial.println("IN");  
+    Serial.print("IN ");  
     Serial.print(F("Card UID:"));
     uid_array(mfrc522.uid.uidByte, mfrc522.uid.size);
     Serial.println();
     // Finalizar lectura actual
     mfrc522.PICC_HaltA();
+    delay(1000);
   }
 }
