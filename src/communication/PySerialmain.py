@@ -1,5 +1,4 @@
 import serial
-from serial import Serial
 import threading
 
 class UNO:
@@ -53,8 +52,9 @@ class Read(UNO):
     def execute(self):
         while True:
             UNO.data_in(self)
-            hilo_out = threading.Thread(name='out', target=self.data_out, args=())
-            hilo_out.start()
+            UNO.data_out(self)
+            #hilo_out = threading.Thread(name='out', target=self.data_out, args=())
+            #hilo_out.start()
 
 re = Read()
 re.execute()
