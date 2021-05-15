@@ -43,9 +43,9 @@ class Read(UNO):
        self.arduinoUNO = serial.Serial('COM5', 9600)
 
    def execute(self):
-       while True:
-           UNO.data_in(self)
-           UNO.data_out(self)
+       #while True:
+       UNO.data_in(self)
+       UNO.data_out(self)
 
 re = Read()
 re.execute()
