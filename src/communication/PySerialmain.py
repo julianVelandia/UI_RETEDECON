@@ -63,4 +63,3 @@ class Read(UNO):
 
 
 re = Read()
-threading.Thread(target=re.execute, daemon=True).start()
