@@ -2,11 +2,11 @@ import serial
 import threading
 
 
-# class UNO:
-#
-#     def data_in(self):
-#         try:
-#             line = self.arduinoUNO.readline()
+#class UNO:
+
+ #    def data_in(self):
+ #        try:
+  #           line = self.arduinoUNO.readline()
 #             linea = str(line)
 #             id_find = linea.find("IN")  # CHECK IF IT COMES FROM IN
 #             ir_status = linea.find("IR ")  # SEARCH FOR IR STATUS
@@ -48,21 +48,17 @@ import threading
 #             self.arduinoUNO.close()  # CLOSE THE SERIAL PORT
 #
 #
-# def execute(self):
-#     while True:
-#         UNO.data_in(self)
-#         UNO.data_out(self)
+
 #
-# class Read(UNO):
+#class Read(UNO):
 #
-#     def __init__(self):
-#         self.arduinoUNO = serial.Serial('COM5', 9600)
-#         threading.Thread(target=execute, daemon=True).start()
-#
-#
-#             # hilo_out = threading.Thread(name='out', target=self.data_out, args=())
-#             # hilo_out.start()
-#
+#    def __init__(self):
+#        self.arduinoUNO = serial.Serial('COM5', 9600)
+#        threading.Thread(target=execute, daemon=True).start()
+#    def execute(self):
+#        while True:
+#            UNO.data_in(self)
+#            UNO.data_out(self)
 #
 # re = Read()
 
