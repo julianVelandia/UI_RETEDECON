@@ -46,16 +46,17 @@ class UNO:
             self.arduinoUNO.close()  # CLOSE THE SERIAL PORT
 
 
+def execute(self):
+    while True:
+        UNO.data_in(self)
+        UNO.data_out(self)
+
 class Read(UNO):
 
     def __init__(self):
         self.arduinoUNO = serial.Serial('COM5', 9600)
-        self.execute()
+        threading.Thread(target=execute, daemon=True).start()
 
-    def execute(self):
-        while True:
-            UNO.data_in(self)
-            UNO.data_out(self)
             # hilo_out = threading.Thread(name='out', target=self.data_out, args=())
             # hilo_out.start()
 
