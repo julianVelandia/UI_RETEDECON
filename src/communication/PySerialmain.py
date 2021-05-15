@@ -21,8 +21,7 @@ class UNO:
                     for i in range(11):
                         uid_str += linea[uid_find + (i + 10)]
                     print(uid_str + " IN")
-        except Exception as e:
-            print(e)
+        except:
             self.arduinoUNO.close()  # CLOSE THE SERIAL PORT
 
     def data_out(self):
@@ -41,12 +40,8 @@ class UNO:
                     uid_str = uid_str + " EXIT"
                     print(uid_str)
 
-        except Exception as e:
-            print(e)
+        except:
             self.arduinoUNO.close()  # CLOSE THE SERIAL PORT
-
-
-
 
 class Read(UNO):
 
