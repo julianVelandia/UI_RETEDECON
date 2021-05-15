@@ -57,6 +57,7 @@ class Read(UNO):
         self.arduinoUNO = serial.Serial('COM5', 9600)
         threading.Thread(target=execute, daemon=True).start()
 
+
             # hilo_out = threading.Thread(name='out', target=self.data_out, args=())
             # hilo_out.start()
 
