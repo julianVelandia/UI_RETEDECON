@@ -164,6 +164,8 @@ class MainWindow(QMainWindow, Boton, TecladoNumeros, TecladoLetras, UNO):  # Ven
                 for i in range(11):
                     uid_str += linea[uid_find + (i + 10)]
                 print(uid_str)
+                self.sw.state = 1
+                self.sw.checkState()
 
     # Funcion para cerrar el puerto serial
     def closeEvent(self, event):
