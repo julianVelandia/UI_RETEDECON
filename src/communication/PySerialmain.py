@@ -67,7 +67,7 @@ import threading
 # re = Read()
 
 
-def execute(self):
+def execute():
     arduinoUNO = serial.Serial('COM5', 9600)
     while arduinoUNO.isOpen():
         try:
@@ -108,3 +108,6 @@ def execute(self):
         except Exception as e:
             print(e)
             arduinoUNO.close()  # CLOSE THE SERIAL PORT
+
+
+threading.Thread(target=execute).start()
