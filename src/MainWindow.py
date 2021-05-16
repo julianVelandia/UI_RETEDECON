@@ -7,10 +7,10 @@ from configparser import ConfigParser
 from src.views.botones.inicio.boton import Boton
 from src.views.teclado.teclado_numeros import TecladoNumeros
 from src.views.teclado.teclado_letras import TecladoLetras
-from src.communication.PySerialmain import UNO
+# from src.communication.PySerialmain import UNO
 
 
-class MainWindow(QMainWindow, Boton, TecladoNumeros, TecladoLetras, UNO):  # Ventana principal
+class MainWindow(QMainWindow, Boton, TecladoNumeros, TecladoLetras):#, UNO):  # Ventana principal
     def __init__(self, alarm, sw, parent=None, *args):
         super(MainWindow, self).__init__(parent=parent)
         with open("src/views/static/styles.css") as f:
