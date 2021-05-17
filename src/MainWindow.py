@@ -7,7 +7,7 @@ from configparser import ConfigParser
 from src.views.botones.inicio.boton import Boton
 from src.views.teclado.teclado_numeros import TecladoNumeros
 from src.views.teclado.teclado_letras import TecladoLetras
-from src.communication.PySerialmain import UNO
+from src.communication.PySerialmain import Read
 
 import threading, serial
 
@@ -28,7 +28,7 @@ def execute():
             print(uid_str)
 
 
-class MainWindow(QMainWindow, Boton, TecladoNumeros, TecladoLetras, UNO):  # Ventana principal
+class MainWindow(QMainWindow, Boton, TecladoNumeros, TecladoLetras):  # Ventana principal
     def __init__(self, alarm, sw, parent=None, *args):
         super(MainWindow, self).__init__(parent=parent)
         with open("src/views/static/styles.css") as f:
@@ -160,9 +160,11 @@ class MainWindow(QMainWindow, Boton, TecladoNumeros, TecladoLetras, UNO):  # Ven
         self.boton_cambiar_cambiar(self.centralWidget)
 
         # self.arduinoUNO = QtSerialPort.QSerialPort('COM3', self)
+        re = Read()
+
         self.arduinoUNO = serial.Serial('COM3', 9600)
 
-        threading.Thread(target=self.execute, daemon=True).start()
+        threading.Thread(target=re.execute, daemon=True).start()
 
 '''
         # Serial arduino

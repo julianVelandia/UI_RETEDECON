@@ -2,18 +2,18 @@ import serial
 
 class UNO:
 
-    def execute(self):
-        while True:
-            line = self.arduinoUNO.readline()
-            linea = str(line)
-            id_find = linea.find("EXIT")  # CHECK IF IT COMES FROM EXIT
-            print(line)
-            if not id_find == -1:
-                uid_find = linea.find("Card UID: ")  # SEARCH FOR CARD UID
-                uid_str = ""
-                for i in range(11):
-                    uid_str += linea[uid_find + (i + 10)]
-                print(uid_str)
+    # def execute(self):
+    #     while True:
+    #         line = self.arduinoUNO.readline()
+    #         linea = str(line)
+    #         id_find = linea.find("EXIT")  # CHECK IF IT COMES FROM EXIT
+    #         print(line)
+    #         if not id_find == -1:
+    #             uid_find = linea.find("Card UID: ")  # SEARCH FOR CARD UID
+    #             uid_str = ""
+    #             for i in range(11):
+    #                 uid_str += linea[uid_find + (i + 10)]
+    #             print(uid_str)
 
     def data_in(self):
         try:
@@ -36,7 +36,7 @@ class UNO:
             self.arduinoUNO.close()  # CLOSE THE SERIAL PORT
 
     def data_out(self):
-        try:
+        # try:
             line = self.arduinoUNO.readline()
             linea = str(line)
             id_find = linea.find("EXIT")  # CHECK IF IT COMES FROM EXIT
@@ -47,19 +47,19 @@ class UNO:
                 for i in range(11):
                     uid_str += linea[uid_find + (i + 10)]
                 print(uid_str)
-        except:
-            self.arduinoUNO.close()  # CLOSE THE SERIAL PORT
+        # except:
+        #     self.arduinoUNO.close()  # CLOSE THE SERIAL PORT
 
-# class Read(UNO):
-#
-#    def __init__(self):
-#        self.arduinoUNO = serial.Serial('COM3', 9600)
-#
-#    def execute(self):
-#        #while True:
-#        UNO.data_in(self)
-#        UNO.data_out(self)
-#
+class Read(UNO):
+
+   def __init__(self):
+       self.arduinoUNO = serial.Serial('COM3', 9600)
+
+   def execute(self):
+       while True:
+           UNO.data_in(self)
+           UNO.data_out(self)
+
 # re = Read()
 # re.execute()
 
