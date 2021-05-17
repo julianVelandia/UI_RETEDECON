@@ -43,7 +43,7 @@ void loop() {
     return;
   }
   else {
-    Serial.print("IN ");  
+    Serial.print("EXIT ");  
     Serial.print(F("Card UID:"));
     uid_array(mfrc522.uid.uidByte, mfrc522.uid.size);
     Serial.println();
