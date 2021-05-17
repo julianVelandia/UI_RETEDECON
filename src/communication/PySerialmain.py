@@ -3,8 +3,6 @@ import serial
 class UNO:
 
     def execute(self):
-        self.arduinoUNO = serial.Serial('COM3', 9600)
-
         while True:
             line = self.arduinoUNO.readline()
             linea = str(line)
