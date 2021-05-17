@@ -1,20 +1,6 @@
 import serial
 
-
 class UNO:
-
-    # def execute(self):
-    #     while True:
-    #         line = self.arduinoUNO.readline()
-    #         linea = str(line)
-    #         id_find = linea.find("EXIT")  # CHECK IF IT COMES FROM EXIT
-    #         print(line)
-    #         if not id_find == -1:
-    #             uid_find = linea.find("Card UID: ")  # SEARCH FOR CARD UID
-    #             uid_str = ""
-    #             for i in range(11):
-    #                 uid_str += linea[uid_find + (i + 10)]
-    #             print(uid_str)
 
     def data_in(self, line):
         if self.sw.state == 0:
@@ -33,6 +19,7 @@ class UNO:
                     for i in range(11):
                         uid_str += linea[uid_find + (i + 10)]
                     print(uid_str)
+
                     # cambiar de estado
                     self.sw.state = 1
                     self.sw.checkState()
@@ -64,52 +51,3 @@ class Read(UNO):
             line = self.arduinoUNO.readline()
             UNO.data_in(self, line)
             UNO.data_out(self, line)
-
-# re = Read()
-# re.execute()
-
-
-# def execute():
-#     arduinoUNO = serial.Serial('COM5', 9600)
-#     while arduinoUNO.isOpen():
-#         try:
-#             # data in
-#             line = arduinoUNO.readline()
-#             linea = str(line)
-#             id_find = linea.find("IN")  # CHECK IF IT COMES FROM IN
-#             ir_status = linea.find("IR ")  # SEARCH FOR IR STATUS
-#             status = linea[ir_status + 3]  # READ IR STATUS
-#             if status == '1':
-#                 crossed = True
-#                 print(crossed)
-#             if not id_find == -1:
-#                 line = arduinoUNO.readline()
-#                 linea = str(line)
-#                 uid_find = linea.find("Card UID: ")  # SEARCH FOR CARD UID
-#                 if not uid_find == -1:
-#                     uid_str = ""
-#                     for i in range(11):
-#                         uid_str += linea[uid_find + (i + 10)]
-#                     print(uid_str + " IN")
-#
-#             # data out
-#
-#             line = arduinoUNO.readline()
-#             linea = str(line)
-#             id_find = linea.find("EXIT")  # CHECK IF IT COMES FROM EXIT
-#             if not id_find == -1:
-#                 line = arduinoUNO.readline()
-#                 linea = str(line)
-#                 uid_find = linea.find("Card UID: ")  # SEARCH FOR CARD UID
-#                 if not uid_find == -1:
-#                     uid_str = ""
-#                     for i in range(11):
-#                         uid_str += linea[uid_find + (i + 10)]
-#                     uid_str = uid_str + " EXIT"
-#                     print(uid_str)
-#         except Exception as e:
-#             print(e)
-#             arduinoUNO.close()  # CLOSE THE SERIAL PORT
-#
-#
-# threading.Thread(target=execute).start()

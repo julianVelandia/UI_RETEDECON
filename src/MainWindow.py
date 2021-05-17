@@ -1,4 +1,3 @@
-from PyQt5 import QtSerialPort, QtCore
 from PyQt5.QtWidgets import *
 from PyQt5.QtCore import *
 from PyQt5.QtGui import *
@@ -162,38 +161,3 @@ class MainWindow(QMainWindow, Boton, TecladoNumeros, TecladoLetras, Read):  # Ve
         # self.arduinoUNO = QtSerialPort.QSerialPort('COM3', self)
         Read.__init__(self)
         threading.Thread(target=self.execute, daemon=True).start()
-
-'''
-        # Serial arduino
-        self.arduinoUNO = QtSerialPort.QSerialPort('COM3', self)
-        self.arduinoUNO.setBaudRate(QtSerialPort.QSerialPort.Baud9600)
-        #self.arduinoUNO.readyRead.connect(self.onReadyRead)
-        self.onReadyRead()
-
-    @QtCore.pyqtSlot()
-    def onReadyRead(self):
-        while True:#self.arduinoUNO.canReadLine():
-            line = self.arduinoUNO.readLine()
-            linea = str(line)
-            id_find = linea.find("EXIT")  # CHECK IF IT COMES FROM IN
-            ir_status = linea.find("IR ")  # SEARCH FOR IR STATUS
-            status = linea[ir_status + 3]  # READ IR STATUS
-            print(line)
-            if status == '1':
-                crossed = True
-                print(crossed)
-            if not id_find == -1:
-                uid_find = linea.find("Card UID: ")  # SEARCH FOR CARD UID
-                uid_str = ""
-                for i in range(11):
-                    uid_str += linea[uid_find + (i + 10)]
-                print(uid_str)
-                self.sw.state = 1
-                self.sw.checkState()
-
-    # Funcion para cerrar el puerto serial
-    def closeEvent(self, event):
-        if self.arduinoUNO.isOpen():
-            self.arduinoUNO.close()
-        super(MainWindow, self).closeEvent(event)
-'''

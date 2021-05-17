@@ -41,13 +41,6 @@ class StudentWindow(QMainWindow, Boton, TecladoNumeros, TecladoLetras):  # Venta
         self.setCentralWidget(self.centralWidget)
         self.centralWidget.setObjectName("window")  # nombre que enlaza en css
 
-        # # Mensajes
-        # self.dialogo_mensaje = 'Error404'
-        # self.dialogo = QMessageBox(self.centralWidget)
-        # self.dialogo.setWindowTitle('RETEDECON')
-        # self.dialogo.addButton("Aceptar", 0)
-        # self.dialogo.setInformativeText(self.dialogo_mensaje)
-
         # Estados
 
         self.widthGif = 207
