@@ -28,7 +28,7 @@ def execute():
             print(uid_str)
 
 
-class MainWindow(QMainWindow, Boton, TecladoNumeros, TecladoLetras):  # Ventana principal
+class MainWindow(QMainWindow, Boton, TecladoNumeros, TecladoLetras, Read):  # Ventana principal
     def __init__(self, alarm, sw, parent=None, *args):
         super(MainWindow, self).__init__(parent=parent)
         with open("src/views/static/styles.css") as f:
@@ -160,11 +160,8 @@ class MainWindow(QMainWindow, Boton, TecladoNumeros, TecladoLetras):  # Ventana 
         self.boton_cambiar_cambiar(self.centralWidget)
 
         # self.arduinoUNO = QtSerialPort.QSerialPort('COM3', self)
-        re = Read()
-
-        self.arduinoUNO = serial.Serial('COM3', 9600)
-
-        threading.Thread(target=re.execute, daemon=True).start()
+        Read.__init__()
+        threading.Thread(target=self.execute, daemon=True).start()
 
 '''
         # Serial arduino
