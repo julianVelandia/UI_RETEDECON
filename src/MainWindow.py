@@ -161,7 +161,8 @@ class MainWindow(QMainWindow, Boton, TecladoNumeros, TecladoLetras, Read):  # Ve
 
         # self.arduinoUNO = QtSerialPort.QSerialPort('COM3', self)
         Read.__init__()
-        threading.Thread(target=self.execute, daemon=True).start()
+        threading.Thread(target=self.executeIn, daemon=True).start()
+        threading.Thread(target=self.executeOut, daemon=True).start()
 
 '''
         # Serial arduino

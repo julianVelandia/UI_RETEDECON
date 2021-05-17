@@ -55,10 +55,14 @@ class Read(UNO):
    def __init__(self):
        self.arduinoUNO = serial.Serial('COM3', 9600)
 
-   def execute(self):
+   def executeIn(self):
        while True:
            UNO.data_in(self)
+
+   def executeOut(self):
+       while True:
            UNO.data_out(self)
+
 
 # re = Read()
 # re.execute()
