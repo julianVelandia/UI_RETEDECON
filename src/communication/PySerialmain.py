@@ -40,7 +40,7 @@ class UNO:
 class Read(UNO):
 
    def __init__(self):
-       self.arduinoUNO = serial.Serial('COM5', 9600)
+       self.arduinoUNO = serial.Serial('COM3', 9600)
 
    def execute(self):
        #while True:

@@ -140,18 +140,19 @@ class MainWindow(QMainWindow, Boton, TecladoNumeros, TecladoLetras):#, UNO):  # 
         self.text_cambiar_pass(self.centralWidget)
         self.text_pass_new(self.centralWidget)
         self.boton_cambiar_cambiar(self.centralWidget)
-
+'''
         # Serial arduino
-        self.arduinoUNO = QtSerialPort.QSerialPort('COM5', self)
+        self.arduinoUNO = QtSerialPort.QSerialPort('COM3', self)
         self.arduinoUNO.setBaudRate(QtSerialPort.QSerialPort.Baud9600)
-        self.arduinoUNO.readyRead.connect(self.onReadyRead)
+        #self.arduinoUNO.readyRead.connect(self.onReadyRead)
+        self.onReadyRead()
 
     @QtCore.pyqtSlot()
     def onReadyRead(self):
-        while self.arduino.canReadLine():
-            line = self.arduinoUNO.readline()
+        while True:#self.arduinoUNO.canReadLine():
+            line = self.arduinoUNO.readLine()
             linea = str(line)
-            id_find = linea.find("IN")  # CHECK IF IT COMES FROM IN
+            id_find = linea.find("EXIT")  # CHECK IF IT COMES FROM IN
             ir_status = linea.find("IR ")  # SEARCH FOR IR STATUS
             status = linea[ir_status + 3]  # READ IR STATUS
             print(line)
@@ -172,3 +173,4 @@ class MainWindow(QMainWindow, Boton, TecladoNumeros, TecladoLetras):#, UNO):  # 
         if self.arduinoUNO.isOpen():
             self.arduinoUNO.close()
         super(MainWindow, self).closeEvent(event)
+'''
