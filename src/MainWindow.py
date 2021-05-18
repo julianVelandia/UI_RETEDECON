@@ -10,23 +10,6 @@ from src.communication.PySerialmain import Read
 
 import threading, serial
 
-
-def execute():
-    arduinoUNO = serial.Serial('COM3', 9600)
-
-    while True:
-        line = arduinoUNO.readline()
-        linea = str(line)
-        id_find = linea.find("EXIT")  # CHECK IF IT COMES FROM EXIT
-        print(line)
-        if not id_find == -1:
-            uid_find = linea.find("Card UID: ")  # SEARCH FOR CARD UID
-            uid_str = ""
-            for i in range(11):
-                uid_str += linea[uid_find + (i + 10)]
-            print(uid_str)
-
-
 class MainWindow(QMainWindow, Boton, TecladoNumeros, TecladoLetras, Read):  # Ventana principal
     def __init__(self, alarm, sw, parent=None, *args):
         super(MainWindow, self).__init__(parent=parent)
@@ -159,5 +142,5 @@ class MainWindow(QMainWindow, Boton, TecladoNumeros, TecladoLetras, Read):  # Ve
         self.boton_cambiar_cambiar(self.centralWidget)
 
         # self.arduinoUNO = QtSerialPort.QSerialPort('COM3', self)
-        # Read.__init__(self)
-        # threading.Thread(target=self.execute, daemon=True).start()
+        Read.__init__(self)
+        threading.Thread(target=self.execute, daemon=True).start()
