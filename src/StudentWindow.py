@@ -8,8 +8,8 @@ from src.views.teclado.teclado_numeros import TecladoNumeros
 from src.views.teclado.teclado_letras import TecladoLetras
 
 # informacion de las pantallas
-# from screeninfo import get_monitors
-import ctypes
+from screeninfo import get_monitors
+# import ctypes
 
 class StudentWindow(QMainWindow, Boton, TecladoNumeros, TecladoLetras):  # Ventana principal
     def __init__(self, alarm, parent=None, *args):
@@ -21,12 +21,12 @@ class StudentWindow(QMainWindow, Boton, TecladoNumeros, TecladoLetras):  # Venta
         self.carnet = ''
         self.title = 'RETEDECON'
         self.config = ConfigParser()
-        # self.width = get_monitors()[0].width
-        # self.height = get_monitors()[0].height
-        user32 = ctypes.windll.user32
-        user32.SetProcessDPIAware()
-        self.width = user32.GetSystemMetrics(0)
-        self.height = user32.GetSystemMetrics(1)
+        self.width = get_monitors()[0].width
+        self.height = get_monitors()[0].height
+        # user32 = ctypes.windll.user32
+        # user32.SetProcessDPIAware()
+        # self.width = user32.GetSystemMetrics(0)
+        # self.height = user32.GetSystemMetrics(1)
 
         # alarma
         self.alarm = alarm
@@ -70,7 +70,19 @@ class StudentWindow(QMainWindow, Boton, TecladoNumeros, TecladoLetras):  # Venta
         self.timer.setInterval(2500)
         self.timer.setSingleShot(True)
         self.timer.start()
-        self.timer.timeout.connect(self.checkState)  # función a ejecutar pasados los 3 seg
+        self.timer.timeout.connect(self.s0)  # función a ejecutar pasados los 3 seg
+
+        self.textoIngreso = QLabel(self.centralWidget)
+        self.textoIngreso.setObjectName("FabInfo")  # nombre de enlace a css
+        self.textoIngreso.setText("El usuario fue ingresado \n con éxito")
+        self.textoIngreso.setVisible(False)
+
+        self.usuarioExiste = QLabel(self.centralWidget)
+        self.usuarioExiste.setObjectName("FabInfo")  # nombre de enlace a css
+        self.usuarioExiste.setText("El usuario ya está adentro")
+        self.usuarioExiste.setVisible(False)
+
 
         # Solo para pruebas
         self.botonesPrueba(self.centralWidget)
+

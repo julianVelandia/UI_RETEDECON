@@ -21,8 +21,7 @@ class UNO:
                     print(uid_str)
 
                     # cambiar de estado
-                    self.sw.state = 1
-                    self.sw.checkState()
+                    self.sw.s1(uid_str)
             except:
                 self.arduinoUNO.close()  # CLOSE THE SERIAL PORT
 

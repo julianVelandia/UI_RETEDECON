@@ -159,5 +159,5 @@ class MainWindow(QMainWindow, Boton, TecladoNumeros, TecladoLetras, Read):  # Ve
         self.boton_cambiar_cambiar(self.centralWidget)
 
         # self.arduinoUNO = QtSerialPort.QSerialPort('COM3', self)
-        Read.__init__(self)
-        threading.Thread(target=self.execute, daemon=True).start()
+        # Read.__init__(self)
+        # threading.Thread(target=self.execute, daemon=True).start()
