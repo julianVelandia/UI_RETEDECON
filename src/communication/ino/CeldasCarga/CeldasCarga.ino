@@ -35,4 +35,7 @@ void loop() {
   if (units > 1){
     digitalWrite(2, HIGH);
   }
+  else{
+    digitalWrite(2,LOW);
+  }
 }
