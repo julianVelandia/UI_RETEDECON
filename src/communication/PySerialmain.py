@@ -36,6 +36,9 @@ class UNO:
                 for i in range(11):
                     uid_str += linea[uid_find + (i + 10)]
                 print(uid_str)
+
+                #registrar salida en base de datos
+                self.sw.salida(uid_str)
         except:
             self.arduinoUNO.close()  # CLOSE THE SERIAL PORT
 

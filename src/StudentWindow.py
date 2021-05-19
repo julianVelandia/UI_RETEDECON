@@ -9,6 +9,8 @@ from src.views.teclado.teclado_letras import TecladoLetras
 
 # informacion de las pantallas
 from screeninfo import get_monitors
+
+
 # import ctypes
 
 class StudentWindow(QMainWindow, Boton, TecladoNumeros, TecladoLetras):  # Ventana principal
@@ -72,6 +74,7 @@ class StudentWindow(QMainWindow, Boton, TecladoNumeros, TecladoLetras):  # Venta
         self.timer.start()
         self.timer.timeout.connect(self.s0)  # función a ejecutar pasados los 3 seg
 
+        # textos
         self.textoIngreso = QLabel(self.centralWidget)
         self.textoIngreso.setObjectName("FabInfo")  # nombre de enlace a css
         self.textoIngreso.setText("El usuario fue ingresado \n con éxito")
@@ -82,7 +85,15 @@ class StudentWindow(QMainWindow, Boton, TecladoNumeros, TecladoLetras):  # Venta
         self.usuarioExiste.setText("El usuario ya está adentro")
         self.usuarioExiste.setVisible(False)
 
+        self.usuarioRetirado = QLabel(self.centralWidget)
+        self.usuarioRetirado.setObjectName("FabInfo")  # nombre de enlace a css
+        self.usuarioRetirado.setText("Se ha retirado correctamente")
+        self.usuarioRetirado.setVisible(False)
+
+        self.usuarioNoEncontrado = QLabel(self.centralWidget)
+        self.usuarioNoEncontrado.setObjectName("FabInfo")  # nombre de enlace a css
+        self.usuarioNoEncontrado.setText("Error, no se encontró a ese usuario")
+        self.usuarioNoEncontrado.setVisible(False)
 
         # Solo para pruebas
         self.botonesPrueba(self.centralWidget)
-

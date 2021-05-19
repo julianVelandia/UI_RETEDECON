@@ -23,6 +23,8 @@ class FuncionesEstudiantes:
 
         self.textoIngreso.setVisible(False)
         self.usuarioExiste.setVisible(False)
+        self.usuarioNoEncontrado.setVisible(False)
+        self.usuarioRetirado.setVisible(False)
 
         self.state = 0
 
@@ -56,6 +58,7 @@ class FuncionesEstudiantes:
         for c in range(len(Lista_carnet) - 1, 0, -1):
             if str(df['Carnet'][c]) == str(carnet) and str(df['IsIn'][c]) == 'True':
                 carnetExist = True
+                break
 
         if not carnetExist:
 
@@ -95,8 +98,9 @@ class FuncionesEstudiantes:
     def s4(self):
         self.state = 4
 
-        #prueba
+        # prueba
         self.submitData()
+        # --------
 
         self.movie4 = QMovie('src/views/static/gif/s4.gif')  # Gif paso 1
         self.giflabel.setMovie(self.movie4)
@@ -134,6 +138,61 @@ class FuncionesEstudiantes:
         # Mostrar que el usuario fue ingresado con exito
         self.textoIngreso.setVisible(True)
 
+        self.timerText = QTimer()
+        self.timerText.setInterval(1500)
+        self.timerText.setSingleShot(True)
+        self.timerText.start()
+        self.timerText.timeout.connect(self.s0)  # función a ejecutar pasados 1.5 seg
+
+    def restar_deltas(self, HoraOut, HoraIn):
+        '''
+        Devuelve la diferencia en minutos
+        '''
+        HoraOut = HoraOut.split(':')
+        HoraIn = HoraIn.split(':')
+
+        # Tiempo total en minutos
+        NumOut = int(HoraOut[0]) * 60 + int(HoraOut[1])
+        NumIn = int(HoraIn[0]) * 60 + int(HoraIn[1])
+
+        delta = NumOut - NumIn
+
+        return str(delta)
+
+    def salida(self, uid):
+
+        HoraOut = datetime.today().strftime('%H:%M')
+        carnet = uid
+
+        df = pd.read_csv('src/models/data/DB.csv')
+
+        lista = df['Carnet']
+
+        for c in range(len(lista) - 1, 0, -1):
+            if str(df['Carnet'][c]) == str(carnet) and str(df['IsIn'][c]) == 'True':
+
+                self.df_as_txt = open("src/models/data/DB.csv", "r")
+                lineas = self.df_as_txt.readlines()
+                self.df_as_txt.close()
+                lineas[c + 1] = lineas[c + 1].replace('HO*', HoraOut).replace('D*', self.restar_deltas(HoraOut,
+                                                                                                       df['HoraIn'][
+                                                                                                           c])).replace(
+                    'True', 'False')
+                self.df_as_txt = open("src/models/data/DB.csv", "w")
+                for l in lineas:
+                    self.df_as_txt.write(l)
+                self.df_as_txt.close()
+
+                self.usuarioRetirado.setVisible(True)
+                self.timerText = QTimer()
+                self.timerText.setInterval(1500)
+                self.timerText.setSingleShot(True)
+                self.timerText.start()
+                self.timerText.timeout.connect(self.s0)  # función a ejecutar pasados los 3 seg
+
+                return  # acabar la funcion si se encuentra el carnet
+
+        self.usuarioNoEncontrado.setVisible(True)
         self.timerText = QTimer()
         self.timerText.setInterval(1500)
         self.timerText.setSingleShot(True)

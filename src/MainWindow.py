@@ -8,7 +8,8 @@ from src.views.teclado.teclado_numeros import TecladoNumeros
 from src.views.teclado.teclado_letras import TecladoLetras
 from src.communication.PySerialmain import Read
 
-import threading, serial
+import threading
+
 
 class MainWindow(QMainWindow, Boton, TecladoNumeros, TecladoLetras, Read):  # Ventana principal
     def __init__(self, alarm, sw, parent=None, *args):
