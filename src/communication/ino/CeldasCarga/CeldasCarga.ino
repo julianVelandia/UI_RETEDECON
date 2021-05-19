@@ -25,12 +25,11 @@ void loop() {
 
   scale.set_scale(calibration_factor); //Adjust to this calibration factor
   units = scale.get_units(), 10;
-    Serial.println(units);
-    delay(500);
-    
   if (units < 0){
     units = 0.00;
   }
+  Serial.println(units);
+  delay(500);
   
   if (units > 1){
     digitalWrite(2, HIGH);
