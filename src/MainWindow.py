@@ -8,8 +8,6 @@ from src.views.teclado.teclado_numeros import TecladoNumeros
 from src.views.teclado.teclado_letras import TecladoLetras
 from src.communication.PySerialmain import Read
 
-import threading
-
 
 class MainWindow(QMainWindow, Boton, TecladoNumeros, TecladoLetras, Read):  # Ventana principal
     def __init__(self, alarm, sw, parent=None, *args):
@@ -142,5 +140,5 @@ class MainWindow(QMainWindow, Boton, TecladoNumeros, TecladoLetras, Read):  # Ve
         self.text_pass_new(self.centralWidget)
         self.boton_cambiar_cambiar(self.centralWidget)
 
-        Read.__init__(self)
-        threading.Thread(target=self.execute, daemon=True).start()
+        #Read.__init__(self)
+        #threading.Thread(target=self.execute, daemon=True).start()

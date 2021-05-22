@@ -1,3 +1,4 @@
 {
-    "python.pythonPath": "C:\\Users\\velan\\mio\\PyQt\\env_PyQt5\\Scripts\\python.exe"
+    "python.pythonPath": "/home/julian/Mio/env/retedecon_env/bin/python",
+    "editor.fontSize": 24
 }

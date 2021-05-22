@@ -25,6 +25,9 @@ class FuncionesEstudiantes:
         self.usuarioExiste.setVisible(False)
         self.usuarioNoEncontrado.setVisible(False)
         self.usuarioRetirado.setVisible(False)
+        self.botonPrueba1.setVisible(True)
+        self.botonPrueba2.setVisible(True)
+
 
         self.state = 0
 
@@ -198,25 +201,6 @@ class FuncionesEstudiantes:
         self.timerText.setSingleShot(True)
         self.timerText.start()
         self.timerText.timeout.connect(self.s0)  # función a ejecutar pasados los 3 seg
-
-    ## botones de prueba
-
-    def botonesPrueba(self, widget):
-        self.botonPrueba1 = QToolButton(widget)
-        self.botonPrueba1.setText('Si')
-        self.botonPrueba1.setObjectName("small")  # nombre de enlace a css
-        self.botonPrueba1.setToolButtonStyle(Qt.ToolButtonTextUnderIcon)
-        self.botonPrueba1.clicked.connect(self.si)
-        self.botonPrueba1.setGeometry(534, 210, 60, 60)
-        self.botonPrueba1.setVisible(True)
-
-        self.botonPrueba1 = QToolButton(widget)
-        self.botonPrueba1.setText('No')
-        self.botonPrueba1.setObjectName("small")  # nombre de enlace a css
-        self.botonPrueba1.setToolButtonStyle(Qt.ToolButtonTextUnderIcon)
-        self.botonPrueba1.clicked.connect(self.no)
-        self.botonPrueba1.setGeometry(634, 210, 60, 60)
-        self.botonPrueba1.setVisible(True)
 
     def si(self):
         self.state = (self.state + 1) % 5
