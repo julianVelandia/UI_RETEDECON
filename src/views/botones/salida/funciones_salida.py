@@ -9,113 +9,90 @@ class Funcion_salida:
 
     def Retirar_desplegar_teclado(self):
         MOV = -100
-        #movimiento botones
-        self.salida_nombre.setGeometry(164.2,237+MOV,290,70)
-        self.salida_cedula.setGeometry(164.2,341+MOV,290,70)
-        self.salida_salida.setGeometry(570, 237+MOV, 290, 176.3)
+        # movimiento botones
+        self.salida_nombre.setGeometry(164.2, 237 + MOV, 290, 70)
+        self.salida_cedula.setGeometry(164.2, 341 + MOV, 290, 70)
+        self.salida_salida.setGeometry(570, 237 + MOV, 290, 176.3)
         self.Teclado()
         self.NotTecladoNumerico()
         self.campo = 'retirar-nombre'
 
     def Retirar_guardar_teclado(self):
         MOV = 0
-        #movimiento botones
-        self.salida_nombre.setGeometry(164.2,237+MOV,290,70)
-        self.salida_cedula.setGeometry(164.2,341+MOV,290,70)
-        self.salida_salida.setGeometry(570, 237+MOV, 290, 176.3)
+        # movimiento botones
+        self.salida_nombre.setGeometry(164.2, 237 + MOV, 290, 70)
+        self.salida_cedula.setGeometry(164.2, 341 + MOV, 290, 70)
+        self.salida_salida.setGeometry(570, 237 + MOV, 290, 176.3)
         self.NotTeclado()
 
     def Retirar_desplegar_teclado_numerico_cedula(self):
         MOV = -100
-        #movimiento botones
-        self.salida_nombre.setGeometry(164.2,237+MOV,290,70)
-        self.salida_cedula.setGeometry(164.2,341+MOV,290,70)
-        self.salida_salida.setGeometry(570, 237+MOV, 290, 176.3)
+        # movimiento botones
+        self.salida_nombre.setGeometry(164.2, 237 + MOV, 290, 70)
+        self.salida_cedula.setGeometry(164.2, 341 + MOV, 290, 70)
+        self.salida_salida.setGeometry(570, 237 + MOV, 290, 176.3)
         self.NotTeclado()
         self.TecladoNumerico()
         self.campo = 'retirar-cedula'
 
-    def restar_deltas(self,HoraOut,HoraIn):
+    def restar_deltas(self, HoraOut, HoraIn):
         '''
         Devuelve la diferencia en minutos
         '''
         Fecha_Hoy = datetime.today().strftime('%d-%m-%Y')
-        HoraOut= HoraOut.split(':')
-        HoraIn= HoraIn.split(':')        
+        HoraOut = HoraOut.split(':')
+        HoraIn = HoraIn.split(':')
 
-        #Tiempo total en minutos
-        if not Fecha_Hoy=="aaa":
-            NumOut=int(HoraOut[0])*60+int(HoraOut[1])
-            NumIn=int(HoraIn[0])*60+int(HoraIn[1])
+        # Tiempo total en minutos
+        if not Fecha_Hoy == "aaa":
+            NumOut = int(HoraOut[0]) * 60 + int(HoraOut[1])
+            NumIn = int(HoraIn[0]) * 60 + int(HoraIn[1])
 
-            delta = NumOut-NumIn
+            delta = NumOut - NumIn
             return str(delta)
         else:
             self.dialogo_mensaje = "Ha ocurrido un error al verifcar    \nlas fechas, si persiste comuniquese   \n  con el fabricante \n    "
             self.dialogo.setInformativeText(self.dialogo_mensaje)
             self.dialogo.show()
-    
+
     def SalidaSalida(self):
 
-        #variables locales
+        # variables locales
         nombre = self.salida_nombre.text()
         cedula = self.salida_cedula.text()
         HoraOut = datetime.today().strftime('%H:%M')
-        
+
         try:
             df = pd.read_csv('src/models/data/DB.csv')
-            Lista = df['Cedula']
-    
-            if nombre!="" and cedula!="":  #lógica para leer si los campos están vacíos
-                if not nombre.isdigit() and not cedula.isalpha():  #detecta si numeros o letras donde no deben
-                    flag = True
-                    if str(df['Cedula'][0]) == str(cedula) and str(df['IsIn'][0]) == 'True':
-                        flag = False
-                        self.df_as_txt = open ("src/models/data/DB.csv", "r")
 
-                        #COMO FUNCION APARTE
+            if nombre != "" and cedula != "":  # lógica para leer si los campos están vacíos
+                if not nombre.isdigit() and not cedula.isalpha():  # detecta si numeros o letras donde no deben
+                    persona = df[(df['Cedula'] == str(cedula)) & (df['IsIn'] == True)].index.tolist()
 
+                    if persona:
+                        ced = persona[0]
+                        self.df_as_txt = open("src/models/data/DB.csv", "r")
                         lineas = self.df_as_txt.readlines()
                         self.df_as_txt.close()
-                        lineas[1] = lineas[1].replace('HO*',HoraOut).replace('D*',self.restar_deltas(HoraOut,df['HoraIn'][0])).replace('True','False')
+                        lineas[ced + 1] = lineas[ced + 1].replace('HO*', HoraOut).replace('D*', self.restar_deltas(
+                            HoraOut, df['HoraIn'][ced])).replace('True', 'False')
                         self.df_as_txt = open("src/models/data/DB.csv", "w")
                         for l in lineas:
                             self.df_as_txt.write(l)
                         self.df_as_txt.close()
+                        # Confirmacion
 
-                        #Confirmacion
-                        
                         self.dialogo_mensaje = "Se ha retirado correctamente\n    "
                         self.dialogo.setInformativeText(self.dialogo_mensaje)
                         self.dialogo.show()
 
                         self.HomeWindow()
-
-                    for ced in range(len(Lista) - 1, 0, -1):
-                        if str(df['Cedula'][ced]) == str(cedula) and str(df['IsIn'][ced]) == 'True':
-                            flag =False
-                            self.df_as_txt = open ("src/models/data/DB.csv", "r")
-                            lineas = self.df_as_txt.readlines()
-                            self.df_as_txt.close()
-                            lineas[ced+1] = lineas[ced+1].replace('HO*',HoraOut).replace('D*',self.restar_deltas(HoraOut,df['HoraIn'][ced])).replace('True','False')
-                            self.df_as_txt = open("src/models/data/DB.csv", "w")
-                            for l in lineas:
-                                self.df_as_txt.write(l)
-                            self.df_as_txt.close()
-                            #Confirmacion
-                            
-                            self.dialogo_mensaje = "Se ha retirado correctamente\n    "
-                            self.dialogo.setInformativeText(self.dialogo_mensaje)
-                            self.dialogo.show()
-
-                            self.HomeWindow()
-                    if flag:
-                        
+                    else:
                         self.dialogo_mensaje = "Error, no se encontró a ese usuario\n    "
                         self.dialogo.setInformativeText(self.dialogo_mensaje)
                         self.dialogo.show()
                 else:
-                    
+
                     self.dialogo_mensaje = "Error, verifique los datos ingresados\n   "
                     self.dialogo.setInformativeText(self.dialogo_mensaje)
                     self.dialogo.show()
@@ -125,8 +102,8 @@ class Funcion_salida:
                 self.dialogo_mensaje = "Debe llenar todos los campos\nantes de continuar"
                 self.dialogo.setInformativeText(self.dialogo_mensaje)
                 self.dialogo.show()
-        except:
-            
+        except Exception as e:
+            print(e)
             self.dialogo_mensaje = "Error, intente nuevamente\n\nSi el error persiste comuniquese con el fabricante"
             self.dialogo.setInformativeText(self.dialogo_mensaje)
             self.dialogo.show()
