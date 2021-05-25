@@ -1,8 +1,47 @@
 from src.views.teclado.teclado_letras import *
 from src.views.teclado.teclado_numeros import *
 
+from datetime import datetime
+import pandas as pd
+
 class Funciones:
     pantalla = 'inicio'
+    hora_encendido = ['05','00','05']#Hora y franja de minutos
+    
+    def sacar_dia_anterior(self):
+        '''
+        Se define una hora de inicio de funcionamiento 
+        y se cambia el cambo IsIn por true
+        '''
+        #fecha_hoy = datetime.today().strftime('%d-%m-%Y')
+        hora_hoy = datetime.today().strftime('%H:%M')
+        df = pd.read_csv('src/models/data/DB.csv')
+        registros = df['IsIn']
+
+        hora_hoy= hora_hoy.split(':')        
+
+
+
+        #Se define una franja de 5 min 
+        if hora_hoy[0]==self.hora_encendido[0] and hora_hoy[1]>self.hora_encendido[1] and hora_hoy[1]<self.hora_encendido[2]:
+            
+            for r in registros:
+                if r:
+                    self.df_as_txt = open("src/models/data/DB.csv", "a")
+
+                    '''
+                    #Arreglar los deltas y cambiar IsIn a False
+                    persona = '\n' + nombre + ',' + cedula + ',' + carnet + ',' + temp + ',' + Fecha + ',' + HoraIn + ',' + HoraOut + ',' + Delta + ',' + Numingresos + ',' + IsIn
+                    self.df_as_txt.write(persona)
+
+                    '''
+                    self.df_as_txt.close()
+
+                    # COMO FUNCION SEPARADA
+                    self.dialogo_mensaje = "Datos actualizados"
+                    self.dialogo.setInformativeText(self.dialogo_mensaje)
+                    self.dialogo.show()
+
 
     def HomeWindow(self):
         self.pantalla = 'inicio'

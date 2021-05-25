@@ -64,12 +64,12 @@ class Funcion_ingresar:
         Lista = df['Cedula']
         Lista_carnet = df['Carnet']
         try:
-            # COMO FUNCION APARTE
+            
             for cont in range(len(Lista)):
                 if (str(Lista_carnet[cont]) == carnet and not carnet == '*') or str(Lista[cont]) == cedula:
                     Numingresos += 1
             Numingresos = str(Numingresos)
-            #####
+            
             if nombre != "" and cedula != "" and nombre != "":  # lógica para leer si los campos están vacíos
                 if not nombre.isdigit() and not cedula.isalpha() and not temp.isalpha():  # detecta si numeros o letras donde no deben
 
@@ -83,6 +83,7 @@ class Funcion_ingresar:
                         if not cedulaExist:
                             self.df_as_txt = open("src/models/data/DB.csv", "a")
                             # ParaPandas
+
                             # Enviar vector persona a DB
 
                             # COMO FUNCION SEPARADA
@@ -103,7 +104,7 @@ class Funcion_ingresar:
                     else:
                         # reproducir alarma
                         self.alarm.play()
-                        #####
+                        
                         self.dialogo_mensaje = "EL USUARIO TIENE FIEBRE    \n"
                         self.dialogo.setInformativeText(self.dialogo_mensaje)
                         self.dialogo.show()

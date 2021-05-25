@@ -140,5 +140,9 @@ class MainWindow(QMainWindow, Boton, TecladoNumeros, TecladoLetras, Read):  # Ve
         self.text_pass_new(self.centralWidget)
         self.boton_cambiar_cambiar(self.centralWidget)
 
+        #Limpiar registros
+        ### CUADRAR FRANJA HORARIA PARA ACTUALIZACIÓN DE DATOS
+        #self.sacar_dia_anterior()
+
         #Read.__init__(self)
         #threading.Thread(target=self.execute, daemon=True).start()
