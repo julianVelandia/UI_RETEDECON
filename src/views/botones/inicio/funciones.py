@@ -16,31 +16,41 @@ class Funciones:
         #fecha_hoy = datetime.today().strftime('%d-%m-%Y')
         hora_hoy = datetime.today().strftime('%H:%M')
         df = pd.read_csv('src/models/data/DB.csv')
-        registros = df['IsIn']
 
         hora_hoy= hora_hoy.split(':')        
 
 
+        registros = df[(df['IsIn'] == True)].index.tolist()
+        HoraOut = 'NO'
+        HoraDelta = '120'
+        
 
         #Se define una franja de 5 min 
-        if hora_hoy[0]==self.hora_encendido[0] and hora_hoy[1]>self.hora_encendido[1] and hora_hoy[1]<self.hora_encendido[2]:
+        #if hora_hoy[0]==self.hora_encendido[0] and hora_hoy[1]>self.hora_encendido[1] and hora_hoy[1]<self.hora_encendido[2]:
+        if True:
             
-            for r in registros:
-                if r:
-                    self.df_as_txt = open("src/models/data/DB.csv", "a")
+            for reg in registros:
+                #print(df[reg])
 
-                    '''
-                    #Arreglar los deltas y cambiar IsIn a False
-                    persona = '\n' + nombre + ',' + cedula + ',' + carnet + ',' + temp + ',' + Fecha + ',' + HoraIn + ',' + HoraOut + ',' + Delta + ',' + Numingresos + ',' + IsIn
-                    self.df_as_txt.write(persona)
+                self.df_as_txt = open("src/models/data/DB.csv", "r")
+                lineas = self.df_as_txt.readlines()
+                self.df_as_txt.close()
 
-                    '''
-                    self.df_as_txt.close()
-
-                    # COMO FUNCION SEPARADA
-                    self.dialogo_mensaje = "Datos actualizados"
-                    self.dialogo.setInformativeText(self.dialogo_mensaje)
-                    self.dialogo.show()
+                print(lineas[reg+1])
+                    
+                lineas[reg + 1] = lineas[reg + 1].replace('HO*', HoraOut).replace('D*', HoraDelta).replace('True', 'False')
+                    
+                
+                
+                self.df_as_txt = open("src/models/data/DB.csv", "w")
+                for l in lineas:
+                    self.df_as_txt.write(l)
+                self.df_as_txt.close()
+                
+            self.dialogo_mensaje = "Datos actualizados"
+            self.dialogo.setInformativeText(self.dialogo_mensaje)
+            self.dialogo.show()
+                
 
 
     def HomeWindow(self):
