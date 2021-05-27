@@ -13,13 +13,11 @@ Delta = 'D*'
 Numingresos = 0
 IsIn = 'True'
 
-carnetExist = False
-
 
 class FuncionesEstudiantes:
 
     def s0(self):
-        global nombre, cedula, carnet, temp, Fecha, HoraIn, HoraOut, Delta, Numingresos, IsIn, carnetExist
+        global nombre, cedula, carnet, temp, Fecha, HoraIn, HoraOut, Delta, Numingresos, IsIn
 
         self.textoIngreso.setVisible(False)
         self.usuarioExiste.setVisible(False)
@@ -27,7 +25,6 @@ class FuncionesEstudiantes:
         self.usuarioRetirado.setVisible(False)
         self.botonPrueba1.setVisible(True)
         self.botonPrueba2.setVisible(True)
-
 
         self.state = 0
 
@@ -42,8 +39,6 @@ class FuncionesEstudiantes:
         Numingresos = 0
         IsIn = 'True'
 
-        carnetExist = False
-
         self.label_img_central.setVisible(False)
         self.movie0 = QMovie('src/views/static/gif/s0.gif')  # Gif paso 1
         self.giflabel.setMovie(self.movie0)
@@ -51,17 +46,13 @@ class FuncionesEstudiantes:
         self.movie0.start()
 
     def s1(self, uid):
-        global Fecha, HoraIn, carnet, carnetExist
+        global Fecha, HoraIn, carnet
 
         carnet = uid
 
         df = pd.read_csv('src/models/data/DB.csv')
-        Lista_carnet = df['Carnet']
 
-        for c in range(len(Lista_carnet) - 1, 0, -1):
-            if str(df['Carnet'][c]) == str(carnet) and str(df['IsIn'][c]) == 'True':
-                carnetExist = True
-                break
+        carnetExist = df[(df['Carnet'] == str(carnet)) & (df['IsIn'])].index.tolist()
 
         if not carnetExist:
 
@@ -122,12 +113,8 @@ class FuncionesEstudiantes:
         global carnet, Numingresos
 
         df = pd.read_csv('src/models/data/DB.csv')
-        Lista_carnet = df['Carnet']
 
-        for nCarnet in Lista_carnet:
-            if (str(nCarnet) == carnet and carnet != '*'):
-                Numingresos += 1
-        Numingresos = str(Numingresos)
+        Numingresos = str(len(df[(df['Carnet'] == carnet) & (df['Carnet'] != '*')]))
 
         self.df_as_txt = open("src/models/data/DB.csv", "a")
         # ParaPandas
@@ -169,38 +156,37 @@ class FuncionesEstudiantes:
 
         df = pd.read_csv('src/models/data/DB.csv')
 
-        lista = df['Carnet']
+        persona = df[(df['Carnet'] == str(carnet)) & (df['IsIn'])].index.tolist()
 
-        for c in range(len(lista) - 1, 0, -1):
-            if str(df['Carnet'][c]) == str(carnet) and str(df['IsIn'][c]) == 'True':
+        if persona:
+            c = persona[0]
 
-                self.df_as_txt = open("src/models/data/DB.csv", "r")
-                lineas = self.df_as_txt.readlines()
-                self.df_as_txt.close()
-                lineas[c + 1] = lineas[c + 1].replace('HO*', HoraOut).replace('D*', self.restar_deltas(HoraOut,
-                                                                                                       df['HoraIn'][
-                                                                                                           c])).replace(
-                    'True', 'False')
-                self.df_as_txt = open("src/models/data/DB.csv", "w")
-                for l in lineas:
-                    self.df_as_txt.write(l)
-                self.df_as_txt.close()
+            self.df_as_txt = open("src/models/data/DB.csv", "r")
+            lineas = self.df_as_txt.readlines()
+            self.df_as_txt.close()
+            lineas[c + 1] = lineas[c + 1].replace('HO*', HoraOut).replace('D*', self.restar_deltas(HoraOut,
+                                                                                                   df['HoraIn'][
+                                                                                                       c])).replace(
+                'True', 'False')
+            self.df_as_txt = open("src/models/data/DB.csv", "w")
+            for l in lineas:
+                self.df_as_txt.write(l)
+            self.df_as_txt.close()
 
-                self.usuarioRetirado.setVisible(True)
-                self.timerText = QTimer()
-                self.timerText.setInterval(1500)
-                self.timerText.setSingleShot(True)
-                self.timerText.start()
-                self.timerText.timeout.connect(self.s0)  # función a ejecutar pasados los 3 seg
+            self.usuarioRetirado.setVisible(True)
+            self.timerText = QTimer()
+            self.timerText.setInterval(1500)
+            self.timerText.setSingleShot(True)
+            self.timerText.start()
+            self.timerText.timeout.connect(self.s0)  # función a ejecutar pasados los 3 seg
 
-                return  # acabar la funcion si se encuentra el carnet
-
-        self.usuarioNoEncontrado.setVisible(True)
-        self.timerText = QTimer()
-        self.timerText.setInterval(1500)
-        self.timerText.setSingleShot(True)
-        self.timerText.start()
-        self.timerText.timeout.connect(self.s0)  # función a ejecutar pasados los 3 seg
+        else:
+            self.usuarioNoEncontrado.setVisible(True)
+            self.timerText = QTimer()
+            self.timerText.setInterval(1500)
+            self.timerText.setSingleShot(True)
+            self.timerText.start()
+            self.timerText.timeout.connect(self.s0)  # función a ejecutar pasados los 3 seg
 
     def si(self):
         self.state = (self.state + 1) % 5

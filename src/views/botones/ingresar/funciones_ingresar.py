@@ -63,7 +63,7 @@ class Funcion_ingresar:
 
         try:
 
-            Numingresos = str(len(df[((df['Carnet'] == carnet) & (df['Carnet'] != '*')) | (df['Cedula'] == cedula)]))
+            Numingresos = str(len(df[(df['Cedula'] == cedula)]))
 
             if nombre != "" and cedula != "" and nombre != "":  # lógica para leer si los campos están vacíos
                 if not nombre.isdigit() and not cedula.isalpha() and not temp.isalpha():  # detecta si numeros o letras donde no deben

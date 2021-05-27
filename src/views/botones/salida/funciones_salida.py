@@ -67,7 +67,7 @@ class Funcion_salida:
 
             if nombre != "" and cedula != "":  # lógica para leer si los campos están vacíos
                 if not nombre.isdigit() and not cedula.isalpha():  # detecta si numeros o letras donde no deben
-                    persona = df[(df['Cedula'] == str(cedula)) & (df['IsIn'] == True)].index.tolist()
+                    persona = df[(df['Cedula'] == str(cedula)) & (df['IsIn'])].index.tolist()
 
                     if persona:
                         ced = persona[0]
