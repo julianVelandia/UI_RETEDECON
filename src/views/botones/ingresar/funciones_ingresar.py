@@ -1,6 +1,7 @@
 from datetime import datetime
 import pandas as pd
 
+
 class Funcion_ingresar:
 
     def Ingresar_desplegar_teclado_numerico_cedula(self):
@@ -56,28 +57,18 @@ class Funcion_ingresar:
         HoraIn = datetime.today().strftime('%H:%M')
         HoraOut = 'HO*'
         Delta = 'D*'
-        Numingresos = 0
         IsIn = 'True'
-        cedulaExist = False
 
         df = pd.read_csv('src/models/data/DB.csv')
-        Lista = df['Cedula']
-        Lista_carnet = df['Carnet']
+
         try:
-            
-            for cont in range(len(Lista)):
-                if (str(Lista_carnet[cont]) == carnet and not carnet == '*') or str(Lista[cont]) == cedula:
-                    Numingresos += 1
-            Numingresos = str(Numingresos)
-            
+
+            Numingresos = str(len(df[((df['Carnet'] == carnet) & (df['Carnet'] != '*')) | (df['Cedula'] == cedula)]))
+
             if nombre != "" and cedula != "" and nombre != "":  # lógica para leer si los campos están vacíos
                 if not nombre.isdigit() and not cedula.isalpha() and not temp.isalpha():  # detecta si numeros o letras donde no deben
 
-                    if str(df['Cedula'][0]) == str(cedula) and str(df['IsIn'][0]) == 'True':
-                        cedulaExist = True
-                    for ced in range(len(Lista) - 1, 0, -1):
-                        if str(df['Cedula'][ced]) == str(cedula) and str(df['IsIn'][ced]) == 'True':
-                            cedulaExist = True
+                    cedulaExist = df[(df['Cedula'] == str(cedula)) & (df['IsIn'])].index.tolist()
 
                     if not float(temp) >= 37.5:
                         if not cedulaExist:
@@ -104,7 +95,7 @@ class Funcion_ingresar:
                     else:
                         # reproducir alarma
                         self.alarm.play()
-                        
+
                         self.dialogo_mensaje = "EL USUARIO TIENE FIEBRE    \n"
                         self.dialogo.setInformativeText(self.dialogo_mensaje)
                         self.dialogo.show()
@@ -116,7 +107,8 @@ class Funcion_ingresar:
                 self.dialogo_mensaje = "Debe llenar todos los campos\nantes de continuar"
                 self.dialogo.setInformativeText(self.dialogo_mensaje)
                 self.dialogo.show()
-        except:
+        except Exception as e:
+            print(e)
             self.dialogo_mensaje = "Error, intente nuevamente\n\nSi el error persiste comuniquese con el fabricante"
             self.dialogo.setInformativeText(self.dialogo_mensaje)
             self.dialogo.show()
