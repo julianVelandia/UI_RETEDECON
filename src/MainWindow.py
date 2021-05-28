@@ -7,6 +7,7 @@ from src.views.botones.inicio.boton import Boton
 from src.views.teclado.teclado_numeros import TecladoNumeros
 from src.views.teclado.teclado_letras import TecladoLetras
 from src.communication.PySerialmain import Read
+import threading
 
 
 class MainWindow(QMainWindow, Boton, TecladoNumeros, TecladoLetras, Read):  # Ventana principal
@@ -144,5 +145,5 @@ class MainWindow(QMainWindow, Boton, TecladoNumeros, TecladoLetras, Read):  # Ve
         ### CUADRAR FRANJA HORARIA PARA ACTUALIZACIÓN DE DATOS
         self.sacar_dia_anterior()
 
-        #Read.__init__(self)
-        #threading.Thread(target=self.execute, daemon=True).start()
+        Read.__init__(self)
+        threading.Thread(target=self.execute, daemon=True).start()
