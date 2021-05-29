@@ -49,12 +49,7 @@ class StudentWindow(QMainWindow, Boton, TecladoNumeros, TecladoLetras):  # Venta
         self.heightGif = 207
 
         # s0
-        self.giflabel = QLabel(self.centralWidget)
-        self.movie0 = QMovie('src/views/static/gif/s0.gif')  # Gif paso 1
-        self.giflabel.setGeometry(self.width / 2 - self.widthGif / 2, self.height / 2 - self.heightGif / 2,
-                                  self.widthGif, self.heightGif)
-        self.giflabel.setMovie(self.movie0)
-        self.giflabel.setVisible(False)
+        self.giftEstudiantes(self.centralWidget)
 
         self.state = 0
 

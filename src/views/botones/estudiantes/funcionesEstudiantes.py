@@ -16,13 +16,14 @@ IsIn = 'True'
 
 class FuncionesEstudiantes:
 
+    
+
+
     def s0(self):
         global nombre, cedula, carnet, temp, Fecha, HoraIn, HoraOut, Delta, Numingresos, IsIn
 
-        self.textoIngreso.setVisible(False)
-        self.usuarioExiste.setVisible(False)
-        self.usuarioNoEncontrado.setVisible(False)
-        self.usuarioRetirado.setVisible(False)
+        self.texto_informativo.setVisible(False)
+        
         self.botonPrueba1.setVisible(True)
         self.botonPrueba2.setVisible(True)
 
@@ -66,7 +67,7 @@ class FuncionesEstudiantes:
             self.giflabel.setVisible(True)
             self.movie1.start()
         else:
-            self.usuarioExiste.setVisible(True)
+            self.texto_infomativo.setText('El usuario fue ingresado \n con éxito')
             self.timerText = QTimer()
             self.timerText.setInterval(1500)
             self.timerText.setSingleShot(True)
@@ -81,6 +82,15 @@ class FuncionesEstudiantes:
         self.giflabel.setMovie(self.movie2)
         self.giflabel.setVisible(True)
         self.movie2.start()
+                
+
+        self.texto_informativo.setText("estado 2")
+
+        
+
+
+
+
 
     def s3(self):
         self.state = 3
@@ -88,6 +98,8 @@ class FuncionesEstudiantes:
         self.giflabel.setMovie(self.movie3)
         self.giflabel.setVisible(True)
         self.movie3.start()
+        self.texto_informativo.setText("estado 3")
+
 
     def s4(self):
         self.state = 4
@@ -100,6 +112,8 @@ class FuncionesEstudiantes:
         self.giflabel.setMovie(self.movie4)
         self.giflabel.setVisible(True)
         self.movie4.start()
+        self.texto_informativo.setText("estado 4")
+
 
     def s5(self):
         self.state = 5
@@ -108,6 +122,8 @@ class FuncionesEstudiantes:
         self.giflabel.setVisible(True)
         self.movie5.start()
         self.alarm.play()
+        self.texto_informativo.setText("estado 5")
+
 
     def submitData(self):
         global carnet, Numingresos
@@ -181,7 +197,9 @@ class FuncionesEstudiantes:
             self.timerText.timeout.connect(self.s0)  # función a ejecutar pasados los 3 seg
 
         else:
-            self.usuarioNoEncontrado.setVisible(True)
+
+            self.texto_informativo('Usuario no encontrado')
+
             self.timerText = QTimer()
             self.timerText.setInterval(1500)
             self.timerText.setSingleShot(True)

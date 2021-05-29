@@ -9,6 +9,8 @@ from src.views.teclado.teclado_letras import TecladoLetras
 from src.communication.PySerialmain import Read
 import threading
 
+from screeninfo import get_monitors
+
 
 class MainWindow(QMainWindow, Boton, TecladoNumeros, TecladoLetras, Read):  # Ventana principal
     def __init__(self, alarm, sw, parent=None, *args):
@@ -23,13 +25,13 @@ class MainWindow(QMainWindow, Boton, TecladoNumeros, TecladoLetras, Read):  # Ve
         self.carnet = ''
         self.title = 'RETEDECON'
         self.config = ConfigParser()
-        self.width = 1024
-        self.height = 600
+        width = get_monitors()[0].width
+        height = get_monitors()[0].height
 
         # alarma
         self.alarm = alarm
 
-        self.setMinimumSize(self.width, self.height)  # tamaño mínimo
+        self.setMinimumSize(self.width, self.height)  # tamaño mínimo 
         self.setMaximumSize(self.width, self.height)  # tamaño máximo
         self.setWindowTitle(self.title)  # titulo
         self.setWindowIcon(QIcon("src/views/static/icons/favicon3.png"))  # Favicon
@@ -145,5 +147,5 @@ class MainWindow(QMainWindow, Boton, TecladoNumeros, TecladoLetras, Read):  # Ve
         ### CUADRAR FRANJA HORARIA PARA ACTUALIZACIÓN DE DATOS
         self.sacar_dia_anterior()
 
-        Read.__init__(self)
-        threading.Thread(target=self.execute, daemon=True).start()
+        #Read.__init__(self)
+        #threading.Thread(target=self.execute, daemon=True).start()

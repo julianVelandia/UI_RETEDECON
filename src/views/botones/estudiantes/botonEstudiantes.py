@@ -15,17 +15,16 @@ class BotonEstudiantes(FuncionesEstudiantes):
     def textosEstado(self, widget):
        
         width = get_monitors()[0].width
-        print(width)
         height = get_monitors()[0].height
 
-        self.textoIngreso = QToolButton(widget)
-        self.textoIngreso.setText('El usuario fue ingresado \n con éxito')
-        self.textoIngreso.setObjectName("button")  # nombre de enlace a css
-        self.textoIngreso.setGeometry((width/2)-(310/2), 300, 310, 100)
-        self.textoIngreso.setVisible(False)
+        self.texto_infomativo = QToolButton(widget)
+        self.texto_infomativo.setText('El usuario fue ingresado \n con éxito')
+        self.texto_infomativo.setObjectName("button")  # nombre de enlace a css
+        self.texto_infomativo.setGeometry((width/3), (height/2), 310, 100)
+        self.texto_infomativo.setVisible(False)
 
 
-
+        '''
         self.usuarioExiste = QToolButton(widget)
         self.usuarioExiste.setObjectName("button")  # nombre de enlace a css
         self.usuarioExiste.setText("El usuario ya está adentro")
@@ -45,7 +44,7 @@ class BotonEstudiantes(FuncionesEstudiantes):
         self.usuarioNoEncontrado.setText("Error, no se encontró a ese usuario")
         self.usuarioNoEncontrado.setVisible(False)
         self.usuarioNoEncontrado.setGeometry((width/2)-(310/2), 300, 310, 100)
-
+        '''
 
 
     def botonesPrueba(self, widget):
@@ -69,3 +68,11 @@ class BotonEstudiantes(FuncionesEstudiantes):
         self.botonPrueba2.setVisible(False)
 
     
+    def giftEstudiantes(self, widget):
+
+        self.giflabel = QLabel(widget)
+        self.movie0 = QMovie('src/views/static/gif/s0.gif')  # Gif paso 1
+        self.giflabel.setGeometry(self.width / 2 - self.widthGif / 2, self.height / 2 - self.heightGif / 2,
+                                  self.widthGif, self.heightGif)
+        self.giflabel.setMovie(self.movie0)
+        self.giflabel.setVisible(False)
