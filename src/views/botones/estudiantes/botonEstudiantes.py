@@ -14,38 +14,25 @@ class BotonEstudiantes(FuncionesEstudiantes):
 
     def textosEstado(self, widget):
        
-        width = get_monitors()[0].width
-        height = get_monitors()[0].height
+        self.width = get_monitors()[0].width
+        self.height = get_monitors()[0].height
+        self.widthGif = 400
+        self.heightGif = 400
 
-        self.texto_infomativo = QToolButton(widget)
-        self.texto_infomativo.setText('El usuario fue ingresado \n con éxito')
-        self.texto_infomativo.setObjectName("button")  # nombre de enlace a css
-        self.texto_infomativo.setGeometry((width/3), (height/2), 310, 100)
-        self.texto_infomativo.setVisible(False)
+        self.texto_informativo = QToolButton(widget)
 
+        self.texto_informativo.setIcon(QIcon('src/views/static/icons/icono_info'))
+        self.texto_informativo.setIconSize(QSize(60,60))
+        self.texto_informativo.setToolButtonStyle(Qt.ToolButtonTextUnderIcon)
 
-        '''
-        self.usuarioExiste = QToolButton(widget)
-        self.usuarioExiste.setObjectName("button")  # nombre de enlace a css
-        self.usuarioExiste.setText("El usuario ya está adentro")
-        self.usuarioExiste.setVisible(False)
-        self.usuarioExiste.setGeometry((width/2)-(310/2), 300, 310, 100)
-
-
-        self.usuarioRetirado = QLabel(widget)
-        self.usuarioRetirado.setObjectName("FabInfo")  # nombre de enlace a css
-        self.usuarioRetirado.setText("Se ha retirado correctamente")
-        self.usuarioRetirado.setVisible(False)
-        self.usuarioRetirado.setGeometry((width/2)-(310/2), 300, 310, 100)
+        self.texto_informativo.setText('')
+        self.texto_informativo.setObjectName("Texto")  # nombre de enlace a css
+        self.texto_informativo.setGeometry((self.width/4.5), (self.height/2), 
+                                            self.widthGif, self.heightGif)
+        self.texto_informativo.setVisible(False)
 
 
-        self.usuarioNoEncontrado = QLabel(widget)
-        self.usuarioNoEncontrado.setObjectName("FabInfo")  # nombre de enlace a css
-        self.usuarioNoEncontrado.setText("Error, no se encontró a ese usuario")
-        self.usuarioNoEncontrado.setVisible(False)
-        self.usuarioNoEncontrado.setGeometry((width/2)-(310/2), 300, 310, 100)
-        '''
-
+        
 
     def botonesPrueba(self, widget):
 
@@ -69,10 +56,21 @@ class BotonEstudiantes(FuncionesEstudiantes):
 
     
     def giftEstudiantes(self, widget):
+        self.widthGif = 400
+        self.heightGif = 400
 
         self.giflabel = QLabel(widget)
         self.movie0 = QMovie('src/views/static/gif/s0.gif')  # Gif paso 1
-        self.giflabel.setGeometry(self.width / 2 - self.widthGif / 2, self.height / 2 - self.heightGif / 2,
-                                  self.widthGif, self.heightGif)
+        self.giflabel.setGeometry((self.width/1.5),(self.height/2),
+                                    self.widthGif, self.heightGif)
         self.giflabel.setMovie(self.movie0)
         self.giflabel.setVisible(False)
+
+
+
+    def labelEsquina(self, widget):
+        self.label_img_esquina = QToolButton(widget)
+        self.label_img_esquina.setGeometry(30,5,250,60)        
+        self.label_img_esquina.setObjectName("button_home") #nombre de enlace a css
+        #self.label_img_esquina.clicked.connect(self.HomeWindow)
+        self.label_img_esquina.setVisible(True)

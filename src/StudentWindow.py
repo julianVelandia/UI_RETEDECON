@@ -43,10 +43,7 @@ class StudentWindow(QMainWindow, Boton, TecladoNumeros, TecladoLetras):  # Venta
         self.setCentralWidget(self.centralWidget)
         self.centralWidget.setObjectName("window")  # nombre que enlaza en css
 
-        # Estados
 
-        self.widthGif = 207
-        self.heightGif = 207
 
         # s0
         self.giftEstudiantes(self.centralWidget)
@@ -54,6 +51,7 @@ class StudentWindow(QMainWindow, Boton, TecladoNumeros, TecladoLetras):  # Venta
         self.state = 0
 
         # Imagen central
+        self.labelEsquina(self.centralWidget)
         self.label_img_central = QLabel(self)
         self.pixmap = QPixmap('src/views/static/icons/Logo_central.png')  # Imagen central
         self.label_img_central.setGeometry(self.width / 2 - self.pixmap.width() / 2,

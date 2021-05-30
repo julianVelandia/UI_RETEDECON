@@ -98,3 +98,14 @@ QToolButton#button_trasnparente{
     border-radius: 15px;
     border: none;
 }
+
+
+QToolButton#Texto {
+    font-size: 40px;
+    font-weight: normal;
+    font-family: Helvetica; 
+    color: white; 
+    background-color: none; 
+    border: none;
+
+}

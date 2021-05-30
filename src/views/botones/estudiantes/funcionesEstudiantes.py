@@ -22,8 +22,9 @@ class FuncionesEstudiantes:
     def s0(self):
         global nombre, cedula, carnet, temp, Fecha, HoraIn, HoraOut, Delta, Numingresos, IsIn
 
-        self.texto_informativo.setVisible(False)
-        
+        self.texto_informativo.setText('El usuario fue ingresado \n con éxito')
+        self.texto_informativo.setVisible(True)
+
         self.botonPrueba1.setVisible(True)
         self.botonPrueba2.setVisible(True)
 
@@ -67,7 +68,8 @@ class FuncionesEstudiantes:
             self.giflabel.setVisible(True)
             self.movie1.start()
         else:
-            self.texto_infomativo.setText('El usuario fue ingresado \n con éxito')
+            self.texto_informativo.setText('El usuario fue ingresado \n con éxito')
+
             self.timerText = QTimer()
             self.timerText.setInterval(1500)
             self.timerText.setSingleShot(True)
@@ -85,12 +87,6 @@ class FuncionesEstudiantes:
                 
 
         self.texto_informativo.setText("estado 2")
-
-        
-
-
-
-
 
     def s3(self):
         self.state = 3
@@ -142,7 +138,7 @@ class FuncionesEstudiantes:
         self.df_as_txt.close()
 
         # Mostrar que el usuario fue ingresado con exito
-        self.textoIngreso.setVisible(True)
+        self.texto_informativo.setText('Ingreso')
 
         self.timerText = QTimer()
         self.timerText.setInterval(1500)
@@ -189,7 +185,7 @@ class FuncionesEstudiantes:
                 self.df_as_txt.write(l)
             self.df_as_txt.close()
 
-            self.usuarioRetirado.setVisible(True)
+            self.texto_informativo.setText('Usuario retirado')
             self.timerText = QTimer()
             self.timerText.setInterval(1500)
             self.timerText.setSingleShot(True)
@@ -198,7 +194,7 @@ class FuncionesEstudiantes:
 
         else:
 
-            self.texto_informativo('Usuario no encontrado')
+            self.texto_informativo.setText('Usuario no encontrado')
 
             self.timerText = QTimer()
             self.timerText.setInterval(1500)

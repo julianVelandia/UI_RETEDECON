@@ -25,8 +25,8 @@ class MainWindow(QMainWindow, Boton, TecladoNumeros, TecladoLetras, Read):  # Ve
         self.carnet = ''
         self.title = 'RETEDECON'
         self.config = ConfigParser()
-        width = get_monitors()[0].width
-        height = get_monitors()[0].height
+        self.width = 1024
+        self.height = 640
 
         # alarma
         self.alarm = alarm
