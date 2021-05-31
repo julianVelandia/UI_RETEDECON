@@ -16,13 +16,11 @@ IsIn = 'True'
 
 class FuncionesEstudiantes:
 
-    
-
-
     def s0(self):
         global nombre, cedula, carnet, temp, Fecha, HoraIn, HoraOut, Delta, Numingresos, IsIn
 
-        self.texto_informativo.setText('El usuario fue ingresado \n con éxito')
+        self.texto_temporal.setVisible(False)
+        self.texto_informativo.setText('Por favor coloque\nsu carnet en el lector')
         self.texto_informativo.setVisible(True)
 
         self.botonPrueba1.setVisible(True)
@@ -50,6 +48,10 @@ class FuncionesEstudiantes:
     def s1(self, uid):
         global Fecha, HoraIn, carnet
 
+        self.texto_temporal.setVisible(False)
+        self.texto_informativo.setText('Por favor acerquese\n a la camara para\ntomar su temperatura')
+        self.texto_informativo.setVisible(True)
+
         carnet = uid
 
         df = pd.read_csv('src/models/data/DB.csv')
@@ -68,7 +70,9 @@ class FuncionesEstudiantes:
             self.giflabel.setVisible(True)
             self.movie1.start()
         else:
-            self.texto_informativo.setText('El usuario fue ingresado \n con éxito')
+            self.texto_informativo.setVisible(False)
+            self.texto_temporal.setText('El usuario ya\nse encuentra adentro')
+            self.texto_temporal.setVisible(True)
 
             self.timerText = QTimer()
             self.timerText.setInterval(1500)
@@ -79,25 +83,33 @@ class FuncionesEstudiantes:
     def s2(self):
         global Fecha, HoraIn
 
+        self.texto_temporal.setVisible(False)
+        self.texto_informativo.setText('Por favor coloque\nsu carnet en el lector')
+        self.texto_informativo.setVisible(True)
+
         self.state = 2
         self.movie2 = QMovie('src/views/static/gif/s2.gif')  # Gif paso 1
         self.giflabel.setMovie(self.movie2)
         self.giflabel.setVisible(True)
         self.movie2.start()
-                
-
-        self.texto_informativo.setText("estado 2")
 
     def s3(self):
+
+        self.texto_temporal.setVisible(False)
+        self.texto_informativo.setText('Acerque sus manos\nal dispensador de gel')
+        self.texto_informativo.setVisible(True)
+
         self.state = 3
         self.movie3 = QMovie('src/views/static/gif/s3.gif')  # Gif paso 1
         self.giflabel.setMovie(self.movie3)
         self.giflabel.setVisible(True)
         self.movie3.start()
-        self.texto_informativo.setText("estado 3")
-
 
     def s4(self):
+
+        self.texto_temporal.setVisible(False)
+        self.texto_informativo.setText('Ya puede entrar\nal edificio')
+        self.texto_informativo.setVisible(True)
         self.state = 4
 
         # prueba
@@ -108,18 +120,19 @@ class FuncionesEstudiantes:
         self.giflabel.setMovie(self.movie4)
         self.giflabel.setVisible(True)
         self.movie4.start()
-        self.texto_informativo.setText("estado 4")
-
 
     def s5(self):
+
+        self.texto_temporal.setVisible(False)
+        self.texto_informativo.setText('¡Alerta!\n\nNo se han seguido\nlos pasos correctamente')
+        self.texto_informativo.setVisible(True)
+
         self.state = 5
         self.movie5 = QMovie('src/views/static/gif/s5.gif')  # Gif paso 1
         self.giflabel.setMovie(self.movie5)
         self.giflabel.setVisible(True)
         self.movie5.start()
         self.alarm.play()
-        self.texto_informativo.setText("estado 5")
-
 
     def submitData(self):
         global carnet, Numingresos
@@ -138,8 +151,9 @@ class FuncionesEstudiantes:
         self.df_as_txt.close()
 
         # Mostrar que el usuario fue ingresado con exito
-        self.texto_informativo.setText('Ingreso')
-
+        self.texto_informativo.setVisible(False)
+        self.texto_temporal.setText('El usuario fue ingresado\ncon éxito')
+        self.texto_temporal.setVisible(True)
         self.timerText = QTimer()
         self.timerText.setInterval(1500)
         self.timerText.setSingleShot(True)

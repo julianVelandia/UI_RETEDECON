@@ -11,8 +11,6 @@ from src.views.teclado.teclado_letras import TecladoLetras
 from screeninfo import get_monitors
 
 
-# import ctypes
-
 class StudentWindow(QMainWindow, Boton, TecladoNumeros, TecladoLetras):  # Ventana principal
     def __init__(self, alarm, parent=None, *args):
         super(StudentWindow, self).__init__(parent=parent)
@@ -25,10 +23,6 @@ class StudentWindow(QMainWindow, Boton, TecladoNumeros, TecladoLetras):  # Venta
         self.config = ConfigParser()
         self.width = get_monitors()[0].width
         self.height = get_monitors()[0].height
-        # user32 = ctypes.windll.user32
-        # user32.SetProcessDPIAware()
-        # self.width = user32.GetSystemMetrics(0)
-        # self.height = user32.GetSystemMetrics(1)
 
         # alarma
         self.alarm = alarm
