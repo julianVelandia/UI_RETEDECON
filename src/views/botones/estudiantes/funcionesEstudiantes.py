@@ -199,7 +199,9 @@ class FuncionesEstudiantes:
                 self.df_as_txt.write(l)
             self.df_as_txt.close()
 
-            self.texto_informativo.setText('Usuario retirado')
+            self.texto_informativo.setVisible(False)
+            self.texto_temporal.setText('Usuario retirado')
+            self.texto_temporal.setVisible(True)
             self.timerText = QTimer()
             self.timerText.setInterval(1500)
             self.timerText.setSingleShot(True)
@@ -207,8 +209,9 @@ class FuncionesEstudiantes:
             self.timerText.timeout.connect(self.s0)  # función a ejecutar pasados los 3 seg
 
         else:
-
-            self.texto_informativo.setText('Usuario no encontrado')
+            self.texto_informativo.setVisible(False)
+            self.texto_temporal.setText('Usuario no encontrado')
+            self.texto_temporal.setVisible(True)
 
             self.timerText = QTimer()
             self.timerText.setInterval(1500)

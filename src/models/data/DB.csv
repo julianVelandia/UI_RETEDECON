@@ -63,7 +63,8 @@ ads,45,*,21,27-05-2021,11:12,NO,120,0,False
 *,*,carnetPrueba,*,30-05-2021,21:04,NO,120,14,False
 *,*,carnetPrueba,*,30-05-2021,21:18,NO,120,15,False
 *,*,carnetPrueba,*,30-05-2021,21:24,NO,120,16,False
-*,*,carnetPrueba,*,30-05-2021,21:27,HO*,D*,17,True
-*,*,carnetPrueba,*,*,*,HO*,D*,18,True
-*,*,carnetPrueba,*,*,*,HO*,D*,19,True
-*,*,carnetPrueba,*,*,*,HO*,D*,20,True
+*,*,carnetPrueba,*,30-05-2021,21:27,NO,120,17,False
+*,*,carnetPrueba,*,*,*,NO,120,18,False
+*,*,carnetPrueba,*,*,*,NO,120,19,False
+*,*,carnetPrueba,*,*,*,NO,120,20,False
+*,*,carnetPrueba,*,01-06-2021,11:08,HO*,D*,21,True
