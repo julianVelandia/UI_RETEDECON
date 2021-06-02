@@ -25,8 +25,9 @@ class MainWindow(QMainWindow, Boton, TecladoNumeros, TecladoLetras, Read):  # Ve
         self.carnet = ''
         self.title = 'RETEDECON'
         self.config = ConfigParser()
-        self.width = 1024
-        self.height = 640
+        self.width = get_monitors()[0].width
+        self.height = get_monitors()[0].height
+
 
         # alarma
         self.alarm = alarm
@@ -50,8 +51,11 @@ class MainWindow(QMainWindow, Boton, TecladoNumeros, TecladoLetras, Read):  # Ve
 
         # Imagen central
         self.label_img_central = QLabel(self)
-        self.label_img_central.setGeometry(289, -10, 1024, 600)
         self.pixmap = QPixmap('src/views/static/icons/Logo_central.png')  # Imagen central
+
+        self.label_img_central.setGeometry(self.width / 2 - self.pixmap.width() / 2,
+                                           self.height / 2 - self.pixmap.height() / 2, self.pixmap.width(),
+                                           self.pixmap.height())        
         self.label_img_central.setPixmap(self.pixmap)
         self.label_img_central.setVisible(True)
 
