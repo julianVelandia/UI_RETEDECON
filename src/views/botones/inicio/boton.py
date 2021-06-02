@@ -17,16 +17,18 @@ class Boton(Funciones, BotonEstudiantes, Boton_ingresar,Boton_salida,Boton_confi
     '''
     def boton_home(self, widget):
         self.label_img_esquina = QToolButton(widget)
-        self.label_img_esquina.setGeometry(30,5,250,60)        
+        self.label_img_esquina.setGeometry(self.width/28, self.height/30, 
+                                            self.width/6, self.height/10)        
         self.label_img_esquina.setObjectName("button_home") #nombre de enlace a css
         self.label_img_esquina.clicked.connect(self.HomeWindow)
         self.label_img_esquina.setVisible(False)
 
         self.atras = QToolButton(widget)
-        self.atras.setGeometry(900,5,60,60)        
+        self.atras.setGeometry(self.width-(self.width/6), self.height/30,
+                                self.height/10,self.height/10)        
         self.atras.setObjectName("NotButton") #nombre de enlace a css
         self.atras.setIcon(QIcon('src/views/static/icons/icono_atras')) #icono
-        self.atras.setIconSize(QSize(40,40))
+        self.atras.setIconSize(QSize(self.height/11,self.height/11))
         self.atras.clicked.connect(self.Atras)
         self.atras.setVisible(False)
 
@@ -35,10 +37,11 @@ class Boton(Funciones, BotonEstudiantes, Boton_ingresar,Boton_salida,Boton_confi
         self.ingresar.setText('INGRESO MANUAL')
         self.ingresar.setObjectName("button") #nombre de enlace a css
         self.ingresar.setIcon(QIcon('src/views/static/icons/icono_entrar')) #icono
-        self.ingresar.setIconSize(QSize(60,60))
+        self.ingresar.setIconSize(QSize(self.height/10,self.height/10))
         self.ingresar.setToolButtonStyle(Qt.ToolButtonTextUnderIcon)
         self.ingresar.clicked.connect(self.Ingresar)
-        self.ingresar.setGeometry(44.7, 112.5, 290, 180)
+        self.ingresar.setGeometry(self.width/23, self.height/7, 
+                                    self.width/3.6, self.height/3.3)
         self.ingresar.setVisible(False)
 
     def boton_inicio_estadisticas(self,widget):
@@ -46,10 +49,11 @@ class Boton(Funciones, BotonEstudiantes, Boton_ingresar,Boton_salida,Boton_confi
         self.estadisticas.setText('ESTADISTICAS')
         self.estadisticas.setObjectName("button")
         self.estadisticas.setIcon(QIcon('src/views/static/icons/icono_estadisticas'))
-        self.estadisticas.setIconSize(QSize(60,60))
+        self.estadisticas.setIconSize(QSize(self.height/10,self.height/10))
         self.estadisticas.setToolButtonStyle(Qt.ToolButtonTextUnderIcon)
         self.estadisticas.clicked.connect(self.Estadisticas)
-        self.estadisticas.setGeometry(367, 112.5, 290, 180)
+        self.estadisticas.setGeometry(self.width/2.8, self.height/7, 
+                                    self.width/3.6, self.height/3.3)
         self.estadisticas.setVisible(False)
         
     def boton_inicio_detener_alarma(self,widget):
@@ -57,10 +61,11 @@ class Boton(Funciones, BotonEstudiantes, Boton_ingresar,Boton_salida,Boton_confi
         self.detener_alarma.setText('DETENER ALARMA')
         self.detener_alarma.setObjectName("button")
         self.detener_alarma.setIcon(QIcon('src/views/static/icons/icono_campana'))
-        self.detener_alarma.setIconSize(QSize(60,60))
+        self.detener_alarma.setIconSize(QSize(self.height/10,self.height/10))
         self.detener_alarma.setToolButtonStyle(Qt.ToolButtonTextUnderIcon)
         self.detener_alarma.clicked.connect(self.DetenerAlarma)
-        self.detener_alarma.setGeometry(689.3, 112.5, 290, 180)
+        self.detener_alarma.setGeometry(self.width/1.5, self.height/7, 
+                                    self.width/3.6, self.height/3.3)
         self.detener_alarma.setVisible(False)
 
     def boton_inicio_salida_manual(self,widget):
@@ -68,10 +73,11 @@ class Boton(Funciones, BotonEstudiantes, Boton_ingresar,Boton_salida,Boton_confi
         self.salida_manual.setText('SALIDA MANUAL')
         self.salida_manual.setObjectName("button")
         self.salida_manual.setIcon(QIcon('src/views/static/icons/icono_salir'))
-        self.salida_manual.setIconSize(QSize(60,60))
+        self.salida_manual.setIconSize(QSize(self.height/10,self.height/10))
         self.salida_manual.setToolButtonStyle(Qt.ToolButtonTextUnderIcon)
         self.salida_manual.clicked.connect(self.Salida_manual)
-        self.salida_manual.setGeometry(44.7, 348.9, 290, 180)
+        self.salida_manual.setGeometry(self.width/23, self.height/1.9, 
+                                    self.width/3.6, self.height/3.3)
         self.salida_manual.setVisible(False)
 
     def boton_inicio_configuracion(self,widget):
@@ -79,10 +85,11 @@ class Boton(Funciones, BotonEstudiantes, Boton_ingresar,Boton_salida,Boton_confi
         self.configuracion.setText('CONFIGURACIÓN')
         self.configuracion.setObjectName("button")
         self.configuracion.setIcon(QIcon('src/views/static/icons/icono_configuraciones'))
-        self.configuracion.setIconSize(QSize(70,70))
+        self.configuracion.setIconSize(QSize(self.height/10,self.height/10))
         self.configuracion.setToolButtonStyle(Qt.ToolButtonTextUnderIcon)
         self.configuracion.clicked.connect(self.Configuracion)
-        self.configuracion.setGeometry(367, 348.9, 290, 180)
+        self.configuracion.setGeometry(self.width/2.8, self.height/1.9, 
+                                    self.width/3.6, self.height/3.3)
         self.configuracion.setVisible(False)
 
     def boton_inicio_informacion(self,widget):
@@ -90,8 +97,10 @@ class Boton(Funciones, BotonEstudiantes, Boton_ingresar,Boton_salida,Boton_confi
         self.informacion.setText('INFORMACIÓN')
         self.informacion.setObjectName("button")
         self.informacion.setIcon(QIcon('src/views/static/icons/icono_info'))
-        self.informacion.setIconSize(QSize(50,50))
+        self.informacion.setIconSize(QSize(self.height/10,self.height/10))
         self.informacion.setToolButtonStyle(Qt.ToolButtonTextUnderIcon)
         self.informacion.clicked.connect(self.Informacion)        
-        self.informacion.setGeometry(689.3, 348.9, 290, 180)
+        self.informacion.setGeometry(self.width/1.5, self.height/1.9, 
+                                    self.width/3.6, self.height/3.3)
         self.informacion.setVisible(False)
+        print(self.height/10)
