@@ -6,12 +6,21 @@ from src.StudentWindow import StudentWindow
 
 def main():
     app = QApplication([])
+
+    screen = app.screens()
     alarm = QSound("src/views/static/alarm.wav")
+
     student = StudentWindow(alarm)
-    student.showFullScreen()
-    student.show()
     window = MainWindow(alarm,student)
+
+    student.showFullScreen()
     window.show()
+
+    try:
+        student.setGeometry(screen[1].geometry())
+        window.setGeometry(screen[0].geometry())
+    except Exception as e:
+        print(e)
     app.exec_()
 
 

@@ -37,11 +37,8 @@ class StudentWindow(QMainWindow, Boton, TecladoNumeros, TecladoLetras):  # Venta
         self.setCentralWidget(self.centralWidget)
         self.centralWidget.setObjectName("window")  # nombre que enlaza en css
 
-
-
         # s0
         self.giftEstudiantes(self.centralWidget)
-
         self.state = 0
 
         # Imagen central

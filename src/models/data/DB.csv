@@ -52,19 +52,5 @@ das,123,*,21,27-05-2021,11:11,NO,120,9,False
 ads,45,*,21,27-05-2021,11:12,NO,120,0,False
 *,*,E7 0D 40 1C,*,28-05-2021,15:05,15:06,1,1,False
 *,*,E7 0D 40 1C,*,28-05-2021,15:07,NO,120,2,False
-*,*,carnetPrueba,*,29-05-2021,18:38,NO,120,6,False
-*,*,carnetPrueba,*,29-05-2021,18:45,NO,120,7,False
-*,*,carnetPrueba,*,29-05-2021,18:46,NO,120,8,False
-*,*,carnetPrueba,*,29-05-2021,18:48,NO,120,9,False
-*,*,carnetPrueba,*,29-05-2021,19:02,NO,120,10,False
-*,*,carnetPrueba,*,30-05-2021,20:59,NO,120,11,False
-*,*,carnetPrueba,*,30-05-2021,21:02,NO,120,12,False
-*,*,carnetPrueba,*,30-05-2021,21:04,NO,120,13,False
-*,*,carnetPrueba,*,30-05-2021,21:04,NO,120,14,False
-*,*,carnetPrueba,*,30-05-2021,21:18,NO,120,15,False
-*,*,carnetPrueba,*,30-05-2021,21:24,NO,120,16,False
-*,*,carnetPrueba,*,30-05-2021,21:27,NO,120,17,False
-*,*,carnetPrueba,*,*,*,NO,120,18,False
-*,*,carnetPrueba,*,*,*,NO,120,19,False
-*,*,carnetPrueba,*,*,*,NO,120,20,False
-*,*,carnetPrueba,*,02-06-2021,08:57,NO,120,21,False
+*,*,E7 0D 40 1C,*,02-06-2021,17:05,17:05,0,3,False
+*,*,carnetPrueba,*,02-06-2021,17:05,HO*,D*,6,True
