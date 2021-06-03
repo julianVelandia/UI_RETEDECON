@@ -6,8 +6,8 @@ QWidget#window {
 }
 
 QToolButton#button {
-    padding: 70%;
-    font-size: 20px;
+    padding: 65%;
+    font-size: 18px;
     font-family: Helvetica; 
     color: white; 
     background-color: none; 

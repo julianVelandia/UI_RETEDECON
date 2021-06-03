@@ -13,38 +13,54 @@ class Funcion_ingresar:
         self.Ingresar_desplegar_teclado_numerico()
 
     def Ingresar_desplegar_teclado_numerico(self):
-        MOV = -100
+        MOV = -self.height/10
         # movimiento botones
-        self.ingresar_nombre.setGeometry(164, 240 + MOV, 320, 70)
-        self.ingresar_cedula.setGeometry(164, 330 + MOV, 180, 70)
-        self.ingresar_temp.setGeometry(360, 330 + MOV, 120, 70)
-        self.ingresar_ingresar.setGeometry(570, 240 + MOV, 280, 160)
+        self.ingresar_nombre.setGeometry(self.width/3.6, (self.height/2.7) + MOV, 
+                                        self.width/4.2, self.height/12)
+        self.ingresar_cedula.setGeometry(self.width/3.6, (self.height/2.7)+(self.height/8.5)+MOV, 
+                                        self.width/7, self.height/12)
+        self.ingresar_temp.setGeometry((self.width/3.6) + (self.width/6), (self.height/2.7)+(self.height/8.5)+MOV, 
+                                        self.width/14, self.height/12)
+        self.ingresar_ingresar.setGeometry(self.width/1.8, (self.height/2.7) + MOV, 
+                                        self.width/6, self.height/4.9)
         self.NotTeclado()
         self.TecladoNumerico()
 
     def Ingresar_guardar_teclado_numerico(self):
-        self.ingresar_nombre.setGeometry(164, 240, 320, 70)
-        self.ingresar_cedula.setGeometry(164, 330, 180, 70)
-        self.ingresar_temp.setGeometry(360, 330, 120, 70)
-        self.ingresar_ingresar.setGeometry(570, 240, 280, 160)
+        self.ingresar_nombre.setGeometry(self.width/3.6, self.height/2.7, 
+                                        self.width/4.2, self.height/12)
+        self.ingresar_cedula.setGeometry(self.width/3.6, (self.height/2.7)+self.height/8.5, 
+                                        self.width/7, self.height/12)
+        self.ingresar_temp.setGeometry((self.width/3.6) + (self.width/6), (self.height/2.7)+self.height/8.5, 
+                                        self.width/14, self.height/12)
+        self.ingresar_ingresar.setGeometry(self.width/1.8, self.height/2.7, 
+                                        self.width/6, self.height/4.9)
         self.NotTecladoNumerico()
 
     def Ingresar_desplegar_teclado(self):
-        MOV = -100
+        MOV = -self.height/10
         # movimiento botones
-        self.ingresar_nombre.setGeometry(164, 240 + MOV, 320, 70)
-        self.ingresar_cedula.setGeometry(164, 330 + MOV, 180, 70)
-        self.ingresar_temp.setGeometry(360, 330 + MOV, 120, 70)
-        self.ingresar_ingresar.setGeometry(570, 240 + MOV, 280, 160)
+        self.ingresar_nombre.setGeometry(self.width/3.6, (self.height/2.7) + MOV, 
+                                        self.width/4.2, self.height/12)
+        self.ingresar_cedula.setGeometry(self.width/3.6, (self.height/2.7)+(self.height/8.5)+MOV, 
+                                        self.width/7, self.height/12)
+        self.ingresar_temp.setGeometry((self.width/3.6) + (self.width/6), (self.height/2.7)+(self.height/8.5)+MOV, 
+                                        self.width/14, self.height/12)
+        self.ingresar_ingresar.setGeometry(self.width/1.8, (self.height/2.7) + MOV, 
+                                        self.width/6, self.height/4.9)
         self.Teclado()
         self.NotTecladoNumerico()
         self.campo = 'ingresar-nombre'
 
     def Ingresar_guardar_teclado(self):
-        self.ingresar_nombre.setGeometry(164, 240, 320, 70)
-        self.ingresar_cedula.setGeometry(164, 330, 180, 70)
-        self.ingresar_temp.setGeometry(360, 330, 120, 70)
-        self.ingresar_ingresar.setGeometry(570, 240, 280, 160)
+        self.ingresar_nombre.setGeometry(self.width/3.6, self.height/2.7, 
+                                        self.width/4.2, self.height/12)
+        self.ingresar_cedula.setGeometry(self.width/3.6, (self.height/2.7)+self.height/8.5, 
+                                        self.width/7, self.height/12)
+        self.ingresar_temp.setGeometry((self.width/3.6) + (self.width/6), (self.height/2.7)+self.height/8.5, 
+                                        self.width/14, self.height/12)
+        self.ingresar_ingresar.setGeometry(self.width/1.8, self.height/2.7, 
+                                        self.width/6, self.height/4.9)
         self.NotTeclado()
 
     def IngresarIngresar(self):
