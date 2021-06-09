@@ -13,7 +13,9 @@ class Boton_avanzada(Funcion_avanzada, Boton_inside):
         self.avanzada_user.setPlaceholderText("USUARIO")
         self.avanzada_user.setObjectName("input") #nombre de enlace a css
         self.avanzada_user.setClearButtonEnabled(True)
-        self.avanzada_user.setGeometry(164,237,290,70)
+        self.avanzada_user.setGeometry(self.width/3.6, self.height/2.7, 
+                                        self.width/4.2, self.height/12)
+               
         self.avanzada_user.setMaxLength(40)
         self.avanzada_user.setVisible(False)
         self.avanzada_user.clicked.connect(self.AvanzadaUserTeclado)
@@ -23,7 +25,8 @@ class Boton_avanzada(Funcion_avanzada, Boton_inside):
         self.avanzada_pass.setPlaceholderText("CONTRASEÑA")
         self.avanzada_pass.setObjectName("input")  # nombre de enlace a css
         self.avanzada_pass.setClearButtonEnabled(True)
-        self.avanzada_pass.setGeometry(164, 341, 290, 70)
+        self.avanzada_pass.setGeometry(self.width/3.6, (self.height/2.7)+self.height/8.5, 
+                                        self.width/4.2, self.height/12)
         self.avanzada_pass.setMaxLength(15)
         self.avanzada_pass.setVisible(False)
         self.avanzada_pass.setEchoMode(QLineEdit.Password)
@@ -37,5 +40,6 @@ class Boton_avanzada(Funcion_avanzada, Boton_inside):
         self.avanzada_ingresar.setIconSize(QSize(60, 60))
         self.avanzada_ingresar.setToolButtonStyle(Qt.ToolButtonTextUnderIcon)
         self.avanzada_ingresar.clicked.connect(self.AvanzadaIngresar)
-        self.avanzada_ingresar.setGeometry(570, 230, 290, 180)
+        self.avanzada_ingresar.setGeometry(self.width/1.8, self.height/2.7, 
+                                        self.width/6, self.height/4.9)
         self.avanzada_ingresar.setVisible(False)

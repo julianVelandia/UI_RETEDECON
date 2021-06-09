@@ -13,9 +13,12 @@ class Funcion_avanzada():
     def AvanzadaUserTeclado(self):
         MOV = -100
         #movimiento botones
-        self.avanzada_user.setGeometry(164.2,237+MOV,290,70)
-        self.avanzada_pass.setGeometry(164.2,341+MOV,290,70)
-        self.avanzada_ingresar.setGeometry(570, 237+MOV, 290, 176.3)
+        self.avanzada_user.setGeometry(self.width/3.6, self.height/2.7+MOV, 
+                                        self.width/4.2, self.height/12)
+        self.avanzada_pass.setGeometry(self.width/3.6, (self.height/2.7)+(self.height/8.5)+MOV, 
+                                        self.width/4.2, self.height/12)
+        self.avanzada_ingresar.setGeometry(self.width/1.8, (self.height/2.7)+MOV, 
+                                        self.width/6, self.height/4.9)
         self.Teclado()
         self.NotTecladoNumerico()
         self.campo = 'AdConf-User'
@@ -23,17 +26,23 @@ class Funcion_avanzada():
     def AvanzadaPassTeclado(self):
         MOV = -100
         #movimiento botones
-        self.avanzada_user.setGeometry(164.2,237+MOV,290,70)
-        self.avanzada_pass.setGeometry(164.2,341+MOV,290,70)
-        self.avanzada_ingresar.setGeometry(570, 237+MOV, 290, 176.3)
+        self.avanzada_user.setGeometry(self.width/3.6, self.height/2.7+MOV, 
+                                        self.width/4.2, self.height/12)
+        self.avanzada_pass.setGeometry(self.width/3.6, (self.height/2.7)+(self.height/8.5)+MOV, 
+                                        self.width/4.2, self.height/12)
+        self.avanzada_ingresar.setGeometry(self.width/1.8, (self.height/2.7)+MOV, 
+                                        self.width/6, self.height/4.9)
         self.NotTeclado()
         self.TecladoNumerico()
         self.campo = 'AdConf-Pass'
 
     def Ad_Conf_guardar_teclado(self):
-        self.avanzada_user.setGeometry(164, 240, 320, 70)
-        self.avanzada_pass.setGeometry(164,330,320,70)
-        self.avanzada_ingresar.setGeometry(570, 240, 280, 160)
+        self.avanzada_user.setGeometry(self.width/3.6, self.height/2.7, 
+                                        self.width/4.2, self.height/12)
+        self.avanzada_pass.setGeometry(self.width/3.6, (self.height/2.7)+(self.height/8.5), 
+                                        self.width/4.2, self.height/12)
+        self.avanzada_ingresar.setGeometry(self.width/1.8, (self.height/2.7), 
+                                        self.width/6, self.height/4.9)
         self.NotTeclado()
 
     def AvanzadaIngresar(self):

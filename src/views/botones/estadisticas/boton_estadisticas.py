@@ -6,15 +6,23 @@ from .funciones_estadisticas import Funcion_estadisticas
 from .graficas import *
 
 
+from screeninfo import get_monitors
+
+
 class Boton_estadisticas(Funcion_estadisticas):
+
+    width = get_monitors()[0].width
+    height = get_monitors()[0].height
+
     def boton_estadisticas_ocupacion(self, widget):
         self.estadisticas_ocupacion = QToolButton(widget)
         self.estadisticas_ocupacion.setObjectName("NotButton")  # nombre de enlace a css
         self.estadisticas_ocupacion.setStyleSheet('font-size: 20px;font-family: Helvetica; color: white; ')
         self.estadisticas_ocupacion.setIcon(QIcon('src/views/static/icons/icono_capacidad'))  # icono
-        self.estadisticas_ocupacion.setIconSize(QSize(50, 50))
+        self.estadisticas_ocupacion.setIconSize(QSize(self.height/11, self.height/11))
         self.estadisticas_ocupacion.setToolButtonStyle(Qt.ToolButtonTextUnderIcon)
-        self.estadisticas_ocupacion.setGeometry(80, 130, 280, 120)
+        self.estadisticas_ocupacion.setGeometry(self.width/20, self.height/7, 
+                                                self.width/8, self.height/6)
         self.estadisticas_ocupacion.setVisible(False)
         self.EstadisticasOcupacion()
 
@@ -23,9 +31,10 @@ class Boton_estadisticas(Funcion_estadisticas):
         self.estadisticas_duracion.setObjectName("NotButton")  # nombre de enlace a css
         self.estadisticas_duracion.setStyleSheet('font-size: 20px;font-family: Helvetica; color: white; ')
         self.estadisticas_duracion.setIcon(QIcon('src/views/static/icons/icono_tiempo'))  # icono
-        self.estadisticas_duracion.setIconSize(QSize(50, 50))
+        self.estadisticas_duracion.setIconSize(QSize(self.height/11, self.height/11))
         self.estadisticas_duracion.setToolButtonStyle(Qt.ToolButtonTextUnderIcon)
-        self.estadisticas_duracion.setGeometry(80, 240, 280, 120)
+        self.estadisticas_duracion.setGeometry(self.width/20, self.height/3, 
+                                                self.width/8, self.height/6)
         self.estadisticas_duracion.setVisible(False)
         self.EstadisticasDuracion()
 
@@ -34,9 +43,10 @@ class Boton_estadisticas(Funcion_estadisticas):
         self.estadisticas_personasDia.setObjectName("NotButton")  # nombre de enlace a css
         self.estadisticas_personasDia.setStyleSheet('font-size: 20px;font-family: Helvetica; color: white; ')
         self.estadisticas_personasDia.setIcon(QIcon('src/views/static/icons/icono_capacidad'))  # icono
-        self.estadisticas_personasDia.setIconSize(QSize(50, 50))
+        self.estadisticas_personasDia.setIconSize(QSize(self.height/11, self.height/11))
         self.estadisticas_personasDia.setToolButtonStyle(Qt.ToolButtonTextUnderIcon)
-        self.estadisticas_personasDia.setGeometry(80, 375, 280, 120)
+        self.estadisticas_personasDia.setGeometry(self.width/20, self.height/1.5, 
+                                                self.width/8, self.height/6)
         self.estadisticas_personasDia.setVisible(False)
         self.EstadisticasPersonasDia()
 
@@ -45,7 +55,8 @@ class Boton_estadisticas(Funcion_estadisticas):
         self.estadisticas_cambiar_semana_adelante = QToolButton(widget)
         self.estadisticas_cambiar_semana_adelante.setObjectName("button")  # nombre de enlace a css
         self.estadisticas_cambiar_semana_adelante.setStyleSheet('border-radius:4px;')
-        self.estadisticas_cambiar_semana_adelante.setGeometry(470, 530, 50, 30)
+        self.estadisticas_cambiar_semana_adelante.setGeometry(self.width/4, self.height/1.4, 
+                                                                self.width/30, self.height/25)
         self.estadisticas_cambiar_semana_adelante.setVisible(False)
         self.estadisticas_cambiar_semana_adelante.setText('<')
         self.estadisticas_cambiar_semana_adelante.clicked.connect(self.EstadisticasCambiarSemanaAdelante)
@@ -54,7 +65,8 @@ class Boton_estadisticas(Funcion_estadisticas):
         self.estadisticas_cambiar_semana_atras = QToolButton(widget)
         self.estadisticas_cambiar_semana_atras.setObjectName("button")  # nombre de enlace a css
         self.estadisticas_cambiar_semana_atras.setStyleSheet('border-radius:4px;')
-        self.estadisticas_cambiar_semana_atras.setGeometry(870, 530, 50, 30)
+        self.estadisticas_cambiar_semana_atras.setGeometry(self.width/1.4, self.height/1.4, 
+                                                                self.width/30, self.height/25)
         self.estadisticas_cambiar_semana_atras.setVisible(False)
         self.estadisticas_cambiar_semana_atras.setText('>')
         self.estadisticas_cambiar_semana_atras.clicked.connect(self.EstadisticasCambiarSemanaAtras)
@@ -68,7 +80,8 @@ class Boton_estadisticas(Funcion_estadisticas):
         self.estadisticas_barras.setToolButtonStyle(Qt.ToolButtonTextUnderIcon)
         self.estadisticas_barras.clicked.connect(self.barras)
         self.estadisticas_barras.clicked.connect(self.Estadisticas)
-        self.estadisticas_barras.setGeometry(610, 527, 36, 36)
+        self.estadisticas_barras.setGeometry(self.width/2.7, self.height/1.4, 
+                                                self.width/30, self.height/25)
         self.estadisticas_barras.setVisible(False)
         self.estadisticas_barras.setStyleSheet("background-color: #A2A2A2;")
 
@@ -80,19 +93,21 @@ class Boton_estadisticas(Funcion_estadisticas):
         self.estadisticas_torta.setToolButtonStyle(Qt.ToolButtonTextUnderIcon)
         self.estadisticas_torta.clicked.connect(self.torta)
         self.estadisticas_torta.clicked.connect(self.Estadisticas)
-        self.estadisticas_torta.setGeometry(740, 527, 36, 36)
+        self.estadisticas_torta.setGeometry(self.width/1.7, self.height/1.4, 
+                                                self.width/30, self.height/25)
         self.estadisticas_torta.setVisible(False)
         # self.estadisticas_torta.setStyleSheet("background-color: #A2A2A2;")
 
     def graficas_estadisticas(self):
         info = self.EstadisticasGetInfo()
         # Barras
-        self.estadisticas_bar_chart = PlotCanvas(self, width=5, height=4)
-        self.estadisticas_bar_chart.move(450, 120)
+
+        self.estadisticas_bar_chart = PlotCanvas(self, width=self.width/195, height=self.height/190)
+        self.estadisticas_bar_chart.move(self.width/4, self.height/8)
         self.estadisticas_bar_chart.bara(info, False)
         self.estadisticas_bar_chart.setVisible(False)
         # Pie
-        self.estadisticas_pie_chart = PlotCanvasP(self, width=5, height=4)
-        self.estadisticas_pie_chart.move(450, 120)
+        self.estadisticas_pie_chart = PlotCanvasP(self, width=self.width/195, height=self.height/190)
+        self.estadisticas_pie_chart.move(self.width/4, self.height/8)
         self.estadisticas_pie_chart.pies(info, False)
         self.estadisticas_pie_chart.setVisible(False)

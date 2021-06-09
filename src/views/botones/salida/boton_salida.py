@@ -13,7 +13,8 @@ class Boton_salida(Funcion_salida):
         self.salida_nombre.setPlaceholderText("NOMBRE")
         self.salida_nombre.setObjectName("input")  # nombre de enlace a css
         self.salida_nombre.setClearButtonEnabled(True)
-        self.salida_nombre.setGeometry(164, 237, 290, 70)
+        self.salida_nombre.setGeometry(self.width/3.6, self.height/2.7, 
+                                        self.width/4.2, self.height/12)
         self.salida_nombre.setMaxLength(40)
         self.salida_nombre.clicked.connect(self.Retirar_desplegar_teclado)
 
@@ -24,7 +25,11 @@ class Boton_salida(Funcion_salida):
         self.salida_cedula.setPlaceholderText("CEDULA")
         self.salida_cedula.setObjectName("input")  # nombre de enlace a css
         self.salida_cedula.setClearButtonEnabled(True)
-        self.salida_cedula.setGeometry(164, 341, 290, 70)
+        
+        self.salida_cedula.setGeometry(self.width/3.6, (self.height/2.7)+self.height/8.5, 
+                                        self.width/4.2, self.height/12)
+                                        
+        
         self.salida_cedula.setMaxLength(15)
         self.salida_cedula.clicked.connect(self.Retirar_desplegar_teclado_numerico_cedula)
 
@@ -37,8 +42,8 @@ class Boton_salida(Funcion_salida):
         self.salida_salida.setIconSize(QSize(60,60))
         self.salida_salida.setToolButtonStyle(Qt.ToolButtonTextUnderIcon)
         self.salida_salida.clicked.connect(self.SalidaSalida)
-        self.salida_salida.setGeometry(570, 237, 290, 176.3)
-
+        self.salida_salida.setGeometry(self.width/1.8, self.height/2.7, 
+                                        self.width/6, self.height/4.9)
         self.salida_nombre.setVisible(False)
         self.salida_cedula.setVisible(False)
         self.salida_salida.setVisible(False)

@@ -2,15 +2,24 @@ from PyQt5.QtWidgets import *
 from PyQt5.QtCore import *
 from PyQt5.QtGui import *
 
+from screeninfo import get_monitors
+
 
 class TecladoNumeros:
+
+    width = get_monitors()[0].width
+    height = get_monitors()[0].height
+
+
     def BotonesTecladoNumerico(self,widget):
-        sep_lado = 12
-        sep_arriba = 12
-        base = 73
-        altura = 65
-        y_inicia = 350
-        x_inicia =300
+        
+
+        sep_lado = self.width/62
+        sep_arriba = self.width/62
+        base = self.width/15
+        altura = self.width/17
+        y_inicia = self.width/3.4
+        x_inicia =self.width/3.5
 
         x=0
         y=0

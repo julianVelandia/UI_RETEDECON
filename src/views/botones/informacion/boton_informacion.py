@@ -12,9 +12,10 @@ class Boton_informacion(Funcion_informacion):
         self.informacion_manual.setText('Manual de Usuario')
         self.informacion_manual.setObjectName("button")  # nombre de enlace a css
         self.informacion_manual.setIcon(QIcon('src/views/static/icons/icono_manual_usuario'))  # icono
-        self.informacion_manual.setIconSize(QSize(65, 65))
+        self.informacion_manual.setIconSize(QSize(self.height/11, self.height/11))
         self.informacion_manual.setToolButtonStyle(Qt.ToolButtonTextUnderIcon)
-        self.informacion_manual.setGeometry(200, 210, 290, 180)
+        self.informacion_manual.setGeometry(self.width/5.7, self.height/2.8, 
+                                                self.width/3.6, self.height/3.3)
         self.informacion_manual.clicked.connect(self.InformacionManual)
         self.informacion_manual.setVisible(False)
 
@@ -23,17 +24,19 @@ class Boton_informacion(Funcion_informacion):
         self.informacion_fabricante.setText('Información del\nFabricante')
         self.informacion_fabricante.setObjectName("button")  # nombre de enlace a css
         self.informacion_fabricante.setIcon(QIcon('src/views/static/icons/favicon3'))  # icono
-        self.informacion_fabricante.setIconSize(QSize(60, 60))
+        self.informacion_fabricante.setIconSize(QSize(self.height/11, self.height/11))
         self.informacion_fabricante.setToolButtonStyle(Qt.ToolButtonTextUnderIcon)
         self.informacion_fabricante.clicked.connect(self.InformacionFabricante)
-        self.informacion_fabricante.setGeometry(534, 210, 290, 180)
+        
+        self.informacion_fabricante.setGeometry(self.width/1.9, self.height/2.8, 
+                                                self.width/3.6, self.height/3.3) 
         self.informacion_fabricante.setVisible(False)
 
     def qr_informacion_qr(self, widget):
         self.informacion_qr = QToolButton(widget)
         self.informacion_qr.setObjectName("button_trasnparente")  # nombre de enlace a css
         self.informacion_qr.setIcon(QIcon('src/views/static/icons/QRDRIVE.png'))  # icono
-        self.informacion_qr.setIconSize(QSize(300, 300))
+        self.informacion_qr.setIconSize(QSize(self.height/11, self.height/11))
         self.informacion_qr.setGeometry(self.width/3.5, self.height/5, 400, 400)
         self.informacion_qr.setVisible(False)
 
