@@ -11,7 +11,9 @@ class Boton_cambiar(Funcion_cambiar):
         self.cambiar_user.setPlaceholderText("USUARIO")
         self.cambiar_user.setObjectName("input")  # nombre de enlace a css
         self.cambiar_user.setClearButtonEnabled(True)
-        self.cambiar_user.setGeometry(85,237, 260, 70)
+        self.cambiar_user.setGeometry(self.width/5, self.height/2.7, 
+                                        self.width/4.2, self.height/12)
+
         self.cambiar_user.setMaxLength(15)
         self.cambiar_user.setVisible(False)
         self.cambiar_user.clicked.connect(self.CambiarUser)
@@ -21,7 +23,8 @@ class Boton_cambiar(Funcion_cambiar):
         self.cambiar_pass.setPlaceholderText("PASSWORD ANTERIOR")
         self.cambiar_pass.setObjectName("input")  # nombre de enlace a css
         self.cambiar_pass.setClearButtonEnabled(True)
-        self.cambiar_pass.setGeometry(85, 341,260,70)
+        self.cambiar_pass.setGeometry(self.width/3.6, self.height/2.7, 
+                                        self.width/4.2, self.height/12)
         self.cambiar_pass.setMaxLength(40)
         self.cambiar_pass.setVisible(False)
         self.cambiar_pass.setEchoMode(QLineEdit.Password)
@@ -33,7 +36,8 @@ class Boton_cambiar(Funcion_cambiar):
         self.pass_new_0.setPlaceholderText("CONTRASEÑA NUEVA")
         self.pass_new_0.setObjectName("input")  # nombre de enlace a css
         self.pass_new_0.setClearButtonEnabled(True)
-        self.pass_new_0.setGeometry(375, 237, 260, 70)
+        self.pass_new_0.setGeometry(self.width/5, (self.height/2.7)+self.height/8.5, 
+                                        self.width/4.2, self.height/12)
         self.pass_new_0.setMaxLength(15)
         self.pass_new_0.setVisible(False)
         self.pass_new_0.setEchoMode(QLineEdit.Password)
@@ -56,8 +60,9 @@ class Boton_cambiar(Funcion_cambiar):
         self.cambiar_cambiar.setText('CAMBIAR')
         self.cambiar_cambiar.setObjectName("button") #nombre de enlace a css
         self.cambiar_cambiar.setIcon(QIcon('src/views/static/icons/icono_password')) #icono
-        self.cambiar_cambiar.setIconSize(QSize(60,60))
+        self.cambiar_cambiar.setIconSize(QSize(self.height/11,self.height/11))
         self.cambiar_cambiar.setToolButtonStyle(Qt.ToolButtonTextUnderIcon)
-        self.cambiar_cambiar.setGeometry(670, 230, 250, 180)
+        self.cambiar_cambiar.setGeometry(self.width/1.8, self.height/2.7, 
+                                        self.width/6, self.height/4.9)
         self.cambiar_cambiar.clicked.connect(self.CambiarCambiar)
         self.cambiar_cambiar.setVisible(False)

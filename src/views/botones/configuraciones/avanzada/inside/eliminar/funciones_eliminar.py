@@ -10,9 +10,12 @@ class Funcion_eliminar:
     def EliminarUsername(self):
         MOV = -100
         #movimiento botones
-        self.eliminar_username.setGeometry(164,237+MOV,290,70)
-        self.eliminar_pass.setGeometry(164, 341+MOV, 290, 70)
-        self.eliminar_eliminar.setGeometry(570, 230+MOV, 290, 180)
+        self.eliminar_username.setGeometry(self.width/3.6, self.height/2.7 +MOV, 
+                                        self.width/4.2, self.height/12)
+        self.eliminar_pass.setGeometry(self.width/3.6, (self.height/2.7)+self.height/8.5 +MOV, 
+                                        self.width/4.2, self.height/12)
+        self.eliminar_eliminar.setGeometry(self.width/1.8, self.height/2.7 +MOV, 
+                                        self.width/6, self.height/4.9)
 
         self.Teclado()
         self.NotTecladoNumerico()
@@ -21,9 +24,12 @@ class Funcion_eliminar:
     def EliminarPass(self):
         MOV = -100
         #movimiento botones
-        self.eliminar_username.setGeometry(164,237+MOV,290,70)
-        self.eliminar_pass.setGeometry(164, 341+MOV, 290, 70)
-        self.eliminar_eliminar.setGeometry(570, 230+MOV, 290, 180)
+        self.eliminar_username.setGeometry(self.width/3.6, self.height/2.7 +MOV, 
+                                        self.width/4.2, self.height/12)
+        self.eliminar_pass.setGeometry(self.width/3.6, (self.height/2.7)+self.height/8.5 +MOV, 
+                                        self.width/4.2, self.height/12)
+        self.eliminar_eliminar.setGeometry(self.width/1.8, self.height/2.7 +MOV, 
+                                        self.width/6, self.height/4.9)
 
         self.NotTeclado()
         self.TecladoNumerico()
@@ -31,9 +37,13 @@ class Funcion_eliminar:
 
 
     def Eliminar_guardar_teclado(self):
-        self.eliminar_username.setGeometry(164,237,290,70)
-        self.eliminar_pass.setGeometry(164, 341, 290, 70)
-        self.eliminar_eliminar.setGeometry(570, 230, 290, 180)
+        MOV =0
+        self.eliminar_username.setGeometry(self.width/3.6, self.height/2.7 +MOV, 
+                                        self.width/4.2, self.height/12)
+        self.eliminar_pass.setGeometry(self.width/3.6, (self.height/2.7)+self.height/8.5 +MOV, 
+                                        self.width/4.2, self.height/12)
+        self.eliminar_eliminar.setGeometry(self.width/1.8, self.height/2.7 +MOV, 
+                                        self.width/6, self.height/4.9)
         
         self.NotTeclado()
 

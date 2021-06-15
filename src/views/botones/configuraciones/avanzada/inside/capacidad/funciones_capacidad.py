@@ -9,15 +9,20 @@ class Funcion_capacidad:
     def CapacidadNewCapacidad(self):
         MOV = -100
         #movimiento botones
-        self.capacidad_newcapacidad.setGeometry(164,237+MOV,290,70)
-        self.capacidad_setnew.setGeometry(570, 230+MOV, 290, 231)
+        self.capacidad_newcapacidad.setGeometry(self.width/3.6, self.height/2.7 + MOV, 
+                                        self.width/4.2, self.height/12)
+        self.capacidad_setnew.setGeometry(self.width/1.8, self.height/2.7 + MOV, 
+                                        self.width/6, self.height/4.9)
         self.NotTeclado()
         self.TecladoNumerico()
         self.campo = 'New-Capacidad'
     
     def Capacidad_guardar_teclado(self):
-        self.capacidad_newcapacidad.setGeometry(164,237,290,70)
-        self.capacidad_setnew.setGeometry(570, 230, 290, 231)
+        MOV = 0
+        self.capacidad_newcapacidad.setGeometry(self.width/3.6, self.height/2.7 + MOV, 
+                                        self.width/4.2, self.height/12)
+        self.capacidad_setnew.setGeometry(self.width/1.8, self.height/2.7 + MOV, 
+                                        self.width/6, self.height/4.9)
         self.NotTeclado()
     
 

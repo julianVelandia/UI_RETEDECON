@@ -11,9 +11,12 @@ class Funcion_agregar:
     def AgregarUsername(self):
         MOV = -100
         # movimiento botones
-        self.agregar_username.setGeometry(164.2, 237 + MOV, 290, 70)
-        self.agregar_pass.setGeometry(164.2, 341 + MOV, 290, 70)
-        self.agregar_agregar.setGeometry(570, 237 + MOV, 290, 176.3)
+        self.agregar_username.setGeometry(self.width/3.6, self.height/2.7 + MOV, 
+                                        self.width/4.2, self.height/12)
+        self.agregar_pass.setGeometry(self.width/3.6, (self.height/2.7)+self.height/8.5 + MOV, 
+                                        self.width/4.2, self.height/12)
+        self.agregar_agregar.setGeometry(self.width/1.8, self.height/2.7 + MOV, 
+                                        self.width/6, self.height/4.9)
         self.Teclado()
         self.NotTecladoNumerico()
         self.campo = 'Agregar-User'
@@ -21,17 +24,24 @@ class Funcion_agregar:
     def AgregarPass(self):
         MOV = -100
         # movimiento botones
-        self.agregar_username.setGeometry(164.2, 237 + MOV, 290, 70)
-        self.agregar_pass.setGeometry(164.2, 341 + MOV, 290, 70)
-        self.agregar_agregar.setGeometry(570, 237 + MOV, 290, 176.3)
+        self.agregar_username.setGeometry(self.width/3.6, self.height/2.7 + MOV, 
+                                        self.width/4.2, self.height/12)
+        self.agregar_pass.setGeometry(self.width/3.6, (self.height/2.7)+self.height/8.5 + MOV, 
+                                        self.width/4.2, self.height/12)
+        self.agregar_agregar.setGeometry(self.width/1.8, self.height/2.7 + MOV, 
+                                        self.width/6, self.height/4.9)
         self.NotTeclado()
         self.TecladoNumerico()
         self.campo = 'Agregar-Pass'
 
     def Agregar_guardar_teclado(self):
-        self.agregar_username.setGeometry(164, 240, 320, 70)
-        self.agregar_pass.setGeometry(164, 330, 320, 70)
-        self.agregar_agregar.setGeometry(570, 240, 280, 160)
+        MOV = 0
+        self.agregar_username.setGeometry(self.width/3.6, self.height/2.7 + MOV, 
+                                        self.width/4.2, self.height/12)
+        self.agregar_pass.setGeometry(self.width/3.6, (self.height/2.7)+self.height/8.5 + MOV, 
+                                        self.width/4.2, self.height/12)
+        self.agregar_agregar.setGeometry(self.width/1.8, self.height/2.7 + MOV, 
+                                        self.width/6, self.height/4.9)
         self.NotTeclado()
 
     def AgregarAgregar(self):
