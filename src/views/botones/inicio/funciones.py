@@ -62,7 +62,7 @@ class Funciones:
 
         # inicio
         self.label_img_esquina.setVisible(True)
-        self.label_img_esquina_2.setVisible(False)
+        #self.label_img_esquina_2.setVisible(False)
 
         self.ingresar.setVisible(True)
         self.estadisticas.setVisible(True)

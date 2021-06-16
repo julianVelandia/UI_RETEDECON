@@ -36,8 +36,9 @@ class Boton_informacion(Funcion_informacion):
         self.informacion_qr = QToolButton(widget)
         self.informacion_qr.setObjectName("button_trasnparente")  # nombre de enlace a css
         self.informacion_qr.setIcon(QIcon('src/views/static/icons/QRDRIVE.png'))  # icono
-        self.informacion_qr.setIconSize(QSize(self.height/11, self.height/11))
-        self.informacion_qr.setGeometry(self.width/3.5, self.height/5, 400, 400)
+        self.informacion_qr.setIconSize(QSize(self.height/5, self.height/5))
+        self.informacion_qr.setGeometry((self.width/2) - (self.height/7), (self.height/2) - (self.height/7),
+                                        self.height/5, self.height/5)
         self.informacion_qr.setVisible(False)
 
     def label_informacion_label(self, widget):
@@ -60,9 +61,5 @@ class Boton_informacion(Funcion_informacion):
                            "Versión del Software: 1.0")
         self.informacion_label.setVisible(False)
         
-        self.label_img_esquina_2 = QToolButton(widget)
-        self.label_img_esquina_2.setGeometry(30, 5, 250, 60)
-        self.label_img_esquina_2.setObjectName("button_home")  # nombre de enlace a css
-        self.label_img_esquina_2.setVisible(False)
-        self.label_img_esquina_2.clicked.connect(self.HomeWindow)
+        
         

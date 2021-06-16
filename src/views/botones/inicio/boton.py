@@ -28,7 +28,7 @@ class Boton(Funciones, BotonEstudiantes, Boton_ingresar,Boton_salida,Boton_confi
                                 self.height/10,self.height/10)        
         self.atras.setObjectName("NotButton") #nombre de enlace a css
         self.atras.setIcon(QIcon('src/views/static/icons/icono_atras')) #icono
-        self.atras.setIconSize(QSize(self.height/11,self.height/11))
+        self.atras.setIconSize(QSize(self.height/20,self.height/20))
         self.atras.clicked.connect(self.Atras)
         self.atras.setVisible(False)
 

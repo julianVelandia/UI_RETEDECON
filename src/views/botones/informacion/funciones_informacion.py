@@ -14,6 +14,6 @@ class Funcion_informacion:
         self.pantalla = 'fabricante'
         self.atras.setVisible(True)
         self.informacion_label.setVisible(True)
-        self.label_img_esquina_2.setVisible(True)
+        #self.label_img_esquina_2.setVisible(True)
         self.informacion_fabricante.setVisible(False)
         self.informacion_manual.setVisible(False)

@@ -12,11 +12,19 @@ class Funcion_cambiar:
     def CambiarUser(self):
         MOV = -100
         # movimiento botones
-        self.cambiar_user.setGeometry(85,237+MOV, 260, 70)
-        self.cambiar_pass.setGeometry(85, 341+MOV,260,70)
-        self.pass_new_0.setGeometry(375, 237+MOV, 260, 70)
-        self.pass_new_1.setGeometry(375, 341+MOV, 260, 70)
-        self.cambiar_cambiar.setGeometry(670, 230+MOV, 250, 180)
+        
+        
+
+        self.cambiar_user.setGeometry(self.width/4.5, self.height/2.7 + MOV, 
+                                        self.width/6.1, self.height/12)
+        self.cambiar_pass.setGeometry(self.width/2.5, self.height/2.7  + MOV, 
+                                        self.width/6.1, self.height/12)
+        self.pass_new_0.setGeometry(self.width/4.5, self.height/2.7 +self.height/8.5+ MOV, 
+                                        self.width/6.1, self.height/12)
+        self.pass_new_1.setGeometry(self.width/2.5, self.height/2.7 +self.height/8.5+ MOV, 
+                                        self.width/6.1, self.height/12)
+        self.cambiar_cambiar.setGeometry(self.width/1.7, self.height/2.7 + MOV, 
+                                        self.width/6, self.height/4.9)
 
         self.Teclado()
         self.NotTecladoNumerico()
@@ -26,11 +34,16 @@ class Funcion_cambiar:
     def CambiarPass(self):
         MOV = -100
         # movimiento botones
-        self.cambiar_user.setGeometry(85,237+MOV, 260, 70)
-        self.cambiar_pass.setGeometry(85, 341+MOV,260,70)
-        self.pass_new_0.setGeometry(375, 237+MOV, 260, 70)
-        self.pass_new_1.setGeometry(375, 341+MOV, 260, 70)
-        self.cambiar_cambiar.setGeometry(670, 230+MOV, 250, 180)
+        self.cambiar_user.setGeometry(self.width/4.5, self.height/2.7 + MOV, 
+                                        self.width/6.1, self.height/12)
+        self.cambiar_pass.setGeometry(self.width/2.5, self.height/2.7  + MOV, 
+                                        self.width/6.1, self.height/12)
+        self.pass_new_0.setGeometry(self.width/4.5, self.height/2.7 +self.height/8.5+ MOV, 
+                                        self.width/6.1, self.height/12)
+        self.pass_new_1.setGeometry(self.width/2.5, self.height/2.7 +self.height/8.5+ MOV, 
+                                        self.width/6.1, self.height/12)
+        self.cambiar_cambiar.setGeometry(self.width/1.7, self.height/2.7 + MOV, 
+                                        self.width/6, self.height/4.9)
 
         self.NotTeclado()
         self.TecladoNumerico()
@@ -39,11 +52,16 @@ class Funcion_cambiar:
     def PassNew0(self):
         MOV = -100
         # movimiento botones
-        self.cambiar_user.setGeometry(85,237+MOV, 260, 70)
-        self.cambiar_pass.setGeometry(85, 341+MOV,260,70)
-        self.pass_new_0.setGeometry(375, 237+MOV, 260, 70)
-        self.pass_new_1.setGeometry(375, 341+MOV, 260, 70)
-        self.cambiar_cambiar.setGeometry(670, 230+MOV, 250, 180)
+        self.cambiar_user.setGeometry(self.width/4.5, self.height/2.7 + MOV, 
+                                        self.width/6.1, self.height/12)
+        self.cambiar_pass.setGeometry(self.width/2.5, self.height/2.7  + MOV, 
+                                        self.width/6.1, self.height/12)
+        self.pass_new_0.setGeometry(self.width/4.5, self.height/2.7 +self.height/8.5+ MOV, 
+                                        self.width/6.1, self.height/12)
+        self.pass_new_1.setGeometry(self.width/2.5, self.height/2.7 +self.height/8.5+ MOV, 
+                                        self.width/6.1, self.height/12)
+        self.cambiar_cambiar.setGeometry(self.width/1.7, self.height/2.7 + MOV, 
+                                        self.width/6, self.height/4.9)
 
 
         self.NotTeclado()
@@ -53,23 +71,32 @@ class Funcion_cambiar:
     def PassNew1(self):
         MOV = -100
         # movimiento botones
-        self.cambiar_user.setGeometry(85,237+MOV, 260, 70)
-        self.cambiar_pass.setGeometry(85, 341+MOV,260,70)
-        self.pass_new_0.setGeometry(375, 237+MOV, 260, 70)
-        self.pass_new_1.setGeometry(375, 341+MOV, 260, 70)
-        self.cambiar_cambiar.setGeometry(670, 230+MOV, 250, 180)
-
+        self.cambiar_user.setGeometry(self.width/4.5, self.height/2.7 + MOV, 
+                                        self.width/6.1, self.height/12)
+        self.cambiar_pass.setGeometry(self.width/2.5, self.height/2.7  + MOV, 
+                                        self.width/6.1, self.height/12)
+        self.pass_new_0.setGeometry(self.width/4.5, self.height/2.7 +self.height/8.5+ MOV, 
+                                        self.width/6.1, self.height/12)
+        self.pass_new_1.setGeometry(self.width/2.5, self.height/2.7 +self.height/8.5+ MOV, 
+                                        self.width/6.1, self.height/12)
+        self.cambiar_cambiar.setGeometry(self.width/1.7, self.height/2.7 + MOV, 
+                                        self.width/6, self.height/4.9)
         self.NotTeclado()
         self.TecladoNumerico()
         self.campo = 'Cambiar-Pass1'
 
     def Cambiar_guardar_teclado(self):
-        self.cambiar_user.setGeometry(85,237, 260, 70)
-        self.cambiar_pass.setGeometry(85, 341,260,70)
-        self.pass_new_0.setGeometry(375, 237, 260, 70)
-        self.pass_new_1.setGeometry(375, 341, 260, 70)
-        self.cambiar_cambiar.setGeometry(670, 230, 250, 180)
-
+        MOV =0
+        self.cambiar_user.setGeometry(self.width/4.5, self.height/2.7 + MOV, 
+                                        self.width/6.1, self.height/12)
+        self.cambiar_pass.setGeometry(self.width/2.5, self.height/2.7  + MOV, 
+                                        self.width/6.1, self.height/12)
+        self.pass_new_0.setGeometry(self.width/4.5, self.height/2.7 +self.height/8.5+ MOV, 
+                                        self.width/6.1, self.height/12)
+        self.pass_new_1.setGeometry(self.width/2.5, self.height/2.7 +self.height/8.5+ MOV, 
+                                        self.width/6.1, self.height/12)
+        self.cambiar_cambiar.setGeometry(self.width/1.7, self.height/2.7 + MOV, 
+                                        self.width/6, self.height/4.9)
         self.NotTeclado()
 
     def CambiarCambiar(self):

@@ -9,7 +9,7 @@ class Funcion_capacidad:
     def CapacidadNewCapacidad(self):
         MOV = -100
         #movimiento botones
-        self.capacidad_newcapacidad.setGeometry(self.width/3.6, self.height/2.7 + MOV, 
+        self.capacidad_newcapacidad.setGeometry(self.width/3.6, self.height/2.3 + MOV, 
                                         self.width/4.2, self.height/12)
         self.capacidad_setnew.setGeometry(self.width/1.8, self.height/2.7 + MOV, 
                                         self.width/6, self.height/4.9)
@@ -19,7 +19,7 @@ class Funcion_capacidad:
     
     def Capacidad_guardar_teclado(self):
         MOV = 0
-        self.capacidad_newcapacidad.setGeometry(self.width/3.6, self.height/2.7 + MOV, 
+        self.capacidad_newcapacidad.setGeometry(self.width/3.6, self.height/2.3 + MOV, 
                                         self.width/4.2, self.height/12)
         self.capacidad_setnew.setGeometry(self.width/1.8, self.height/2.7 + MOV, 
                                         self.width/6, self.height/4.9)
