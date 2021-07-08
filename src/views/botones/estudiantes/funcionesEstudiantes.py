@@ -2,6 +2,13 @@ from datetime import datetime
 import pandas as pd
 from src.views.teclado.teclado_numeros import *
 
+# import adafruit_amg88xx
+# import busio
+# import board
+# from colour import Color
+
+from random import randrange
+
 nombre = "*"
 cedula = "*"
 carnet = "*"
@@ -65,10 +72,28 @@ class FuncionesEstudiantes:
             Fecha = datetime.today().strftime('%d-%m-%Y')
             HoraIn = datetime.today().strftime('%H:%M')
 
-            self.movie1 = QMovie('src/views/static/gif/s1.gif')  # Gif paso 1
-            self.giflabel.setMovie(self.movie1)
-            self.giflabel.setVisible(True)
-            self.movie1.start()
+            self.giflabel.setVisible(False)
+
+            for row in self.labelMatrix:
+                for label in row:
+                    label.setVisible(True)
+
+            self.timerC = QTimer()
+            self.timerC.timeout.connect(self.actualizarCamara)  # función a ejecutar pasados los 5 seg
+            self.timerC.start(100)
+
+            self.timer2 = QTimer()
+            self.timer2.setInterval(5000)
+            self.timer2.setSingleShot(True)
+            self.timer2.start()
+            self.timer2.timeout.connect(self.tStop)  # función a ejecutar pasados los 3 seg
+
+            # self.timer.stop()
+
+            # self.movie1 = QMovie('src/views/static/gif/s1.gif')  # Gif paso 1
+            # self.giflabel.setMovie(self.movie1)
+            # self.giflabel.setVisible(True)
+            # self.movie1.start()
         else:
             self.texto_informativo.setVisible(False)
             self.texto_temporal.setText('El usuario ya\nse encuentra adentro')
@@ -80,8 +105,15 @@ class FuncionesEstudiantes:
             self.timerText.start()
             self.timerText.timeout.connect(self.s0)  # función a ejecutar pasados los 3 seg
 
+    def tStop(self):
+        self.timerC.stop()
+
     def s2(self):
         global Fecha, HoraIn
+
+        for row in self.labelMatrix:
+            for label in row:
+                label.setVisible(False)
 
         self.texto_temporal.setVisible(False)
         self.texto_informativo.setText('Por favor coloque\nsu carnet en el lector')
@@ -133,6 +165,42 @@ class FuncionesEstudiantes:
         self.giflabel.setVisible(True)
         self.movie5.start()
         self.alarm.play()
+
+    def map_value(x, in_min, in_max, out_min, out_max):
+        return (x - in_min) * (out_max - out_min) / (in_max - in_min) + out_min
+
+    def actualizarCamara(self):
+
+        # i2c_bus = busio.I2C(board.SCL, board.SDA)
+        # low range of the sensor (this will be blue on the screen)
+        # MINTEMP = 26.0
+        # # high range of the sensor (this will be red on the screen)
+        # MAXTEMP = 32.0
+        # # how many color values we can have
+        # COLORDEPTH = 1024
+        # # initialize the sensor
+        # sensor = adafruit_amg88xx.AMG88XX(i2c_bus)
+        #
+        # blue = Color("indigo")
+        # colors = list(blue.range_to(Color("red"), COLORDEPTH))
+        # # create the array of colors
+        # colors = [(int(c.red * 255), int(c.green * 255), int(c.blue * 255)) for c in colors]
+        #
+        # # read the pixels
+        # pixels = []
+        # for row in sensor.pixels:
+        #     pixels = pixels + row
+        # pixels = [self.map_value(p, MINTEMP, MAXTEMP, 0, COLORDEPTH - 1) for p in pixels]
+        #
+        # print(pixels)
+
+
+        for row in self.labelMatrix:
+            for label in row:
+                ran = randrange(255)
+                label.setStyleSheet("background-color: rgb(0, 0," + str(ran) + ")")
+
+
 
     def submitData(self):
         global carnet, Numingresos
@@ -218,6 +286,8 @@ class FuncionesEstudiantes:
             self.timerText.setSingleShot(True)
             self.timerText.start()
             self.timerText.timeout.connect(self.s0)  # función a ejecutar pasados los 3 seg
+
+    ############# PRUEBA
 
     def si(self):
         self.state = (self.state + 1) % 5

@@ -1,8 +1,9 @@
 from PyQt5.QtMultimedia import QSound
 from PyQt5.QtWidgets import QApplication
-#LOCALS
+# LOCALS
 from src.MainWindow import MainWindow
 from src.StudentWindow import StudentWindow
+
 
 def main():
     app = QApplication([])
@@ -11,7 +12,7 @@ def main():
     alarm = QSound("src/views/static/alarm.wav")
 
     student = StudentWindow(alarm)
-    window = MainWindow(alarm,student)
+    window = MainWindow(alarm, student)
 
     student.showFullScreen()
     window.show()
