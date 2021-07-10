@@ -39,7 +39,7 @@ class Boton_salida(Funcion_salida):
         self.salida_salida.setText('RETIRAR')
         self.salida_salida.setObjectName("button") #nombre de enlace a css
         self.salida_salida.setIcon(QIcon('src/views/static/icons/icono_salir')) #icono
-        self.salida_salida.setIconSize(QSize(60,60))
+        self.salida_salida.setIconSize(QSize(40,40))
         self.salida_salida.setToolButtonStyle(Qt.ToolButtonTextUnderIcon)
         self.salida_salida.clicked.connect(self.SalidaSalida)
         self.salida_salida.setGeometry(self.width/1.8, self.height/2.7, 

@@ -6,8 +6,8 @@ QWidget#window {
 }
 
 QToolButton#button {
-    padding: 65%;
-    font-size: 18px;
+    padding: 10%;
+    font-size: 15px;
     font-family: Helvetica; 
     color: white; 
     background-color: none; 
@@ -16,7 +16,7 @@ QToolButton#button {
 }
 
 QToolButton#small {
-    padding: 5px;
+    padding: 1%;
     font-size: 20px;
     font-family: Helvetica;
     color: white;
@@ -58,9 +58,9 @@ QToolButton#buttonTeclado:hover {
 }
 
 QLineEdit#input {
-    padding-left: 30px;
-    padding-right: 20px;
-    font-size: 20px;
+    padding-left: 5%;
+    padding-right: 2%s;
+    font-size: 15px;
     font-family: Helvetica; 
     color: white; 
     background-color: transparent; 
@@ -76,22 +76,24 @@ QToolButton#button:hover {
 
 
 QToolButton#button_home {
-    background-image: url('src/views/static/icons/logo_lateral.png');
-    background-repeat: no-repeat;
+    padding: 0px;
+
+    background-color: none; 
+    
     border: 0;
 }
 
 QLabel#FabInfo {
-    margin-top: 200px;
-    margin-left: 200px;
-    font-size: 25px;
+    margin-top: 50%;
+    margin-left: 50%;
+    font-size: 15px;
     font-family: Helvetica;
     color: #BEBEBE; 
     background-color: transparent; 
 }
 
 QToolButton#button_trasnparente{
-    padding: 30px;
+    padding: 10%;
     font-size: 20px;
     color: none; 
     background-color: none; 
@@ -101,7 +103,7 @@ QToolButton#button_trasnparente{
 
 
 QToolButton#Texto {
-    font-size: 40px;
+    font-size: 30px;
     font-weight: normal;
     font-family: Helvetica; 
     color: white; 
