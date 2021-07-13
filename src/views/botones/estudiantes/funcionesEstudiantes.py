@@ -5,13 +5,13 @@ import numpy as np
 import pandas as pd
 from src.views.teclado.teclado_numeros import *
 
-
-#librerias camara
-import busio
-import board
+# librerias camara
+# import busio
+# import board
 from scipy.interpolate import griddata
 from colour import Color
-import adafruit_amg88xx
+
+# import adafruit_amg88xx
 
 nombre = "*"
 cedula = "*"
@@ -170,15 +170,15 @@ class FuncionesEstudiantes:
         self.movie5.start()
         self.alarm.play()
 
-    def constrain(val, min_val, max_val):
+    def constrain(self, val, min_val, max_val):
         return min(max_val, max(min_val, val))
 
-    def map_value(x, in_min, in_max, out_min, out_max):
+    def map_value(self, x, in_min, in_max, out_min, out_max):
         return (x - in_min) * (out_max - out_min) / (in_max - in_min) + out_min
 
     def actualizarCamara(self):
 
-        i2c_bus = busio.I2C(board.SCL, board.SDA)
+        # i2c_bus = busio.I2C(board.SCL, board.SDA)
         # low range of the sensor (this will be blue on the screen)
         MINTEMP = 20.0
         # high range of the sensor (this will be red on the screen)
@@ -186,7 +186,7 @@ class FuncionesEstudiantes:
         # how many color values we can have
         COLORDEPTH = 1024
         # initialize the sensor
-        sensor = adafruit_amg88xx.AMG88XX(i2c_bus)
+        # sensor = adafruit_amg88xx.AMG88XX(i2c_bus)
 
         points = [(math.floor(ix / 8), (ix % 8)) for ix in range(0, 64)]
         grid_x, grid_y = np.mgrid[0:7:32j, 0:7:32j]
@@ -206,18 +206,15 @@ class FuncionesEstudiantes:
         # perform interpolation
         bicubic = griddata(points, pixels, (grid_x, grid_y), method="cubic")
 
+        # print(bicubic)
+        # print(len(bicubic))
+        # print(len(bicubic[0]))
+
         # draw everything
         for ix, row in enumerate(bicubic):
             for jx, pixel in enumerate(row):
                 labelColor = colors[self.constrain(int(pixel), 0, COLORDEPTH - 1)]
-                self.labelMatrix[ix][jx].setStyleSheet("background-color: rgb(0, 0," + str(labelColor) + ")")
-
-        # for row in self.labelMatrix:
-        #     for label in row:
-        #         ran = randrange(255)
-        #         label.setStyleSheet("background-color: rgb(0, 0," + str(ran) + ")")
-
-
+                self.labelMatrix[ix][jx].setStyleSheet("background-color: rgb" + str(labelColor))
 
     def submitData(self):
         global carnet, Numingresos
