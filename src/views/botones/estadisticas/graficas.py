@@ -51,7 +51,7 @@ class PlotCanvasP(FigureCanvas):
             explode = (0.1, 0.1, 0.1, 0.1, 0.1)
             print(len(info[0]))
             wedges, text = self.xa.pie(info[1], colors=colors, wedgeprops=dict(width=0.5), startangle=-40,
-                                       explode=explode, normalize=True)
+                                       explode=explode)
             bbox_props = dict(boxstyle="square,pad=0.3", fc="black", ec="black", lw=0.72)
             kw = dict(arrowprops=dict(arrowstyle="-", color="white"),
                       bbox=bbox_props, zorder=0, va="center", color="white")

@@ -1,13 +1,17 @@
+import math
 from datetime import datetime
+
+import numpy as np
 import pandas as pd
 from src.views.teclado.teclado_numeros import *
 
-# import adafruit_amg88xx
+# librerias camara
 # import busio
 # import board
-# from colour import Color
+from scipy.interpolate import griddata
+from colour import Color
 
-from random import randrange
+# import adafruit_amg88xx
 
 nombre = "*"
 cedula = "*"
@@ -103,7 +107,7 @@ class FuncionesEstudiantes:
             self.timerText.setInterval(1500)
             self.timerText.setSingleShot(True)
             self.timerText.start()
-            self.timerText.timeout.connect(self.s0)  # función a ejecutar pasados los 3 seg
+            self.timerText.timeout.connect(self.s0)  # función a ejecutar pasados los 5 seg
 
     def tStop(self):
         self.timerC.stop()
@@ -166,41 +170,51 @@ class FuncionesEstudiantes:
         self.movie5.start()
         self.alarm.play()
 
-    def map_value(x, in_min, in_max, out_min, out_max):
+    def constrain(self, val, min_val, max_val):
+        return min(max_val, max(min_val, val))
+
+    def map_value(self, x, in_min, in_max, out_min, out_max):
         return (x - in_min) * (out_max - out_min) / (in_max - in_min) + out_min
 
     def actualizarCamara(self):
 
         # i2c_bus = busio.I2C(board.SCL, board.SDA)
         # low range of the sensor (this will be blue on the screen)
-        # MINTEMP = 26.0
-        # # high range of the sensor (this will be red on the screen)
-        # MAXTEMP = 32.0
-        # # how many color values we can have
-        # COLORDEPTH = 1024
-        # # initialize the sensor
+        MINTEMP = 20.0
+        # high range of the sensor (this will be red on the screen)
+        MAXTEMP = 40.0
+        # how many color values we can have
+        COLORDEPTH = 1024
+        # initialize the sensor
         # sensor = adafruit_amg88xx.AMG88XX(i2c_bus)
-        #
-        # blue = Color("indigo")
-        # colors = list(blue.range_to(Color("red"), COLORDEPTH))
-        # # create the array of colors
-        # colors = [(int(c.red * 255), int(c.green * 255), int(c.blue * 255)) for c in colors]
-        #
-        # # read the pixels
-        # pixels = []
-        # for row in sensor.pixels:
-        #     pixels = pixels + row
-        # pixels = [self.map_value(p, MINTEMP, MAXTEMP, 0, COLORDEPTH - 1) for p in pixels]
-        #
-        # print(pixels)
 
+        points = [(math.floor(ix / 8), (ix % 8)) for ix in range(0, 64)]
+        grid_x, grid_y = np.mgrid[0:7:32j, 0:7:32j]
 
-        for row in self.labelMatrix:
-            for label in row:
-                ran = randrange(255)
-                label.setStyleSheet("background-color: rgb(0, 0," + str(ran) + ")")
+        blue = Color("indigo")
+        colors = list(blue.range_to(Color("red"), COLORDEPTH))
+        # create the array of colors
+        colors = [(int(c.red * 255), int(c.green * 255), int(c.blue * 255)) for c in colors]
 
+        # read the pixels
+        pixels = []
+        for row in sensor.pixels:
+            pixels = pixels + row
 
+        pixels = [self.map_value(p, MINTEMP, MAXTEMP, 0, COLORDEPTH - 1) for p in pixels]
+
+        # perform interpolation
+        bicubic = griddata(points, pixels, (grid_x, grid_y), method="cubic")
+
+        # print(bicubic)
+        # print(len(bicubic))
+        # print(len(bicubic[0]))
+
+        # draw everything
+        for ix, row in enumerate(bicubic):
+            for jx, pixel in enumerate(row):
+                labelColor = colors[self.constrain(int(pixel), 0, COLORDEPTH - 1)]
+                self.labelMatrix[ix][jx].setStyleSheet("background-color: rgb" + str(labelColor))
 
     def submitData(self):
         global carnet, Numingresos

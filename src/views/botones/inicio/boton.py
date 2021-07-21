@@ -17,8 +17,12 @@ class Boton(Funciones, BotonEstudiantes, Boton_ingresar,Boton_salida,Boton_confi
     '''
     def boton_home(self, widget):
         self.label_img_esquina = QToolButton(widget)
+        self.label_img_esquina.setIcon(QIcon('src/views/static/icons/logo_lateral.png'))
+
+        self.label_img_esquina.setIconSize(QSize(self.width/3,self.height/3))
+
         self.label_img_esquina.setGeometry(self.width/28, self.height/30, 
-                                            self.width/6, self.height/10)        
+                                            self.width/4, self.height/11)        
         self.label_img_esquina.setObjectName("button_home") #nombre de enlace a css
         self.label_img_esquina.clicked.connect(self.HomeWindow)
         self.label_img_esquina.setVisible(False)

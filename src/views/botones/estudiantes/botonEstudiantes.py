@@ -78,12 +78,12 @@ class BotonEstudiantes(FuncionesEstudiantes):
 
     def labelsCamara(self, widget):
         self.labelMatrix = []
-        for i in range(8):
+        for i in range(32):
             row = []
-            for j in range(8):
+            for j in range(32):
                 label = QLabel(widget)
                 label.setStyleSheet("background-color: rgb(28, 76, 150)")
-                label.setGeometry(900+40*i, 250+40*j, 40, 40)
+                label.setGeometry(900+10*i, 250+10*j, 10, 10)
                 label.setVisible(False)
                 row.append(label)
             self.labelMatrix.append(row)

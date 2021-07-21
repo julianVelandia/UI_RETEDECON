@@ -17,10 +17,10 @@ import adafruit_amg88xx
 i2c_bus = busio.I2C(board.SCL, board.SDA)
 
 # low range of the sensor (this will be blue on the screen)
-MINTEMP = 26.0
+MINTEMP = 10.0
 
 # high range of the sensor (this will be red on the screen)
-MAXTEMP = 32.0
+MAXTEMP = 40.0
 
 # how many color values we can have
 COLORDEPTH = 1024
@@ -80,14 +80,23 @@ while True:
     pixels = []
     for row in sensor.pixels:
         pixels = pixels + row
+    
+
+    
     pixels = [map_value(p, MINTEMP, MAXTEMP, 0, COLORDEPTH - 1) for p in pixels]
 
+
+
+    
+    
     # perform interpolation
     bicubic = griddata(points, pixels, (grid_x, grid_y), method="cubic")
 
     # draw everything
     for ix, row in enumerate(bicubic):
         for jx, pixel in enumerate(row):
+            print(colors[constrain(int(pixel), 0, COLORDEPTH - 1)])
+        
             pygame.draw.rect(
                 lcd,
                 colors[constrain(int(pixel), 0, COLORDEPTH - 1)],
