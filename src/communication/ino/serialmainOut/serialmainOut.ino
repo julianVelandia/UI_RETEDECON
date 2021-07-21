@@ -16,6 +16,8 @@ void uid_array(byte *buffer, byte bufferSize) {
       Serial.print(buffer[i], HEX);
    }
 }
+////////////////////////////////////IRSENSOR////////////////////////////////////
+int IRSensor = 2;                     //Define the IRsensor connection
 
 void setup() {
 
@@ -26,11 +28,28 @@ void setup() {
   mfrc522.PCD_Init();                 // Init MFRC522
   delay(5);                           // Optional delay.
   
+////////////////////////////////////IRSENSOR////////////////////////////////////
+  pinMode (IRSensor, INPUT);          //Set IRSensor digital pin 2 as INPUT
+  
 //////////////////////////////////////HC-05/////////////////////////////////////
   //mySerial.begin(9600);               // Initialize serial communication with the HC-05
 }
 
 void loop() {
+  
+////////////////////////////////////IRSENSOR////////////////////////////////////
+  int IRstatus = digitalRead(IRSensor);
+  if (IRstatus == 0){
+    String IRID = "IR"; 
+    String IRBus = IRID +' '+ String(IRstatus+1);
+    Serial.println(IRBus);
+    delay(1000);
+  }else{
+    String IRID = "IR"; 
+    String IRBus = IRID +' '+ String(IRstatus-1);
+    //Serial.println(IRBus);
+    delay(1000);
+  }
   
 ////////////////////////////////////READ RFID///////////////////////////////////
 
