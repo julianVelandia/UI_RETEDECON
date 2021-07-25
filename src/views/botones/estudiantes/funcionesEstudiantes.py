@@ -116,7 +116,7 @@ class FuncionesEstudiantes:
     def tStop(self):
         global temp
         self.timerC.stop()
-        temp /= count
+        temp/= count
         print(temp)
 
     def s2(self):
@@ -225,7 +225,7 @@ class FuncionesEstudiantes:
                 labelColor = colors[self.constrain(int(pixel), 0, COLORDEPTH - 1)]
                 self.labelMatrix[ix][jx].setStyleSheet("background-color: rgb" + str(labelColor))
 
-        temp += sensor.temperature
+        temp += str(sensor.temperature)
         count += 1
 
     def submitData(self):

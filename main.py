@@ -15,11 +15,11 @@ def main():
     window = MainWindow(alarm, student)
 
     student.showFullScreen()
-    window.show()
+    window.showFullScreen()
 
     try:
-        student.setGeometry(screen[0].geometry())
-        window.setGeometry(screen[1].geometry())
+        student.setGeometry(screen[1].geometry())
+        window.setGeometry(screen[0].geometry())
     except Exception as e:
         print(e)
     app.exec_()
