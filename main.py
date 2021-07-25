@@ -18,8 +18,8 @@ def main():
     window.show()
 
     try:
-        student.setGeometry(screen[1].geometry())
-        window.setGeometry(screen[0].geometry())
+        student.setGeometry(screen[0].geometry())
+        window.setGeometry(screen[1].geometry())
     except Exception as e:
         print(e)
     app.exec_()

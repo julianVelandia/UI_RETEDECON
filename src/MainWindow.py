@@ -36,6 +36,7 @@ class MainWindow(QMainWindow, Boton, TecladoNumeros, TecladoLetras, Read):  # Ve
         self.setMaximumSize(self.width, self.height)  # tamaño máximo
         self.setWindowTitle(self.title)  # titulo
         self.setWindowIcon(QIcon("src/views/static/icons/favicon3.png"))  # Favicon
+        self.showMaximized()
 
         # Widget principal
         self.centralWidget = QWidget()
