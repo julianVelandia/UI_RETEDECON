@@ -24,6 +24,8 @@ Delta = 'D*'
 Numingresos = 0
 IsIn = 'True'
 
+count = 0
+
 
 class FuncionesEstudiantes:
 
@@ -57,7 +59,7 @@ class FuncionesEstudiantes:
         self.movie0.start()
 
     def s1(self, uid):
-        global Fecha, HoraIn, carnet
+        global Fecha, HoraIn, carnet, count
 
         self.texto_temporal.setVisible(False)
         self.texto_informativo.setText('Por favor acerquese\n a la camara para\ntomar su temperatura')
@@ -82,9 +84,11 @@ class FuncionesEstudiantes:
                 for label in row:
                     label.setVisible(True)
 
+            count = 0
+
             self.timerC = QTimer()
             self.timerC.timeout.connect(self.actualizarCamara)  # función a ejecutar pasados los 5 seg
-            self.timerC.start(100)
+            self.timerC.start(50)
 
             self.timer2 = QTimer()
             self.timer2.setInterval(5000)
@@ -110,7 +114,10 @@ class FuncionesEstudiantes:
             self.timerText.timeout.connect(self.s0)  # función a ejecutar pasados los 5 seg
 
     def tStop(self):
+        global temp
         self.timerC.stop()
+        temp /= count
+        print(temp)
 
     def s2(self):
         global Fecha, HoraIn
@@ -178,6 +185,8 @@ class FuncionesEstudiantes:
 
     def actualizarCamara(self):
 
+        global temp, count
+
         i2c_bus = busio.I2C(board.SCL, board.SDA)
         # low range of the sensor (this will be blue on the screen)
         MINTEMP = 20.0
@@ -215,6 +224,9 @@ class FuncionesEstudiantes:
             for jx, pixel in enumerate(row):
                 labelColor = colors[self.constrain(int(pixel), 0, COLORDEPTH - 1)]
                 self.labelMatrix[ix][jx].setStyleSheet("background-color: rgb" + str(labelColor))
+
+        temp += sensor.temperature
+        count += 1
 
     def submitData(self):
         global carnet, Numingresos
