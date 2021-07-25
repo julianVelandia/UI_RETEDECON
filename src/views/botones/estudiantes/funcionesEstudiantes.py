@@ -6,12 +6,12 @@ import pandas as pd
 from src.views.teclado.teclado_numeros import *
 
 # librerias camara
-# import busio
-# import board
+import busio
+import board
 from scipy.interpolate import griddata
 from colour import Color
 
-# import adafruit_amg88xx
+import adafruit_amg88xx
 
 nombre = "*"
 cedula = "*"
@@ -178,7 +178,7 @@ class FuncionesEstudiantes:
 
     def actualizarCamara(self):
 
-        # i2c_bus = busio.I2C(board.SCL, board.SDA)
+        i2c_bus = busio.I2C(board.SCL, board.SDA)
         # low range of the sensor (this will be blue on the screen)
         MINTEMP = 20.0
         # high range of the sensor (this will be red on the screen)
@@ -186,7 +186,7 @@ class FuncionesEstudiantes:
         # how many color values we can have
         COLORDEPTH = 1024
         # initialize the sensor
-        # sensor = adafruit_amg88xx.AMG88XX(i2c_bus)
+        sensor = adafruit_amg88xx.AMG88XX(i2c_bus)
 
         points = [(math.floor(ix / 8), (ix % 8)) for ix in range(0, 64)]
         grid_x, grid_y = np.mgrid[0:7:32j, 0:7:32j]
