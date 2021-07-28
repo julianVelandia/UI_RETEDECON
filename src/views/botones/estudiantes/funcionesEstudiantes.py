@@ -59,7 +59,7 @@ class FuncionesEstudiantes:
         self.movie0.start()
 
     def s1(self, uid):
-        global Fecha, HoraIn, carnet, count
+        global Fecha, HoraIn, carnet, count, temp
 
         self.texto_temporal.setVisible(False)
         self.texto_informativo.setText('Por favor acerquese\n a la camara para\ntomar su temperatura')
@@ -84,6 +84,7 @@ class FuncionesEstudiantes:
                 for label in row:
                     label.setVisible(True)
 
+            temp = 0
             count = 0
 
             self.timerC = QTimer()
@@ -116,7 +117,7 @@ class FuncionesEstudiantes:
     def tStop(self):
         global temp
         self.timerC.stop()
-        temp/= count
+        temp /= count
         print(temp)
 
     def s2(self):
@@ -207,7 +208,12 @@ class FuncionesEstudiantes:
 
         # read the pixels
         pixels = []
-        for row in sensor.pixels:
+        for ix, row in enumerate(sensor.pixels):
+            for jx, p in enumerate(row):
+                if ix > 0 and ix < 7 and jx > 1 and jx < 6:
+                    temp += p
+            temp /= 24
+
             pixels = pixels + row
 
         pixels = [self.map_value(p, MINTEMP, MAXTEMP, 0, COLORDEPTH - 1) for p in pixels]
@@ -225,7 +231,6 @@ class FuncionesEstudiantes:
                 labelColor = colors[self.constrain(int(pixel), 0, COLORDEPTH - 1)]
                 self.labelMatrix[ix][jx].setStyleSheet("background-color: rgb" + str(labelColor))
 
-        temp += str(sensor.temperature)
         count += 1
 
     def submitData(self):
