@@ -36,19 +36,19 @@ void setup() {
 }
 
 void loop() {
-  
+ 
 ////////////////////////////////////IRSENSOR////////////////////////////////////
   int IRstatus = digitalRead(IRSensor);
   if (IRstatus == 0){
     String IRID = "IR"; 
     String IRBus = IRID +' '+ String(IRstatus+1);
     Serial.println(IRBus);
-    delay(1000);
+    delay(500);
   }else{
     String IRID = "IR"; 
     String IRBus = IRID +' '+ String(IRstatus-1);
     //Serial.println(IRBus);
-    delay(1000);
+    delay(500);
   }
   
 ////////////////////////////////////READ RFID///////////////////////////////////
@@ -68,6 +68,6 @@ void loop() {
     Serial.println();
     // Finalizar lectura actual
     mfrc522.PICC_HaltA();
-    delay(1000);
+    delay(500);
   }
 }

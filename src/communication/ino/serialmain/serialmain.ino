@@ -33,6 +33,11 @@ void setup() {
 
 //////////////////////////////////////HC-05/////////////////////////////////////
   mySerial.begin(9600);               // Initialize serial communication with the HC-05
+
+//////////////////////////////////CELDAS DE CARGA///////////////////////////////
+
+
+
 }
 
 void loop() {
@@ -42,12 +47,12 @@ void loop() {
     String IRID = "IR"; 
     String IRBus = IRID +' '+ String(IRstatus+1);
     Serial.println(IRBus);
-    delay(1000);
+    delay(500);
   }else{
     String IRID = "IR"; 
     String IRBus = IRID +' '+ String(IRstatus-1);
     //Serial.println(IRBus);
-    delay(1000);
+    delay(500);
   }
   
 //////////////////////////////////////HC-05/////////////////////////////////////
@@ -57,6 +62,8 @@ void loop() {
     Serial.println(EXDataBus);
   }
   
+//////////////////////////////////CELDAS DE CARGA///////////////////////////////
+
 ////////////////////////////////////READ RFID///////////////////////////////////
 
   // Reset the loop if no new card present on the sensor/reader. This saves the entire process when idle.
@@ -74,6 +81,6 @@ void loop() {
     Serial.println();
     // Finalizar lectura actual
     mfrc522.PICC_HaltA();
-    delay(1000);
+    delay(500);
   }
 }
