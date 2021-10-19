@@ -4,7 +4,6 @@ from PyQt5.QtGui import *
 import pandas as pd
 from datetime import datetime
 
-
 class Funcion_estadisticas:
     posicion_fechas = 0
 
@@ -24,8 +23,6 @@ class Funcion_estadisticas:
         self.df = pd.read_csv('src/models/data/DB.csv')
         x = []
         y = []
-
-        df = pd.read_csv('src/models/data/DB.csv')
         fechas_unicas = []
         hoy = datetime.today().strftime('%d-%m')
         fechas_unicas.append(hoy)
@@ -56,10 +53,9 @@ class Funcion_estadisticas:
             if mes < 10:
                 messtr = str(0) + str(mes)
             else:
-                dismes = str(mes)
+                messtr = str(mes)
 
             fechas_unicas.append(disstr + '-' + messtr)
-
         fechas_unicas.reverse()
         #
         for _ in range(self.posicion_fechas):
@@ -107,11 +103,11 @@ class Funcion_estadisticas:
         self.estadisticas_personasDia.setText('Promedio de personas\npor día: ' + str(prom))
 
     def barras(self):
-        self.estadisticas_barras.setStyleSheet("background-color: #A2A2A2;")
+        self.estadisticas_barras.setStyleSheet("background-color:#A2A2A2;")
         self.estadisticas_torta.setStyleSheet("background-color: none;")
         self.SiBarrasNoPie = True
 
     def torta(self):
-        self.estadisticas_torta.setStyleSheet("background-color:#A2A2A2;")
-        self.estadisticas_barras.setStyleSheet("background-color: none; ")
-        self.SiBarrasNoPie = False
+            self.estadisticas_torta.setStyleSheet("background-color:#A2A2A2;")
+            self.estadisticas_barras.setStyleSheet("background-color: none; ")
+            self.SiBarrasNoPie = False

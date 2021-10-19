@@ -16,7 +16,7 @@ class Boton_ingresar(Funcion_ingresar):
         self.ingresar_nombre.setPlaceholderText("NOMBRE")
         self.ingresar_nombre.setObjectName("input")  # nombre de enlace a css
         self.ingresar_nombre.setClearButtonEnabled(False)
-        self.ingresar_nombre.setGeometry(self.width/3.6, self.height/2.7, 
+        self.ingresar_nombre.setGeometry(self.width/3.6, self.height/2.7,
                                         self.width/4.2, self.height/12)
         self.ingresar_nombre.setMaxLength(40)
         self.ingresar_nombre.clicked.connect(self.Ingresar_desplegar_teclado)
@@ -49,8 +49,8 @@ class Boton_ingresar(Funcion_ingresar):
         self.ingresar_ingresar.setIconSize(QSize(40,40))
         self.ingresar_ingresar.setToolButtonStyle(Qt.ToolButtonTextUnderIcon)
         self.ingresar_ingresar.clicked.connect(self.IngresarIngresar)
-        self.ingresar_ingresar.setGeometry(self.width/1.8, self.height/2.7, 
-                                        self.width/6, self.height/4.9)
+        #self.ingresar_ingresar.setGeometry(self.width/1.8, self.height/2.7,
+         #                               self.width/6, self.height/4.9)
         self.ingresar_nombre.setVisible(False)
         self.ingresar_cedula.setVisible(False)
         self.ingresar_temp.setVisible(False)

@@ -8,7 +8,6 @@ from .graficas import *
 
 from screeninfo import get_monitors
 
-
 class Boton_estadisticas(Funcion_estadisticas):
 
     width = get_monitors()[0].width
@@ -73,7 +72,6 @@ class Boton_estadisticas(Funcion_estadisticas):
 
     def boton_barras(self, widget):
         self.estadisticas_barras = QToolButton(widget)
-        # self.estadisticas_barras.setText('GRÁFICO DE BARRAS')
         self.estadisticas_barras.setObjectName("small")  # nombre de enlace a css
         self.estadisticas_barras.setIcon(QIcon('src/views/static/icons/icono_barras'))  # icono
         self.estadisticas_barras.setIconSize(QSize(20, 20))
@@ -93,7 +91,7 @@ class Boton_estadisticas(Funcion_estadisticas):
         self.estadisticas_torta.setToolButtonStyle(Qt.ToolButtonTextUnderIcon)
         self.estadisticas_torta.clicked.connect(self.torta)
         self.estadisticas_torta.clicked.connect(self.Estadisticas)
-        self.estadisticas_torta.setGeometry(self.width/1.7, self.height/1.4, 
+        self.estadisticas_torta.setGeometry(self.width/1.7, self.height/1.4,
                                                 self.width/30, self.height/25)
         self.estadisticas_torta.setVisible(False)
         # self.estadisticas_torta.setStyleSheet("background-color: #A2A2A2;")
@@ -101,7 +99,6 @@ class Boton_estadisticas(Funcion_estadisticas):
     def graficas_estadisticas(self):
         info = self.EstadisticasGetInfo()
         # Barras
-
         self.estadisticas_bar_chart = PlotCanvas(self, width=self.width/195, height=self.height/190)
         self.estadisticas_bar_chart.move(self.width/4, self.height/8)
         self.estadisticas_bar_chart.bara(info, False)
