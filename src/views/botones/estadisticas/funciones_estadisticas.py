@@ -9,15 +9,13 @@ class Funcion_estadisticas:
 
     def EstadisticasCambiarSemanaAtras(self):
         self.posicion_fechas += 1
-        print(self.EstadisticasGetInfo())
+        #print(self.EstadisticasGetInfo())
         self.estadisticas_bar_chart.bara(self.EstadisticasGetInfo(), True)
-        self.estadisticas_pie_chart.pies(self.EstadisticasGetInfo(), True)
 
     def EstadisticasCambiarSemanaAdelante(self):
         if self.posicion_fechas > 0:
             self.posicion_fechas -= 1
             self.estadisticas_bar_chart.bara(self.EstadisticasGetInfo(), True)
-            self.estadisticas_pie_chart.pies(self.EstadisticasGetInfo(), True)
 
     def EstadisticasGetInfo(self):
         self.df = pd.read_csv('src/models/data/DB.csv')
@@ -80,11 +78,9 @@ class Funcion_estadisticas:
     def EstadisticasOcupacion(self):
         df = pd.read_csv('src/models/data/DB.csv')
         Lista = df['IsIn']
-        # print(Lista)
         self.ocupacion_actual = 0
         for i in Lista:
-            if i == True:
-                self.ocupacion_actual += 1
+            self.ocupacion_actual += 1
         print('Ocupacion Actual: ' + str(self.ocupacion_actual))
         self.estadisticas_ocupacion.setText('Ocupación Actual: ' + str(self.ocupacion_actual))
 
@@ -104,10 +100,3 @@ class Funcion_estadisticas:
 
     def barras(self):
         self.estadisticas_barras.setStyleSheet("background-color:#A2A2A2;")
-        self.estadisticas_torta.setStyleSheet("background-color: none;")
-        self.SiBarrasNoPie = True
-
-    def torta(self):
-            self.estadisticas_torta.setStyleSheet("background-color:#A2A2A2;")
-            self.estadisticas_barras.setStyleSheet("background-color: none; ")
-            self.SiBarrasNoPie = False

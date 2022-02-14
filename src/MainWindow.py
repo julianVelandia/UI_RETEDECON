@@ -100,7 +100,6 @@ class MainWindow(QMainWindow, Boton, TecladoNumeros, TecladoLetras, Read):  # Ve
 
         # Botones Datos
         self.boton_datos_barras(self.centralWidget)
-        self.boton_datos_pie(self.centralWidget)
 
         # Botones informacion
         self.qr_informacion_qr(self.centralWidget)
@@ -114,7 +113,6 @@ class MainWindow(QMainWindow, Boton, TecladoNumeros, TecladoLetras, Read):  # Ve
         self.boton_estadisticas_personasDia(self.centralWidget)
         self.boton_estadisticas_cambiar_semana(self.centralWidget)
         self.boton_barras(self.centralWidget)
-        self.boton_torta(self.centralWidget)
         self.graficas_estadisticas()
 
         # Botones configuracion avanzada

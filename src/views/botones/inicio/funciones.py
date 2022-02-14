@@ -90,7 +90,6 @@ class Funciones:
 
         # Datos
         self.datos_barras.setVisible(False)
-        self.datos_pie.setVisible(False)
 
         # informacion
         self.informacion_manual.setVisible(False)
@@ -105,9 +104,7 @@ class Funciones:
         self.estadisticas_cambiar_semana_adelante.setVisible(False)
         self.estadisticas_cambiar_semana_atras.setVisible(False)
         self.estadisticas_barras.setVisible(False)
-        self.estadisticas_torta.setVisible(False)
         self.estadisticas_bar_chart.setVisible(False)
-        self.estadisticas_pie_chart.setVisible(False)
 
         # avanzada
         self.avanzada_user.setVisible(False)
@@ -185,20 +182,21 @@ class Funciones:
         self.estadisticas_personasDia.setVisible(True)
         self.estadisticas_cambiar_semana_adelante.setVisible(True)
         self.estadisticas_cambiar_semana_atras.setVisible(True)
+
+        self.estadisticas_bar_chart.setVisible(True)
         self.estadisticas_barras.setVisible(True)
-        self.estadisticas_torta.setVisible(True)
 
         self.EstadisticasOcupacion()
-        #
+        """
         if self.SiBarrasNoPie:
             self.estadisticas_bar_chart.bara(self.EstadisticasGetInfo(), True)
 
             self.estadisticas_bar_chart.setVisible(True)
             self.estadisticas_pie_chart.setVisible(False)
         else:
-            self.estadisticas_bar_chart.setVisible(False)
-            self.estadisticas_pie_chart.setVisible(True)
-
+            self.estadisticas_bar_chart.setVisible(True)
+            #self.estadisticas_pie_chart.setVisible(True)
+        """
     def DetenerAlarma(self):
         self.pantalla = 'detener'
         self.alarm.stop()

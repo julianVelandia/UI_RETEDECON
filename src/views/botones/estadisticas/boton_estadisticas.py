@@ -2,8 +2,8 @@ from PyQt5.QtWidgets import *
 from PyQt5.QtCore import *
 from PyQt5.QtGui import *
 # locals
-from .funciones_estadisticas import Funcion_estadisticas
-from .graficas import *
+from src.views.botones.estadisticas.funciones_estadisticas import Funcion_estadisticas
+from src.views.botones.estadisticas.graficas import *
 
 
 from screeninfo import get_monitors
@@ -83,19 +83,6 @@ class Boton_estadisticas(Funcion_estadisticas):
         self.estadisticas_barras.setVisible(False)
         self.estadisticas_barras.setStyleSheet("background-color: #A2A2A2;")
 
-    def boton_torta(self, widget):
-        self.estadisticas_torta = QToolButton(widget)
-        self.estadisticas_torta.setObjectName("small")  # nombre de enlace a css
-        self.estadisticas_torta.setIcon(QIcon('src/views/static/icons/icono_pie'))  # icono
-        self.estadisticas_torta.setIconSize(QSize(20, 20))
-        self.estadisticas_torta.setToolButtonStyle(Qt.ToolButtonTextUnderIcon)
-        self.estadisticas_torta.clicked.connect(self.torta)
-        self.estadisticas_torta.clicked.connect(self.Estadisticas)
-        self.estadisticas_torta.setGeometry(self.width/1.7, self.height/1.4,
-                                                self.width/30, self.height/25)
-        self.estadisticas_torta.setVisible(False)
-        # self.estadisticas_torta.setStyleSheet("background-color: #A2A2A2;")
-
     def graficas_estadisticas(self):
         info = self.EstadisticasGetInfo()
         # Barras
@@ -103,8 +90,3 @@ class Boton_estadisticas(Funcion_estadisticas):
         self.estadisticas_bar_chart.move(self.width/4, self.height/8)
         self.estadisticas_bar_chart.bara(info, False)
         self.estadisticas_bar_chart.setVisible(False)
-        # Pie
-        self.estadisticas_pie_chart = PlotCanvasP(self, width=self.width/195, height=self.height/190)
-        self.estadisticas_pie_chart.move(self.width/4, self.height/8)
-        self.estadisticas_pie_chart.pies(info, False)
-        self.estadisticas_pie_chart.setVisible(False)
