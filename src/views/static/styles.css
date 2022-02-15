@@ -6,9 +6,10 @@ QWidget#window {
 }
 
 QToolButton#button {
-    padding: 10%;
+    padding: 20%;
     font-size: 15px;
-    font-family: Helvetica; 
+    font-weight: bold;
+    font-family: "Comic Sans MS", "Comic Sans", cursive; 
     color: white; 
     background-color: none; 
     border-radius: 15px;
@@ -73,8 +74,6 @@ QToolButton#button:hover {
     background-color: #1D2041; 
 }
 
-
-
 QToolButton#button_home {
     padding: 0px;
 
@@ -101,11 +100,10 @@ QToolButton#button_trasnparente{
     border: none;
 }
 
-
 QToolButton#Texto {
     font-size: 35px;
     font-weight: bold;
-    font-family: Helvetica; 
+    font-family: "Comic Sans MS", "Comic Sans", cursive; 
     color: white; 
     background-color: none; 
     border: none;

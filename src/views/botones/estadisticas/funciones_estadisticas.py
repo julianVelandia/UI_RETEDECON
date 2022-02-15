@@ -10,7 +10,7 @@ class Funcion_estadisticas:
     def EstadisticasCambiarSemanaAtras(self):
         self.posicion_fechas += 1
         #print(self.EstadisticasGetInfo())
-        self.estadisticas_bar_chart.bara(self.EstadisticasGetInfo(), True)
+        self.estadisticas_bar_chart.bara(self.EstadisticasGetInfo(), False)
 
     def EstadisticasCambiarSemanaAdelante(self):
         if self.posicion_fechas > 0:
@@ -82,21 +82,21 @@ class Funcion_estadisticas:
         for i in Lista:
             self.ocupacion_actual += 1
         print('Ocupacion Actual: ' + str(self.ocupacion_actual))
-        self.estadisticas_ocupacion.setText('Ocupación Actual: ' + str(self.ocupacion_actual))
+        self.estadisticas_ocupacion.setText('Ocupación\n Actual: ' + str(self.ocupacion_actual))
 
     def EstadisticasDuracion(self):
         df = pd.read_csv('src/models/data/DB.csv')
         deltas = df['Delta']
         deltas = deltas[deltas != "D*"].astype(int)  # Seleccionar solamente los que ya salieron
         self.duracion = sum(deltas) // len(deltas)
-        self.estadisticas_duracion.setText('Duración promedio\nen minutos: ' + str(self.duracion))
+        self.estadisticas_duracion.setText('Duración Promedio\nen Minutos: ' + str(self.duracion))
 
     def EstadisticasPersonasDia(self):
         df = pd.read_csv('src/models/data/DB.csv')
         dates = df['Fecha']
         keys = set(dates.to_list())
         prom = len(dates) // len(keys)
-        self.estadisticas_personasDia.setText('Promedio de personas\npor día: ' + str(prom))
+        self.estadisticas_personasDia.setText('Promedio de\nPersonas por\nDía: ' + str(prom))
 
     def barras(self):
         self.estadisticas_barras.setStyleSheet("background-color:#A2A2A2;")

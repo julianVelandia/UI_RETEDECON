@@ -28,7 +28,6 @@ class MainWindow(QMainWindow, Boton, TecladoNumeros, TecladoLetras, Read):  # Ve
         self.width = get_monitors()[0].width
         self.height = get_monitors()[0].height
 
-
         # alarma
         self.alarm = alarm
 
@@ -62,7 +61,7 @@ class MainWindow(QMainWindow, Boton, TecladoNumeros, TecladoLetras, Read):  # Ve
 
         # Timer animación
         self.timer = QTimer()
-        self.timer.setInterval(2500)
+        self.timer.setInterval(3000)
         self.timer.setSingleShot(True)
         self.timer.start()
         self.timer.timeout.connect(self.HomeWindow)  # función a ejecutar pasados los 3 seg
@@ -112,7 +111,6 @@ class MainWindow(QMainWindow, Boton, TecladoNumeros, TecladoLetras, Read):  # Ve
         self.boton_estadisticas_duracion(self.centralWidget)
         self.boton_estadisticas_personasDia(self.centralWidget)
         self.boton_estadisticas_cambiar_semana(self.centralWidget)
-        self.boton_barras(self.centralWidget)
         self.graficas_estadisticas()
 
         # Botones configuracion avanzada

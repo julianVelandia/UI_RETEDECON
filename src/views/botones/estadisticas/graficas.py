@@ -25,6 +25,5 @@ class PlotCanvas(FigureCanvas):
             self.ax.bar(info[0], info[1])  # Esta funcion crea las barras donde a esta en x y b en y
             self.draw()  # Dibuja en el canvas
         else:
-            print(1)
             #self.ax.axis('off')
             self.bara(info, False)

@@ -47,10 +47,9 @@ class Funciones:
                     self.df_as_txt.write(l)
                 self.df_as_txt.close()
                 
-            self.dialogo_mensaje = "Datos actualizados"
-            self.dialogo.setInformativeText(self.dialogo_mensaje)
-            self.dialogo.show()
-                
+            #self.dialogo_mensaje = "Datos actualizados"
+            #self.dialogo.setInformativeText(self.dialogo_mensaje)
+            #self.dialogo.show()
 
 
     def HomeWindow(self):
@@ -103,7 +102,6 @@ class Funciones:
         self.estadisticas_personasDia.setVisible(False)
         self.estadisticas_cambiar_semana_adelante.setVisible(False)
         self.estadisticas_cambiar_semana_atras.setVisible(False)
-        self.estadisticas_barras.setVisible(False)
         self.estadisticas_bar_chart.setVisible(False)
 
         # avanzada
@@ -182,21 +180,9 @@ class Funciones:
         self.estadisticas_personasDia.setVisible(True)
         self.estadisticas_cambiar_semana_adelante.setVisible(True)
         self.estadisticas_cambiar_semana_atras.setVisible(True)
-
         self.estadisticas_bar_chart.setVisible(True)
-        self.estadisticas_barras.setVisible(True)
-
         self.EstadisticasOcupacion()
-        """
-        if self.SiBarrasNoPie:
-            self.estadisticas_bar_chart.bara(self.EstadisticasGetInfo(), True)
 
-            self.estadisticas_bar_chart.setVisible(True)
-            self.estadisticas_pie_chart.setVisible(False)
-        else:
-            self.estadisticas_bar_chart.setVisible(True)
-            #self.estadisticas_pie_chart.setVisible(True)
-        """
     def DetenerAlarma(self):
         self.pantalla = 'detener'
         self.alarm.stop()
