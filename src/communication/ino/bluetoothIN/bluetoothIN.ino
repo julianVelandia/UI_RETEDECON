@@ -7,7 +7,7 @@ void setup() {
   Serial.begin(9600);
   mySerial.begin(38400);
   while(!Serial){;}
-  Serial.println("config");
+  //Serial.println("config");
 }
 
 void loop() { // run over and over

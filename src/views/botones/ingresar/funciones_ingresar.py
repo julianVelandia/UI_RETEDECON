@@ -6,11 +6,11 @@ class Funcion_ingresar:
 
     def Ingresar_desplegar_teclado_numerico_cedula(self):
         self.campo = 'ingresar-cedula'
-        self.Ingresar_desplegar_teclado_numerico()
+        #self.Ingresar_desplegar_teclado_numerico()
 
     def Ingresar_desplegar_teclado_numerico_temp(self):
         self.campo = 'ingresar-temp'
-        self.Ingresar_desplegar_teclado_numerico()
+        #self.Ingresar_desplegar_teclado_numerico()
 
     def Ingresar_desplegar_teclado_numerico(self):
         MOV = -self.height/10
@@ -40,15 +40,15 @@ class Funcion_ingresar:
     def Ingresar_desplegar_teclado(self):
         MOV = -self.height/10
         # movimiento botones
-        self.ingresar_nombre.setGeometry(self.width/3.6, (self.height/2.7) + MOV, 
-                                        self.width/4.2, self.height/12)
-        self.ingresar_cedula.setGeometry(self.width/3.6, (self.height/2.7)+(self.height/8.5)+MOV, 
-                                        self.width/7, self.height/12)
-        self.ingresar_temp.setGeometry((self.width/3.6) + (self.width/6), (self.height/2.7)+(self.height/8.5)+MOV, 
-                                        self.width/14, self.height/12)
-        self.ingresar_ingresar.setGeometry(self.width/1.8, (self.height/2.7) + MOV, 
-                                        self.width/6, self.height/4.9)
-        self.Teclado()
+        #self.ingresar_nombre.setGeometry(self.width/3.6, (self.height/2.7) + MOV,
+        #                                self.width/4.2, self.height/12)
+        #self.ingresar_cedula.setGeometry(self.width/3.6, (self.height/2.7)+(self.height/8.5)+MOV,
+        #                                self.width/7, self.height/12)
+        #self.ingresar_temp.setGeometry((self.width/3.6) + (self.width/6), (self.height/2.7)+(self.height/8.5)+MOV,
+        #                                self.width/14, self.height/12)
+        #self.ingresar_ingresar.setGeometry(self.width/1.8, (self.height/2.7) + MOV,
+        #                                self.width/6, self.height/4.9)
+        #self.Teclado()
         self.NotTecladoNumerico()
         self.campo = 'ingresar-nombre'
 
