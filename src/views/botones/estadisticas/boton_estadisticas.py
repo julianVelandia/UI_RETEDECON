@@ -33,7 +33,7 @@ class Boton_estadisticas(Funcion_estadisticas):
         self.estadisticas_duracion.setIconSize(QSize(self.height/11, self.height/11))
         self.estadisticas_duracion.setToolButtonStyle(Qt.ToolButtonTextUnderIcon)
         self.estadisticas_duracion.setGeometry(self.width/20, self.height/2.5,
-                                                self.width/8, self.height/6)
+                                                self.width/6, self.height/5.3)
         self.estadisticas_duracion.setVisible(False)
         self.EstadisticasDuracion()
 
@@ -45,7 +45,7 @@ class Boton_estadisticas(Funcion_estadisticas):
         self.estadisticas_personasDia.setIconSize(QSize(self.height/11, self.height/11))
         self.estadisticas_personasDia.setToolButtonStyle(Qt.ToolButtonTextUnderIcon)
         self.estadisticas_personasDia.setGeometry(self.width/20, self.height/1.5, 
-                                                self.width/8, self.height/6)
+                                                self.width/6.5, self.height/4.5)
         self.estadisticas_personasDia.setVisible(False)
         self.EstadisticasPersonasDia()
 

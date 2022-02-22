@@ -9,8 +9,8 @@ from screeninfo import get_monitors
 
 
 class BotonEstudiantes(FuncionesEstudiantes):
-    width = get_monitors()[0].width
-    height = get_monitors()[0].height
+    width = get_monitors()[1].width
+    height = get_monitors()[1].height
     widthGif = width / 5
     heightGif = width / 5
 
@@ -83,7 +83,7 @@ class BotonEstudiantes(FuncionesEstudiantes):
             for j in range(32):
                 label = QLabel(widget)
                 label.setStyleSheet("background-color: rgb(28, 76, 150)")
-                label.setGeometry(900+10*i, 250+10*j, 10, 10)
+                label.setGeometry(self.width/1.8+10*i, 250+10*j, 10, 10)
                 label.setVisible(False)
                 row.append(label)
             self.labelMatrix.append(row)

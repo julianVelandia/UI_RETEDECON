@@ -8,8 +8,7 @@ QWidget#window {
 QToolButton#button {
     padding: 20%;
     font-size: 15px;
-    font-weight: bold;
-    font-family: "Comic Sans MS", "Comic Sans", cursive; 
+    font-family: "Helvetica"; 
     color: white; 
     background-color: none; 
     border-radius: 15px;
@@ -103,7 +102,7 @@ QToolButton#button_trasnparente{
 QToolButton#Texto {
     font-size: 35px;
     font-weight: bold;
-    font-family: "Comic Sans MS", "Comic Sans", cursive; 
+    font-family: "Helvetica"; 
     color: white; 
     background-color: none; 
     border: none;

@@ -80,7 +80,8 @@ class Funcion_estadisticas:
         Lista = df['IsIn']
         self.ocupacion_actual = 0
         for i in Lista:
-            self.ocupacion_actual += 1
+            if i==True:
+                self.ocupacion_actual += 1
         print('Ocupacion Actual: ' + str(self.ocupacion_actual))
         self.estadisticas_ocupacion.setText('Ocupación\n Actual: ' + str(self.ocupacion_actual))
 
@@ -89,7 +90,7 @@ class Funcion_estadisticas:
         deltas = df['Delta']
         deltas = deltas[deltas != "D*"].astype(int)  # Seleccionar solamente los que ya salieron
         self.duracion = sum(deltas) // len(deltas)
-        self.estadisticas_duracion.setText('Duración Promedio\nen Minutos: ' + str(self.duracion))
+        self.estadisticas_duracion.setText('Duración\nMedia: ' + str(self.duracion)+' min')
 
     def EstadisticasPersonasDia(self):
         df = pd.read_csv('src/models/data/DB.csv')

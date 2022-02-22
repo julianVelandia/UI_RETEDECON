@@ -21,8 +21,8 @@ class StudentWindow(QMainWindow, Boton, TecladoNumeros, TecladoLetras):  # Venta
         self.carnet = ''
         self.title = 'RETEDECON'
         self.config = ConfigParser()
-        self.width = get_monitors()[0].width
-        self.height = get_monitors()[0].height
+        self.width = get_monitors()[1].width
+        self.height = get_monitors()[1].height
 
         # alarma
         self.alarm = alarm

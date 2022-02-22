@@ -15,7 +15,7 @@ class Boton_informacion(Funcion_informacion):
         self.informacion_manual.setIconSize(QSize(self.height/11, self.height/11))
         self.informacion_manual.setToolButtonStyle(Qt.ToolButtonTextUnderIcon)
         self.informacion_manual.setGeometry(self.width/4.5, self.height/2.8,
-                                                self.width/4, self.height/4)
+                                                self.width/4, self.height/3.9)
         self.informacion_manual.clicked.connect(self.InformacionManual)
         self.informacion_manual.setVisible(False)
 
@@ -29,7 +29,7 @@ class Boton_informacion(Funcion_informacion):
         self.informacion_fabricante.clicked.connect(self.InformacionFabricante)
         
         self.informacion_fabricante.setGeometry(self.width/1.9, self.height/2.8,
-                                                self.width/4, self.height/4)
+                                                self.width/4, self.height/3.9)
         self.informacion_fabricante.setVisible(False)
 
     def qr_informacion_qr(self, widget):
@@ -44,7 +44,7 @@ class Boton_informacion(Funcion_informacion):
     def label_informacion_label(self, widget):
         self.informacion_label = QLabel(widget)
         self.informacion_label.setObjectName("FabInfo")  # nombre de enlace a css
-        self.informacion_label.setText("                                  GRACIAS POR USAR RETEDECON\n"
+        self.informacion_label.setText("GRACIAS POR USAR RETEDECON\n"
                            "\n"
                            "RETEDECON es fabricado por:\n"
                            " - Julián C. Velandia\n"
@@ -59,6 +59,6 @@ class Boton_informacion(Funcion_informacion):
                            " - Celular/Whatsapp: +57 313 8244012\n"
                            " - E-Mail: scubidest@unal.edu.co\n\n"
                            "Versión del Software: 1.0")
-        self.informacion_label.setGeometry((self.width / 4), (self.height / 5),
-                                            self.width / 2, self.height / 2)
+        self.informacion_label.setGeometry((self.width / 6), (self.height/9),
+                                            self.width / 1.2, self.height/1.2)
         self.informacion_label.setVisible(False)

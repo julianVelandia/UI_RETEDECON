@@ -33,7 +33,7 @@ class FuncionesEstudiantes:
         global nombre, cedula, carnet, temp, Fecha, HoraIn, HoraOut, Delta, Numingresos, IsIn
 
         self.texto_temporal.setVisible(False)
-        self.texto_informativo.setText('Por favor coloque\nsu carnet en el lector')
+        self.texto_informativo.setText('Coloque su carnet\nen el lector')
         self.texto_informativo.setVisible(True)
 
         self.botonPrueba1.setVisible(True)
@@ -57,12 +57,14 @@ class FuncionesEstudiantes:
         self.giflabel.setMovie(self.movie0)
         self.giflabel.setVisible(True)
         self.movie0.start()
+        self.s1(carnet)
+        
 
     def s1(self, uid):
         global Fecha, HoraIn, carnet, count, temp
 
         self.texto_temporal.setVisible(False)
-        self.texto_informativo.setText('Por favor acerquese\n a la camara para\ntomar su temperatura')
+        self.texto_informativo.setText('Por favor acerquese\na la camara termica')
         self.texto_informativo.setVisible(True)
 
         carnet = uid
@@ -74,7 +76,7 @@ class FuncionesEstudiantes:
         if not carnetExist:
 
             self.state = 1
-
+        
             Fecha = datetime.today().strftime('%d-%m-%Y')
             HoraIn = datetime.today().strftime('%H:%M')
 
@@ -96,7 +98,6 @@ class FuncionesEstudiantes:
             self.timer2.setSingleShot(True)
             self.timer2.start()
             self.timer2.timeout.connect(self.tStop)  # función a ejecutar pasados los 3 seg
-
             # self.timer.stop()
 
             # self.movie1 = QMovie('src/views/static/gif/s1.gif')  # Gif paso 1
@@ -119,6 +120,7 @@ class FuncionesEstudiantes:
         self.timerC.stop()
         temp /= count
         print(temp)
+        self.s2()
 
     def s2(self):
         global Fecha, HoraIn
@@ -128,7 +130,7 @@ class FuncionesEstudiantes:
                 label.setVisible(False)
 
         self.texto_temporal.setVisible(False)
-        self.texto_informativo.setText('Por favor coloque\nsu carnet en el lector')
+        self.texto_informativo.setText('Coloque su carnet\nen el lector')
         self.texto_informativo.setVisible(True)
 
         self.state = 2
@@ -159,6 +161,11 @@ class FuncionesEstudiantes:
         # prueba
         self.submitData()
         # --------
+        self.timerText = QTimer()
+        self.timerText.setInterval(1500)
+        self.timerText.setSingleShot(True)
+        self.timerText.start()
+        self.timerText.timeout.connect(self.s0)
 
         self.movie4 = QMovie('src/views/static/gif/s4.gif')  # Gif paso 1
         self.giflabel.setMovie(self.movie4)
@@ -245,7 +252,7 @@ class FuncionesEstudiantes:
         # Enviar vector persona a DB
 
         # COMO FUNCION SEPARADA
-        persona = '\n' + nombre + ',' + cedula + ',' + carnet + ',' + temp + ',' + Fecha + ',' + HoraIn + ',' + HoraOut + ',' + Delta + ',' + Numingresos + ',' + IsIn
+        persona = '\n' + nombre + ',' + cedula + ',' + carnet + ',' + str(temp) + ',' + Fecha + ',' + HoraIn + ',' + HoraOut + ',' + Delta + ',' + str(Numingresos) + ',' + IsIn
         self.df_as_txt.write(persona)
         self.df_as_txt.close()
 
