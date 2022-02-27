@@ -3,6 +3,7 @@ from datetime import datetime
 
 import numpy as np
 import pandas as pd
+from PyQt5.QtGui import QMovie
 from src.views.teclado.teclado_numeros import *
 
 # librerias camara
