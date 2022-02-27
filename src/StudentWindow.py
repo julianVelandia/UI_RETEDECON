@@ -64,5 +64,5 @@ class StudentWindow(QMainWindow, Boton, TecladoNumeros, TecladoLetras):  # Venta
         # labels camara
         self.labelsCamara(self.centralWidget)
 
-        # Solo para pruebas
+        # Solo para usages
         self.botonesPrueba(self.centralWidget)
