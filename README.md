@@ -39,20 +39,6 @@ And then install the development dependencies:
 pip install -r requirements.dev.txt
 ```
 
-### Run unit tests
-
-You can run all the tests with:
-
-```bash
-make tests
-```
-
-Alternatively, you can run `pytest` yourself.
-
-```bash
-pytest
-```
-
 ## Contributing
 Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
 
