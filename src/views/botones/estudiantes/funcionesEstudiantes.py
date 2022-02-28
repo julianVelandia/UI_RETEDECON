@@ -29,7 +29,9 @@ count = 0
 
 
 class FuncionesEstudiantes:
-
+    started=pyqtSignal()
+    finished=pyqtSignal()
+    
     def s0(self):
         global nombre, cedula, carnet, temp, Fecha, HoraIn, HoraOut, Delta, Numingresos, IsIn
 
@@ -58,22 +60,38 @@ class FuncionesEstudiantes:
         self.giflabel.setMovie(self.movie0)
         self.giflabel.setVisible(True)
         self.movie0.start()
-        self.s1(carnet)
-        
+        #self.s1(carnet)
+    def saux(self,uid):
+        global carnet
+        carnet = uid
+        df = pd.read_csv('src/models/data/DB.csv')
+        carnetExist = df[(df['Carnet'] == str(carnet)) & (df['IsIn'])].index.tolist()
+        if carnetExist:
+            self.texto_informativo.setVisible(False)
+            self.texto_temporal.setText('El usuario ya\nse encuentra adentro')
+            self.texto_temporal.setVisible(True)
 
-    def s1(self, uid):
+            self.timerText = QTimer()
+            self.timerText.setInterval(1500)
+            self.timerText.setSingleShot(True)
+            self.timerText.start()
+            self.timerText.timeout.connect(self.s0)
+        else:        
+            self.started.emit()
+
+    def s1(self):
         global Fecha, HoraIn, carnet, count, temp
-
+        
         self.texto_temporal.setVisible(False)
         self.texto_informativo.setText('Por favor acerquese\na la camara termica')
         self.texto_informativo.setVisible(True)
 
-        carnet = uid
+        #carnet = uid
 
-        df = pd.read_csv('src/models/data/DB.csv')
+        #df = pd.read_csv('src/models/data/DB.csv')
 
-        carnetExist = df[(df['Carnet'] == str(carnet)) & (df['IsIn'])].index.tolist()
-
+        #carnetExist = df[(df['Carnet'] == str(carnet)) & (df['IsIn'])].index.tolist()
+        carnetExist=False
         if not carnetExist:
 
             self.state = 1
@@ -198,9 +216,9 @@ class FuncionesEstudiantes:
 
         i2c_bus = busio.I2C(board.SCL, board.SDA)
         # low range of the sensor (this will be blue on the screen)
-        MINTEMP = 20.0
+        MINTEMP = 10.0
         # high range of the sensor (this will be red on the screen)
-        MAXTEMP = 40.0
+        MAXTEMP = 50.0
         # how many color values we can have
         COLORDEPTH = 1024
         # initialize the sensor

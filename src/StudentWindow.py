@@ -6,12 +6,14 @@ from configparser import ConfigParser
 from src.views.botones.inicio.boton import Boton
 from src.views.teclado.teclado_numeros import TecladoNumeros
 from src.views.teclado.teclado_letras import TecladoLetras
-
+from src.views.botones.estudiantes.funcionesEstudiantes import FuncionesEstudiantes
+from src.communication.PySerialmain import Read, UNO
+import threading
 # informacion de las pantallas
 from screeninfo import get_monitors
 
 
-class StudentWindow(QMainWindow, Boton, TecladoNumeros, TecladoLetras):  # Ventana principal
+class StudentWindow(QMainWindow, Boton, TecladoNumeros, TecladoLetras, Read,UNO,FuncionesEstudiantes):  # Ventana principal
     def __init__(self, alarm, parent=None, *args):
         super(StudentWindow, self).__init__(parent=parent)
         with open("src/views/static/styles.css") as f:
@@ -66,3 +68,8 @@ class StudentWindow(QMainWindow, Boton, TecladoNumeros, TecladoLetras):  # Venta
 
         # Solo para usages
         self.botonesPrueba(self.centralWidget)
+        
+        FuncionesEstudiantes.__init__(self)
+        self.started.connect(self.startC)
+    def startC(self):
+        threading.Thread(target=self.s1(), daemon=False).start()

@@ -7,6 +7,7 @@ from src.views.botones.inicio.boton import Boton
 from src.views.teclado.teclado_numeros import TecladoNumeros
 from src.views.teclado.teclado_letras import TecladoLetras
 from src.communication.PySerialmain import Read
+from src.views.botones.estudiantes.funcionesEstudiantes import FuncionesEstudiantes
 import threading
 
 from screeninfo import get_monitors
