@@ -140,7 +140,7 @@ class FuncionesEstudiantes:
         self.timerC.stop()
         temp /= count
         print(temp)
-        self.s3()
+        self.s2()
 
     def s2(self):
         global Fecha, HoraIn
@@ -154,10 +154,12 @@ class FuncionesEstudiantes:
         self.texto_informativo.setVisible(True)
 
         self.state = 2
-        self.movie2 = QMovie('src/views/static/gif/s2.gif')  # Gif paso 1
-        self.giflabel.setMovie(self.movie2)
-        self.giflabel.setVisible(True)
-        self.movie2.start()
+        #self.movie2 = QMovie('src/views/static/gif/s2.gif')  # Gif paso 1
+        #self.giflabel.setMovie(self.movie2)
+        #self.giflabel.setVisible(True)
+        #self.movie2.start()
+
+        self.s3()
 
     def s3(self):
 
