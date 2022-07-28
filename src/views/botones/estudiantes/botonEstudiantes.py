@@ -64,7 +64,7 @@ class BotonEstudiantes(FuncionesEstudiantes):
     def giftEstudiantes(self, widget):
         self.giflabel = QLabel(widget)
         self.movie0 = QMovie('src/views/static/gif/s0.gif')  # Gif paso 1
-        self.giflabel.setGeometry((self.width / 4), (self.height / 4),
+        self.giflabel.setGeometry((self.width / 3), (self.height / 4),
                                   self.widthGif, self.heightGif)
         self.giflabel.setMovie(self.movie0)
         self.giflabel.setVisible(False)
@@ -83,7 +83,7 @@ class BotonEstudiantes(FuncionesEstudiantes):
             for j in range(32):
                 label = QLabel(widget)
                 label.setStyleSheet("background-color: rgb(28, 76, 150)")
-                label.setGeometry(self.width/4+10*i, 250+10*j, 10, 10)
+                label.setGeometry(self.width/3.5+10*i, 250+10*j, 10, 10)
                 label.setVisible(False)
                 row.append(label)
             self.labelMatrix.append(row)
