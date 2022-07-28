@@ -83,7 +83,7 @@ class FuncionesEstudiantes:
         global Fecha, HoraIn, carnet, count, temp
         
         self.texto_temporal.setVisible(False)
-        self.texto_informativo.setText('Por favor acerquese\na la camara termica')
+        self.texto_informativo.setText('Por favor\nacerquese a\nla camara termica')
         self.texto_informativo.setVisible(True)
 
         #carnet = uid
