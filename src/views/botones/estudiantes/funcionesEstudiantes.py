@@ -140,7 +140,7 @@ class FuncionesEstudiantes:
         self.timerC.stop()
         temp /= count
         print(temp)
-        self.s2()
+        self.s3()
 
     def s2(self):
         global Fecha, HoraIn
