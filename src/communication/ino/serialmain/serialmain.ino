@@ -2,11 +2,9 @@
 ////////////////////////////////////READ RFID///////////////////////////////////
 #include <SPI.h>
 #include <MFRC522.h>
-#include <SoftwareSerial.h>
-#define RST_PIN         9             // Configurable, see typical pin layout above
-#define SS_PIN          10            // Configurable, see typical pin layout above
+#define RST_PIN         5             // Configurable, see typical pin layout above
+#define SS_PIN          53            // Configurable, see typical pin layout above
 MFRC522 mfrc522(SS_PIN, RST_PIN);     // Create MFRC522 instance
-SoftwareSerial mySerial(7, 8);        // RX, TX
 
 ///READING DE CARD UID
 void uid_array(byte *buffer, byte bufferSize) {
@@ -32,17 +30,15 @@ void setup() {
   pinMode (IRSensor, INPUT);          //Set IRSensor digital pin 2 as INPUT
 
 //////////////////////////////////////HC-05/////////////////////////////////////
-  mySerial.begin(9600);               // Initialize serial communication with the HC-05
+  Serial1.begin(9600);// Initialize serial communication with the HC-05
 
 //////////////////////////////////CELDAS DE CARGA///////////////////////////////
-
-
 
 }
 
 void loop() {
 ////////////////////////////////////IRSENSOR////////////////////////////////////
-  int IRstatus = digitalRead(IRSensor);
+  /*int IRstatus = digitalRead(IRSensor);
   if (IRstatus == 0){
     String IRID = "IR"; 
     String IRBus = IRID +' '+ String(IRstatus+1);
@@ -53,12 +49,12 @@ void loop() {
     String IRBus = IRID +' '+ String(IRstatus-1);
     //Serial.println(IRBus);
     delay(500);
-  }
+  }*/
   
 //////////////////////////////////////HC-05/////////////////////////////////////
   String EXDataBus;
-  if(mySerial.available() > 0){
-    EXDataBus = mySerial.readString();
+  if(Serial1.available() > 0){
+    EXDataBus = Serial1.readString();
     Serial.println(EXDataBus);
   }
   
