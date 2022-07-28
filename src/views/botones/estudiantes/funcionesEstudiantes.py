@@ -132,7 +132,8 @@ class FuncionesEstudiantes:
             self.timerText.setInterval(1500)
             self.timerText.setSingleShot(True)
             self.timerText.start()
-            self.timerText.timeout.connect(self.s0)  # función a ejecutar pasados los 5 seg
+            self.timerText.timeout.connect(self.timerText.stop())  # función a ejecutar pasados los 5 seg
+            self.s0
 
     def tStop(self):
         global temp
