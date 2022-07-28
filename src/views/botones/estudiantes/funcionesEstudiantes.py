@@ -216,9 +216,9 @@ class FuncionesEstudiantes:
 
         i2c_bus = busio.I2C(board.SCL, board.SDA)
         # low range of the sensor (this will be blue on the screen)
-        MINTEMP = 10.0
+        MINTEMP = 20.0
         # high range of the sensor (this will be red on the screen)
-        MAXTEMP = 50.0
+        MAXTEMP = 40.0
         # how many color values we can have
         COLORDEPTH = 1024
         # initialize the sensor
