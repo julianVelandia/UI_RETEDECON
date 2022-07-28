@@ -26,7 +26,7 @@ class BotonEstudiantes(FuncionesEstudiantes):
 
         self.texto_informativo.setText('')
         self.texto_informativo.setObjectName("Texto")  # nombre de enlace a css
-        self.texto_informativo.setGeometry((self.width / 4.4), (self.height / 1.5),
+        self.texto_informativo.setGeometry((self.width / 4.5), (self.height / 1.5),
                                            self.width / 1.8, self.height / 3)
         self.texto_informativo.setVisible(False)
 
@@ -38,7 +38,7 @@ class BotonEstudiantes(FuncionesEstudiantes):
 
         self.texto_temporal.setText('')
         self.texto_temporal.setObjectName("Texto")  # nombre de enlace a css
-        self.texto_temporal.setGeometry((self.width / 4.4), (self.height / 1.5),
+        self.texto_temporal.setGeometry((self.width / 4.5), (self.height / 1.5),
                                         self.width / 1.8, self.height / 3)
         self.texto_temporal.setVisible(False)
 
