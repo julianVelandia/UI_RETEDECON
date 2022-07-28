@@ -27,7 +27,7 @@ class BotonEstudiantes(FuncionesEstudiantes):
         self.texto_informativo.setText('')
         self.texto_informativo.setObjectName("Texto")  # nombre de enlace a css
         self.texto_informativo.setGeometry((self.width / 4), (self.height / 1.5),
-                                           self.width / 1.9, self.height / 3)
+                                           self.width / 1.8, self.height / 3)
         self.texto_informativo.setVisible(False)
 
         self.texto_temporal = QToolButton(widget)
@@ -39,7 +39,7 @@ class BotonEstudiantes(FuncionesEstudiantes):
         self.texto_temporal.setText('')
         self.texto_temporal.setObjectName("Texto")  # nombre de enlace a css
         self.texto_temporal.setGeometry((self.width / 4), (self.height / 1.5),
-                                        self.width / 1.9, self.height / 3)
+                                        self.width / 1.8, self.height / 3)
         self.texto_temporal.setVisible(False)
 
     def botonesPrueba(self, widget):
@@ -64,7 +64,7 @@ class BotonEstudiantes(FuncionesEstudiantes):
     def giftEstudiantes(self, widget):
         self.giflabel = QLabel(widget)
         self.movie0 = QMovie('src/views/static/gif/s0.gif')  # Gif paso 1
-        self.giflabel.setGeometry((self.width / 2), (self.height / 4),
+        self.giflabel.setGeometry((self.width / 2.5), (self.height / 4),
                                   self.widthGif, self.heightGif)
         self.giflabel.setMovie(self.movie0)
         self.giflabel.setVisible(False)
