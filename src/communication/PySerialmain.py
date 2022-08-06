@@ -7,12 +7,6 @@ class UNO:
             try:
                 linea = str(line)
                 id_find = linea.find("IN")  # CHECK IF IT COMES FROM IN
-                ir_status = linea.find("IR ")  # SEARCH FOR IR STATUS
-                status = linea[ir_status + 3]  # READ IR STATUS
-                print(line)
-                if status == '1':
-                    crossed = True
-                    print(crossed)
                 if not id_find == -1:
                     uid_find = linea.find("Card UID: ")  # SEARCH FOR CARD UID
                     uid_str = ""
@@ -22,6 +16,16 @@ class UNO:
 
                     # cambiar de estado
                     self.sw.saux(uid_str)                
+            except:
+                self.arduinoUNO.close()  # CLOSE THE SERIAL PORT
+        if self.sw.state==3:
+            try:
+                ir_status = linea.find("IR ")  # SEARCH FOR IR STATUS
+                status = linea[ir_status + 3]  # READ IR STATUS
+                print(line)
+                if status == '1':
+                    crossed = True
+                    print(crossed)
             except:
                 self.arduinoUNO.close()  # CLOSE THE SERIAL PORT
 

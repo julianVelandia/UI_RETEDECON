@@ -7,8 +7,6 @@ from .avanzada.boton_avanzada import Boton_avanzada
 
 class Funcion_configuraciones:
 
-    def ConfiguracionesAjustes(self):
-        pass
 
     def ConfiguracionesAvanzada(self):
         self.configuraciones_apagar.setVisible(False)

@@ -103,8 +103,9 @@ class Funcion_inside:  # (Boton_agregar):
             self.dialogo_mensaje = "Se han enviado los datos al servidor"
             self.dialogo.setInformativeText(self.dialogo_mensaje)
             self.dialogo.show()
-        except ValueError:
-            print(ValueError)
+        except Exception as e:
+            print(e)
+            #print(ValueError)
             self.dialogo_mensaje = "Error, intente nuevamente\n\nSi el error persiste comuniquese con el fabricante"
             self.dialogo.setInformativeText(self.dialogo_mensaje)
             self.dialogo.show()

@@ -38,7 +38,7 @@ void setup() {
 
 void loop() {
 ////////////////////////////////////IRSENSOR////////////////////////////////////
-  /*int IRstatus = digitalRead(IRSensor);
+  int IRstatus = digitalRead(IRSensor);
   if (IRstatus == 0){
     String IRID = "IR"; 
     String IRBus = IRID +' '+ String(IRstatus+1);
@@ -49,7 +49,7 @@ void loop() {
     String IRBus = IRID +' '+ String(IRstatus-1);
     //Serial.println(IRBus);
     delay(500);
-  }*/
+  }
   
 //////////////////////////////////////HC-05/////////////////////////////////////
   String EXDataBus;
