@@ -31,6 +31,7 @@ count = 0
 class FuncionesEstudiantes:
     started=pyqtSignal()
     finished=pyqtSignal()
+    s4Signal=pyqtSignal()
     
     def s0(self):
         global nombre, cedula, carnet, temp, Fecha, HoraIn, HoraOut, Delta, Numingresos, IsIn
@@ -38,9 +39,6 @@ class FuncionesEstudiantes:
         self.texto_temporal.setVisible(False)
         self.texto_informativo.setText('Coloque su carnet\nen el lector')
         self.texto_informativo.setVisible(True)
-
-        self.botonPrueba1.setVisible(True)
-        self.botonPrueba2.setVisible(True)
 
         self.state = 0
 
@@ -140,28 +138,16 @@ class FuncionesEstudiantes:
         self.timerC.stop()
         temp /= count
         print(temp)
-        self.s2()
+        self.s3()
 
     def s2(self):
-        global Fecha, HoraIn
+        self.state = 2
+        self.s4Signal.emit()
 
+    def s3(self):
         for row in self.labelMatrix:
             for label in row:
                 label.setVisible(False)
-
-        self.texto_temporal.setVisible(False)
-        self.texto_informativo.setText('Coloque su carnet\nen el lector')
-        self.texto_informativo.setVisible(True)
-
-        self.state = 2
-        #self.movie2 = QMovie('src/views/static/gif/s2.gif')  # Gif paso 1
-        #self.giflabel.setMovie(self.movie2)
-        #self.giflabel.setVisible(True)
-        #self.movie2.start()
-
-        self.s3()
-
-    def s3(self):
 
         self.texto_temporal.setVisible(False)
         self.texto_informativo.setText('Acerque sus manos\nal dispensador de gel')
@@ -174,20 +160,17 @@ class FuncionesEstudiantes:
         self.movie3.start()
 
     def s4(self):
-
         self.texto_temporal.setVisible(False)
         self.texto_informativo.setText('Ya puede entrar\nal edificio')
         self.texto_informativo.setVisible(True)
         self.state = 4
-
         # prueba
-        self.submitData()
         # --------
         self.timerText = QTimer()
         self.timerText.setInterval(1500)
         self.timerText.setSingleShot(True)
         self.timerText.start()
-        self.timerText.timeout.connect(self.s0)
+        self.timerText.timeout.connect(self.submitData)
 
         self.movie4 = QMovie('src/views/static/gif/s4.gif')  # Gif paso 1
         self.giflabel.setMovie(self.movie4)
@@ -347,26 +330,3 @@ class FuncionesEstudiantes:
             self.timerText.start()
             self.timerText.timeout.connect(self.s0)  # función a ejecutar pasados los 3 seg
 
-    ############# PRUEBA
-
-    def si(self):
-        self.state = (self.state + 1) % 5
-        self.checkState()
-
-    def no(self):
-        self.state = 5
-        self.checkState()
-
-    def checkState(self):
-        if self.state == 0:
-            self.s0()
-        elif self.state == 1:
-            self.s1("carnetPrueba")
-        elif self.state == 2:
-            self.s2()
-        elif self.state == 3:
-            self.s3()
-        elif self.state == 4:
-            self.s4()
-        elif self.state == 5:
-            self.s5()

@@ -93,7 +93,7 @@ class MainWindow(QMainWindow, Boton, TecladoNumeros, TecladoLetras, Read):  # Ve
         self.boton_salida_salida(self.centralWidget)
 
         # Botones configuracion
-        self.boton_configuraciones_ajustes(self.centralWidget)
+        #self.boton_configuraciones_ajustes(self.centralWidget)
         self.boton_configuraciones_avanzada(self.centralWidget)
         self.boton_configuraciones_apagar(self.centralWidget)
         self.boton_configuraciones_datos(self.centralWidget)

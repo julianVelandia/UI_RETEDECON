@@ -42,25 +42,6 @@ class BotonEstudiantes(FuncionesEstudiantes):
                                         self.width / 1.8, self.height / 3)
         self.texto_temporal.setVisible(False)
 
-    def botonesPrueba(self, widget):
-        self.botonPrueba1 = QToolButton(widget)
-        self.botonPrueba1.setText('Si')
-        self.botonPrueba1.setObjectName("small")  # nombre de enlace a css
-        self.botonPrueba1.setToolButtonStyle(Qt.ToolButtonTextUnderIcon)
-        self.botonPrueba1.clicked.connect(self.si)
-        self.botonPrueba1.setGeometry((self.width / 2) - self.width / 10, self.height / 10,
-                                      self.height / 8, self.height / 8)
-        self.botonPrueba1.setVisible(False)
-
-        self.botonPrueba2 = QToolButton(widget)
-        self.botonPrueba2.setText('No')
-        self.botonPrueba2.setObjectName("small")  # nombre de enlace a css
-        self.botonPrueba2.setToolButtonStyle(Qt.ToolButtonTextUnderIcon)
-        self.botonPrueba2.clicked.connect(self.no)
-        self.botonPrueba2.setGeometry((self.width / 2) + self.width / 10, self.height / 10,
-                                      self.height / 8, self.height / 8)
-        self.botonPrueba2.setVisible(False)
-
     def giftEstudiantes(self, widget):
         self.giflabel = QLabel(widget)
         self.movie0 = QMovie('src/views/static/gif/s0.gif')  # Gif paso 1

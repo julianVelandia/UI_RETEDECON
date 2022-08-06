@@ -20,20 +20,22 @@ class UNO:
                 self.arduinoUNO.close()  # CLOSE THE SERIAL PORT
         if self.sw.state==3:
             try:
+                linea = str(line)
                 ir_status = linea.find("IR ")  # SEARCH FOR IR STATUS
                 status = linea[ir_status + 3]  # READ IR STATUS
-                print(line)
+                print(status)
                 if status == '1':
-                    crossed = True
-                    print(crossed)
+                    self.sw.s2()
+                    print("si")
             except:
+                print("failed")
                 self.arduinoUNO.close()  # CLOSE THE SERIAL PORT
 
     def data_out(self, line):
         try:
             linea = str(line)
             id_find = linea.find("EXIT")  # CHECK IF IT COMES FROM EXIT
-            print(line)
+            #print(line)
             if not id_find == -1:
                 uid_find = linea.find("Card UID: ")  # SEARCH FOR CARD UID
                 uid_str = ""

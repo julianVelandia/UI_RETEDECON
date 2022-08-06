@@ -65,11 +65,12 @@ class StudentWindow(QMainWindow, Boton, TecladoNumeros, TecladoLetras, Read,UNO,
 
         # labels camara
         self.labelsCamara(self.centralWidget)
-
-        # Solo para usages
-        self.botonesPrueba(self.centralWidget)
         
         FuncionesEstudiantes.__init__(self)
         self.started.connect(self.startC)
+        self.s4Signal.connect(self.startS4)
+        
     def startC(self):
         threading.Thread(target=self.s1(), daemon=False).start()
+    def startS4(self):
+        threading.Thread(target=self.s4(), daemon=False).start()
