@@ -53,12 +53,8 @@ class FuncionesEstudiantes:
         Numingresos = 0
         IsIn = 'True'
 
-        self.label_img_central.setVisible(False)
-        self.movie0 = QMovie('src/views/static/gif/s0.gif')  # Gif paso 1
-        self.giflabel.setMovie(self.movie0)
-        self.giflabel.setVisible(True)
-        self.movie0.start()
-        #self.s1(carnet)
+        self.label_img_central.setVisible(True)
+
     def saux(self,uid):
         global carnet
         carnet = uid
@@ -152,12 +148,8 @@ class FuncionesEstudiantes:
         self.texto_temporal.setVisible(False)
         self.texto_informativo.setText('Acerque sus manos\nal dispensador de gel')
         self.texto_informativo.setVisible(True)
-
+        self.label_img_central.setVisible(True)
         self.state = 3
-        self.movie3 = QMovie('src/views/static/gif/s3.gif')  # Gif paso 1
-        self.giflabel.setMovie(self.movie3)
-        self.giflabel.setVisible(True)
-        self.movie3.start()
 
     def s4(self):
         self.texto_temporal.setVisible(False)
@@ -171,11 +163,8 @@ class FuncionesEstudiantes:
         self.timerText.setSingleShot(True)
         self.timerText.start()
         self.timerText.timeout.connect(self.submitData)
-
-        self.movie4 = QMovie('src/views/static/gif/s4.gif')  # Gif paso 1
-        self.giflabel.setMovie(self.movie4)
-        self.giflabel.setVisible(True)
-        self.movie4.start()
+        
+        self.label_img_central.setVisible(True)
 
     def s5(self):
 
