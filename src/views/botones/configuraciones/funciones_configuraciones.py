@@ -10,7 +10,7 @@ class Funcion_configuraciones:
 
     def ConfiguracionesAvanzada(self):
         self.configuraciones_apagar.setVisible(False)
-        self.configuraciones_ajustes.setVisible(False)
+        #self.configuraciones_ajustes.setVisible(False)
         self.configuraciones_datos.setVisible(False)
         self.configuraciones_avanzada.setVisible(False)
 

@@ -213,7 +213,7 @@ class FuncionesEstudiantes:
             for jx, p in enumerate(row):
                 if ix > 0 and ix < 7 and jx > 1 and jx < 6:
                     temp += p
-            temp /= 24
+            temp /= 1.2
 
             pixels = pixels + row
 

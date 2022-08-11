@@ -216,7 +216,7 @@ class Funciones:
     def Configuracion(self):
         self.pantalla = 'configuracion'
 
-        self.configuraciones_ajustes.setVisible(True)
+        #self.configuraciones_ajustes.setVisible(True)
         self.configuraciones_apagar.setVisible(True)
         self.configuraciones_avanzada.setVisible(True)
         self.configuraciones_datos.setVisible(True)
