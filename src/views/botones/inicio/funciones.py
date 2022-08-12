@@ -187,7 +187,7 @@ class Funciones:
         self.pantalla = 'detener'
         self.alarm.stop()
         self.sw.state = 0
-        self.sw.checkState()
+        self.sw.s0()
         self.HomeWindow()
 
     def Salida_manual(self):

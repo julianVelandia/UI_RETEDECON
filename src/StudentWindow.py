@@ -8,6 +8,7 @@ from src.views.teclado.teclado_numeros import TecladoNumeros
 from src.views.teclado.teclado_letras import TecladoLetras
 from src.views.botones.estudiantes.funcionesEstudiantes import FuncionesEstudiantes
 from src.communication.PySerialmain import Read, UNO
+from src.views.botones.inicio.funciones import Funciones
 import threading
 # informacion de las pantallas
 from screeninfo import get_monitors

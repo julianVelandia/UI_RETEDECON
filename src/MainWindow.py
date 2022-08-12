@@ -147,7 +147,7 @@ class MainWindow(QMainWindow, Boton, TecladoNumeros, TecladoLetras, Read):  # Ve
 
         #Limpiar registros
         ### CUADRAR FRANJA HORARIA PARA ACTUALIZACIÓN DE DATOS
-        self.sacar_dia_anterior()
+        #self.sacar_dia_anterior()
 
         Read.__init__(self)
         threading.Thread(target=self.execute, daemon=True).start()

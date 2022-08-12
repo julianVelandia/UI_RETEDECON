@@ -41,6 +41,9 @@ class FuncionesEstudiantes:
         self.texto_informativo.setVisible(True)
 
         self.state = 0
+        for row in self.labelMatrix:
+            for label in row:
+                label.setVisible(False)
 
         nombre = "*"
         cedula = "*"
@@ -77,7 +80,7 @@ class FuncionesEstudiantes:
         global Fecha, HoraIn, carnet, count, temp
         
         self.texto_temporal.setVisible(False)
-        self.texto_informativo.setText('Por favor\nacerquese a\nla camara termica')
+        self.texto_informativo.setText('Por favor\nacerquese a\nla camara termica\n')
         self.texto_informativo.setVisible(True)
 
         #carnet = uid
@@ -105,7 +108,7 @@ class FuncionesEstudiantes:
             self.timerC = QTimer()
             self.timerC.timeout.connect(self.actualizarCamara)  # función a ejecutar pasados los 5 seg
             self.timerC.start(50)
-
+            
             self.timer2 = QTimer()
             self.timer2.setInterval(5000)
             self.timer2.setSingleShot(True)
@@ -134,7 +137,10 @@ class FuncionesEstudiantes:
         self.timerC.stop()
         temp /= count
         print(temp)
-        self.s3()
+        if temp>=38:
+            self.s5()
+        else:
+            self.s3()
 
     def s2(self):
         self.state = 2
@@ -169,14 +175,10 @@ class FuncionesEstudiantes:
     def s5(self):
 
         self.texto_temporal.setVisible(False)
-        self.texto_informativo.setText('¡Alerta!\n\nNo se han seguido\nlos pasos correctamente')
+        self.texto_informativo.setText('¡Alerta!\n\nINGRESO NO\nPERMITIDO')
         self.texto_informativo.setVisible(True)
 
         self.state = 5
-        self.movie5 = QMovie('src/views/static/gif/s5.gif')  # Gif paso 1
-        self.giflabel.setMovie(self.movie5)
-        self.giflabel.setVisible(True)
-        self.movie5.start()
         self.alarm.play()
 
     def constrain(self, val, min_val, max_val):
@@ -233,7 +235,8 @@ class FuncionesEstudiantes:
                 self.labelMatrix[ix][jx].setStyleSheet("background-color: rgb" + str(labelColor))
 
         count += 1
-
+        #self.texto_temporal.setText(str(temp))
+        
     def submitData(self):
         global carnet, Numingresos
 
